@@ -12,6 +12,7 @@
 		2C5810E11B39A5E50069020D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810E01B39A5E50069020D /* Images.xcassets */; };
 		2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810E21B39A5E50069020D /* LaunchScreen.xib */; };
 		2C5810F01B39A5E50069020D /* TransmissionRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */; };
+		2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810FA1B39A7B20069020D /* RPCServerConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,8 @@
 		2C5810E91B39A5E50069020D /* TransmissionRPCClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransmissionRPCClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C5810EE1B39A5E50069020D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransmissionRPCClientTests.m; sourceTree = "<group>"; };
+		2C5810F91B39A7B20069020D /* RPCServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfig.h; sourceTree = "<group>"; };
+		2C5810FA1B39A7B20069020D /* RPCServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +81,6 @@
 			children = (
 				2C5810DD1B39A5E50069020D /* AppDelegate.h */,
 				2C5810DE1B39A5E50069020D /* AppDelegate.m */,
-				2C5810E01B39A5E50069020D /* Images.xcassets */,
-				2C5810E21B39A5E50069020D /* LaunchScreen.xib */,
 				2C5810D91B39A5E50069020D /* Supporting Files */,
 			);
 			path = TransmissionRPCClient;
@@ -88,8 +89,12 @@
 		2C5810D91B39A5E50069020D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2C5810E21B39A5E50069020D /* LaunchScreen.xib */,
+				2C5810E01B39A5E50069020D /* Images.xcassets */,
 				2C5810DA1B39A5E50069020D /* Info.plist */,
 				2C5810DB1B39A5E50069020D /* main.m */,
+				2C5810F91B39A7B20069020D /* RPCServerConfig.h */,
+				2C5810FA1B39A7B20069020D /* RPCServerConfig.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -160,6 +165,7 @@
 				TargetAttributes = {
 					2C5810D51B39A5E50069020D = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 72C28QMYS6;
 					};
 					2C5810E81B39A5E50069020D = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -212,6 +218,7 @@
 			files = (
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
 				2C5810DC1B39A5E50069020D /* main.m in Sources */,
+				2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +338,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -341,7 +350,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
