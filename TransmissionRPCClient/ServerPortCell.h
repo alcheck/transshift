@@ -12,7 +12,7 @@
 
 @interface ServerPortCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIView *label;
+@property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UITextField *portField;
 
 @end

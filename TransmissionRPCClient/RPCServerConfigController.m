@@ -49,6 +49,7 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
     [self loadConfig];
     
     // configure navbar
+    // TODO: this navbar should be configured from above (previous controller)
     self.title = @"Add new server";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveConfig)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(hideErrorMessage)];
@@ -215,36 +216,56 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
     }
 }
 
-- (void)saveConfig
+- (BOOL)saveConfig
 {
+    UIColor *errColor = [UIColor redColor];
+    UIColor *normalColor = [UIColor blackColor];
+    
     if( !self.config )
         self.config = [[RPCServerConfig alloc] init];
     
     // saving values
+    ServerNameCell *cell = self.cells[CELL_ID_SERVER_NAME];
     if( self.serverName.length < 1 )
     {
         [self showErrorMessage:@"You should enter server NAME"];
-        return;
+        cell.label.textColor = errColor;
+        [cell.serverName becomeFirstResponder];
+        return NO;
     }
+    cell.label.textColor = normalColor;
     
+    ServerHostCell *hostCell = self.cells[CELL_ID_SERVER_HOST];
     if( self.serverHost.length < 1 )
     {
         [self showErrorMessage:@"You should enter server HOST name"];
-        return;
+        hostCell.label.textColor = errColor;
+        [hostCell.hostName becomeFirstResponder];
+        return NO;
     }
+    hostCell.label.textColor = normalColor;
     
+    ServerPortCell *portCell = self.cells[CELL_ID_SERVER_PORT];
     if( !(self.serverPort > 0 && self.serverPort < 655356) )
     {
         [self showErrorMessage:@"Server port must be in range from 0 to 65536. By default server port number is 8090"];
-        return;
+        portCell.label.textColor = errColor;
+        [portCell.portField becomeFirstResponder];
+        return NO;
     }
+    portCell.label.textColor = normalColor;
     
+    ServerRPCPathCell *pathCell = self.cells[CELL_ID_RPCPATH_CELL];
     if( self.serverRPCPath.length < 1 )
     {
         [self showErrorMessage:@"You should enter server RPC path. By default server rpc path is /transmission/rpc"];
-        return;
+        pathCell.label.textColor = errColor;
+        [pathCell.path becomeFirstResponder];
+        return NO;
     }
+    pathCell.label.textColor = normalColor;
 
+    // when all values is ok, save config
     self.config.port = self.serverPort;
     self.config.host = self.serverHost;
     self.config.name = self.serverName;
@@ -258,6 +279,7 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
     [self hideErrorMessage];
     
     NSLog(@"RPC server config saved successfuly: %@", self.config);
+    return YES;
 }
 
 // return array of sections

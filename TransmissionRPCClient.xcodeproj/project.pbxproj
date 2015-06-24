@@ -24,6 +24,7 @@
 		2C5811171B39D4320069020D /* ServerUseSSLCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811161B39D4320069020D /* ServerUseSSLCell.m */; };
 		2C58111A1B39D8730069020D /* ServerRequestTimeoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811191B39D8730069020D /* ServerRequestTimeoutCell.m */; };
 		2C58111D1B39D8840069020D /* ServerRefreshTimeoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58111C1B39D8840069020D /* ServerRefreshTimeoutCell.m */; };
+		2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		2C5811191B39D8730069020D /* ServerRequestTimeoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRequestTimeoutCell.m; sourceTree = "<group>"; };
 		2C58111B1B39D8840069020D /* ServerRefreshTimeoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRefreshTimeoutCell.h; sourceTree = "<group>"; };
 		2C58111C1B39D8840069020D /* ServerRefreshTimeoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRefreshTimeoutCell.m; sourceTree = "<group>"; };
+		2C6D18B11B3B37CC002666C6 /* RPCServerConfigDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfigDB.h; sourceTree = "<group>"; };
+		2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfigDB.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,8 @@
 		2C5810D81B39A5E50069020D /* TransmissionRPCClient */ = {
 			isa = PBXGroup;
 			children = (
+				2C6D18B11B3B37CC002666C6 /* RPCServerConfigDB.h */,
+				2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */,
 				2C5810F91B39A7B20069020D /* RPCServerConfig.h */,
 				2C5810FA1B39A7B20069020D /* RPCServerConfig.m */,
 				2C5810DD1B39A5E50069020D /* AppDelegate.h */,
@@ -298,6 +303,7 @@
 				2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */,
 				2C5811011B39C20E0069020D /* ServerNameCell.m in Sources */,
 				2C5811171B39D4320069020D /* ServerUseSSLCell.m in Sources */,
+				2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */,
 				2C58111D1B39D8840069020D /* ServerRefreshTimeoutCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,6 +497,7 @@
 				2C5810F51B39A5E50069020D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C5810F61B39A5E50069020D /* Build configuration list for PBXNativeTarget "TransmissionRPCClientTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +506,7 @@
 				2C5810F81B39A5E50069020D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

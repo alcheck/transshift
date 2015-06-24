@@ -122,7 +122,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="label" destination="hTl-H3-sDl" id="Bia-nh-Snz"/>
+                                    <outlet property="label" destination="C1L-WF-jSc" id="MZu-Ur-qk9"/>
                                     <outlet property="portField" destination="Ekt-sL-hKb" id="wMO-uO-jfj"/>
                                 </connections>
                             </tableViewCell>
