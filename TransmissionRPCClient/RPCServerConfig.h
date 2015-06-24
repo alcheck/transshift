@@ -22,7 +22,7 @@
 @property(nonatomic) NSString *userName;        // http basic auth user name
 @property(nonatomic) NSString *userPassword;    // http basic auth password
 @property(nonatomic) BOOL      useSSL;          // use https
-@property(nonatomic) int       refreshTime;     // refresh time in seconds
+@property(nonatomic) int       refreshTimeout;  // refresh time in seconds
 @property(nonatomic) int       requestTimeout;  // request timeout to server in seconds
 
 @end

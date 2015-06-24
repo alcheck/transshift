@@ -11,7 +11,7 @@ static NSString *CODER_USER_PASSWORD = @"pass";
 static NSString *CODER_PORT = @"port";
 static NSString *CODER_HOST = @"host";
 static NSString *CODER_USE_SSL = @"ssl";
-static NSString *CODER_REFRESH_TIME = @"time";
+static NSString *CODER_REFRESH_TIMEOUT = @"time";
 static NSString *CODER_REQUEST_TIMEOUT = @"reqtimeout";
 
 @implementation RPCServerConfig
@@ -27,11 +27,22 @@ static NSString *CODER_REQUEST_TIMEOUT = @"reqtimeout";
         _port = RPC_DEFAULT_PORT;
         _useSSL = RPC_DEFAULT_USE_SSL;
         _rpcPath = RPC_DEFAULT_PATH;
-        _refreshTime = RPC_DEFAULT_REFRESH_TIME;
+        _refreshTimeout = RPC_DEFAULT_REFRESH_TIME;
         _requestTimeout = RPC_DEFAULT_REQUEST_TIMEOUT;
     }
     
     return self;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"RPCServerConfig[%@://%@:%i/%@, refresh:%is, request timeout: %is]",
+            _useSSL ? @"https" : @"http",
+            _host,
+            _port,
+            _rpcPath,
+            _refreshTimeout,
+            _requestTimeout ];
 }
 
 #pragma mark - NSCoding protocol imp
@@ -48,7 +59,7 @@ static NSString *CODER_REQUEST_TIMEOUT = @"reqtimeout";
         _port = [aDecoder decodeIntForKey:CODER_PORT];
         _host = [aDecoder decodeObjectForKey:CODER_HOST];
         _useSSL = [aDecoder decodeBoolForKey:CODER_USE_SSL];
-        _refreshTime = [aDecoder decodeIntForKey:CODER_REFRESH_TIME];
+        _refreshTimeout = [aDecoder decodeIntForKey:CODER_REFRESH_TIMEOUT];
         _requestTimeout = [aDecoder decodeIntForKey:CODER_REQUEST_TIMEOUT];
     }
     
@@ -63,7 +74,7 @@ static NSString *CODER_REQUEST_TIMEOUT = @"reqtimeout";
     [coder encodeObject:self.userName forKey:CODER_USER_NAME];
     [coder encodeObject:self.userPassword forKey: CODER_USER_PASSWORD];
     [coder encodeInt:self.port forKey:CODER_PORT];
-    [coder encodeInt:self.refreshTime forKey: CODER_REFRESH_TIME];
+    [coder encodeInt:self.refreshTimeout forKey: CODER_REFRESH_TIMEOUT];
     [coder encodeInt:self.requestTimeout forKey:CODER_REQUEST_TIMEOUT];
     [coder encodeBool:self.useSSL forKey:CODER_USE_SSL];
 }

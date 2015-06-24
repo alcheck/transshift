@@ -13,6 +13,17 @@
 		2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810E21B39A5E50069020D /* LaunchScreen.xib */; };
 		2C5810F01B39A5E50069020D /* TransmissionRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */; };
 		2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810FA1B39A7B20069020D /* RPCServerConfig.m */; };
+		2C5810FE1B39BBDD0069020D /* controllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810FD1B39BBDD0069020D /* controllers.storyboard */; };
+		2C5811011B39C20E0069020D /* ServerNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811001B39C20E0069020D /* ServerNameCell.m */; };
+		2C5811041B39C29E0069020D /* ServerHostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811031B39C29E0069020D /* ServerHostCell.m */; };
+		2C5811071B39C2FE0069020D /* ServerPortCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811061B39C2FE0069020D /* ServerPortCell.m */; };
+		2C58110A1B39C3710069020D /* ServerRPCPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811091B39C3710069020D /* ServerRPCPath.m */; };
+		2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */; };
+		2C5811111B39D35B0069020D /* ServerUserNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811101B39D35B0069020D /* ServerUserNameCell.m */; };
+		2C5811141B39D3E00069020D /* ServerUserPasswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811131B39D3E00069020D /* ServerUserPasswordCell.m */; };
+		2C5811171B39D4320069020D /* ServerUseSSLCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811161B39D4320069020D /* ServerUseSSLCell.m */; };
+		2C58111A1B39D8730069020D /* ServerRequestTimeoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5811191B39D8730069020D /* ServerRequestTimeoutCell.m */; };
+		2C58111D1B39D8840069020D /* ServerRefreshTimeoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58111C1B39D8840069020D /* ServerRefreshTimeoutCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +49,27 @@
 		2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransmissionRPCClientTests.m; sourceTree = "<group>"; };
 		2C5810F91B39A7B20069020D /* RPCServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfig.h; sourceTree = "<group>"; };
 		2C5810FA1B39A7B20069020D /* RPCServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfig.m; sourceTree = "<group>"; };
+		2C5810FD1B39BBDD0069020D /* controllers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = controllers.storyboard; sourceTree = "<group>"; };
+		2C5810FF1B39C20E0069020D /* ServerNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerNameCell.h; sourceTree = "<group>"; };
+		2C5811001B39C20E0069020D /* ServerNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerNameCell.m; sourceTree = "<group>"; };
+		2C5811021B39C29E0069020D /* ServerHostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerHostCell.h; sourceTree = "<group>"; };
+		2C5811031B39C29E0069020D /* ServerHostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerHostCell.m; sourceTree = "<group>"; };
+		2C5811051B39C2FE0069020D /* ServerPortCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerPortCell.h; sourceTree = "<group>"; };
+		2C5811061B39C2FE0069020D /* ServerPortCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerPortCell.m; sourceTree = "<group>"; };
+		2C5811081B39C3710069020D /* ServerRPCPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRPCPath.h; sourceTree = "<group>"; };
+		2C5811091B39C3710069020D /* ServerRPCPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRPCPath.m; sourceTree = "<group>"; };
+		2C58110C1B39C3FC0069020D /* RPCServerConfigController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfigController.h; sourceTree = "<group>"; };
+		2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfigController.m; sourceTree = "<group>"; };
+		2C58110F1B39D35B0069020D /* ServerUserNameCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUserNameCell.h; sourceTree = "<group>"; };
+		2C5811101B39D35B0069020D /* ServerUserNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUserNameCell.m; sourceTree = "<group>"; };
+		2C5811121B39D3E00069020D /* ServerUserPasswordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUserPasswordCell.h; sourceTree = "<group>"; };
+		2C5811131B39D3E00069020D /* ServerUserPasswordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUserPasswordCell.m; sourceTree = "<group>"; };
+		2C5811151B39D4320069020D /* ServerUseSSLCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUseSSLCell.h; sourceTree = "<group>"; };
+		2C5811161B39D4320069020D /* ServerUseSSLCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUseSSLCell.m; sourceTree = "<group>"; };
+		2C5811181B39D8730069020D /* ServerRequestTimeoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRequestTimeoutCell.h; sourceTree = "<group>"; };
+		2C5811191B39D8730069020D /* ServerRequestTimeoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRequestTimeoutCell.m; sourceTree = "<group>"; };
+		2C58111B1B39D8840069020D /* ServerRefreshTimeoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerRefreshTimeoutCell.h; sourceTree = "<group>"; };
+		2C58111C1B39D8840069020D /* ServerRefreshTimeoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerRefreshTimeoutCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +111,11 @@
 		2C5810D81B39A5E50069020D /* TransmissionRPCClient */ = {
 			isa = PBXGroup;
 			children = (
+				2C5810F91B39A7B20069020D /* RPCServerConfig.h */,
+				2C5810FA1B39A7B20069020D /* RPCServerConfig.m */,
 				2C5810DD1B39A5E50069020D /* AppDelegate.h */,
 				2C5810DE1B39A5E50069020D /* AppDelegate.m */,
+				2C5810FC1B39BBB50069020D /* UI files */,
 				2C5810D91B39A5E50069020D /* Supporting Files */,
 			);
 			path = TransmissionRPCClient;
@@ -93,8 +128,6 @@
 				2C5810E01B39A5E50069020D /* Images.xcassets */,
 				2C5810DA1B39A5E50069020D /* Info.plist */,
 				2C5810DB1B39A5E50069020D /* main.m */,
-				2C5810F91B39A7B20069020D /* RPCServerConfig.h */,
-				2C5810FA1B39A7B20069020D /* RPCServerConfig.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -114,6 +147,42 @@
 				2C5810EE1B39A5E50069020D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2C5810FC1B39BBB50069020D /* UI files */ = {
+			isa = PBXGroup;
+			children = (
+				2C58110B1B39C3BA0069020D /* RPC server config */,
+				2C5810FD1B39BBDD0069020D /* controllers.storyboard */,
+				2C58110C1B39C3FC0069020D /* RPCServerConfigController.h */,
+				2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */,
+			);
+			name = "UI files";
+			sourceTree = "<group>";
+		};
+		2C58110B1B39C3BA0069020D /* RPC server config */ = {
+			isa = PBXGroup;
+			children = (
+				2C5810FF1B39C20E0069020D /* ServerNameCell.h */,
+				2C5811001B39C20E0069020D /* ServerNameCell.m */,
+				2C5811021B39C29E0069020D /* ServerHostCell.h */,
+				2C5811031B39C29E0069020D /* ServerHostCell.m */,
+				2C5811051B39C2FE0069020D /* ServerPortCell.h */,
+				2C5811061B39C2FE0069020D /* ServerPortCell.m */,
+				2C5811081B39C3710069020D /* ServerRPCPath.h */,
+				2C5811091B39C3710069020D /* ServerRPCPath.m */,
+				2C58110F1B39D35B0069020D /* ServerUserNameCell.h */,
+				2C5811101B39D35B0069020D /* ServerUserNameCell.m */,
+				2C5811121B39D3E00069020D /* ServerUserPasswordCell.h */,
+				2C5811131B39D3E00069020D /* ServerUserPasswordCell.m */,
+				2C5811151B39D4320069020D /* ServerUseSSLCell.h */,
+				2C5811161B39D4320069020D /* ServerUseSSLCell.m */,
+				2C5811181B39D8730069020D /* ServerRequestTimeoutCell.h */,
+				2C5811191B39D8730069020D /* ServerRequestTimeoutCell.m */,
+				2C58111B1B39D8840069020D /* ServerRefreshTimeoutCell.h */,
+				2C58111C1B39D8840069020D /* ServerRefreshTimeoutCell.m */,
+			);
+			name = "RPC server config";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */,
+				2C5810FE1B39BBDD0069020D /* controllers.storyboard in Resources */,
 				2C5810E11B39A5E50069020D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,9 +286,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C58110A1B39C3710069020D /* ServerRPCPath.m in Sources */,
+				2C5811041B39C29E0069020D /* ServerHostCell.m in Sources */,
+				2C5811141B39D3E00069020D /* ServerUserPasswordCell.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
+				2C58111A1B39D8730069020D /* ServerRequestTimeoutCell.m in Sources */,
 				2C5810DC1B39A5E50069020D /* main.m in Sources */,
+				2C5811111B39D35B0069020D /* ServerUserNameCell.m in Sources */,
+				2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */,
+				2C5811071B39C2FE0069020D /* ServerPortCell.m in Sources */,
 				2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */,
+				2C5811011B39C20E0069020D /* ServerNameCell.m in Sources */,
+				2C5811171B39D4320069020D /* ServerUseSSLCell.m in Sources */,
+				2C58111D1B39D8840069020D /* ServerRefreshTimeoutCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
