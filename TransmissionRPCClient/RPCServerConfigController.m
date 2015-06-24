@@ -46,24 +46,42 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
 - (void)viewDidLoad
 {
     [self initCellsAndSections];
+    [self loadConfig];
     
+    // configure navbar
     self.title = @"Add new server";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveConfig)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(hideErrorMessage)];
 }
 
-
-- (void)viewDidAppear:(BOOL)animated
+// show/hide error message error message
+- (void)showErrorMessage: (NSString *)msg
 {
-    // load config if needed
-    if (self.config)
-    {
-        [self loadConfig];
-    }
+    // tableview header
+    UILabel *headerView = [[UILabel  alloc] initWithFrame:CGRectZero];
+    headerView.text = msg;
+    headerView.backgroundColor = [UIColor redColor];
+    headerView.textColor = [UIColor whiteColor];
+    headerView.numberOfLines = 0;
+    headerView.font = [UIFont systemFontOfSize:15];
+    headerView.textAlignment = NSTextAlignmentCenter;
+    [headerView sizeToFit];
+    
+    CGRect r = self.tableView.bounds;
+    r.size.height = headerView.bounds.size.height + 40;
+    
+    headerView.bounds = r;
+    
+    [self.tableView beginUpdates];
+    self.tableView.tableHeaderView = headerView;
+    [self.tableView endUpdates];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)hideErrorMessage
 {
-    // save config
-    [self saveConfig];
+    [self.tableView beginUpdates];
+    self.tableView.tableHeaderView = nil;
+    [self.tableView endUpdates];
 }
 
 #pragma mark - Reading/Writing field properties
@@ -71,108 +89,108 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
 // get/set server name
 - (NSString *)serverName
 {
-    ServerNameCell *cell = [self cellForId:CELL_ID_SERVER_NAME];
-    return cell.serverName.text;
+    ServerNameCell *cell = self.cells[CELL_ID_SERVER_NAME];
+    return [cell.serverName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 - (void)setServerName:(NSString *)serverName
 {
-    ServerNameCell *cell = [self cellForId:CELL_ID_SERVER_NAME];
+    ServerNameCell *cell = self.cells[CELL_ID_SERVER_NAME];
     cell.serverName.text = serverName;
 }
 
 // get/set server host
 - (NSString *)serverHost
 {
-    ServerHostCell *cell = [self cellForId:CELL_ID_SERVER_HOST];
-    return cell.hostName.text;
+    ServerHostCell *cell = self.cells[CELL_ID_SERVER_HOST];
+    return [cell.hostName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 - (void)setServerHost:(NSString *)serverHost
 {
-    ServerHostCell *cell = [self cellForId:CELL_ID_SERVER_HOST];
+    ServerHostCell *cell = self.cells[CELL_ID_SERVER_HOST];
     cell.hostName.text = serverHost;
 }
 
 // get/set server RPC path
 - (NSString *)serverRPCPath
 {
-    ServerRPCPathCell *cell = [self cellForId:CELL_ID_RPCPATH_CELL];
-    return cell.path.text;
+    ServerRPCPathCell *cell = self.cells[CELL_ID_RPCPATH_CELL];
+    return [cell.path.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 - (void)setServerRPCPath:(NSString *)serverRPCPath
 {
-    ServerRPCPathCell *cell = [self cellForId:CELL_ID_RPCPATH_CELL];
+    ServerRPCPathCell *cell = self.cells[CELL_ID_RPCPATH_CELL];
     cell.path.text = serverRPCPath;
 }
 
 // get/set user name
 - (NSString *)userName
 {
-    ServerUserNameCell *cell = [self cellForId:CELL_ID_USERNAME];
-    return cell.userName.text;
+    ServerUserNameCell *cell = self.cells[CELL_ID_USERNAME];
+    return [cell.userName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 - (void)setUserName:(NSString *)userName
 {
-    ServerUserNameCell *cell = [self cellForId:CELL_ID_USERNAME];
+    ServerUserNameCell *cell = self.cells[CELL_ID_USERNAME];
     cell.userName.text = userName;
 }
 
 // get/set user password
 - (NSString *)userPassword
 {
-    ServerUserPasswordCell *cell = [self cellForId:CELL_ID_USERPASSWORD];
+    ServerUserPasswordCell *cell = self.cells[CELL_ID_USERPASSWORD];
     return cell.userPassword.text;
 }
 - (void)setUserPassword:(NSString *)userPassword
 {
-    ServerUserPasswordCell *cell = [self cellForId:CELL_ID_USERPASSWORD];
+    ServerUserPasswordCell *cell = self.cells[CELL_ID_USERPASSWORD];
     cell.userPassword.text = userPassword;
 }
 
 // get/set use SSL flag
 - (BOOL)useSSL
 {
-    ServerUseSSLCell *cell = [self cellForId:CELL_ID_USESSL];
-    return cell.statusSwitch.on;
+    ServerUseSSLCell *cell = self.cells[CELL_ID_USESSL];
+    return cell.status;
 }
 - (void)setUseSSL:(BOOL)useSSL
 {
-    ServerUseSSLCell *cell = [self cellForId:CELL_ID_USESSL];
-    cell.statusSwitch.on = useSSL;
+    ServerUseSSLCell *cell = self.cells[CELL_ID_USESSL];
+    cell.status = useSSL;
 }
 
 // get/set refresh timeout
 - (int)refreshTimeout
 {
-    ServerRefreshTimeoutCell *cell = [self cellForId:CELL_ID_REFRESHTIMEOUT];
+    ServerRefreshTimeoutCell *cell = self.cells[CELL_ID_REFRESHTIMEOUT];
     return cell.timeoutValue;
 }
 - (void)setRefreshTimeout:(int)refreshTimeout
 {
-    ServerRefreshTimeoutCell *cell = [self cellForId:CELL_ID_REFRESHTIMEOUT];
+    ServerRefreshTimeoutCell *cell = self.cells[CELL_ID_REFRESHTIMEOUT];
     cell.timeoutValue = refreshTimeout;
 }
 
 // get/set request timeout
 - (int)requestTimeout
 {
-    ServerRequestTimeoutCell *cell = [self cellForId:CELL_ID_REQUESTTIMEOUT];
+    ServerRequestTimeoutCell *cell = self.cells[CELL_ID_REQUESTTIMEOUT];
     return cell.timeoutValue;
 }
 - (void)setRequestTimeout:(int)timeout
 {
-    ServerRequestTimeoutCell *cell = [self cellForId:CELL_ID_REQUESTTIMEOUT];
+    ServerRequestTimeoutCell *cell = self.cells[CELL_ID_REQUESTTIMEOUT];
     cell.timeoutValue = timeout;
 }
 
 // get/set server port
 - (int)serverPort
 {
-    ServerPortCell *cell = [self cellForId:CELL_ID_SERVER_PORT];
+    ServerPortCell *cell = self.cells[CELL_ID_SERVER_PORT];
     return [cell.portField.text intValue];
 }
 - (void)setServerPort:(int)serverPort
 {
-    ServerPortCell *cell = [self cellForId:CELL_ID_SERVER_PORT];
+    ServerPortCell *cell = self.cells[CELL_ID_SERVER_PORT];
     cell.portField.text = [NSString stringWithFormat:@"%i", serverPort];
 }
 
@@ -203,15 +221,43 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
         self.config = [[RPCServerConfig alloc] init];
     
     // saving values
-    self.config.name = self.serverName;
-    self.config.host = self.serverHost;
+    if( self.serverName.length < 1 )
+    {
+        [self showErrorMessage:@"You should enter server NAME"];
+        return;
+    }
+    
+    if( self.serverHost.length < 1 )
+    {
+        [self showErrorMessage:@"You should enter server HOST name"];
+        return;
+    }
+    
+    if( !(self.serverPort > 0 && self.serverPort < 655356) )
+    {
+        [self showErrorMessage:@"Server port must be in range from 0 to 65536. By default server port number is 8090"];
+        return;
+    }
+    
+    if( self.serverRPCPath.length < 1 )
+    {
+        [self showErrorMessage:@"You should enter server RPC path. By default server rpc path is /transmission/rpc"];
+        return;
+    }
+
     self.config.port = self.serverPort;
+    self.config.host = self.serverHost;
+    self.config.name = self.serverName;
     self.config.rpcPath = self.serverRPCPath;
     self.config.userName = self.userName;
     self.config.userPassword = self.userPassword;
     self.config.useSSL = self.useSSL;
     self.config.refreshTimeout = self.refreshTimeout;
     self.config.requestTimeout = self.requestTimeout;
+    
+    [self hideErrorMessage];
+    
+    NSLog(@"RPC server config saved successfuly: %@", self.config);
 }
 
 // return array of sections
@@ -248,30 +294,6 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
 
 }
 
-// returns cell for cell id
-- (id)cellForId:(NSString*)cellId
-{
-//    for( int i = 0; i < self.sections.count; i++ )
-//    {
-//        NSArray *arr = self.sections[i];
-//        NSArray *cellIds = arr[1];
-//        
-//        for( int j = 0; j < cellIds.count; i++ )
-//        {
-//            if( [cellId isEqualToString:cellIds[j]] )
-//            {
-//                NSIndexPath *path = [NSIndexPath indexPathForRow:j inSection:i];
-//               return [self.tableView cellForRowAtIndexPath:path];
-//            }
-//        }
-//    }
-//    
-//    NSLog(@"cellForId returned nil for Id: %@", cellId);
-//    return nil;
-    return self.cells[cellId];
-}
-
-
 #pragma mark - Table view data source
 
 // section 1 - server name, host, port and rpc path
@@ -283,7 +305,6 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    //
     return self.sections[section][0];
 }
 
@@ -295,15 +316,11 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
     return  secIds.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *section = self.sections[indexPath.section];
     NSArray *ids = section[1];
-    
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ids[indexPath.row] forIndexPath:indexPath];
-    
-    //return cell;
+
     return self.cells[ ids[indexPath.row] ];
 }
 

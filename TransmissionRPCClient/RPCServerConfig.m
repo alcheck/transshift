@@ -36,7 +36,7 @@ static NSString *CODER_REQUEST_TIMEOUT = @"reqtimeout";
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"RPCServerConfig[%@://%@:%i/%@, refresh:%is, request timeout: %is]",
+    return [NSString stringWithFormat:@"RPCServerConfig[%@://%@:%i%@, refresh:%is, request timeout: %is]",
             _useSSL ? @"https" : @"http",
             _host,
             _port,

@@ -20,14 +20,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BRJ-3a-hVS" id="elX-ry-Ugd">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name your server" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UCK-uQ-Cl9">
-                                            <rect key="frame" x="356" y="7" width="236" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="236" id="0k4-rW-nOr"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdY-X2-3mK">
                                             <rect key="frame" x="8" y="11" width="159" height="21"/>
                                             <constraints>
@@ -37,6 +29,14 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name your server" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UCK-uQ-Cl9">
+                                            <rect key="frame" x="442" y="7" width="150" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="150" id="0k4-rW-nOr"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="sdY-X2-3mK" firstAttribute="leading" secondItem="elX-ry-Ugd" secondAttribute="leadingMargin" id="9JC-Jg-Y1f"/>
@@ -57,14 +57,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GXh-Sh-fG6" id="6pH-O4-x9H">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="for example 192.168.0.1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6dk-zK-tLR">
-                                            <rect key="frame" x="356" y="7" width="236" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="236" id="4JP-Fy-1IP"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host or IP address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOO-9w-G0P">
                                             <rect key="frame" x="8" y="11" width="159" height="21"/>
                                             <constraints>
@@ -74,6 +66,14 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="type hosname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6dk-zK-tLR">
+                                            <rect key="frame" x="442" y="7" width="150" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="150" id="4JP-Fy-1IP"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="rOO-9w-G0P" firstAttribute="leading" secondItem="6pH-O4-x9H" secondAttribute="leadingMargin" id="BmR-ZW-6bK"/>
@@ -94,14 +94,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Rx-QR-0gd" id="hTl-H3-sDl">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8090" borderStyle="roundedRect" placeholder="8090" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ekt-sL-hKb">
-                                            <rect key="frame" x="356" y="7" width="236" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="236" id="wft-Wy-T7r"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                                        </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Port" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1L-WF-jSc">
                                             <rect key="frame" x="8" y="11" width="159" height="21"/>
                                             <constraints>
@@ -111,6 +103,14 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8090" borderStyle="roundedRect" placeholder="8090" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ekt-sL-hKb">
+                                            <rect key="frame" x="442" y="7" width="150" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="150" id="wft-Wy-T7r"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Ekt-sL-hKb" firstAttribute="trailing" secondItem="hTl-H3-sDl" secondAttribute="trailingMargin" id="9jc-vq-3Ph"/>
@@ -131,14 +131,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ThU-Ou-xcF" id="Uum-8Z-q79">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="/transmission/rpc" borderStyle="roundedRect" placeholder="/transmission/rpc" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RvZ-jS-nTo">
-                                            <rect key="frame" x="356" y="7" width="236" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="236" id="EY8-M5-Wrf"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RPC path" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyH-it-6Ai">
                                             <rect key="frame" x="8" y="11" width="159" height="21"/>
                                             <constraints>
@@ -148,6 +140,14 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="/transmission/rpc" borderStyle="roundedRect" placeholder="/transmission/rpc" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RvZ-jS-nTo">
+                                            <rect key="frame" x="442" y="7" width="150" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="150" id="EY8-M5-Wrf"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="vyH-it-6Ai" firstAttribute="leading" secondItem="Uum-8Z-q79" secondAttribute="leadingMargin" id="1tG-XJ-FDe"/>
@@ -168,14 +168,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F57-Tl-7FG" id="i6Q-re-MGO">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="type your name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gcR-RM-c6s">
-                                            <rect key="frame" x="356" y="7" width="236" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="236" id="vEM-da-yVp"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjK-eP-laC">
                                             <rect key="frame" x="8" y="11" width="159" height="21"/>
                                             <constraints>
@@ -185,6 +177,14 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="type your name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gcR-RM-c6s">
+                                            <rect key="frame" x="442" y="7" width="150" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="150" id="vEM-da-yVp"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="vjK-eP-laC" firstAttribute="leading" secondItem="i6Q-re-MGO" secondAttribute="leadingMargin" id="1cd-1B-Qw8"/>
@@ -205,14 +205,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1X9-wo-D4z" id="GzQ-oW-mDd">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="type your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5QH-KX-eug">
-                                            <rect key="frame" x="356" y="7" width="236" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="236" id="zkf-wl-sUQ"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                        </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cay-mk-5V1">
                                             <rect key="frame" x="8" y="11" width="159" height="21"/>
                                             <constraints>
@@ -222,6 +214,14 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="type your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5QH-KX-eug">
+                                            <rect key="frame" x="442" y="7" width="150" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="150" id="zkf-wl-sUQ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="centerY" secondItem="5QH-KX-eug" secondAttribute="centerY" id="9mu-06-K8a"/>
@@ -273,7 +273,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SV5-pj-PSH" id="WgF-Kf-YSx">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refresh timeout (seconds)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuX-Fw-URQ">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Refresh timeout (s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuX-Fw-URQ">
                                             <rect key="frame" x="8" y="11" width="295" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="295" id="fbq-2v-iya"/>
@@ -333,7 +333,7 @@
                                                 <action selector="valueChanged:" destination="guJ-Jt-SX3" eventType="valueChanged" id="FTD-61-713"/>
                                             </connections>
                                         </stepper>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request timeout (seconds)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksV-9T-9hk">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Request timeout (s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksV-9T-9hk">
                                             <rect key="frame" x="8" y="11" width="295" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="295" id="JcZ-Rq-p2l"/>
@@ -368,7 +368,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qfN-PR-lae" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="556" y="16"/>
+            <point key="canvasLocation" x="251" y="-21"/>
         </scene>
     </scenes>
 </document>

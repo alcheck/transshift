@@ -8,16 +8,22 @@
 
 #import "ServerUseSSLCell.h"
 
+@interface ServerUseSSLCell()
+
+@property (weak, nonatomic) IBOutlet UISwitch *statusSwitch;
+
+@end
+
 @implementation ServerUseSSLCell
 
-- (void)awakeFromNib {
-    // Initialization code
+- (BOOL)status
+{
+    return self.statusSwitch.on;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setStatus:(BOOL)status
+{
+    self.statusSwitch.on = status;
 }
 
 @end

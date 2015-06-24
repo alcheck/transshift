@@ -12,7 +12,7 @@
 
 @interface ServerUseSSLCell : UITableViewCell
 
+@property (nonatomic) BOOL status;
 @property (weak, nonatomic) IBOutlet UILabel *label;
-@property (weak, nonatomic) IBOutlet UISwitch *statusSwitch;
 
 @end
