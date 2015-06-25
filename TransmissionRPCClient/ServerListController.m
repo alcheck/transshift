@@ -9,6 +9,7 @@
 #import "ServerListController.h"
 #import "ServerListItemCell.h"
 #import "RPCServerConfigController.h"
+#import "StatusListController.h"
 #import "RPCServerConfigDB.h"
 
 @interface ServerListController () <ServerListItemCellDelegate>
@@ -31,17 +32,7 @@
     
     self.title = @"Remote servers";
     
-    // TEST
-//    RPCServerConfig *config = [[RPCServerConfig alloc] init];
-//    config.name = @"Giga router";
-//    config.host = @"192.168.0.1";
-//    
-//    [[RPCServerConfigDB sharedDB].db addObject:config];
-//    [[RPCServerConfigDB sharedDB].db addObject:config];
-//    [[RPCServerConfigDB sharedDB].db addObject:config];
-//    [[RPCServerConfigDB sharedDB].db addObject:config];
-    
-    // predefine buttons
+     // predefine buttons
     _buttonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleEditMode)];
     _buttonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleEditMode)];
     _buttonAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAddNewRPCConfigController)];
@@ -122,6 +113,16 @@
     [self.navigationController pushViewController:self.rpcConfigController animated:YES];
 }
 
+// handler for selecting server with config
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
+    StatusListController *statusList = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTSSTATUSLIST];
+    statusList.config = [RPCServerConfigDB sharedDB].db[indexPath.row];
+    
+    [self.navigationController pushViewController:statusList animated:YES];
+}
+
 #pragma mark - Table view data
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -145,7 +146,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     int itemsCount = [RPCServerConfigDB sharedDB].db.count;
-    return itemsCount > 0 ? @"List of configured servers" : @"";
+    return itemsCount > 0 ? @"List of configured servers" : nil;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
