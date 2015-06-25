@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RPCServerConfig.h"
 
 @interface RPCServerConfigDB : NSObject
 
 + (RPCServerConfigDB*)sharedDB;
 
 @property(nonatomic,readonly) NSMutableArray *db;
+
 - (void)loadDB;
 - (void)saveDB;
 

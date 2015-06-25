@@ -45,6 +45,14 @@ static NSString *CODER_REQUEST_TIMEOUT = @"reqtimeout";
             _requestTimeout ];
 }
 
+- (NSString *)urlString
+{
+    if( ![_rpcPath hasPrefix:@"/"] )
+        _rpcPath = [NSString stringWithFormat:@"/%@", _rpcPath];
+    //return [NSString stringWithFormat:@"%@://%@:%i%@", _useSSL ? @"https" : @"http", _host, _port, _rpcPath];
+    return [NSString stringWithFormat:@"%@://%@:%i", _useSSL ? @"https" : @"http", _host, _port];
+}
+
 #pragma mark - NSCoding protocol imp
 
 - (id)initWithCoder:(NSCoder *)aDecoder

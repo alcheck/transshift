@@ -327,7 +327,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minimumValue="3" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Qej-9t-Jbn">
+                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minimumValue="3" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Qej-9t-Jbn">
                                             <rect key="frame" x="498" y="7" width="94" height="29"/>
                                             <connections>
                                                 <action selector="valueChanged:" destination="guJ-Jt-SX3" eventType="valueChanged" id="FTD-61-713"/>
@@ -368,7 +368,65 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qfN-PR-lae" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="251" y="-21"/>
+            <point key="canvasLocation" x="8" y="-84"/>
+        </scene>
+        <!--Server List Controller-->
+        <scene sceneID="1ZD-za-5lK">
+            <objects>
+                <tableViewController storyboardIdentifier="ServerListController" id="pWS-uB-4wg" customClass="ServerListController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="71" sectionHeaderHeight="10" sectionFooterHeight="10" id="Tkx-2J-iiw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ServerListItemCell" rowHeight="71" id="2SA-Ba-HBE" customClass="ServerListItemCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2SA-Ba-HBE" id="oUt-NH-48g">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Giga" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bws-TG-qbq">
+                                            <rect key="frame" x="8" y="14" width="414" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="414" id="1dn-h3-zhl"/>
+                                                <constraint firstAttribute="height" constant="25" id="vi6-4p-9QB"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://192.168.0.1:8090/transmission/rpc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAv-EQ-tHa">
+                                            <rect key="frame" x="8" y="41" width="283" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="13q-1R-rRv"/>
+                                                <constraint firstAttribute="width" constant="283" id="Nsu-T2-QQE"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Bws-TG-qbq" firstAttribute="top" secondItem="oUt-NH-48g" secondAttribute="topMargin" constant="6" id="5sk-yN-zbe"/>
+                                        <constraint firstItem="OAv-EQ-tHa" firstAttribute="leading" secondItem="oUt-NH-48g" secondAttribute="leadingMargin" id="65V-U6-rBs"/>
+                                        <constraint firstItem="OAv-EQ-tHa" firstAttribute="top" secondItem="Bws-TG-qbq" secondAttribute="bottom" constant="2" id="nr9-vh-tcw"/>
+                                        <constraint firstItem="Bws-TG-qbq" firstAttribute="leading" secondItem="oUt-NH-48g" secondAttribute="leadingMargin" id="trr-06-fYH"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addressLabel" destination="OAv-EQ-tHa" id="Lrj-Fi-slh"/>
+                                    <outlet property="nameLabel" destination="Bws-TG-qbq" id="eIy-w1-U3f"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pWS-uB-4wg" id="8Uk-jg-Hka"/>
+                            <outlet property="delegate" destination="pWS-uB-4wg" id="stQ-RU-o8Q"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2IG-ju-usH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="618" y="-84"/>
         </scene>
     </scenes>
 </document>

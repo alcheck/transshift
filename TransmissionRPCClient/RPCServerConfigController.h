@@ -14,5 +14,7 @@
 @interface RPCServerConfigController : UITableViewController
 
 @property(nonatomic) RPCServerConfig *config;
+- (BOOL)saveConfig;
+- (void)loadConfig;
 
 @end

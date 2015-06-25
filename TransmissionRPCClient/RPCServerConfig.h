@@ -24,5 +24,6 @@
 @property(nonatomic) BOOL      useSSL;          // use https
 @property(nonatomic) int       refreshTimeout;  // refresh time in seconds
 @property(nonatomic) int       requestTimeout;  // request timeout to server in seconds
+@property(nonatomic,readonly)  NSString* urlString; // return short descriptions of class
 
 @end

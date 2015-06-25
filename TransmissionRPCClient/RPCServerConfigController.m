@@ -18,8 +18,8 @@
 #import "ServerRequestTimeoutCell.h"
 
 // section names
-static NSString *SECTION_0_TITLE = @"Server name";
-static NSString *SECTION_1_TITLE = @"Remote RPC server settings";
+static NSString *SECTION_0_TITLE = @"General";
+static NSString *SECTION_1_TITLE = @"RPC settings";
 static NSString *SECTION_2_TITLE = @"Security settings";
 static NSString *SECTION_3_TITLE = @"Timeout settings";
 
@@ -47,12 +47,6 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
 {
     [self initCellsAndSections];
     [self loadConfig];
-    
-    // configure navbar
-    // TODO: this navbar should be configured from above (previous controller)
-    self.title = @"Add new server";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveConfig)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(hideErrorMessage)];
 }
 
 // show/hide error message error message
@@ -201,19 +195,21 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
 // update values from config
 - (void)loadConfig
 {
-    // loading values
-    if( self.config )
-    {
-        self.serverName = self.config.name;
-        self.serverHost = self.config.host;
-        self.serverPort = self.config.port;
-        self.serverRPCPath = self.config.rpcPath;
-        self.userName = self.config.userName;
-        self.userPassword = self.config.userPassword;
-        self.useSSL = self.config.useSSL;
-        self.refreshTimeout = self.config.refreshTimeout;
-        self.requestTimeout = self.config.requestTimeout;
-    }
+   // NSLog(@"Loading config: %@, sectons = %@", self.config, _sections);
+    
+   // loading values
+   if( self.config )
+   {
+       self.serverName = self.config.name;
+       self.serverHost = self.config.host;
+       self.serverPort = self.config.port;
+       self.serverRPCPath = self.config.rpcPath;
+       self.userName = self.config.userName;
+       self.userPassword = self.config.userPassword;
+       self.useSSL = self.config.useSSL;
+       self.refreshTimeout = self.config.refreshTimeout;
+       self.requestTimeout = self.config.requestTimeout;
+   }
 }
 
 - (BOOL)saveConfig
@@ -278,7 +274,7 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
     
     [self hideErrorMessage];
     
-    NSLog(@"RPC server config saved successfuly: %@", self.config);
+    //NSLog(@"RPC server config saved successfuly: %@", self.config);
     return YES;
 }
 
