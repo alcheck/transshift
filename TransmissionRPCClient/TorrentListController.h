@@ -10,8 +10,9 @@
 
 #define CONTROLLER_ID_TORRENTLIST   @"torrentListController"
 
-@interface TorrentListController : UITableViewController
+@interface TorrentListController : UITableViewController <UISplitViewControllerDelegate>
 
 @property(nonatomic) NSString *backgroundTitle;
+@property(nonatomic) NSString *popoverButtonTitle;
 
 @end

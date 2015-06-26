@@ -36,11 +36,14 @@
     {
         TorrentListController *trc = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTLIST];
         trc.backgroundTitle = @"There is no selected server. Select server from list of servers.";
+        trc.navigationItem.title = @"Transmission remote client";
+        trc.popoverButtonTitle = SERVERLIST_CONTROLLER_TITLE;
+        
         UINavigationController *rightNav = [[UINavigationController alloc] initWithRootViewController:trc];
         
         UISplitViewController *splitView = [[UISplitViewController alloc] init];
         splitView.viewControllers = @[ leftNav, rightNav ];
-        splitView.delegate = _serverList;
+        splitView.delegate = trc;
         rootController = splitView;
     }
     

@@ -9,6 +9,7 @@
 #import "ServerListController.h"
 #import "ServerListItemCell.h"
 #import "RPCServerConfigController.h"
+#import "TorrentListController.h"
 #import "StatusListController.h"
 #import "RPCServerConfigDB.h"
 
@@ -32,8 +33,8 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Remote servers";
-    
+    self.title = SERVERLIST_CONTROLLER_TITLE;
+       
      // predefine buttons
     _buttonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleEditMode)];
     _buttonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleEditMode)];
@@ -41,24 +42,23 @@
     
     self.navigationItem.leftBarButtonItem = _buttonEdit;
     self.navigationItem.rightBarButtonItem = _buttonAdd;
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     if( self.splitViewController )
     {
-        self.splitViewController.delegate = self;
+        UINavigationController *nc = self.splitViewController.viewControllers[1];
+        TorrentListController *tlc = nc.viewControllers[0];
+        if( tlc.navigationItem.leftBarButtonItem )
+        {
+            tlc.popoverButtonTitle = SERVERLIST_CONTROLLER_TITLE;
+            tlc.navigationItem.leftBarButtonItem.title = SERVERLIST_CONTROLLER_TITLE;
+        }
     }
 }
 
-- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
-{
-    barButtonItem.title = self.title;
-    self.navigationItem.leftBarButtonItem = barButtonItem;
-}
-
-- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    if( self.navigationItem.leftBarButtonItem == barButtonItem )
-        self.navigationItem.leftBarButtonItem = nil;
-}
 
 - (RPCServerConfigController *)rpcConfigController
 {
@@ -82,8 +82,7 @@
 }
 
 - (void)showAddNewRPCConfigController
-{
-    // TODO present view controller or push it
+{  
     // show view controller with two buttons "Cancel and Save"
     self.rpcConfigController.navigationItem.title = @"Add new server";
         _rpcConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(AddNewRPCConfig)];

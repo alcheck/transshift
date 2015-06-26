@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 #define CONTROLLER_ID_SERVERLIST    @"ServerListController"
+#define SERVERLIST_CONTROLLER_TITLE @"Remote servers"
 
-@interface ServerListController : UITableViewController <UISplitViewControllerDelegate>
+@interface ServerListController : UITableViewController 
 
 @end

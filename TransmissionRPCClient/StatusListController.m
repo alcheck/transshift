@@ -61,10 +61,7 @@
     if( self.splitViewController )
     {
         UINavigationController *rightNav = self.splitViewController.viewControllers[1];
-        //rightNav.viewControllers = @[_torrentController];
         _torrentController = rightNav.viewControllers[0];
-        
-        self.splitViewController.delegate = self;
     }
     else
     {
@@ -73,16 +70,15 @@
     }
 }
 
-- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+- (void)viewDidAppear:(BOOL)animated
 {
-    barButtonItem.title = self.config.name;
-    self.navigationItem.leftBarButtonItem = barButtonItem;
-}
-
-- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    if( self.navigationItem.leftBarButtonItem == barButtonItem )
-        self.navigationItem.leftBarButtonItem = nil;
+    [super viewDidAppear:animated];
+    // if there is a leftbutton on _torrentConroller -> change title
+    if( _torrentController.navigationItem.leftBarButtonItem )
+    {
+        _torrentController.popoverButtonTitle = self.navigationItem.title;
+        _torrentController.navigationItem.leftBarButtonItem.title = self.navigationItem.title;
+    }
 }
 
 - (void)initNames
