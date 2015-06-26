@@ -410,6 +410,32 @@
             </objects>
             <point key="canvasLocation" x="8" y="564"/>
         </scene>
+        <!--Torrent List Controller-->
+        <scene sceneID="guH-Dq-Y28">
+            <objects>
+                <tableViewController storyboardIdentifier="torrentListController" id="PMj-j9-He8" customClass="TorrentListController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="NU2-Q6-ddb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bxp-Jj-f37">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bxp-Jj-f37" id="hpW-AA-kYy">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="PMj-j9-He8" id="kSm-Zb-3Jb"/>
+                            <outlet property="delegate" destination="PMj-j9-He8" id="fIm-Bl-4mG"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cCQ-IN-bxa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="620" y="564"/>
+        </scene>
         <!--Server List Controller-->
         <scene sceneID="1ZD-za-5lK">
             <objects>
@@ -425,9 +451,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Giga" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bws-TG-qbq">
-                                            <rect key="frame" x="8" y="14" width="414" height="25"/>
+                                            <rect key="frame" x="8" y="14" width="202" height="25"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="414" id="1dn-h3-zhl"/>
+                                                <constraint firstAttribute="width" constant="202" id="1dn-h3-zhl"/>
                                                 <constraint firstAttribute="height" constant="25" id="vi6-4p-9QB"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -435,12 +461,12 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://192.168.0.1:8090/transmission/rpc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAv-EQ-tHa">
-                                            <rect key="frame" x="8" y="41" width="283" height="21"/>
+                                            <rect key="frame" x="8" y="41" width="202" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="13q-1R-rRv"/>
-                                                <constraint firstAttribute="width" constant="283" id="Nsu-T2-QQE"/>
+                                                <constraint firstAttribute="width" constant="202" id="Nsu-T2-QQE"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>

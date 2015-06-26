@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4673141B3D91BA00CBD6B1 /* RPCConnector.m */; };
 		2C5810DC1B39A5E50069020D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810DB1B39A5E50069020D /* main.m */; };
 		2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810DE1B39A5E50069020D /* AppDelegate.m */; };
 		2C5810E11B39A5E50069020D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810E01B39A5E50069020D /* Images.xcassets */; };
@@ -27,6 +28,7 @@
 		2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */; };
 		2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B51B3B446E002666C6 /* ServerListController.m */; };
 		2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */; };
+		2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651CE1B3DCCBE005C823C /* TorrentListController.m */; };
 		2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF91D101B3C8B3B0093637A /* StatusListController.m */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C4673131B3D91BA00CBD6B1 /* RPCConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCConnector.h; sourceTree = "<group>"; };
+		2C4673141B3D91BA00CBD6B1 /* RPCConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCConnector.m; sourceTree = "<group>"; };
 		2C5810D61B39A5E50069020D /* TransmissionRPCClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransmissionRPCClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C5810DA1B39A5E50069020D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C5810DB1B39A5E50069020D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 		2C6D18B51B3B446E002666C6 /* ServerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListController.m; sourceTree = "<group>"; };
 		2C6D18BB1B3B477E002666C6 /* ServerListItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListItemCell.h; sourceTree = "<group>"; };
 		2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListItemCell.m; sourceTree = "<group>"; };
+		2CB651CD1B3DCCBE005C823C /* TorrentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListController.h; sourceTree = "<group>"; };
+		2CB651CE1B3DCCBE005C823C /* TorrentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListController.m; sourceTree = "<group>"; };
 		2CF91D0F1B3C8B3B0093637A /* StatusListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListController.h; sourceTree = "<group>"; };
 		2CF91D101B3C8B3B0093637A /* StatusListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,7 +170,8 @@
 		2C5810FC1B39BBB50069020D /* UI Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2CF91D0E1B3C8B000093637A /* Status list sontroller */,
+				2CB651CC1B3DCC91005C823C /* Torrent list controller */,
+				2CF91D0E1B3C8B000093637A /* Status list controller */,
 				2C6D18B71B3B4706002666C6 /* Server list controller */,
 				2C58110B1B39C3BA0069020D /* RPC Server Config Controller */,
 			);
@@ -209,6 +216,15 @@
 			name = "Server list controller";
 			sourceTree = "<group>";
 		};
+		2CB651CC1B3DCC91005C823C /* Torrent list controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CB651CD1B3DCCBE005C823C /* TorrentListController.h */,
+				2CB651CE1B3DCCBE005C823C /* TorrentListController.m */,
+			);
+			name = "Torrent list controller";
+			sourceTree = "<group>";
+		};
 		2CF91D0D1B3C62BF0093637A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,17 +232,19 @@
 				2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */,
 				2C5810F91B39A7B20069020D /* RPCServerConfig.h */,
 				2C5810FA1B39A7B20069020D /* RPCServerConfig.m */,
+				2C4673131B3D91BA00CBD6B1 /* RPCConnector.h */,
+				2C4673141B3D91BA00CBD6B1 /* RPCConnector.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
 		};
-		2CF91D0E1B3C8B000093637A /* Status list sontroller */ = {
+		2CF91D0E1B3C8B000093637A /* Status list controller */ = {
 			isa = PBXGroup;
 			children = (
 				2CF91D0F1B3C8B3B0093637A /* StatusListController.h */,
 				2CF91D101B3C8B3B0093637A /* StatusListController.m */,
 			);
-			name = "Status list sontroller";
+			name = "Status list controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +351,7 @@
 				2C58110A1B39C3710069020D /* ServerRPCPath.m in Sources */,
 				2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */,
 				2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */,
+				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
 				2C5811041B39C29E0069020D /* ServerHostCell.m in Sources */,
 				2C5811141B39D3E00069020D /* ServerUserPasswordCell.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
@@ -341,6 +360,7 @@
 				2C5810DC1B39A5E50069020D /* main.m in Sources */,
 				2C5811111B39D35B0069020D /* ServerUserNameCell.m in Sources */,
 				2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */,
+				2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */,
 				2C5811071B39C2FE0069020D /* ServerPortCell.m in Sources */,
 				2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */,
 				2C5811011B39C20E0069020D /* ServerNameCell.m in Sources */,
