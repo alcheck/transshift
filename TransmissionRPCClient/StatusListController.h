@@ -14,4 +14,6 @@
 
 @property(nonatomic) RPCServerConfig *config;
 
+- (void)stopUpdating;
+
 @end

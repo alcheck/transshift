@@ -38,6 +38,7 @@
 
 // make request and get all torrents
 - (void)getAllTorrents;
+- (void)stopRequests;
 
 @end
 

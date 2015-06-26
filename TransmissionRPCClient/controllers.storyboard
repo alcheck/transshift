@@ -414,16 +414,104 @@
         <scene sceneID="guH-Dq-Y28">
             <objects>
                 <tableViewController storyboardIdentifier="torrentListController" id="PMj-j9-He8" customClass="TorrentListController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="NU2-Q6-ddb">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="125" sectionHeaderHeight="10" sectionFooterHeight="10" id="NU2-Q6-ddb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bxp-Jj-f37">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="torrentListCell" rowHeight="125" id="bxp-Jj-f37" customClass="TorrentListCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bxp-Jj-f37" id="hpW-AA-kYy">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Torrent name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b02-ZR-iDV">
+                                            <rect key="frame" x="8" y="8" width="501" height="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="i61-wq-qNA">
+                                            <rect key="frame" x="8" y="37" width="501" height="5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="4" id="QvL-Z9-9Ny"/>
+                                            </constraints>
+                                        </progressView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.0%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJB-qz-MXe">
+                                            <rect key="frame" x="517" y="27" width="42" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="42" id="FTw-cs-Rus"/>
+                                                <constraint firstAttribute="height" constant="21" id="rU0-Jd-qBg"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading from 5 of 10 peers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAT-qH-kcb">
+                                            <rect key="frame" x="8" y="49" width="501" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="PIs-Xs-8wT"/>
+                                                <constraint firstAttribute="width" constant="501" id="ldb-YY-Fp2"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DL: 5 Mb/s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yat-p1-hDj">
+                                            <rect key="frame" x="8" y="71" width="91" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="9yH-Rj-Taa"/>
+                                                <constraint firstAttribute="width" constant="91" id="al0-Nq-RzG"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="234.0 Kb of 5.6 GB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpS-ju-QSU">
+                                            <rect key="frame" x="8" y="92" width="501" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="54v-z1-3ZC"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UL: 3 Mb/s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r0e-Lm-a6J">
+                                            <rect key="frame" x="113" y="71" width="81" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="FLj-3z-6A9"/>
+                                                <constraint firstAttribute="width" constant="81" id="JKd-sx-Hb6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="yat-p1-hDj" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="2RN-GG-FuA"/>
+                                        <constraint firstItem="HAT-qH-kcb" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="2bC-Ev-ei9"/>
+                                        <constraint firstItem="r0e-Lm-a6J" firstAttribute="top" secondItem="HAT-qH-kcb" secondAttribute="bottom" constant="1" id="2vQ-8x-hIA"/>
+                                        <constraint firstItem="i61-wq-qNA" firstAttribute="top" secondItem="b02-ZR-iDV" secondAttribute="bottom" constant="8" id="3vK-d7-ssu"/>
+                                        <constraint firstItem="i61-wq-qNA" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="DNI-v1-EKr"/>
+                                        <constraint firstItem="fpS-ju-QSU" firstAttribute="top" secondItem="r0e-Lm-a6J" secondAttribute="bottom" id="IbY-Q1-Phn"/>
+                                        <constraint firstItem="b02-ZR-iDV" firstAttribute="top" secondItem="hpW-AA-kYy" secondAttribute="topMargin" id="Jnb-Tu-QIJ"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="b02-ZR-iDV" secondAttribute="trailing" constant="50" id="Jyh-s8-opV"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="i61-wq-qNA" secondAttribute="trailing" constant="50" id="Pne-qm-jgk"/>
+                                        <constraint firstItem="r0e-Lm-a6J" firstAttribute="leading" secondItem="yat-p1-hDj" secondAttribute="trailing" constant="14" id="Rpr-gS-JUs"/>
+                                        <constraint firstItem="HAT-qH-kcb" firstAttribute="top" secondItem="i61-wq-qNA" secondAttribute="bottom" constant="8" id="UQM-Z9-9Gw"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="fpS-ju-QSU" secondAttribute="trailing" constant="50" id="Zw6-2Y-eIT"/>
+                                        <constraint firstItem="yat-p1-hDj" firstAttribute="top" secondItem="HAT-qH-kcb" secondAttribute="bottom" constant="1" id="fwd-Vo-tMs"/>
+                                        <constraint firstItem="fpS-ju-QSU" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="hst-qy-gxA"/>
+                                        <constraint firstItem="mJB-qz-MXe" firstAttribute="trailing" secondItem="hpW-AA-kYy" secondAttribute="trailingMargin" id="iK3-cE-7sY"/>
+                                        <constraint firstItem="mJB-qz-MXe" firstAttribute="top" secondItem="hpW-AA-kYy" secondAttribute="topMargin" constant="19" id="wc2-A7-r2Q"/>
+                                        <constraint firstItem="b02-ZR-iDV" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="xqD-gG-RYN"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="downloadRate" destination="yat-p1-hDj" id="l3X-qI-4Rq"/>
+                                    <outlet property="name" destination="b02-ZR-iDV" id="TpN-Tv-xj3"/>
+                                    <outlet property="peersInfo" destination="HAT-qH-kcb" id="e6v-sg-oz5"/>
+                                    <outlet property="progressPercents" destination="mJB-qz-MXe" id="t5C-wX-bhw"/>
+                                    <outlet property="size" destination="fpS-ju-QSU" id="xKE-iW-afU"/>
+                                    <outlet property="uploadRate" destination="r0e-Lm-a6J" id="kbG-Yz-SKJ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

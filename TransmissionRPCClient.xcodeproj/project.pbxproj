@@ -29,6 +29,7 @@
 		2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B51B3B446E002666C6 /* ServerListController.m */; };
 		2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */; };
 		2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651CE1B3DCCBE005C823C /* TorrentListController.m */; };
+		2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651D11B3DCDD4005C823C /* TorrentListCell.m */; };
 		2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF91D101B3C8B3B0093637A /* StatusListController.m */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,8 @@
 		2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListItemCell.m; sourceTree = "<group>"; };
 		2CB651CD1B3DCCBE005C823C /* TorrentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListController.h; sourceTree = "<group>"; };
 		2CB651CE1B3DCCBE005C823C /* TorrentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListController.m; sourceTree = "<group>"; };
+		2CB651D01B3DCDD4005C823C /* TorrentListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListCell.h; sourceTree = "<group>"; };
+		2CB651D11B3DCDD4005C823C /* TorrentListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListCell.m; sourceTree = "<group>"; };
 		2CF91D0F1B3C8B3B0093637A /* StatusListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListController.h; sourceTree = "<group>"; };
 		2CF91D101B3C8B3B0093637A /* StatusListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -221,6 +224,8 @@
 			children = (
 				2CB651CD1B3DCCBE005C823C /* TorrentListController.h */,
 				2CB651CE1B3DCCBE005C823C /* TorrentListController.m */,
+				2CB651D01B3DCDD4005C823C /* TorrentListCell.h */,
+				2CB651D11B3DCDD4005C823C /* TorrentListCell.m */,
 			);
 			name = "Torrent list controller";
 			sourceTree = "<group>";
@@ -366,6 +371,7 @@
 				2C5811011B39C20E0069020D /* ServerNameCell.m in Sources */,
 				2C5811171B39D4320069020D /* ServerUseSSLCell.m in Sources */,
 				2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */,
+				2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */,
 				2C58111D1B39D8840069020D /* ServerRefreshTimeoutCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

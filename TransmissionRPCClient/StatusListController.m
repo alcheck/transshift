@@ -6,6 +6,7 @@
 //
 
 #import "StatusListController.h"
+#import "TorrentListController.h"
 #import "RPCConnector.h"
 
 #define STATUS_SECTION_TITILE   @"Torrents"
@@ -14,7 +15,7 @@
 #define STATUS_ROW_SEED         @"Seeding"
 #define STATUS_ROW_STOP         @"Stopped"
 
-@interface StatusListController () <RPCConnectorDelegate>
+@interface StatusListController () <RPCConnectorDelegate, UISplitViewControllerDelegate>
 @end
 
 @implementation StatusListController
@@ -26,6 +27,8 @@
     RPCConnector *_connector;
     
     NSTimer *_refreshTimer;
+    
+    TorrentListController *_torrentController;
     
     // statistics
     int countAll;
@@ -54,6 +57,32 @@
                                                            selector:@selector(getAllTorrents) userInfo:nil repeats:YES];
         }
     }
+    
+    if( self.splitViewController )
+    {
+        UINavigationController *rightNav = self.splitViewController.viewControllers[1];
+        //rightNav.viewControllers = @[_torrentController];
+        _torrentController = rightNav.viewControllers[0];
+        
+        self.splitViewController.delegate = self;
+    }
+    else
+    {
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
+        _torrentController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTLIST];
+    }
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+{
+    barButtonItem.title = self.config.name;
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    if( self.navigationItem.leftBarButtonItem == barButtonItem )
+        self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)initNames
@@ -61,6 +90,12 @@
     _sections = @[ STATUS_SECTION_TITILE ];
     _itemNames = @[ STATUS_ROW_ALL, STATUS_ROW_DOWNLOAD, STATUS_ROW_SEED, STATUS_ROW_STOP ];
     _cells = [NSMutableDictionary dictionary];
+}
+
+- (void)stopUpdating
+{
+    [_refreshTimer invalidate];
+    [_connector stopRequests];
 }
 
 // perform async request of all torrents
@@ -101,6 +136,9 @@
     }
     
     [self updateStatusNumbers];
+    
+    NSDate *date = [NSDate date];
+    _torrentController.backgroundTitle = [NSString stringWithFormat:@"Last updated at %@", date];
 }
 
 - (void)updateStatusNumbers
@@ -156,6 +194,17 @@
     self.tableView.tableHeaderView = label;
     [self.tableView endUpdates];
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *title = _itemNames[indexPath.row];
+    _torrentController.navigationItem.title = title;
+    
+    if( !self.splitViewController )
+    {
+        [self.navigationController pushViewController:_torrentController animated:YES];
+    }
+ }
 
 #pragma mark - Table view data source
 

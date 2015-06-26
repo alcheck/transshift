@@ -126,6 +126,12 @@
     [_task resume];
 }
 
+- (void)stopRequests
+{
+    if( _task )
+        [_task cancel];
+}
+
 - (void)sendErrorMessage:(NSString*)message toDelegateWithRequestMethodName:(NSString*)methodName
 {
     _lastErrorMessage = message;

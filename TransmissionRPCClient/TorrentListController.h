@@ -12,4 +12,6 @@
 
 @interface TorrentListController : UITableViewController
 
+@property(nonatomic) NSString *backgroundTitle;
+
 @end

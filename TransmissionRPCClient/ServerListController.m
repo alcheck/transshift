@@ -24,6 +24,8 @@
     UIBarButtonItem *_buttonDone;
     UIBarButtonItem *_buttonEdit;
     UIBarButtonItem *_buttonAdd;
+    
+    StatusListController *_statusListController;
 }
 
 - (void)viewDidLoad
@@ -39,6 +41,23 @@
     
     self.navigationItem.leftBarButtonItem = _buttonEdit;
     self.navigationItem.rightBarButtonItem = _buttonAdd;
+    
+    if( self.splitViewController )
+    {
+        self.splitViewController.delegate = self;
+    }
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+{
+    barButtonItem.title = self.title;
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    if( self.navigationItem.leftBarButtonItem == barButtonItem )
+        self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (RPCServerConfigController *)rpcConfigController
@@ -117,10 +136,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
-    StatusListController *statusList = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTSSTATUSLIST];
-    statusList.config = [RPCServerConfigDB sharedDB].db[indexPath.row];
+    _statusListController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTSSTATUSLIST];
+    _statusListController.config = [RPCServerConfigDB sharedDB].db[indexPath.row];
     
-    [self.navigationController pushViewController:statusList animated:YES];
+    [self.navigationController pushViewController:_statusListController animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_statusListController stopUpdating];
+    _statusListController = nil;
 }
 
 #pragma mark - Table view data

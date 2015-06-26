@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RPCServerConfigDB.h"
 #import "ServerListController.h"
+#import "TorrentListController.h"
 
 @implementation AppDelegate
 
@@ -27,8 +28,23 @@
     _serverList = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_SERVERLIST];
        
     UINavigationController *leftNav = [[UINavigationController alloc] initWithRootViewController:_serverList];
-    self.window.rootViewController = leftNav;
     
+    UIViewController *rootController = leftNav;
+    
+    // create split view controller on iPad
+    if( [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
+    {
+        TorrentListController *trc = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTLIST];
+        trc.backgroundTitle = @"There is no selected server. Select server from list of servers.";
+        UINavigationController *rightNav = [[UINavigationController alloc] initWithRootViewController:trc];
+        
+        UISplitViewController *splitView = [[UISplitViewController alloc] init];
+        splitView.viewControllers = @[ leftNav, rightNav ];
+        splitView.delegate = _serverList;
+        rootController = splitView;
+    }
+    
+    self.window.rootViewController = rootController;
     // show main window
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

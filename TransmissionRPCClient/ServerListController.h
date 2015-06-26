@@ -10,6 +10,6 @@
 
 #define CONTROLLER_ID_SERVERLIST    @"ServerListController"
 
-@interface ServerListController : UITableViewController
+@interface ServerListController : UITableViewController <UISplitViewControllerDelegate>
 
 @end
