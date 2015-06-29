@@ -47,6 +47,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+    // fixing left button title for popOver navigation bar
     if( self.splitViewController )
     {
         UINavigationController *nc = self.splitViewController.viewControllers[1];
@@ -170,7 +172,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    int itemsCount = [RPCServerConfigDB sharedDB].db.count;
+    NSUInteger itemsCount = [RPCServerConfigDB sharedDB].db.count;
     return itemsCount > 0 ? @"List of configured servers" : nil;
 }
 
@@ -189,7 +191,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int itemsCount = [RPCServerConfigDB sharedDB].db.count;
+    NSUInteger itemsCount = [RPCServerConfigDB sharedDB].db.count;
     if( itemsCount == 0 )
     {
         UILabel *info = [[UILabel alloc] initWithFrame:CGRectZero];

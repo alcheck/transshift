@@ -9,6 +9,7 @@
 #import "RPCServerConfig.h"
 
 #define CONTROLLER_ID_TORRENTSSTATUSLIST    @"torrentsStatusListContoller"
+#define CELL_ID_TORRENTSTATUS               @"torrentStatusCell"
 
 @interface StatusListController : UITableViewController
 
