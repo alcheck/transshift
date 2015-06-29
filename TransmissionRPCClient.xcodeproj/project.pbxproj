@@ -32,8 +32,9 @@
 		2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */; };
 		2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651CE1B3DCCBE005C823C /* TorrentListController.m */; };
 		2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651D11B3DCDD4005C823C /* TorrentListCell.m */; };
+		2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */; };
+		2CF911981B41CD66003D0753 /* TorrentInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911971B41CD66003D0753 /* TorrentInfoController.m */; };
 		2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF91D101B3C8B3B0093637A /* StatusListController.m */; };
-		2CFA61B91B413C66002D89B7 /* TorrentInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA61B81B413C66002D89B7 /* TorrentInfoController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,10 +98,12 @@
 		2CB651CE1B3DCCBE005C823C /* TorrentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListController.m; sourceTree = "<group>"; };
 		2CB651D01B3DCDD4005C823C /* TorrentListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListCell.h; sourceTree = "<group>"; };
 		2CB651D11B3DCDD4005C823C /* TorrentListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListCell.m; sourceTree = "<group>"; };
+		2CF911941B41B605003D0753 /* ChooseServerToAddTorrentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServerToAddTorrentController.h; sourceTree = "<group>"; };
+		2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseServerToAddTorrentController.m; sourceTree = "<group>"; };
+		2CF911971B41CD66003D0753 /* TorrentInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentInfoController.m; sourceTree = "<group>"; };
 		2CF91D0F1B3C8B3B0093637A /* StatusListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListController.h; sourceTree = "<group>"; };
 		2CF91D101B3C8B3B0093637A /* StatusListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListController.m; sourceTree = "<group>"; };
 		2CFA61B71B413C66002D89B7 /* TorrentInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentInfoController.h; sourceTree = "<group>"; };
-		2CFA61B81B413C66002D89B7 /* TorrentInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentInfoController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,7 @@
 		2C5810FC1B39BBB50069020D /* UI Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CF911931B41B5C2003D0753 /* Choose server Controller */,
 				2CFA61BA1B413C74002D89B7 /* Torrent Info Controller */,
 				2CB651CC1B3DCC91005C823C /* Torrent list controller */,
 				2CF91D0E1B3C8B000093637A /* Status list controller */,
@@ -241,6 +245,15 @@
 			name = "Torrent list controller";
 			sourceTree = "<group>";
 		};
+		2CF911931B41B5C2003D0753 /* Choose server Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CF911941B41B605003D0753 /* ChooseServerToAddTorrentController.h */,
+				2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */,
+			);
+			name = "Choose server Controller";
+			sourceTree = "<group>";
+		};
 		2CF91D0D1B3C62BF0093637A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,7 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				2CFA61B71B413C66002D89B7 /* TorrentInfoController.h */,
-				2CFA61B81B413C66002D89B7 /* TorrentInfoController.m */,
+				2CF911971B41CD66003D0753 /* TorrentInfoController.m */,
 			);
 			name = "Torrent Info Controller";
 			sourceTree = "<group>";
@@ -378,6 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CF911981B41CD66003D0753 /* TorrentInfoController.m in Sources */,
 				2C58110A1B39C3710069020D /* ServerRPCPath.m in Sources */,
 				2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */,
 				2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */,
@@ -385,12 +399,12 @@
 				2C5811041B39C29E0069020D /* ServerHostCell.m in Sources */,
 				2C5811141B39D3E00069020D /* ServerUserPasswordCell.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
-				2CFA61B91B413C66002D89B7 /* TorrentInfoController.m in Sources */,
 				2C0E34A81B4006EB004303AB /* TRInfos.m in Sources */,
 				2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */,
 				2C58111A1B39D8730069020D /* ServerRequestTimeoutCell.m in Sources */,
 				2C5810DC1B39A5E50069020D /* main.m in Sources */,
 				2C5811111B39D35B0069020D /* ServerUserNameCell.m in Sources */,
+				2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */,
 				2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */,
 				2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */,
 				2C5811071B39C2FE0069020D /* ServerPortCell.m in Sources */,

@@ -19,10 +19,15 @@
 #define TR_METHODNAME_TORRENTSTOP                   @"torrent-stop"
 #define TR_METHODNAME_TORRENTREANNOUNCE             @"torrent-reannounce"
 #define TR_METHODNAME_TORRENTVERIFY                 @"torrent-verify"
+#define TR_METHODNAME_TORRENTREMOVE                 @"torrent-remove"
+#define TR_METHODNAME_TORRENTADD                    @"torrent-add"
+#define TR_METHODNAME_TORRENTGET                    @"torrent-get"
 
 // ---- TORRENT GET --- arguments
-#define TR_METHODNAME_TORRENTGET                    @"torrent-get"
 #define TR_RETURNED_ARG_TORRENTS                    @"torrents"
+#define TR_ARG_DELETELOCALDATA                      @"delete-local-data"
+#define TR_ARG_METAINFO                             @"metainfo"                 /* Base64 encoded info */
+
 #define TR_ARG_FIELDS                               @"fields"
 #define TR_ARG_IDS                                  @"ids"
 #define TR_ARG_FIELDS_ID                            @"id"
@@ -65,5 +70,7 @@
 #define TR_ARG_FIELDS_ACTIVITYDATE                  @"activityDate"
 #define TR_ARG_FIELDS_HAVEVALID                     @"haveValid"
 #define TR_ARG_FIELDS_HAVEUNCHECKED                 @"haveUnchecked"
+#define TR_ARG_FIELDS_RECHECKPROGRESS               @"recheckProgress"
+#define TR_ARG_FIELDS_DOWNLOADEDEVER                @"downloadedEver"
 
 #endif

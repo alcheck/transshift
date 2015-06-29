@@ -13,13 +13,14 @@
 #define STATUS_SECTION_TITILE       @"Torrents"
 
 
-@interface StatusListController () <RPCConnectorDelegate, TorrentListControllerDelegate, UISplitViewControllerDelegate>
+@interface StatusListController () <RPCConnectorDelegate, TorrentListControllerDelegate, TorrentInfoControllerDelegate, UISplitViewControllerDelegate>
 
 // statistics
 @property(nonatomic) NSUInteger countAll;
 @property(nonatomic) NSUInteger countStop;
 @property(nonatomic) NSUInteger countDownload;
 @property(nonatomic) NSUInteger countSeed;
+@property(nonatomic) NSUInteger countCheck;
 
 @end
 
@@ -102,7 +103,7 @@
 - (void)initNames
 {
     _sections = @[ STATUS_SECTION_TITILE ];
-    _itemNames = @[ STATUS_ROW_ALL, STATUS_ROW_DOWNLOAD, STATUS_ROW_SEED, STATUS_ROW_STOP ];
+    _itemNames = @[ STATUS_ROW_ALL, STATUS_ROW_DOWNLOAD, STATUS_ROW_SEED, STATUS_ROW_STOP, STATUS_ROW_CHECK ];
     _cells = [NSMutableDictionary dictionary];
 }
 
@@ -114,6 +115,7 @@
     _torrentController.backgroundTitle = @"There is no selected server";
 }
 
+// main refresh cycle, updates data in detail view controllers
 - (void)updateData
 {
     [_connector getAllTorrents];
@@ -149,6 +151,7 @@
     self.countStop = torrents.stopCount;
     self.countDownload = torrents.downloadCount;
     self.countSeed = torrents.seedCount;
+    self.countCheck = torrents.checkCount;
    
     // show torrents in list controller (update)
     _torrentController.torrents = torrents;
@@ -185,6 +188,13 @@
     [cell setNeedsLayout];
 }
 
+- (void)setCountCheck:(NSUInteger)countCheck
+{
+    UITableViewCell *cell = _cells[STATUS_ROW_CHECK];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)countCheck];
+    [cell setNeedsLayout];
+}
+
 #pragma mark - RPCConnector error hangling
 
 // RPCConnector signals error
@@ -194,6 +204,12 @@
     [_torrentController.refreshControl endRefreshing];
     _torrentController.backgroundTitle = errorMessage;
     [self showErrorMessage:errorMessage];
+    
+    UINavigationController *nav = _torrentController.navigationController;
+    if( _torrentInfoController && nav.visibleViewController == _torrentInfoController )
+    {
+        [_torrentInfoController showErrorMessage:errorMessage];
+    }
 }
 
 - (void)showErrorMessage:(NSString*)message
@@ -216,6 +232,81 @@
     [self.tableView endUpdates];
 }
 
+#pragma mark - TorrentInfoController delegate methods
+
+- (void)stopTorrentWithId:(int)torrentId
+{
+    NSLog(@"Stopping torrent");
+    
+    [_connector stopTorrent:torrentId];
+}
+
+- (void)gotTorrentStopedWithId:(int)torrentId
+{
+    [_connector getDetailedInfoForTorrentWithId:torrentId];
+}
+
+-(void)resumeTorrentWithId:(int)torrentId
+{
+    NSLog(@"Resuming torrent");
+    
+    [_connector resumeTorrent:torrentId];
+}
+
+- (void)gotTorrentResumedWithId:(int)torrentId
+{
+    [_connector getDetailedInfoForTorrentWithId:torrentId];
+}
+
+-(void)verifyTorrentWithId:(int)torrentId
+{
+    NSLog(@"Verifying torrent");
+    
+    [_connector verifyTorrent:torrentId];
+}
+
+- (void)gotTorrentVerifyedWithId:(int)torrentId
+{
+    [_connector getDetailedInfoForTorrentWithId:torrentId];
+}
+
+-(void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData
+{
+    // pop view controller from stack
+    UINavigationController *nav = _torrentController.navigationController;
+    if( nav.visibleViewController == _torrentInfoController )
+    {
+        [nav popViewControllerAnimated:YES];
+        _torrentInfoController = nil;
+        
+        NSLog(@"StatusListController: Deleting torrent %@", deleteWithData ? @"with data" : @"");
+        
+        [_connector deleteTorrentWithId:torrentId deleteWithData:deleteWithData];
+    }
+}
+
+- (void)gotTorrentDeletedWithId:(int)torrentId
+{
+    //[_connector getDetailedInfoForTorrentWithId:torrentId];
+    [_connector getAllTorrents];
+}
+
+- (void)reannounceTorrentWithId:(int)torrentId
+{
+    NSLog(@"Reannouncing torrent");
+    [_connector reannounceTorrent:torrentId];
+}
+
+- (void)gotTorrentReannouncedWithId:(int)torrentId
+{
+    [_connector getDetailedInfoForTorrentWithId:torrentId];
+}
+
+- (void)updateTorrentInfoWithId:(int)torrentId
+{
+    [_connector getDetailedInfoForTorrentWithId:torrentId];
+}
+
 #pragma mark - TorrentListController delegate methods
 
 // shows view controller with detailed info
@@ -224,6 +315,7 @@
     UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
     _torrentInfoController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTINFO];
     _torrentInfoController.torrentId = torrentId;
+    _torrentInfoController.delegate = self;
     
     // we should make a request to RPCConnector
     // (upon complite, info controller will be updated)

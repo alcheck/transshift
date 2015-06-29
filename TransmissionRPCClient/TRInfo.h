@@ -25,6 +25,8 @@
 @property(nonatomic,readonly) NSString*     totalSizeString;
 @property(nonatomic,readonly) long long     downloadedSize;
 @property(nonatomic,readonly) NSString*     downloadedSizeString;
+@property(nonatomic,readonly) long long     downloadedEver;
+@property(nonatomic,readonly) NSString*     downloadedEverString;
 @property(nonatomic,readonly) long long     uploadRate;
 @property(nonatomic,readonly) NSString*     uploadRateString;
 @property(nonatomic,readonly) long long     downloadRate;
@@ -66,5 +68,8 @@
 
 @property(nonatomic,readonly) NSString      *haveValidString;
 @property(nonatomic,readonly) NSString      *haveUncheckedString;
+
+@property(nonatomic,readonly) float         recheckProgress;
+@property(nonatomic,readonly) NSString      *recheckProgressString;
 
 @end

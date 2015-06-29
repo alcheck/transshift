@@ -82,6 +82,12 @@
             }
         }
         
+        if( dict[TR_ARG_FIELDS_RECHECKPROGRESS] )
+        {
+            _recheckProgress = [(NSNumber*)dict[TR_ARG_FIELDS_RECHECKPROGRESS] floatValue];
+            _recheckProgressString = [NSString stringWithFormat:@"%03.2f%%", _recheckProgress * 100.0f];
+        }
+        
         if( dict[TR_ARG_FIELDS_RATEUPLOAD] )
         {
             _uploadRate = [(NSNumber*)dict[TR_ARG_FIELDS_RATEUPLOAD] longLongValue];
@@ -92,6 +98,12 @@
         {
             _downloadRate = [(NSNumber*)dict[TR_ARG_FIELDS_RATEDOWNLOAD] longLongValue];
             _downloadRateString = [byteFormatter stringFromByteCount:_downloadRate];
+        }
+        
+        if( dict[TR_ARG_FIELDS_DOWNLOADEDEVER] )
+        {
+            _downloadedEver = [(NSNumber*)dict[TR_ARG_FIELDS_DOWNLOADEDEVER] longLongValue];
+            _downloadedEverString = [byteFormatter stringFromByteCount:_downloadedEver];
         }
         
         if( dict[TR_ARG_FIELDS_TOTALSIZE])

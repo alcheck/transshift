@@ -525,6 +525,62 @@
             </objects>
             <point key="canvasLocation" x="620" y="564"/>
         </scene>
+        <!--Choose Server To Add Torrent Controller-->
+        <scene sceneID="E1r-zm-JVo">
+            <objects>
+                <viewController storyboardIdentifier="chooseServerToAddTorrentController" id="w5Q-3P-t0j" customClass="ChooseServerToAddTorrentController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vDO-gc-EYd"/>
+                        <viewControllerLayoutGuide type="bottom" id="fX2-3A-3mU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FbZ-3Y-0Yb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose server to add torrent" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeM-5f-ZLf">
+                                <rect key="frame" x="16" y="28" width="568" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="saZ-cO-tum"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QbF-SH-0k0">
+                                <rect key="frame" x="0.0" y="56" width="600" height="162"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1A6-He-kqt">
+                                <rect key="frame" x="16" y="226" width="568" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="73" id="dCe-1G-glc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QbF-SH-0k0" firstAttribute="top" secondItem="zeM-5f-ZLf" secondAttribute="bottom" constant="8" symbolic="YES" id="6M3-lB-yoL"/>
+                            <constraint firstItem="1A6-He-kqt" firstAttribute="top" secondItem="QbF-SH-0k0" secondAttribute="bottom" constant="8" symbolic="YES" id="A03-ln-BdT"/>
+                            <constraint firstItem="1A6-He-kqt" firstAttribute="trailing" secondItem="FbZ-3Y-0Yb" secondAttribute="trailingMargin" id="G7d-xr-iEl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QbF-SH-0k0" secondAttribute="trailing" constant="-16" id="JLJ-x7-1pE"/>
+                            <constraint firstItem="QbF-SH-0k0" firstAttribute="leading" secondItem="FbZ-3Y-0Yb" secondAttribute="leadingMargin" constant="-16" id="Pu8-f2-agt"/>
+                            <constraint firstItem="zeM-5f-ZLf" firstAttribute="top" secondItem="vDO-gc-EYd" secondAttribute="bottom" constant="8" symbolic="YES" id="Vf3-UK-qxl"/>
+                            <constraint firstItem="zeM-5f-ZLf" firstAttribute="leading" secondItem="FbZ-3Y-0Yb" secondAttribute="leadingMargin" id="ajf-zV-N6w"/>
+                            <constraint firstItem="zeM-5f-ZLf" firstAttribute="trailing" secondItem="FbZ-3Y-0Yb" secondAttribute="trailingMargin" id="rVJ-vG-DJa"/>
+                            <constraint firstItem="1A6-He-kqt" firstAttribute="leading" secondItem="FbZ-3Y-0Yb" secondAttribute="leadingMargin" id="suR-BY-Lwf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="detailLabel" destination="1A6-He-kqt" id="aQl-MS-orC"/>
+                        <outlet property="pickerView" destination="QbF-SH-0k0" id="vw6-o4-dhu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="srQ-Xa-rmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1238" y="568"/>
+        </scene>
         <!--Server List Controller-->
         <scene sceneID="1ZD-za-5lK">
             <objects>

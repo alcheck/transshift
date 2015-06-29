@@ -17,6 +17,8 @@
 @optional - (void)stopTorrentWithId:(int)torrentId;
 @optional - (void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData;
 @optional - (void)reannounceTorrentWithId:(int)torrentId;
+@optional - (void)verifyTorrentWithId:(int)torrentId;
+@optional - (void)updateTorrentInfoWithId:(int)torrentId;
 
 @end
 
@@ -31,5 +33,6 @@
 // update data with given TRInfo
 // this method should be used outside (by delegate) on update cycle
 - (void)updateData:(TRInfo*)trInfo;
+- (void)showErrorMessage:(NSString*)errorMessage;
 
 @end

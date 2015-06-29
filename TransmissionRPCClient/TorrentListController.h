@@ -15,7 +15,7 @@
 #define STATUS_ROW_DOWNLOAD         @"Downloading"
 #define STATUS_ROW_SEED             @"Seeding"
 #define STATUS_ROW_STOP             @"Stopped"
-#define STATUS_ROW_CHECKED          @"Checking"
+#define STATUS_ROW_CHECK            @"Checking"
 
 // options for our titles
 typedef NS_OPTIONS(NSUInteger, TRStatusOptions)

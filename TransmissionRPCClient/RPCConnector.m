@@ -42,7 +42,9 @@
                         TR_ARG_FIELDS_PEERSGETTINGFROMUS,
                         TR_ARG_FIELDS_PEERSSENDINGTOUS,
                         TR_ARG_FIELDS_UPLOADEDEVER,
-                        TR_ARG_FIELDS_UPLOADRATIO
+                        TR_ARG_FIELDS_UPLOADRATIO,
+                        TR_ARG_FIELDS_RECHECKPROGRESS,
+                        TR_ARG_FIELDS_DOWNLOADEDEVER
                     ]
         }
     };
@@ -94,7 +96,9 @@
                                                   TR_ARG_FIELDS_SECONDSSEEDING,
                                                   TR_ARG_FIELDS_STARTDATE,
                                                   TR_ARG_FIELDS_HAVEVALID,
-                                                  TR_ARG_FIELDS_HAVEUNCHECKED
+                                                  TR_ARG_FIELDS_HAVEUNCHECKED,
+                                                  TR_ARG_FIELDS_RECHECKPROGRESS,
+                                                  TR_ARG_FIELDS_DOWNLOADEDEVER
                                                   ],
                                           TR_ARG_IDS : @[@(torrentId)]
                                           }
@@ -123,15 +127,10 @@
     
     [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSTOP andHandler:^(NSDictionary *json)
      {
-//         // save torrents and call delegate
-//         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
-//         
-//         TRInfos *trInfos = [TRInfos infosFromArrayOfJSON:torrentsJsonDesc];
-//         
-//         if( _delegate && [_delegate respondsToSelector:@selector(gotAllTorrents:)])
-//             dispatch_async(dispatch_get_main_queue(), ^{
-//                 [_delegate gotAllTorrents:trInfos];
-//             });
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentStopedWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTorrentStopedWithId:torrentId];
+             });
      }];
 }
 
@@ -144,15 +143,10 @@
     
     [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTRESUME andHandler:^(NSDictionary *json)
      {
-         //         // save torrents and call delegate
-         //         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
-         //
-         //         TRInfos *trInfos = [TRInfos infosFromArrayOfJSON:torrentsJsonDesc];
-         //
-         //         if( _delegate && [_delegate respondsToSelector:@selector(gotAllTorrents:)])
-         //             dispatch_async(dispatch_get_main_queue(), ^{
-         //                 [_delegate gotAllTorrents:trInfos];
-         //             });
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentResumedWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTorrentResumedWithId:torrentId];
+             });
      }];
 }
 
@@ -165,15 +159,10 @@
     
     [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTVERIFY andHandler:^(NSDictionary *json)
      {
-         //         // save torrents and call delegate
-         //         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
-         //
-         //         TRInfos *trInfos = [TRInfos infosFromArrayOfJSON:torrentsJsonDesc];
-         //
-         //         if( _delegate && [_delegate respondsToSelector:@selector(gotAllTorrents:)])
-         //             dispatch_async(dispatch_get_main_queue(), ^{
-         //                 [_delegate gotAllTorrents:trInfos];
-         //             });
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentVerifyedWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTorrentVerifyedWithId:torrentId];
+             });
      }];
 }
 
@@ -186,16 +175,47 @@
     
     [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTREANNOUNCE andHandler:^(NSDictionary *json)
      {
-         //         // save torrents and call delegate
-         //         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
-         //
-         //         TRInfos *trInfos = [TRInfos infosFromArrayOfJSON:torrentsJsonDesc];
-         //
-         //         if( _delegate && [_delegate respondsToSelector:@selector(gotAllTorrents:)])
-         //             dispatch_async(dispatch_get_main_queue(), ^{
-         //                 [_delegate gotAllTorrents:trInfos];
-         //             });
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentReannouncedWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTorrentReannouncedWithId:torrentId];
+             });
      }];
+}
+
+- (void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTREMOVE,
+                                  TR_METHOD_ARGS : @{ TR_ARG_IDS : @[@(torrentId)], TR_ARG_DELETELOCALDATA:@(deleteWithData) }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTREMOVE andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentDeletedWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTorrentDeletedWithId:torrentId];
+             });
+     }];
+}
+
+- (void)addTorrentWithData:(NSData *)data
+{
+    NSLog(@"Adding torrent to server with data length %i", data.length);
+    
+    NSString *base64content = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTADD,
+                                  TR_METHOD_ARGS : @{ TR_ARG_METAINFO : base64content }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTADD andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentAdded)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTorrentAdded];
+             });
+     }];
+
 }
 
 // perform request with JSON body and handler

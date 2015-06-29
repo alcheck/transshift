@@ -8,7 +8,7 @@
 
 #import "TorrentInfoController.h"
 
-@interface TorrentInfoController ()
+@interface TorrentInfoController () <UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *torrentNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
@@ -37,6 +37,7 @@
     UIBarButtonItem *_pauseButton;
     UIBarButtonItem *_playButton;
     UIBarButtonItem *_spacerButton;
+    UIBarButtonItem *_checkButton;
     
     NSURL   *_commentURL;
 }
@@ -47,16 +48,37 @@
     self.clearsSelectionOnViewWillAppear = YES;
 
     _deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteTorrent)];
-    _refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reannounceTorrent)];
+    
+    _refreshButton = [[UIBarButtonItem alloc] initWithTitle:@"Reannounce"
+                                                      style:UIBarButtonItemStylePlain
+                                                     target:self
+                                                     action:@selector(reannounceTorrent)];
+    //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(reannounceTorrent)];
     _pauseButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(stopTorrent)];
     _playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(startTorrent)];
     _spacerButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
+    _checkButton = [[UIBarButtonItem alloc] initWithTitle:@"Verify" style:UIBarButtonItemStylePlain target:self action:@selector(verifyTorrent)];
+    //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(verifyTorrent)];
+    
     self.navigationController.toolbarHidden = NO;
+    
+    // configure pull to refresh
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl = refreshControl;
+    [refreshControl addTarget:self action:@selector(sendRequestForUpdateInfo) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)sendRequestForUpdateInfo
+{
+    if( _delegate && [_delegate respondsToSelector:@selector(updateTorrentInfoWithId:)])
+        [_delegate updateTorrentInfoWithId:_torrentId];
 }
 
 - (void)showErrorMessage: (NSString *)msg
 {
+    [self.refreshControl endRefreshing];
+    
     // tableview header
     UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectZero];
     headerView.text = msg;
@@ -97,12 +119,53 @@
 
 - (void)deleteTorrent
 {
-    //
+    // show action list
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Delete torrent %@?", self.title]
+                                                             delegate:self
+                                                    cancelButtonTitle:@"cancel"
+                                               destructiveButtonTitle:@"delete"
+                                                    otherButtonTitles:@"delete with data", nil];
+    
+    [actionSheet showFromBarButtonItem:_deleteButton animated:YES];
 }
 
 - (void)reannounceTorrent
 {
-    
+    if( _delegate && [_delegate respondsToSelector:@selector(reannounceTorrentWithId:)] )
+    {
+        _refreshButton.enabled = NO;
+        [_delegate reannounceTorrentWithId:_torrentId];
+    }
+}
+
+- (void)verifyTorrent
+{
+    if( _delegate && [_delegate respondsToSelector:@selector(verifyTorrentWithId:)] )
+    {
+        //_playButton.enabled = NO;
+        [_delegate verifyTorrentWithId:_torrentId];
+    }
+}
+
+#pragma mark - ActionSheeDelegate methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if( !_delegate || ![_delegate respondsToSelector:@selector(deleteTorrentWithId:deleteWithData:)])
+        return;
+
+    if( actionSheet.destructiveButtonIndex == buttonIndex )
+    {
+        // delete;
+        NSLog(@"TorrentInfoController: deleting torrent");
+        [_delegate deleteTorrentWithId:_torrentId deleteWithData:NO];
+    }
+    else if( buttonIndex == 1 )
+    {
+        // delete with data
+        NSLog(@"TorrentInfoController: deleting torrent with data");
+        [_delegate deleteTorrentWithId:_torrentId deleteWithData:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -116,24 +179,29 @@
     [[UIApplication sharedApplication] openURL:_commentURL];
 }
 
+#pragma mark - Updating data methods
+
 // update information
 - (void)updateData:(TRInfo *)trInfo
 {
+    [self.refreshControl endRefreshing];
+    
     _playButton.enabled = YES;
     _pauseButton.enabled = YES;
+    _refreshButton.enabled = YES;
     
-    if( trInfo.isStopped )
-        self.toolbarItems = @[_playButton, _spacerButton, _refreshButton, _spacerButton, _deleteButton];
-    else
-        self.toolbarItems = @[_pauseButton, _spacerButton, _refreshButton, _spacerButton, _deleteButton];
+    UIBarButtonItem *stopResumeButton = trInfo.isStopped ? _playButton : _pauseButton;
+    self.toolbarItems = @[stopResumeButton, _spacerButton, _refreshButton, _spacerButton, _checkButton, _spacerButton, _deleteButton];
     
     self.title = trInfo.name;
     
     self.torrentNameLabel.text = trInfo.name;
     self.stateLabel.text = trInfo.statusString;
-    self.progressLabel.text = trInfo.percentsDoneString;
+    
+    self.progressLabel.text =  trInfo.isChecking ? trInfo.recheckProgressString : trInfo.percentsDoneString;
+    
     self.haveLabel.text = trInfo.haveValidString;
-    self.downloadedLabel.text = trInfo.downloadedSizeString;
+    self.downloadedLabel.text = trInfo.downloadedEverString;
     self.uploadedLabel.text = trInfo.uploadedEverString;
     self.ratioLabel.text = [NSString stringWithFormat:@"%02.2f",trInfo.uploadRatio];
     //self.commentLabel.text = trInfo.comment;
@@ -164,6 +232,12 @@
     {
         self.commentLabel.userInteractionEnabled = NO;
         self.commentLabel.text = trInfo.comment;
+    }
+    
+    if( trInfo.errorString && trInfo.errorString.length > 0 )
+    {
+        NSString *errMessage = [NSString stringWithFormat:@"[%i] %@", trInfo.errorNumber, trInfo.errorString];
+        [self showErrorMessage:errMessage];
     }
 }
 

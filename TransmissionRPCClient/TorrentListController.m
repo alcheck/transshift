@@ -106,7 +106,7 @@
         NSArray *arr = _torrents.checkingTorrents;
         if( arr.count > 0 )
         {
-            [_sectionTitles addObject:STATUS_ROW_CHECKED];
+            [_sectionTitles addObject:STATUS_ROW_CHECK];
             [_sectionTorrents addObject:arr];
         }
     }
@@ -210,7 +210,9 @@
     {
         detailInfo = @"Checking";
         progressBarColor = [UIColor colorWithRed:0 green:0 blue:0.7 alpha:1];
-        cell.size.text = [NSString stringWithFormat:@"%@", info.downloadedSizeString];
+        cell.progressBar.progress = info.recheckProgress;
+        cell.progressPercents.text = info.recheckProgressString;
+        cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.downloadedEverString];
     }
     
     cell.progressBar.tintColor = progressBarColor;
