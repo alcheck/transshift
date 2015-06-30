@@ -34,7 +34,8 @@ typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
 
 // when torrent selected this method signals what torrent
 // should be shown with detail info
-@optional - (void)showDetailedInfoForTorrentWithId:(int)trId;
+@optional - (void)showDetailedInfoForTorrentWithId:(int)torrentId;
+@optional - (void)torrentListRemoveTorrentWithId:(int)torrentId removeWithData:(BOOL)removeWithData;
 
 @end
 

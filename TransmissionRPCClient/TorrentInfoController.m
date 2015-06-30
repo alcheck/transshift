@@ -120,11 +120,11 @@
 - (void)deleteTorrent
 {
     // show action list
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Delete torrent %@?", self.title]
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Remove torrent %@?", self.title]
                                                              delegate:self
-                                                    cancelButtonTitle:@"cancel"
-                                               destructiveButtonTitle:@"delete"
-                                                    otherButtonTitles:@"delete with data", nil];
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Remove"
+                                                    otherButtonTitles:@"Remove with data", nil];
     
     [actionSheet showFromBarButtonItem:_deleteButton animated:YES];
 }
@@ -147,27 +147,6 @@
     }
 }
 
-#pragma mark - ActionSheeDelegate methods
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if( !_delegate || ![_delegate respondsToSelector:@selector(deleteTorrentWithId:deleteWithData:)])
-        return;
-
-    if( actionSheet.destructiveButtonIndex == buttonIndex )
-    {
-        // delete;
-        NSLog(@"TorrentInfoController: deleting torrent");
-        [_delegate deleteTorrentWithId:_torrentId deleteWithData:NO];
-    }
-    else if( buttonIndex == 1 )
-    {
-        // delete with data
-        NSLog(@"TorrentInfoController: deleting torrent with data");
-        [_delegate deleteTorrentWithId:_torrentId deleteWithData:YES];
-    }
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     self.navigationController.toolbarHidden = YES;
@@ -177,6 +156,21 @@
 - (void)commentLinkTapped
 {
     [[UIApplication sharedApplication] openURL:_commentURL];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.reuseIdentifier isEqualToString:CELL_ID_SHOWPEERS] )
+    {
+        if (_delegate && [_delegate respondsToSelector:@selector(showPeersForTorrentWithId:)])
+            [_delegate showPeersForTorrentWithId:_torrentId];
+    }
+    else if( [cell.reuseIdentifier isEqualToString:CELL_ID_SHOWFILES] )
+    {
+        if( _delegate && [_delegate respondsToSelector:@selector(showFilesForTorrentWithId:)])
+            [_delegate showFilesForTorrentWithId:_torrentId];
+    }
 }
 
 #pragma mark - Updating data methods
@@ -220,6 +214,8 @@
     NSTextCheckingResult *match = [detector firstMatchInString:trInfo.comment options:0 range:NSMakeRange(0, trInfo.comment.length)];
     
     self.commentLabel.text = trInfo.comment;
+
+    // detecting urls in comment line
     if( match.resultType == NSTextCheckingTypeLink )
     {
         _commentURL = match.URL;
@@ -239,6 +235,37 @@
         NSString *errMessage = [NSString stringWithFormat:@"[%i] %@", trInfo.errorNumber, trInfo.errorString];
         [self showErrorMessage:errMessage];
     }
+}
+
+#pragma mark - ActionSheeDelegate methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if( !_delegate || ![_delegate respondsToSelector:@selector(deleteTorrentWithId:deleteWithData:)])
+        return;
+    
+    if( actionSheet.destructiveButtonIndex == buttonIndex )
+    {
+        // delete;
+        NSLog(@"TorrentInfoController: deleting torrent");
+        [_delegate deleteTorrentWithId:_torrentId deleteWithData:NO];
+    }
+    else if( buttonIndex == 1 )
+    {
+        // delete with data
+        NSLog(@"TorrentInfoController: deleting torrent with data");
+        [_delegate deleteTorrentWithId:_torrentId deleteWithData:YES];
+    }
+}
+
+- (void)didPresentActionSheet:(UIActionSheet *)actionSheet
+{
+    _deleteButton.enabled = NO;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    _deleteButton.enabled = YES;
 }
 
 @end

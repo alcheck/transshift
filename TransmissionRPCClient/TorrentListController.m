@@ -9,7 +9,7 @@
 #import "TorrentListController.h"
 #import "TorrentListCell.h"
 
-@interface TorrentListController () 
+@interface TorrentListController () <UIActionSheetDelegate>
 
 @end
 
@@ -19,6 +19,7 @@
     UILabel *_backgroundLabel;
     NSMutableArray *_sectionTitles;
     NSMutableArray *_sectionTorrents;
+    TorrentListCell *_editCell;
 }
 
 - (void)viewDidLoad
@@ -35,14 +36,14 @@
     {
         UILabel *label = [[UILabel alloc] initWithFrame:self.tableView.bounds];
         label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor grayColor];
+        label.textColor = [UIColor darkGrayColor];
         label.font = [UIFont systemFontOfSize:19];
         label.numberOfLines = 0;
         _backgroundLabel = label;
-        self.tableView.backgroundView = _backgroundLabel;
     }
     
     _backgroundLabel.text = backgroundTitle;
+    self.tableView.backgroundView = _backgroundLabel;
 }
 
 - (void)setTorrents:(TRInfos *)torrents
@@ -133,6 +134,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // getting torrent id from selected cell
+    // and delegating processing this event to delegate
     if( _delegate && [_delegate respondsToSelector:@selector(showDetailedInfoForTorrentWithId:)])
     {
         TorrentListCell *cell = (TorrentListCell*)[tableView cellForRowAtIndexPath:indexPath];
@@ -140,10 +142,49 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if( editingStyle == UITableViewCellEditingStyleDelete )
+    {
+        TorrentListCell *cell = (TorrentListCell*)[tableView cellForRowAtIndexPath:indexPath];
+        
+        // show action sheet
+        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Remove torrent %@?", cell.name.text]
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Cancel"
+                                              destructiveButtonTitle:@"Remove"
+                                                   otherButtonTitles:@"Remove with data", nil];
+        CGRect r = cell.bounds;
+        r.origin.x = r.size.width - 30;
+        
+        _editCell = cell;
+        
+        [action showFromRect:r inView:cell animated:YES];
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [self.tableView setEditing:NO animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.tableView setEditing:NO animated:NO];
+    
+    if( buttonIndex == actionSheet.cancelButtonIndex )
+        return;
+ 
+    BOOL removeWithData = (buttonIndex != actionSheet.destructiveButtonIndex);
+    
+    if( _delegate && [_delegate respondsToSelector:@selector(torrentListRemoveTorrentWithId:removeWithData:)])
+        [_delegate torrentListRemoveTorrentWithId:_editCell.torrentId removeWithData:removeWithData];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // check how many sections do we have
-    if ( _sectionTitles )
+    if ( _sectionTitles && _sectionTitles.count > 0 )
     {
         tableView.backgroundView = nil;
         return _sectionTitles.count;
@@ -195,7 +236,7 @@
     }
     else if( info.isDownloading )
     {
-        detailInfo = [NSString stringWithFormat:@"Downloading from %i of %i peers", info.peersSendingToUs, info.peersConnected ];
+        detailInfo = [NSString stringWithFormat:@"Downloading from %i of %i peers, ETA: %@", info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
         cell.downloadRate.text = [NSString stringWithFormat:@"DL: %@/s", info.downloadRateString];
         cell.uploadRate.text = [NSString stringWithFormat:@"UL: %@/s", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.totalSizeString ];

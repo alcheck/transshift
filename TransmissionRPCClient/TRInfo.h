@@ -18,7 +18,7 @@
 @property(nonatomic,readonly) float         percentsDone;
 @property(nonatomic,readonly) NSString*     percentsDoneString;
 @property(nonatomic,readonly) int           status;
-@property(nonatomic,readonly) NSString      *statusString;
+@property(nonatomic,readonly) NSString*     statusString;
 @property(nonatomic,readonly) int           trId;
 
 @property(nonatomic,readonly) long long     totalSize;
@@ -46,30 +46,31 @@
 @property(readonly)  BOOL                   isChecking;
 
 // detailed info
-@property(nonatomic,readonly) NSString      *hashString;
+@property(nonatomic,readonly) NSString*     hashString;
 @property(nonatomic,readonly) int           piecesCount;
 @property(nonatomic,readonly) long long     pieceSize;
 @property(nonatomic,readonly) NSString*     pieceSizeString;
 
-@property(nonatomic,readonly) NSString      *comment;
+@property(nonatomic,readonly) NSString*     comment;
 
-@property(nonatomic,readonly) NSString      *errorString;
+@property(nonatomic,readonly) NSString*     errorString;
 @property(nonatomic,readonly) int           errorNumber;
 
-@property(nonatomic,readonly) NSString      *creator;
+@property(nonatomic,readonly) NSString*     creator;
 
-@property(nonatomic,readonly) NSString      *dateCreatedString;
-@property(nonatomic,readonly) NSString      *dateAddedString;
-@property(nonatomic,readonly) NSString      *dateDoneString;
-@property(nonatomic,readonly) NSString      *dateLastActivityString;
+@property(nonatomic,readonly) NSString*     dateCreatedString;
+@property(nonatomic,readonly) NSString*     dateAddedString;
+@property(nonatomic,readonly) NSString*     dateDoneString;
+@property(nonatomic,readonly) NSString*     dateLastActivityString;
 
-@property(nonatomic,readonly) NSString      *downloadingTimeString;
-@property(nonatomic,readonly) NSString      *seedingTimeString;
+@property(nonatomic,readonly) NSString*     downloadingTimeString;
+@property(nonatomic,readonly) NSString*     seedingTimeString;
+@property(nonatomic,readonly) NSString*     etaTimeString;
 
-@property(nonatomic,readonly) NSString      *haveValidString;
-@property(nonatomic,readonly) NSString      *haveUncheckedString;
+@property(nonatomic,readonly) NSString*     haveValidString;
+@property(nonatomic,readonly) NSString*     haveUncheckedString;
 
 @property(nonatomic,readonly) float         recheckProgress;
-@property(nonatomic,readonly) NSString      *recheckProgressString;
+@property(nonatomic,readonly) NSString*     recheckProgressString;
 
 @end

@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "RPCServerConfig.h"
 #import "TRInfos.h"
+#import "TRPeerInfo.h"
+#import "TRFileInfo.h"
 
 @class RPCConnector;
 
@@ -22,6 +24,8 @@
 @optional - (void)gotTorrentVerifyedWithId:(int)torrentId;
 @optional - (void)gotTorrentReannouncedWithId:(int)torrentId;
 @optional - (void)gotTorrentAdded;
+@optional - (void)gotAllPeers:(NSArray*)peerInfos forTorrentWithId:(int)torrentId;
+@optional - (void)gotAllFiles:(NSArray*)fileInfos forTorrentWithId:(int)torrentId;
 
 @end
 
@@ -44,6 +48,9 @@
 - (void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData;
 
 - (void)addTorrentWithData:(NSData*)data;
+
+- (void)getAllPeersForTorrentWithId:(int)torrentId;
+- (void)getAllFilesForTorrentWithId:(int)torrentId;
 
 @end
 

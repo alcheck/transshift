@@ -33,6 +33,8 @@
 #define TR_ARG_FIELDS_ID                            @"id"
 #define TR_ARG_FIELDS_NAME                          @"name"
 #define TR_ARG_FIELDS_STATUS                        @"status"
+#define TR_ARG_FIELDS_ETA                           @"eta"
+
 // torrent statuses
 #define TR_STATUS_STOPPED                           0 /* Torrent is stopped */
 #define TR_STATUS_CHECK_WAIT                        1 /* Queued to check files */
@@ -50,11 +52,21 @@
 #define TR_ARG_FIELDS_PEERSCONNECTED                @"peersConnected"
 #define TR_ARG_FIELDS_PEERSGETTINGFROMUS            @"peersGettingFromUs"
 #define TR_ARG_FIELDS_PEERSSENDINGTOUS              @"peersSendingToUs"
-//
+
+// peers object fields
+#define TR_ARG_FIELDS_PEERS                         @"peers"
+#define TR_ARG_FIELDS_PEER_ADDRESS                  @"address"
+#define TR_ARG_FIELDS_PEER_PORT                     @"port"
+#define TR_ARG_FIELDS_PEER_CLIENTNAME               @"clientName"
+#define TR_ARG_FIELDS_PEER_FLAGSTR                  @"flagStr"
+#define TR_ARG_FIELDS_PEER_RATETOCLIENT             @"rateToClient" /* download rate */
+#define TR_ARG_FIELDS_PEER_RATETOPEER               @"rateToPeer"   /* upload rate */
+#define TR_ARG_FIELDS_PEER_PROGRESS                 @"progress"
+#define TR_ARG_FIELDS_PEER_ISENCRYPTED              @"isEncrypted"
+
 #define TR_ARG_FIELDS_UPLOADEDEVER                  @"uploadedEver"
 #define TR_ARG_FIELDS_UPLOADRATIO                   @"uploadRatio"
 
-// ------ TORRENT GET ------
 #define TR_ARG_FIELDS_COMMENT                       @"comment"
 #define TR_ARG_FIELDS_CREATOR                       @"creator"
 #define TR_ARG_FIELDS_DATECREATED                   @"dateCreated"
@@ -72,5 +84,14 @@
 #define TR_ARG_FIELDS_HAVEUNCHECKED                 @"haveUnchecked"
 #define TR_ARG_FIELDS_RECHECKPROGRESS               @"recheckProgress"
 #define TR_ARG_FIELDS_DOWNLOADEDEVER                @"downloadedEver"
+
+// FileInfo values
+#define TR_ARG_FIELDS_FILES                         @"files"
+#define TR_ARG_FIELDS_FILESTATS                     @"fileStats"
+#define TR_ARG_FILEINFO_NAME                        @"name"
+#define TR_ARG_FILEINFO_WANTED                      @"wanted"
+#define TR_ARG_FILEINFO_PRIORITY                    @"priority"
+#define TR_ARG_FILEINFO_LENGTH                      @"length"
+#define TR_ARG_FILEINFO_BYTESCOMPLITED              @"bytesComplited"
 
 #endif

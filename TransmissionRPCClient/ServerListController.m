@@ -53,11 +53,15 @@
     {
         UINavigationController *nc = self.splitViewController.viewControllers[1];
         TorrentListController *tlc = nc.viewControllers[0];
+        tlc.torrents = nil;
+
         if( tlc.navigationItem.leftBarButtonItem )
         {
             tlc.popoverButtonTitle = SERVERLIST_CONTROLLER_TITLE;
             tlc.navigationItem.leftBarButtonItem.title = SERVERLIST_CONTROLLER_TITLE;
         }
+        
+        [nc popToRootViewControllerAnimated:YES];
     }
 }
 
@@ -98,6 +102,8 @@
     {
         // add new item to the db, reload data, hide controller
         [[RPCServerConfigDB sharedDB].db addObject:self.rpcConfigController.config];
+        [[RPCServerConfigDB sharedDB] saveDB];
+        
         [self.tableView reloadData];
         [self HideRPCConfigController];
     }
@@ -107,6 +113,7 @@
 {
     if( [self.rpcConfigController saveConfig] )
     {
+        [[RPCServerConfigDB sharedDB] saveDB];
         [self.tableView reloadData];
         [self HideRPCConfigController];
     }
@@ -196,10 +203,10 @@
     {
         UILabel *info = [[UILabel alloc] initWithFrame:CGRectZero];
         info.textColor = [UIColor darkGrayColor];
-        info.font = [UIFont systemFontOfSize:20];
+        info.font = [UIFont systemFontOfSize:19];
         info.numberOfLines = 0;
         info.textAlignment = NSTextAlignmentCenter;
-        info.text = @"There is no servers available. Add server to the list.";
+        info.text = @"There are no servers available.\nAdd server to the list.";
         
         CGRect r = tableView.bounds;
         info.frame = r;

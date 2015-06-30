@@ -8,19 +8,13 @@
 #import "StatusListController.h"
 #import "TorrentListController.h"
 #import "TorrentInfoController.h"
+#import "PeerListController.h"
 #import "RPCConnector.h"
 
 #define STATUS_SECTION_TITILE       @"Torrents"
 
 
-@interface StatusListController () <RPCConnectorDelegate, TorrentListControllerDelegate, TorrentInfoControllerDelegate, UISplitViewControllerDelegate>
-
-// statistics
-@property(nonatomic) NSUInteger countAll;
-@property(nonatomic) NSUInteger countStop;
-@property(nonatomic) NSUInteger countDownload;
-@property(nonatomic) NSUInteger countSeed;
-@property(nonatomic) NSUInteger countCheck;
+@interface StatusListController () <RPCConnectorDelegate, TorrentListControllerDelegate, TorrentInfoControllerDelegate, PeerListControllerDelegate, UISplitViewControllerDelegate>
 
 @end
 
@@ -32,17 +26,21 @@
     NSMutableDictionary *_cells;
     RPCConnector *_connector;
     
-    NSTimer *_refreshTimer;
+    NSTimer *_refreshTimer;                             // holds main autorefresh timer
     
     TorrentListController *_torrentController;          // holds detail torrent list controller
     TorrentInfoController *_torrentInfoController;      // holds torrent info controller (when torrent is selected from torrent list)
+    PeerListController    *_peerListController;         // holds controller for showing peers
  }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // initialize section name and section row names
     [self initNames];
     
+    // create RPC connector to communicate with selected server
     if( self.config )
     {
         self.navigationItem.title = self.config.name;
@@ -50,12 +48,21 @@
         
         // config pull-to refresh control
         self.refreshControl = [[UIRefreshControl alloc] init];
-        [self.refreshControl addTarget:self action:@selector(updateData) forControlEvents:UIControlEventValueChanged];
+        [self.refreshControl addTarget:self
+                                action:@selector(autorefreshTimerUpdateHandler)
+                      forControlEvents:UIControlEventValueChanged];
         
+        // configure autorefresh timer
         if( self.config.refreshTimeout > 0 )
         {
             _refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.config.refreshTimeout target:self
-                                                           selector:@selector(updateData) userInfo:nil repeats:YES];
+                                                           selector:@selector(autorefreshTimerUpdateHandler)
+                                                           userInfo:nil
+                                                            repeats:YES];
+        }
+        else
+        {
+            [self setFooterString:@"Autorefreshing is off.\nPull down to refresh data."];
         }
     }
     
@@ -80,9 +87,28 @@
     // set us as delegate
     _torrentController.delegate = self;
     
-    // Configure refresh control for torrent
+    // Configure pull-to-refresh control for updating TorrentListController
     _torrentController.refreshControl = [[UIRefreshControl alloc] init];
-    [_torrentController.refreshControl addTarget:self action:@selector(updateData) forControlEvents:UIControlEventValueChanged];
+    [_torrentController.refreshControl addTarget:self
+                                          action:@selector(autorefreshTimerUpdateHandler)
+                                forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)setFooterString:(NSString*)footerString
+{
+    // show message at bottom
+    UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    footerLabel.textAlignment = NSTextAlignmentCenter;
+    footerLabel.textColor = [UIColor grayColor];
+    footerLabel.font = [UIFont systemFontOfSize:13];
+    footerLabel.numberOfLines = 0;
+    footerLabel.text = footerString;
+    
+    [footerLabel sizeToFit];
+    
+    CGRect r = self.tableView.bounds;
+    r.size.height = footerLabel.bounds.size.height + 20;
+    self.tableView.tableFooterView = footerLabel;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -96,8 +122,25 @@
         _torrentController.navigationItem.leftBarButtonItem.title = self.navigationItem.title;
     }
     
-    // **** ***** UPDATE DATA ****
-    [_connector getAllTorrents];
+    // check if it is ipad we shoud and none of rows is selected - select all row (0)
+    if( self.splitViewController )
+    {
+        if( ![self.tableView indexPathForSelectedRow] )
+        {
+            // select first row
+            // and do it manualy
+            NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+            // make first row selected
+            [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
+            
+            // set filter to rows
+            [self filterTorrentListWithFilterRow:path.row];
+        }
+    }
+    else
+    {
+        [_connector getAllTorrents];
+    }
 }
 
 - (void)initNames
@@ -116,15 +159,19 @@
 }
 
 // main refresh cycle, updates data in detail view controllers
-- (void)updateData
+- (void)autorefreshTimerUpdateHandler
 {
     [_connector getAllTorrents];
-    
-    if( _torrentInfoController )
+   
+    //if( _torrentInfoController )
     {
         UINavigationController *nav = _torrentController.navigationController;
-        if( nav.visibleViewController == _torrentInfoController )
+        
+        if( nav.topViewController == _torrentInfoController )
             [_connector getDetailedInfoForTorrentWithId:_torrentInfoController.torrentId];
+        
+        if( nav.topViewController == _peerListController)
+            [_connector getAllPeersForTorrentWithId:_peerListController.torrentId];
     }
 }
 
@@ -135,7 +182,7 @@
     [self.refreshControl endRefreshing];
     [_torrentController.refreshControl endRefreshing];
     
-    // clear error message
+    // clear error message    
     self.tableView.tableHeaderView = nil;
 }
 
@@ -147,61 +194,34 @@
     [self requestToServerSucceeded];
     
     // update numbers
-    self.countAll = torrents.allCount;
-    self.countStop = torrents.stopCount;
-    self.countDownload = torrents.downloadCount;
-    self.countSeed = torrents.seedCount;
-    self.countCheck = torrents.checkCount;
-   
+
+    [self setCount:torrents.allCount      forCellWithTitle:STATUS_ROW_ALL];
+    [self setCount:torrents.checkCount    forCellWithTitle:STATUS_ROW_CHECK];
+    [self setCount:torrents.downloadCount forCellWithTitle:STATUS_ROW_DOWNLOAD];
+    [self setCount:torrents.seedCount     forCellWithTitle:STATUS_ROW_SEED];
+    [self setCount:torrents.stopCount     forCellWithTitle:STATUS_ROW_STOP];
+    
     // show torrents in list controller (update)
     _torrentController.torrents = torrents;
 }
 
-// update count in rows
-- (void)setCountAll:(NSUInteger)countAll
+- (void)setCount:(int)count forCellWithTitle:(NSString*)cellTitle
 {
-    UITableViewCell *cell = _cells[STATUS_ROW_ALL];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)countAll];
-    [cell setNeedsLayout];
+    UITableViewCell *cell = _cells[cellTitle];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", count];
 }
 
-- (void)setCountStop:(NSUInteger)countStop
-{
-    UITableViewCell *cell = _cells[STATUS_ROW_STOP];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)countStop];
-    [cell setNeedsLayout];
-
-}
-
-- (void)setCountDownload:(NSUInteger)countDownload
-{
-    UITableViewCell *cell = _cells[STATUS_ROW_DOWNLOAD];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)countDownload];
-    [cell setNeedsLayout];
-
-}
-
-- (void)setCountSeed:(NSUInteger)countSeed
-{
-    UITableViewCell *cell = _cells[STATUS_ROW_SEED];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)countSeed];
-    [cell setNeedsLayout];
-}
-
-- (void)setCountCheck:(NSUInteger)countCheck
-{
-    UITableViewCell *cell = _cells[STATUS_ROW_CHECK];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)countCheck];
-    [cell setNeedsLayout];
-}
 
 #pragma mark - RPCConnector error hangling
 
 // RPCConnector signals error
 - (void)connector:(RPCConnector *)cn complitedRequestName:(NSString *)requestName withError:(NSString *)errorMessage
 {
+    // end of refreshing (if it is)
     [self.refreshControl endRefreshing];
     [_torrentController.refreshControl endRefreshing];
+    
+    // show error to background
     _torrentController.backgroundTitle = errorMessage;
     [self showErrorMessage:errorMessage];
     
@@ -236,7 +256,7 @@
 
 - (void)stopTorrentWithId:(int)torrentId
 {
-    NSLog(@"Stopping torrent");
+    //NSLog(@"Stopping torrent");
     
     [_connector stopTorrent:torrentId];
 }
@@ -248,7 +268,7 @@
 
 -(void)resumeTorrentWithId:(int)torrentId
 {
-    NSLog(@"Resuming torrent");
+   // NSLog(@"Resuming torrent");
     
     [_connector resumeTorrent:torrentId];
 }
@@ -260,7 +280,7 @@
 
 -(void)verifyTorrentWithId:(int)torrentId
 {
-    NSLog(@"Verifying torrent");
+    //NSLog(@"Verifying torrent");
     
     [_connector verifyTorrent:torrentId];
 }
@@ -270,19 +290,30 @@
     [_connector getDetailedInfoForTorrentWithId:torrentId];
 }
 
+// delegate method from TorrentInfoController
 -(void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData
 {
     // pop view controller from stack
     UINavigationController *nav = _torrentController.navigationController;
-    if( nav.visibleViewController == _torrentInfoController )
+    
+    UIViewController *controller = nav.topViewController;
+
+    if( controller == _torrentInfoController )
     {
-        [nav popViewControllerAnimated:YES];
+        [nav popToRootViewControllerAnimated:YES];
         _torrentInfoController = nil;
         
-        NSLog(@"StatusListController: Deleting torrent %@", deleteWithData ? @"with data" : @"");
+        //NSLog(@"StatusListController: Deleting torrent %@", deleteWithData ? @"with data" : @"");
         
         [_connector deleteTorrentWithId:torrentId deleteWithData:deleteWithData];
     }
+}
+
+- (void)torrentListRemoveTorrentWithId:(int)torrentId removeWithData:(BOOL)removeWithData
+{
+    NSLog(@"StatusListController: Deleting torrent %i %@", torrentId, removeWithData ? @"with data" : @"");
+    
+    [_connector deleteTorrentWithId:torrentId deleteWithData:removeWithData];    
 }
 
 - (void)gotTorrentDeletedWithId:(int)torrentId
@@ -300,6 +331,14 @@
 - (void)gotTorrentReannouncedWithId:(int)torrentId
 {
     [_connector getDetailedInfoForTorrentWithId:torrentId];
+}
+
+- (void)gotTorrentDetailedInfo:(TRInfo *)torrentInfo
+{
+    if( _torrentInfoController )
+    {
+        [_torrentInfoController updateData:torrentInfo];
+    }
 }
 
 - (void)updateTorrentInfoWithId:(int)torrentId
@@ -329,23 +368,45 @@
     [nav pushViewController:_torrentInfoController animated:YES];
 }
 
-- (void)gotTorrentDetailedInfo:(TRInfo *)torrentInfo
+#pragma mark - TorrentInfoControllerDelegate
+
+- (void)showPeersForTorrentWithId:(int)torrentId
 {
-    if( _torrentInfoController )
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
+ 
+    _peerListController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_PEERLIST];
+    _peerListController.delegate = self;
+    _peerListController.torrentId = torrentId;
+    _peerListController.title = [NSString stringWithFormat:@"Peers: %@", _torrentInfoController.title];
+    
+    UINavigationController *nav = _torrentController.navigationController;
+    [nav pushViewController:_peerListController animated:YES];
+    
+    [_connector getAllPeersForTorrentWithId:torrentId];
+}
+
+- (void)gotAllPeers:(NSArray *)peerInfos forTorrentWithId:(int)torrentId
+{
+    if( _peerListController )
     {
-        [_torrentInfoController updateData:torrentInfo];
+        _peerListController.peers = peerInfos;
     }
 }
 
-#pragma mark - TableView delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)peerListNeedUpdatePeersForTorrentId:(int)torrentId
 {
-    [_connector getAllTorrents];
+    [_connector getAllPeersForTorrentWithId:torrentId];
+}
 
+// set the filter of TorrentListController
+// and fetching all torrents
+- (void)filterTorrentListWithFilterRow:(int)filterRow
+{
     _torrentController.navigationItem.title = self.navigationItem.title;
     
-    switch (indexPath.row) {
+    // set filter option for TorrentListController
+    switch (filterRow)
+    {
         case 0:
             _torrentController.filterOptions = TRStatusOptionsAll;
             break;
@@ -357,7 +418,7 @@
         case 2:
             _torrentController.filterOptions = TRStatusOptionsSeed;
             break;
-    
+            
         case 3:
             _torrentController.filterOptions = TRStatusOptionsStop;
             break;
@@ -367,15 +428,25 @@
             break;
             
         default:
-            break;
+            return;
     }
     
-    
+    // on iPhone we should show _torrentController instead of ours
     if( !self.splitViewController )
     {
         [self.navigationController pushViewController:_torrentController animated:YES];
     }
- }
+    
+    // fetch data for all torrents
+    [_connector getAllTorrents];
+}
+
+#pragma mark - TableView delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self filterTorrentListWithFilterRow:indexPath.row];
+}
 
 #pragma mark - Table view data source
 
@@ -401,7 +472,7 @@
     NSString *title = _itemNames[indexPath.row];
     
     // Configure the cell
-    cell.detailTextLabel.text  = @"";
+    cell.detailTextLabel.text  = @" ";
     cell.textLabel.text = title;
     
     // save the cell

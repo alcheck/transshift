@@ -20,7 +20,12 @@
 
 - (IBAction)changedValue:(UIStepper*)sender
 {
-    self.numLabel.text = [NSString stringWithFormat:@"%02i", (int)sender.value];
+    int value = (int)sender.value;
+    if( value == 0)
+        self.numLabel.text = @"off";
+    else
+        self.numLabel.text = [NSString stringWithFormat:@"%02i", (int)sender.value];
+    
 }
 
 - (int)timeoutValue

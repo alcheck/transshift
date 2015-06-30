@@ -44,7 +44,8 @@
                         TR_ARG_FIELDS_UPLOADEDEVER,
                         TR_ARG_FIELDS_UPLOADRATIO,
                         TR_ARG_FIELDS_RECHECKPROGRESS,
-                        TR_ARG_FIELDS_DOWNLOADEDEVER
+                        TR_ARG_FIELDS_DOWNLOADEDEVER,
+                        TR_ARG_FIELDS_ETA
                     ]
         }
     };
@@ -98,7 +99,8 @@
                                                   TR_ARG_FIELDS_HAVEVALID,
                                                   TR_ARG_FIELDS_HAVEUNCHECKED,
                                                   TR_ARG_FIELDS_RECHECKPROGRESS,
-                                                  TR_ARG_FIELDS_DOWNLOADEDEVER
+                                                  TR_ARG_FIELDS_DOWNLOADEDEVER,
+                                                  TR_ARG_FIELDS_ETA
                                                   ],
                                           TR_ARG_IDS : @[@(torrentId)]
                                           }
@@ -116,6 +118,71 @@
                  [_delegate gotTorrentDetailedInfo:trInfo];
              });
      }];
+}
+
+- (void)getAllPeersForTorrentWithId:(int)torrentId
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTGET,
+                                  TR_METHOD_ARGS : @{
+                                          TR_ARG_FIELDS : @[ TR_ARG_FIELDS_PEERS ],
+                                          TR_ARG_IDS : @[@(torrentId)]
+                                          }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTGET andHandler:^(NSDictionary *json)
+     {
+         // save torrents and call delegate
+         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
+         
+         NSMutableArray *peerInfos = [NSMutableArray array];
+         
+         for( NSDictionary* peerJsonDict in [torrentsJsonDesc firstObject][TR_ARG_FIELDS_PEERS] )
+             [peerInfos addObject:[TRPeerInfo peerInfoWithJSONData:peerJsonDict]];
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotAllPeers:forTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotAllPeers:peerInfos forTorrentWithId:torrentId];
+             });
+     }];
+}
+
+- (void)getAllFilesForTorrentWithId:(int)torrentId
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTGET,
+                                  TR_METHOD_ARGS : @{
+                                          TR_ARG_FIELDS : @[ TR_ARG_FIELDS_FILES, TR_ARG_FIELDS_FILESTATS],
+                                          TR_ARG_IDS : @[@(torrentId)]
+                                          }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTGET andHandler:^(NSDictionary *json)
+     {
+         // save torrents and call delegate
+         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
+         
+         NSMutableArray *fileInfos = [NSMutableArray array];
+         
+         NSArray* files = [torrentsJsonDesc firstObject][TR_ARG_FIELDS_FILES];
+         NSArray* fileStats = [torrentsJsonDesc firstObject][TR_ARG_FIELDS_FILESTATS];
+         
+         for( int i = 0; i < files.count; i++ )
+         {
+             NSMutableDictionary* file = files[i];
+             NSDictionary* fileStat = fileStats[i];
+             
+             file[TR_ARG_FILEINFO_PRIORITY] = fileStat[TR_ARG_FILEINFO_PRIORITY];
+             file[TR_ARG_FILEINFO_WANTED] = fileStat[TR_ARG_FILEINFO_WANTED];
+             
+             [fileInfos addObject:[TRFileInfo fileInfoFromJSON:file]];
+         }
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotAllFiles:forTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotAllFiles:fileInfos forTorrentWithId:torrentId];
+             });
+     }];    
 }
 
 - (void)stopTorrent:(int)torrentId
@@ -184,10 +251,8 @@
 
 - (void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData
 {
-    NSDictionary *requestVals = @{
-                                  TR_METHOD : TR_METHODNAME_TORRENTREMOVE,
-                                  TR_METHOD_ARGS : @{ TR_ARG_IDS : @[@(torrentId)], TR_ARG_DELETELOCALDATA:@(deleteWithData) }
-                                  };
+    NSDictionary *requestVals = @{TR_METHOD : TR_METHODNAME_TORRENTREMOVE,
+                                  TR_METHOD_ARGS : @{ TR_ARG_IDS : @[@(torrentId)], TR_ARG_DELETELOCALDATA:@(deleteWithData) }};
     
     [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTREMOVE andHandler:^(NSDictionary *json)
      {
@@ -200,7 +265,7 @@
 
 - (void)addTorrentWithData:(NSData *)data
 {
-    NSLog(@"Adding torrent to server with data length %i", data.length);
+    //NSLog(@"Adding torrent to server with data length %i", data.length);
     
     NSString *base64content = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     NSDictionary *requestVals = @{

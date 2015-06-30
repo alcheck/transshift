@@ -32,9 +32,14 @@
 		2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */; };
 		2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651CE1B3DCCBE005C823C /* TorrentListController.m */; };
 		2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651D11B3DCDD4005C823C /* TorrentListCell.m */; };
+		2CF7D5141B42E78C006D01FD /* PeerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7D5131B42E78C006D01FD /* PeerListController.m */; };
+		2CF8C7651B4302F7005A7DD6 /* PeerListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8C7641B4302F7005A7DD6 /* PeerListCell.m */; };
 		2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */; };
 		2CF911981B41CD66003D0753 /* TorrentInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911971B41CD66003D0753 /* TorrentInfoController.m */; };
 		2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF91D101B3C8B3B0093637A /* StatusListController.m */; };
+		2CFA5E101B43237400262C36 /* TRFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA5E0F1B43237400262C36 /* TRFileInfo.m */; };
+		2CFA5E141B432ABF00262C36 /* FileListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA5E131B432ABF00262C36 /* FileListController.m */; };
+		2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA9DC01B42CE0D005629C2 /* TRPeerInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,12 +103,22 @@
 		2CB651CE1B3DCCBE005C823C /* TorrentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListController.m; sourceTree = "<group>"; };
 		2CB651D01B3DCDD4005C823C /* TorrentListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListCell.h; sourceTree = "<group>"; };
 		2CB651D11B3DCDD4005C823C /* TorrentListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListCell.m; sourceTree = "<group>"; };
+		2CF7D5121B42E78C006D01FD /* PeerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListController.h; sourceTree = "<group>"; };
+		2CF7D5131B42E78C006D01FD /* PeerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListController.m; sourceTree = "<group>"; };
+		2CF8C7631B4302F7005A7DD6 /* PeerListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListCell.h; sourceTree = "<group>"; };
+		2CF8C7641B4302F7005A7DD6 /* PeerListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListCell.m; sourceTree = "<group>"; };
 		2CF911941B41B605003D0753 /* ChooseServerToAddTorrentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServerToAddTorrentController.h; sourceTree = "<group>"; };
 		2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseServerToAddTorrentController.m; sourceTree = "<group>"; };
 		2CF911971B41CD66003D0753 /* TorrentInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentInfoController.m; sourceTree = "<group>"; };
 		2CF91D0F1B3C8B3B0093637A /* StatusListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListController.h; sourceTree = "<group>"; };
 		2CF91D101B3C8B3B0093637A /* StatusListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListController.m; sourceTree = "<group>"; };
+		2CFA5E0E1B43237400262C36 /* TRFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFileInfo.h; sourceTree = "<group>"; };
+		2CFA5E0F1B43237400262C36 /* TRFileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFileInfo.m; sourceTree = "<group>"; };
+		2CFA5E121B432ABF00262C36 /* FileListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListController.h; sourceTree = "<group>"; };
+		2CFA5E131B432ABF00262C36 /* FileListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileListController.m; sourceTree = "<group>"; };
 		2CFA61B71B413C66002D89B7 /* TorrentInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentInfoController.h; sourceTree = "<group>"; };
+		2CFA9DBF1B42CE0D005629C2 /* TRPeerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRPeerInfo.h; sourceTree = "<group>"; };
+		2CFA9DC01B42CE0D005629C2 /* TRPeerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRPeerInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +201,8 @@
 		2C5810FC1B39BBB50069020D /* UI Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CFA5E111B432AA400262C36 /* Files Controller */,
+				2CF7D5111B42E768006D01FD /* Peers Controller */,
 				2CF911931B41B5C2003D0753 /* Choose server Controller */,
 				2CFA61BA1B413C74002D89B7 /* Torrent Info Controller */,
 				2CB651CC1B3DCC91005C823C /* Torrent list controller */,
@@ -245,6 +262,17 @@
 			name = "Torrent list controller";
 			sourceTree = "<group>";
 		};
+		2CF7D5111B42E768006D01FD /* Peers Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CF7D5121B42E78C006D01FD /* PeerListController.h */,
+				2CF7D5131B42E78C006D01FD /* PeerListController.m */,
+				2CF8C7631B4302F7005A7DD6 /* PeerListCell.h */,
+				2CF8C7641B4302F7005A7DD6 /* PeerListCell.m */,
+			);
+			name = "Peers Controller";
+			sourceTree = "<group>";
+		};
 		2CF911931B41B5C2003D0753 /* Choose server Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +296,10 @@
 				2C0E34A41B400134004303AB /* TRInfo.m */,
 				2C0E34A61B4006EB004303AB /* TRInfos.h */,
 				2C0E34A71B4006EB004303AB /* TRInfos.m */,
+				2CFA9DBF1B42CE0D005629C2 /* TRPeerInfo.h */,
+				2CFA9DC01B42CE0D005629C2 /* TRPeerInfo.m */,
+				2CFA5E0E1B43237400262C36 /* TRFileInfo.h */,
+				2CFA5E0F1B43237400262C36 /* TRFileInfo.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -279,6 +311,15 @@
 				2CF91D101B3C8B3B0093637A /* StatusListController.m */,
 			);
 			name = "Status list controller";
+			sourceTree = "<group>";
+		};
+		2CFA5E111B432AA400262C36 /* Files Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CFA5E121B432ABF00262C36 /* FileListController.h */,
+				2CFA5E131B432ABF00262C36 /* FileListController.m */,
+			);
+			name = "Files Controller";
 			sourceTree = "<group>";
 		};
 		2CFA61BA1B413C74002D89B7 /* Torrent Info Controller */ = {
@@ -393,6 +434,7 @@
 			files = (
 				2CF911981B41CD66003D0753 /* TorrentInfoController.m in Sources */,
 				2C58110A1B39C3710069020D /* ServerRPCPath.m in Sources */,
+				2CFA5E141B432ABF00262C36 /* FileListController.m in Sources */,
 				2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */,
 				2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */,
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
@@ -405,13 +447,17 @@
 				2C5810DC1B39A5E50069020D /* main.m in Sources */,
 				2C5811111B39D35B0069020D /* ServerUserNameCell.m in Sources */,
 				2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */,
+				2CF8C7651B4302F7005A7DD6 /* PeerListCell.m in Sources */,
 				2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */,
 				2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */,
+				2CFA5E101B43237400262C36 /* TRFileInfo.m in Sources */,
 				2C5811071B39C2FE0069020D /* ServerPortCell.m in Sources */,
+				2CF7D5141B42E78C006D01FD /* PeerListController.m in Sources */,
 				2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */,
 				2C5811011B39C20E0069020D /* ServerNameCell.m in Sources */,
 				2C5811171B39D4320069020D /* ServerUseSSLCell.m in Sources */,
 				2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */,
+				2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */,
 				2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */,
 				2C58111D1B39D8840069020D /* ServerRefreshTimeoutCell.m in Sources */,
 				2C0E34A51B400134004303AB /* TRInfo.m in Sources */,
