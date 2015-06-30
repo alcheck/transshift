@@ -584,6 +584,88 @@
             </objects>
             <point key="canvasLocation" x="1238" y="568"/>
         </scene>
+        <!--File List Controller-->
+        <scene sceneID="3GK-zC-K02">
+            <objects>
+                <tableViewController storyboardIdentifier="fileListController" id="2Hm-Mo-fdL" customClass="FileListController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="57" sectionHeaderHeight="10" sectionFooterHeight="10" id="CmS-dx-QlE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="fileListCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileListCell" rowHeight="57" id="fPg-71-zh3" customClass="FileListCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fPg-71-zh3" id="vpT-VN-opt">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EL-XH-gaX">
+                                            <rect key="frame" x="0.0" y="8" width="12" height="40"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h3Y-FG-H1D">
+                                            <rect key="frame" x="20" y="13" width="51" height="31"/>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="247" text="File name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSI-qR-osa">
+                                            <rect key="frame" x="77" y="13" width="424" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="51N-Rj-Fdy">
+                                            <rect key="frame" x="509" y="14" width="83" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="83" id="Sam-JH-Zu3"/>
+                                            </constraints>
+                                            <segments>
+                                                <segment title="↓"/>
+                                                <segment title="-"/>
+                                                <segment title="↑"/>
+                                            </segments>
+                                        </segmentedControl>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="248" text="100 bytes of 100 bytes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1G-11-gCb">
+                                            <rect key="frame" x="77" y="30" width="424" height="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="51N-Rj-Fdy" firstAttribute="leading" secondItem="b1G-11-gCb" secondAttribute="trailing" constant="8" symbolic="YES" id="2Im-45-hf3"/>
+                                        <constraint firstItem="2EL-XH-gaX" firstAttribute="leading" secondItem="vpT-VN-opt" secondAttribute="leadingMargin" constant="-8" id="2hj-Oh-oEs"/>
+                                        <constraint firstAttribute="centerY" secondItem="51N-Rj-Fdy" secondAttribute="centerY" id="7eT-bM-vLE"/>
+                                        <constraint firstAttribute="centerY" secondItem="h3Y-FG-H1D" secondAttribute="centerY" id="ARq-cm-1MJ"/>
+                                        <constraint firstItem="2EL-XH-gaX" firstAttribute="top" secondItem="vpT-VN-opt" secondAttribute="topMargin" id="X5v-By-IXG"/>
+                                        <constraint firstItem="51N-Rj-Fdy" firstAttribute="leading" secondItem="jSI-qR-osa" secondAttribute="trailing" constant="8" symbolic="YES" id="en1-rN-7l6"/>
+                                        <constraint firstItem="h3Y-FG-H1D" firstAttribute="leading" secondItem="2EL-XH-gaX" secondAttribute="trailing" constant="8" symbolic="YES" id="ftV-pF-zAz"/>
+                                        <constraint firstItem="b1G-11-gCb" firstAttribute="leading" secondItem="h3Y-FG-H1D" secondAttribute="trailing" constant="8" symbolic="YES" id="jBA-So-9cn"/>
+                                        <constraint firstItem="51N-Rj-Fdy" firstAttribute="trailing" secondItem="vpT-VN-opt" secondAttribute="trailingMargin" id="jun-sy-ATR"/>
+                                        <constraint firstItem="h3Y-FG-H1D" firstAttribute="bottom" secondItem="b1G-11-gCb" secondAttribute="bottom" id="nkK-y2-jgp"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="2EL-XH-gaX" secondAttribute="bottom" id="rbp-VI-2ZA"/>
+                                        <constraint firstItem="h3Y-FG-H1D" firstAttribute="top" secondItem="jSI-qR-osa" secondAttribute="top" id="rsZ-nP-P2k"/>
+                                        <constraint firstItem="jSI-qR-osa" firstAttribute="leading" secondItem="h3Y-FG-H1D" secondAttribute="trailing" constant="8" symbolic="YES" id="tCF-ug-3b6"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailLabel" destination="b1G-11-gCb" id="T0f-On-Ydm"/>
+                                    <outlet property="filenameLabel" destination="jSI-qR-osa" id="wLO-Vx-pnF"/>
+                                    <outlet property="indendLabel" destination="2EL-XH-gaX" id="0XA-Nh-okF"/>
+                                    <outlet property="prioritySegment" destination="51N-Rj-Fdy" id="hUD-hI-Hdv"/>
+                                    <outlet property="wantedSwitch" destination="h3Y-FG-H1D" id="NF6-pa-cZK"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2Hm-Mo-fdL" id="xcm-L8-XUK"/>
+                            <outlet property="delegate" destination="2Hm-Mo-fdL" id="7Qd-tL-a75"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wUu-l1-ddN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1861" y="563"/>
+        </scene>
         <!--Server List Controller-->
         <scene sceneID="1ZD-za-5lK">
             <objects>

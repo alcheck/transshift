@@ -17,4 +17,16 @@
 
 + (TRFileInfo*)fileInfoFromJSON:(NSDictionary*)dict;
 
+@property(nonatomic) NSString*  name;
+@property(nonatomic) NSString*  fileName;
+@property(nonatomic) long long  bytesComplited;
+@property(nonatomic) NSString*  bytesComplitedString;
+@property(nonatomic) long long  length;
+@property(nonatomic) NSString*  lengthString;
+@property(nonatomic) BOOL       wanted;
+@property(nonatomic) int        priority;               /* TR_FILEINFO_PRIORITY */
+@property(nonatomic) NSString*  priorityString;
+@property(nonatomic) float      downloadProgress;       /* 0 .. 1 */
+@property(nonatomic) NSString*  downloadProgressString;
+
 @end

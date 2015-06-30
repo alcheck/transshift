@@ -92,6 +92,6 @@
 #define TR_ARG_FILEINFO_WANTED                      @"wanted"
 #define TR_ARG_FILEINFO_PRIORITY                    @"priority"
 #define TR_ARG_FILEINFO_LENGTH                      @"length"
-#define TR_ARG_FILEINFO_BYTESCOMPLITED              @"bytesComplited"
+#define TR_ARG_FILEINFO_BYTESCOMPLETED              @"bytesCompleted"
 
 #endif

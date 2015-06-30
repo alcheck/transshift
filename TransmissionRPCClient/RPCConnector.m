@@ -169,11 +169,13 @@
          
          for( int i = 0; i < files.count; i++ )
          {
-             NSMutableDictionary* file = files[i];
+             NSMutableDictionary* file = [NSMutableDictionary dictionaryWithDictionary: files[i]];
              NSDictionary* fileStat = fileStats[i];
              
-             file[TR_ARG_FILEINFO_PRIORITY] = fileStat[TR_ARG_FILEINFO_PRIORITY];
-             file[TR_ARG_FILEINFO_WANTED] = fileStat[TR_ARG_FILEINFO_WANTED];
+             if( fileStat[TR_ARG_FILEINFO_PRIORITY] )
+                 file[TR_ARG_FILEINFO_PRIORITY] = fileStat[TR_ARG_FILEINFO_PRIORITY];
+             if( fileStat[TR_ARG_FILEINFO_WANTED] )
+                 file[TR_ARG_FILEINFO_WANTED] = fileStat[TR_ARG_FILEINFO_WANTED];
              
              [fileInfos addObject:[TRFileInfo fileInfoFromJSON:file]];
          }

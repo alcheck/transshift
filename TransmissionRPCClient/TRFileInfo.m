@@ -9,17 +9,6 @@
 
 @interface TRFileInfo()
 
-@property(nonatomic) NSString*  name;
-@property(nonatomic) long long  bytesComplited;
-@property(nonatomic) NSString*  bytesComplitedString;
-@property(nonatomic) long long  length;
-@property(nonatomic) NSString*  lengthString;
-@property(nonatomic) BOOL       wanted;
-@property(nonatomic) int        priority;               /* TR_FILEINFO_PRIORITY */
-@property(nonatomic) NSString*  priorityString;
-@property(nonatomic) float      downloadProgress;       /* 0 .. 1 */
-@property(nonatomic) NSString*  downloadProgressString;
-
 @end
 
 @implementation TRFileInfo
@@ -39,7 +28,16 @@
     byteFormatter.allowsNonnumericFormatting = NO;
     
     if( dict[TR_ARG_FILEINFO_NAME] )
+    {
         _name = dict[TR_ARG_FILEINFO_NAME];
+        
+        // try to get file name
+        NSArray* arr = [_name componentsSeparatedByString:@"/"];
+        if( arr )
+            _fileName = [arr lastObject];
+        else
+            _fileName = _name;
+    }
     
     if ( dict[TR_ARG_FILEINFO_LENGTH] )
     {
@@ -47,9 +45,9 @@
         _lengthString = [byteFormatter stringFromByteCount:_length];
     }
     
-    if( dict[TR_ARG_FILEINFO_BYTESCOMPLITED] )
+    if( dict[TR_ARG_FILEINFO_BYTESCOMPLETED] )
     {
-        _bytesComplited = [(NSNumber*)dict[TR_ARG_FILEINFO_BYTESCOMPLITED] longLongValue];
+        _bytesComplited = [(NSNumber*)dict[TR_ARG_FILEINFO_BYTESCOMPLETED] longLongValue];
         _bytesComplitedString = [byteFormatter stringFromByteCount:_bytesComplited];
     }
     

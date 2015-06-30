@@ -9,12 +9,18 @@
 #import "TorrentListController.h"
 #import "TorrentInfoController.h"
 #import "PeerListController.h"
+#import "FileListController.h"
 #import "RPCConnector.h"
 
 #define STATUS_SECTION_TITILE       @"Torrents"
 
 
-@interface StatusListController () <RPCConnectorDelegate, TorrentListControllerDelegate, TorrentInfoControllerDelegate, PeerListControllerDelegate, UISplitViewControllerDelegate>
+@interface StatusListController () <RPCConnectorDelegate,
+                                    TorrentListControllerDelegate,
+                                    TorrentInfoControllerDelegate,
+                                    PeerListControllerDelegate,
+                                    FileListControllerDelegate,
+                                    UISplitViewControllerDelegate>
 
 @end
 
@@ -31,6 +37,7 @@
     TorrentListController *_torrentController;          // holds detail torrent list controller
     TorrentInfoController *_torrentInfoController;      // holds torrent info controller (when torrent is selected from torrent list)
     PeerListController    *_peerListController;         // holds controller for showing peers
+    FileListController    *_fileListController;         // holds controller for showing files
  }
 
 - (void)viewDidLoad
@@ -161,6 +168,7 @@
 // main refresh cycle, updates data in detail view controllers
 - (void)autorefreshTimerUpdateHandler
 {
+    
     [_connector getAllTorrents];
    
     //if( _torrentInfoController )
@@ -169,9 +177,10 @@
         
         if( nav.topViewController == _torrentInfoController )
             [_connector getDetailedInfoForTorrentWithId:_torrentInfoController.torrentId];
-        
-        if( nav.topViewController == _peerListController)
+        else if( nav.topViewController == _peerListController)
             [_connector getAllPeersForTorrentWithId:_peerListController.torrentId];
+        else if( nav.topViewController == _fileListController )
+            [_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
     }
 }
 
@@ -396,6 +405,32 @@
 - (void)peerListNeedUpdatePeersForTorrentId:(int)torrentId
 {
     [_connector getAllPeersForTorrentWithId:torrentId];
+}
+
+- (void)showFilesForTorrentWithId:(int)torrentId
+{
+    UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
+    
+    _fileListController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_FILELIST];
+    _fileListController.delegate = self;
+    _fileListController.torrentId = torrentId;
+    _fileListController.title = [NSString stringWithFormat:@"Files: %@", _torrentInfoController.title];
+    
+    UINavigationController *nav = _torrentController.navigationController;
+    [nav pushViewController:_fileListController animated:YES];
+    
+    [_connector getAllFilesForTorrentWithId:torrentId];
+}
+
+- (void)gotAllFiles:(NSArray *)fileInfos forTorrentWithId:(int)torrentId
+{
+    if( _fileListController )
+        _fileListController.fileInfos = fileInfos;
+}
+
+- (void)fileListControllerNeedUpdateFilesForTorrentWithId:(int)torrentId
+{
+    [_connector getAllFilesForTorrentWithId:torrentId];
 }
 
 // set the filter of TorrentListController
