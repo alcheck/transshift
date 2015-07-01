@@ -13,6 +13,9 @@
 @protocol FileListControllerDelegate <NSObject>
 
 @optional - (void)fileListControllerNeedUpdateFilesForTorrentWithId:(int)torrentId;
+@optional - (void)fileListControllerStopDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
+@optional - (void)fileListControllerResumeDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
+@optional - (void)fileListControllerSetPriority:(int)priority forFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 
 @end
 

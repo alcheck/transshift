@@ -17,11 +17,19 @@
 @property(nonatomic,readonly) NSArray* checkingTorrents;
 @property(nonatomic,readonly) NSArray* allTorrents;
 @property(nonatomic,readonly) NSArray* stoppedTorrents;
+@property(nonatomic,readonly) NSArray* activeTorrents;
 
-@property(nonatomic,readonly) NSUInteger downloadCount;
-@property(nonatomic,readonly) NSUInteger seedCount;
-@property(nonatomic,readonly) NSUInteger allCount;
-@property(nonatomic,readonly) NSUInteger stopCount;
-@property(nonatomic,readonly) NSUInteger checkCount;
+@property(nonatomic,readonly) int downloadCount;
+@property(nonatomic,readonly) int seedCount;
+@property(nonatomic,readonly) int allCount;
+@property(nonatomic,readonly) int stopCount;
+@property(nonatomic,readonly) int checkCount;
+@property(nonatomic,readonly) int activeCount;
+
+@property(nonatomic,readonly) NSString* totalUploadRateString;
+@property(nonatomic,readonly) NSString* totalDownloadRateString;
+@property(nonatomic,readonly) NSString* totalDownloadSizeString;
+@property(nonatomic,readonly) NSString* totalUploadSizeString;
+
 
 @end

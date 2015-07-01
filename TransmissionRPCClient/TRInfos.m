@@ -52,45 +52,107 @@
     return self;
 }
 
-- (NSUInteger)allCount
+- (int)allCount
 {
-    return _items.count;
+    return (int)_items.count;
 }
 
-- (NSUInteger)downloadCount
+- (int)downloadCount
 {
-    NSUInteger count = 0;
+    int count = 0;
     for (TRInfo *info in _items )
         if( info.isDownloading )
             count++;
+    
     return count;
 }
 
-- (NSUInteger)seedCount
+- (int)seedCount
 {
-    NSUInteger count = 0;
+    int count = 0;
     for (TRInfo *info in _items )
         if( info.isSeeding )
             count++;
+    
     return count;
 }
 
-- (NSUInteger)stopCount
+- (int)stopCount
 {
-    NSUInteger count = 0;
+    int count = 0;
     for (TRInfo *info in _items )
         if( info.isStopped )
             count++;
+    
     return count;
 }
 
-- (NSUInteger)checkCount
+- (int)checkCount
 {
-    NSUInteger count = 0;
+    int count = 0;
     for (TRInfo *info in _items )
         if( info.isChecking )
             count++;
+    
     return count;
+}
+
+- (int)activeCount
+{
+    int count = 0;
+    for (TRInfo *info in _items )
+        if( info.downloadRate > 0 || info.uploadRate > 0 )
+            count++;
+    
+    return count;
+}
+
+- (NSString *)totalUploadRateString
+{
+    long long c = 0;
+    for( TRInfo* info in _items )
+        c += info.uploadRate;
+    
+    NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
+    byteFormatter.allowsNonnumericFormatting = NO;
+    
+    return [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
+}
+
+- (NSString *)totalDownloadRateString
+{
+    long long c = 0;
+    for( TRInfo* info in _items )
+        c += info.downloadRate;
+    
+    NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
+    byteFormatter.allowsNonnumericFormatting = NO;
+    
+    return [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
+}
+
+- (NSString *)totalDownloadSizeString
+{
+    long long c = 0;
+    for( TRInfo* info in _items )
+        c += info.downloadedSize;
+    
+    NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
+    byteFormatter.allowsNonnumericFormatting = NO;
+    
+    return [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
+}
+
+- (NSString *)totalUploadSizeString
+{
+    long long c = 0;
+    for( TRInfo* info in _items )
+        c += info.uploadedEver;
+    
+    NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
+    byteFormatter.allowsNonnumericFormatting = NO;
+    
+    return [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
 }
 
 - (NSArray *)allTorrents
@@ -119,6 +181,12 @@
 - (NSArray *)stoppedTorrents
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isStopped == YES"];
+    return [_items filteredArrayUsingPredicate:predicate];
+}
+
+- (NSArray *)activeTorrents
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"downloadRate > 0 OR uploadRate > 0"];
     return [_items filteredArrayUsingPredicate:predicate];
 }
 

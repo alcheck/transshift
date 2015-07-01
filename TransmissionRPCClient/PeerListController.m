@@ -31,6 +31,12 @@
     [refreshControl addTarget:self action:@selector(askDelegateToUpdateData) forControlEvents:UIControlEventValueChanged];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationItem.leftBarButtonItem.title = @"Info";    
+}
+
 - (void)askDelegateToUpdateData
 {
     [self.refreshControl endRefreshing];
@@ -106,8 +112,8 @@
     cell.addressLabel.text = info.ipAddress;
     cell.progressLabel.text = info.progressString;
     cell.flagLabel.text = info.flagString;
-    cell.downloadLabel.text = info.rateToClientString;
-    cell.uploadLabel.text = info.rateToPeerString;
+    cell.downloadLabel.text = info.rateToClient > 0 ? info.rateToClientString : @"-";
+    cell.uploadLabel.text = info.rateToPeer > 0 ?  info.rateToPeerString : @"-";
     
     return cell;
 }

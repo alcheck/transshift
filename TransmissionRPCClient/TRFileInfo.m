@@ -30,13 +30,19 @@
     if( dict[TR_ARG_FILEINFO_NAME] )
     {
         _name = dict[TR_ARG_FILEINFO_NAME];
-        
+        _folderLevel = 0;
         // try to get file name
         NSArray* arr = [_name componentsSeparatedByString:@"/"];
-        if( arr )
+        if( arr && arr.count > 1 )
+        {
             _fileName = [arr lastObject];
+            _folderLevel = arr.count - 1;
+            _parentFolderName = arr[arr.count - 2];
+        }
         else
+        {
             _fileName = _name;
+        }
     }
     
     if ( dict[TR_ARG_FILEINFO_LENGTH] )

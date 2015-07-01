@@ -22,6 +22,8 @@
                                     FileListControllerDelegate,
                                     UISplitViewControllerDelegate>
 
+@property(nonatomic) NSString*  headerTitleString;
+
 @end
 
 @implementation StatusListController
@@ -29,7 +31,10 @@
 {
     NSArray *_sections;
     NSArray *_itemNames;
+    NSArray *_itemFilterOptions;
+    
     NSMutableDictionary *_cells;
+    
     RPCConnector *_connector;
     
     NSTimer *_refreshTimer;                             // holds main autorefresh timer
@@ -99,6 +104,8 @@
     [_torrentController.refreshControl addTarget:self
                                           action:@selector(autorefreshTimerUpdateHandler)
                                 forControlEvents:UIControlEventValueChanged];
+    
+    self.headerTitleString = @"Updating ...";
 }
 
 - (void)setFooterString:(NSString*)footerString
@@ -116,6 +123,31 @@
     CGRect r = self.tableView.bounds;
     r.size.height = footerLabel.bounds.size.height + 20;
     self.tableView.tableFooterView = footerLabel;
+}
+
+- (void)setHeaderTitleString:(NSString *)headerTitleString
+{
+    static UILabel *label = nil;
+    
+    // show message at bottom
+    if( !label )
+    {
+        label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor darkGrayColor];
+        label.font = [UIFont systemFontOfSize:14];
+        label.numberOfLines = 0;
+        //label.backgroundColor = [UIColor yellowColor];
+    }
+    
+    label.text = headerTitleString;
+    [label sizeToFit];
+    
+    CGRect r = self.tableView.bounds;
+    r.size.height = label.bounds.size.height + 20;
+    
+    label.bounds = r;
+    self.tableView.tableHeaderView = label;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -141,7 +173,7 @@
             [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
             
             // set filter to rows
-            [self filterTorrentListWithFilterRow:path.row];
+            [self filterTorrentListWithFilterOptions:TRStatusOptionsAll];
         }
     }
     else
@@ -152,8 +184,22 @@
 
 - (void)initNames
 {
-    _sections = @[ STATUS_SECTION_TITILE ];
-    _itemNames = @[ STATUS_ROW_ALL, STATUS_ROW_DOWNLOAD, STATUS_ROW_SEED, STATUS_ROW_STOP, STATUS_ROW_CHECK ];
+    _sections =          @[ STATUS_SECTION_TITILE ];
+    
+    _itemNames =         @[ STATUS_ROW_ALL,
+                            STATUS_ROW_ACTIVE,
+                            STATUS_ROW_DOWNLOAD,
+                            STATUS_ROW_SEED,
+                            STATUS_ROW_STOP,
+                            STATUS_ROW_CHECK ];
+    
+    _itemFilterOptions = @[ @(TRStatusOptionsAll),
+                            @(TRStatusOptionsActive),
+                            @(TRStatusOptionsDownload),
+                            @(TRStatusOptionsSeed),
+                            @(TRStatusOptionsStop),
+                            @(TRStatusOptionsCheck) ];
+    
     _cells = [NSMutableDictionary dictionary];
 }
 
@@ -192,7 +238,7 @@
     [_torrentController.refreshControl endRefreshing];
     
     // clear error message    
-    self.tableView.tableHeaderView = nil;
+    //self.headerTitleString = @"Request OK";
 }
 
 // got all torrents, refresh statues
@@ -205,6 +251,7 @@
     // update numbers
 
     [self setCount:torrents.allCount      forCellWithTitle:STATUS_ROW_ALL];
+    [self setCount:torrents.activeCount   forCellWithTitle:STATUS_ROW_ACTIVE];
     [self setCount:torrents.checkCount    forCellWithTitle:STATUS_ROW_CHECK];
     [self setCount:torrents.downloadCount forCellWithTitle:STATUS_ROW_DOWNLOAD];
     [self setCount:torrents.seedCount     forCellWithTitle:STATUS_ROW_SEED];
@@ -212,12 +259,17 @@
     
     // show torrents in list controller (update)
     _torrentController.torrents = torrents;
+    
+    self.headerTitleString = [NSString stringWithFormat:@"UL:%@ DL:%@",
+                              torrents.totalUploadRateString,
+                              torrents.totalDownloadRateString];
 }
 
 - (void)setCount:(int)count forCellWithTitle:(NSString*)cellTitle
 {
     UITableViewCell *cell = _cells[cellTitle];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", count];
+    if( cell )
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", count];
 }
 
 
@@ -433,43 +485,37 @@
     [_connector getAllFilesForTorrentWithId:torrentId];
 }
 
+- (void)fileListControllerResumeDownloadingFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
+{
+    [_connector resumeDownloadingFilesWithIndexes:indexes forTorrentWithId:torrentId];
+}
+
+- (void)fileListControllerStopDownloadingFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
+{
+    [_connector stopDownloadingFilesWithIndexes:indexes forTorrentWithId:torrentId];
+}
+
+- (void)fileListControllerSetPriority:(int)priority forFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
+{
+    [_connector setPriority:priority forFilesWithIndexes:indexes forTorrentWithId:torrentId];
+}
+
 // set the filter of TorrentListController
 // and fetching all torrents
-- (void)filterTorrentListWithFilterRow:(int)filterRow
+- (void)filterTorrentListWithFilterOptions:(TRStatusOptions)filterOptions
 {
     _torrentController.navigationItem.title = self.navigationItem.title;
-    
-    // set filter option for TorrentListController
-    switch (filterRow)
-    {
-        case 0:
-            _torrentController.filterOptions = TRStatusOptionsAll;
-            break;
-            
-        case 1:
-            _torrentController.filterOptions = TRStatusOptionsDownload;
-            break;
-            
-        case 2:
-            _torrentController.filterOptions = TRStatusOptionsSeed;
-            break;
-            
-        case 3:
-            _torrentController.filterOptions = TRStatusOptionsStop;
-            break;
-            
-        case 4:
-            _torrentController.filterOptions = TRStatusOptionsCheck;
-            break;
-            
-        default:
-            return;
-    }
+    _torrentController.filterOptions = filterOptions;
     
     // on iPhone we should show _torrentController instead of ours
     if( !self.splitViewController )
     {
         [self.navigationController pushViewController:_torrentController animated:YES];
+    }
+    else
+    {
+        // on iPad show torrent list
+        [_torrentController.navigationController popToRootViewControllerAnimated:YES];
     }
     
     // fetch data for all torrents
@@ -480,7 +526,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self filterTorrentListWithFilterRow:indexPath.row];
+    TRStatusOptions filterOption = [_itemFilterOptions[indexPath.row] unsignedIntValue];
+    
+    [self filterTorrentListWithFilterOptions: filterOption];
 }
 
 #pragma mark - Table view data source

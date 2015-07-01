@@ -285,6 +285,50 @@
 
 }
 
+- (void)stopDownloadingFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
+{
+    NSDictionary *requestVals = @{TR_METHOD : TR_METHODNAME_TORRENTSET,
+                                  TR_METHOD_ARGS : @{ TR_ARG_IDS : @[@(torrentId)], TR_ARG_FIELDS_FILES_UNWANTED : indexes } };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSET andHandler:^(NSDictionary *json)
+     {
+//         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentDeletedWithId:)])
+//             dispatch_async(dispatch_get_main_queue(), ^{
+//                 [_delegate gotTorrentDeletedWithId:torrentId];
+//             });
+     }];
+}
+
+- (void)resumeDownloadingFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
+{
+    NSDictionary *requestVals = @{TR_METHOD : TR_METHODNAME_TORRENTSET,
+                                  TR_METHOD_ARGS : @{ TR_ARG_IDS : @[@(torrentId)], TR_ARG_FIELDS_FILES_WANTED : indexes } };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSET andHandler:^(NSDictionary *json)
+     {
+         //         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentDeletedWithId:)])
+         //             dispatch_async(dispatch_get_main_queue(), ^{
+         //                 [_delegate gotTorrentDeletedWithId:torrentId];
+         //             });
+     }];
+}
+
+- (void)setPriority:(int)priority forFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
+{
+    NSArray *argNames = @[TR_ARG_FIELDS_FILES_PRIORITY_LOW, TR_ARG_FIELDS_FILES_PRIORITY_NORMAL, TR_ARG_FIELDS_FILES_PRIORITY_HIGH];
+    
+    NSDictionary *requestVals = @{TR_METHOD : TR_METHODNAME_TORRENTSET,
+                                  TR_METHOD_ARGS : @{ TR_ARG_IDS : @[@(torrentId)], argNames[priority + 1] : indexes } };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSET andHandler:^(NSDictionary *json)
+     {
+         //         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentDeletedWithId:)])
+         //             dispatch_async(dispatch_get_main_queue(), ^{
+         //                 [_delegate gotTorrentDeletedWithId:torrentId];
+         //             });
+     }];
+}
+
 // perform request with JSON body and handler
 - (void)makeRequest:(NSDictionary*)requestDict withName:(NSString*)requestName andHandler:( void (^)( NSDictionary* )) dataHandler
 {

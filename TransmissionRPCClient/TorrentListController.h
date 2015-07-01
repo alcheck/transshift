@@ -16,6 +16,7 @@
 #define STATUS_ROW_SEED             @"Seeding"
 #define STATUS_ROW_STOP             @"Stopped"
 #define STATUS_ROW_CHECK            @"Checking"
+#define STATUS_ROW_ACTIVE           @"Active"
 
 // options for our titles
 typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
@@ -24,6 +25,7 @@ typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
     TRStatusOptionsSeed             = 1 << 1,
     TRStatusOptionsStop             = 1 << 2,
     TRStatusOptionsCheck            = 1 << 3,
+    TRStatusOptionsActive           = 1 << 4,
     TRStatusOptionsAll              = 15
 };
 

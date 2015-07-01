@@ -111,6 +111,16 @@
             [_sectionTorrents addObject:arr];
         }
     }
+    
+    if( _filterOptions & TRStatusOptionsActive )
+    {
+        NSArray *arr = _torrents.activeTorrents;
+        if( arr.count > 0 )
+        {
+            [_sectionTitles addObject:STATUS_ROW_ACTIVE];
+            [_sectionTorrents addObject:arr];
+        }
+    }
 }
 
 #pragma mark - UISplitViewControllerDelegate methods
@@ -231,21 +241,23 @@
     {
         progressBarColor = [UIColor colorWithRed:0 green:0.8 blue:0 alpha:1.0];
         detailInfo = [NSString stringWithFormat:@"Seeding to %i of %i peers", info.peersGettingFromUs, info.peersConnected ];
-        cell.downloadRate.text = [NSString stringWithFormat:@"UL: %@/s", info.uploadRateString];
+        cell.downloadRate.text = [NSString stringWithFormat:@"↑UL: %@/s", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.uploadedEverString, info.uploadRatio];
     }
     else if( info.isDownloading )
     {
         detailInfo = [NSString stringWithFormat:@"Downloading from %i of %i peers, ETA: %@", info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
-        cell.downloadRate.text = [NSString stringWithFormat:@"DL: %@/s", info.downloadRateString];
-        cell.uploadRate.text = [NSString stringWithFormat:@"UL: %@/s", info.uploadRateString];
+        cell.downloadRate.text = [NSString stringWithFormat:@"↓DL: %@/s", info.downloadRateString];
+        cell.uploadRate.text = [NSString stringWithFormat:@"↑UL: %@/s", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.totalSizeString ];
     }
     else if( info.isStopped )
     {
         detailInfo = @"Paused";
         progressBarColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1];
-        cell.size.text = [NSString stringWithFormat:@"%@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.uploadedEverString, info.uploadRatio];
+        cell.downloadRate.text = @"no activity";
+        //cell.downloadRate.textColor = [UIColor lightGrayColor];
+        cell.size.text = [NSString stringWithFormat:@"%@ of %@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
     }
     else if( info.isChecking )
     {

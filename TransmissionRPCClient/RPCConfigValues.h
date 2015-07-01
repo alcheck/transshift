@@ -22,6 +22,7 @@
 #define TR_METHODNAME_TORRENTREMOVE                 @"torrent-remove"
 #define TR_METHODNAME_TORRENTADD                    @"torrent-add"
 #define TR_METHODNAME_TORRENTGET                    @"torrent-get"
+#define TR_METHODNAME_TORRENTSET                    @"torrent-set"
 
 // ---- TORRENT GET --- arguments
 #define TR_RETURNED_ARG_TORRENTS                    @"torrents"
@@ -93,5 +94,14 @@
 #define TR_ARG_FILEINFO_PRIORITY                    @"priority"
 #define TR_ARG_FILEINFO_LENGTH                      @"length"
 #define TR_ARG_FILEINFO_BYTESCOMPLETED              @"bytesCompleted"
+
+// set torrent
+#define TR_ARG_FIELDS_FILES_WANTED                  @"files-wanted"
+#define TR_ARG_FIELDS_FILES_UNWANTED                @"files-unwanted"
+
+// priorities
+#define TR_ARG_FIELDS_FILES_PRIORITY_HIGH            @"priority-high"       /* 1  */
+#define TR_ARG_FIELDS_FILES_PRIORITY_LOW             @"priority-low"        /* -1 */
+#define TR_ARG_FIELDS_FILES_PRIORITY_NORMAL          @"priority-normal"     /* 0  */
 
 #endif

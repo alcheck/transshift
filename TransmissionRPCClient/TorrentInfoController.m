@@ -61,12 +61,17 @@
     _checkButton = [[UIBarButtonItem alloc] initWithTitle:@"Verify" style:UIBarButtonItemStylePlain target:self action:@selector(verifyTorrent)];
     //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(verifyTorrent)];
     
-    self.navigationController.toolbarHidden = NO;
-    
     // configure pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl = refreshControl;
     [refreshControl addTarget:self action:@selector(sendRequestForUpdateInfo) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.toolbarHidden = NO;
 }
 
 - (void)sendRequestForUpdateInfo

@@ -13,8 +13,10 @@
 
 @property(nonatomic,readonly) NSString* ipAddress;
 @property(nonatomic,readonly) int       port;
-@property(nonatomic,readonly) NSString* rateToClientString;
-@property(nonatomic,readonly) NSString* rateToPeerString;
+@property(nonatomic,readonly) NSString* rateToClientString;     /* download rate */
+@property(nonatomic,readonly) long long rateToClient;
+@property(nonatomic,readonly) NSString* rateToPeerString;       /* upload rate */
+@property(nonatomic,readonly) long long rateToPeer;
 @property(nonatomic,readonly) NSString* flagString;
 @property(nonatomic,readonly) NSString* clientName;
 @property(nonatomic,readonly) float     progress;

@@ -40,14 +40,14 @@
     
     if( dict[TR_ARG_FIELDS_PEER_RATETOCLIENT] )
     {
-        long long rateToClient = [(NSNumber*)dict[TR_ARG_FIELDS_PEER_RATETOCLIENT] longLongValue];
-        _rateToClientString = [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:rateToClient]];
+        _rateToClient = [(NSNumber*)dict[TR_ARG_FIELDS_PEER_RATETOCLIENT] longLongValue];
+        _rateToClientString = [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:_rateToClient]];
     }
     
     if( dict[TR_ARG_FIELDS_PEER_RATETOPEER ])
     {
-        long long rateToPeer = [(NSNumber*)dict[TR_ARG_FIELDS_PEER_RATETOPEER] longLongValue];
-        _rateToPeerString = [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:rateToPeer]];
+        _rateToPeer = [(NSNumber*)dict[TR_ARG_FIELDS_PEER_RATETOPEER] longLongValue];
+        _rateToPeerString = [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:_rateToPeer]];
     }
     
     if( dict[TR_ARG_FIELDS_PEER_ISENCRYPTED])

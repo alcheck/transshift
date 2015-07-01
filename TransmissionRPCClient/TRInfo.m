@@ -220,7 +220,7 @@
             NSTimeInterval seconds = [(NSNumber*)dict[TR_ARG_FIELDS_ETA] doubleValue];
             NSDate *dtFrom = [dtNow dateByAddingTimeInterval:-seconds];
             NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:calendarUnits fromDate:dtFrom toDate:dtNow options:0];
-            _etaTimeString = [NSString stringWithFormat:@"%i hours %i mins", dateComponents.hour, dateComponents.minute];
+            _etaTimeString = [NSString stringWithFormat:@"%ld hours %ld mins", (long)dateComponents.hour, (long)dateComponents.minute];
         }
 
      }

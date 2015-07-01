@@ -52,6 +52,10 @@
 - (void)getAllPeersForTorrentWithId:(int)torrentId;
 - (void)getAllFilesForTorrentWithId:(int)torrentId;
 
+- (void)stopDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
+- (void)resumeDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
+- (void)setPriority:(int)priority forFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
+
 @end
 
 
