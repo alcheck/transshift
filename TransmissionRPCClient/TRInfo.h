@@ -73,4 +73,7 @@
 @property(nonatomic,readonly) float         recheckProgress;
 @property(nonatomic,readonly) NSString*     recheckProgressString;
 
+@property(nonatomic,readonly) int           bandwidthPriority;
+@property(nonatomic,readonly) NSString*     bandwidthPriorityString;
+
 @end

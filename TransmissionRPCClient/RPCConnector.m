@@ -100,7 +100,8 @@
                                                   TR_ARG_FIELDS_HAVEUNCHECKED,
                                                   TR_ARG_FIELDS_RECHECKPROGRESS,
                                                   TR_ARG_FIELDS_DOWNLOADEDEVER,
-                                                  TR_ARG_FIELDS_ETA
+                                                  TR_ARG_FIELDS_ETA,
+                                                  TR_ARG_BANDWIDTHPRIORITY
                                                   ],
                                           TR_ARG_IDS : @[@(torrentId)]
                                           }
@@ -265,14 +266,15 @@
      }];
 }
 
-- (void)addTorrentWithData:(NSData *)data
+- (void)addTorrentWithData:(NSData *)data priority:(int)priority startImmidiately:(BOOL)startImmidiately
 {
-    //NSLog(@"Adding torrent to server with data length %i", data.length);
-    
     NSString *base64content = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
     NSDictionary *requestVals = @{
                                   TR_METHOD : TR_METHODNAME_TORRENTADD,
-                                  TR_METHOD_ARGS : @{ TR_ARG_METAINFO : base64content }
+                                  TR_METHOD_ARGS : @{ TR_ARG_METAINFO : base64content,
+                                                      TR_ARG_BANDWIDTHPRIORITY : @(priority),
+                                                      TR_ARG_PAUSEONADD: startImmidiately ? @(NO):@(YES) }	
                                   };
     
     [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTADD andHandler:^(NSDictionary *json)
@@ -327,6 +329,22 @@
          //                 [_delegate gotTorrentDeletedWithId:torrentId];
          //             });
      }];
+}
+
+- (void)getSession
+{
+    NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_SESSIONGET };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_SESSIONGET andHandler:^(NSDictionary *json)
+    {
+         NSDictionary *sessionJSON = json[TR_RETURNED_ARGS];
+         TRSessionInfo *sessionInfo = [TRSessionInfo sessionInfoFromJSON:sessionJSON];
+
+         if( _delegate && [_delegate respondsToSelector:@selector(gotSessionWithInfo:)])
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          [_delegate gotSessionWithInfo:sessionInfo];
+                      });
+    }];    
 }
 
 // perform request with JSON body and handler

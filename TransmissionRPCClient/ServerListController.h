@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonTableController.h"
 
 #define CONTROLLER_ID_SERVERLIST    @"ServerListController"
-#define SERVERLIST_CONTROLLER_TITLE @"Remote servers"
+#define SERVERLIST_CONTROLLER_TITLE @"Servers"
 
-@interface ServerListController : UITableViewController 
+@interface ServerListController : CommonTableController
 
 @end

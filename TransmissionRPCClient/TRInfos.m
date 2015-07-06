@@ -113,6 +113,9 @@
     for( TRInfo* info in _items )
         c += info.uploadRate;
     
+//    if( c == 0 )
+//        return @"-";
+    
     NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
     byteFormatter.allowsNonnumericFormatting = NO;
     
@@ -124,6 +127,9 @@
     long long c = 0;
     for( TRInfo* info in _items )
         c += info.downloadRate;
+//    
+//    if( c == 0 )
+//        return @"-";
     
     NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
     byteFormatter.allowsNonnumericFormatting = NO;

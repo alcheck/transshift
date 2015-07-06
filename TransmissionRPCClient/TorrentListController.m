@@ -9,6 +9,11 @@
 #import "TorrentListController.h"
 #import "TorrentListCell.h"
 
+#define ICON_DOWNLOAD   @"downloadIcon"
+#define ICON_UPLOAD     @"uploadIcon"
+#define ICON_STOP       @"stopIcon"
+#define ICON_CHECK      @"checkIcon"
+
 @interface TorrentListController () <UIActionSheetDelegate>
 
 @end
@@ -20,35 +25,26 @@
     NSMutableArray *_sectionTitles;
     NSMutableArray *_sectionTorrents;
     TorrentListCell *_editCell;
+    
+    NSDictionary*   _statusIconImages;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self prepareData];
+    
+    _statusIconImages = @{ ICON_DOWNLOAD : [[UIImage imageNamed:ICON_DOWNLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                           ICON_STOP : [[UIImage imageNamed:ICON_STOP] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                           ICON_UPLOAD : [[UIImage imageNamed:ICON_UPLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                           ICON_CHECK : [[UIImage imageNamed:ICON_CHECK] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] };
 }
 
-// show background message for this tableview
-// when message is shown, all data is cleared
-- (void)setBackgroundTitle:(NSString *)backgroundTitle
-{
-    if( !_backgroundLabel )
-    {
-        UILabel *label = [[UILabel alloc] initWithFrame:self.tableView.bounds];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor darkGrayColor];
-        label.font = [UIFont systemFontOfSize:19];
-        label.numberOfLines = 0;
-        _backgroundLabel = label;
-    }
-    
-    _backgroundLabel.text = backgroundTitle;
-    self.tableView.backgroundView = _backgroundLabel;
-}
 
 - (void)setTorrents:(TRInfos *)torrents
 {
     _torrents = torrents;
+    self.errorMessage = nil;
     
     [self prepareData];
     [self.tableView reloadData];
@@ -125,9 +121,21 @@
 
 #pragma mark - UISplitViewControllerDelegate methods
 
+- (void)setPopoverButtonTitle:(NSString *)popoverButtonTitle
+{
+    _popoverButtonTitle = popoverButtonTitle;
+    if( self.splitViewController && self.navigationItem.leftBarButtonItem )
+    {
+       [self.navigationItem.leftBarButtonItem setTitle:popoverButtonTitle];
+    }
+}
+
 - (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
 {
+    //NSLog(@"TorrentListControllerWillHideForPopover: %@", self.popoverButtonTitle);
+    
     barButtonItem.title = self.popoverButtonTitle;
+    
     self.navigationItem.leftBarButtonItem = barButtonItem;
 }
 
@@ -196,11 +204,11 @@
     // check how many sections do we have
     if ( _sectionTitles && _sectionTitles.count > 0 )
     {
-        tableView.backgroundView = nil;
+        self.infoMessage = nil;
         return _sectionTitles.count;
     }
     
-    self.backgroundTitle = @"There are no torrents to show.";
+    self.infoMessage = @"There are no torrents to show.";
     return 0;
 }
 
@@ -243,6 +251,7 @@
         detailInfo = [NSString stringWithFormat:@"Seeding to %i of %i peers", info.peersGettingFromUs, info.peersConnected ];
         cell.downloadRate.text = [NSString stringWithFormat:@"↑UL: %@/s", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.uploadedEverString, info.uploadRatio];
+        cell.statusIcon.image = _statusIconImages[ICON_UPLOAD];
     }
     else if( info.isDownloading )
     {
@@ -250,14 +259,17 @@
         cell.downloadRate.text = [NSString stringWithFormat:@"↓DL: %@/s", info.downloadRateString];
         cell.uploadRate.text = [NSString stringWithFormat:@"↑UL: %@/s", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.totalSizeString ];
+        cell.statusIcon.image = _statusIconImages[ICON_DOWNLOAD];
     }
     else if( info.isStopped )
     {
         detailInfo = @"Paused";
-        progressBarColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1];
+        progressBarColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.0 alpha:1];
         cell.downloadRate.text = @"no activity";
         //cell.downloadRate.textColor = [UIColor lightGrayColor];
         cell.size.text = [NSString stringWithFormat:@"%@ of %@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
+        cell.statusIcon.image = _statusIconImages[ICON_STOP];
+
     }
     else if( info.isChecking )
     {
@@ -266,10 +278,12 @@
         cell.progressBar.progress = info.recheckProgress;
         cell.progressPercents.text = info.recheckProgressString;
         cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.downloadedEverString];
+        cell.statusIcon.image = _statusIconImages[ICON_CHECK];
     }
     
     cell.progressBar.tintColor = progressBarColor;
     cell.peersInfo.text = detailInfo;
+    cell.statusIcon.tintColor = progressBarColor;
     
     return cell;
 }

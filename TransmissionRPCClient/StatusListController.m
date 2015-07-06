@@ -6,6 +6,7 @@
 //
 
 #import "StatusListController.h"
+#import "StatusListCell.h"
 #import "TorrentListController.h"
 #import "TorrentInfoController.h"
 #import "PeerListController.h"
@@ -22,8 +23,6 @@
                                     FileListControllerDelegate,
                                     UISplitViewControllerDelegate>
 
-@property(nonatomic) NSString*  headerTitleString;
-
 @end
 
 @implementation StatusListController
@@ -32,6 +31,7 @@
     NSArray *_sections;
     NSArray *_itemNames;
     NSArray *_itemFilterOptions;
+    NSArray *_itemImages;
     
     NSMutableDictionary *_cells;
     
@@ -54,8 +54,7 @@
     
     // create RPC connector to communicate with selected server
     if( self.config )
-    {
-        self.navigationItem.title = self.config.name;
+    {        
         _connector = [[RPCConnector alloc] initWithConfig:self.config andDelegate:self];
         
         // config pull-to refresh control
@@ -74,7 +73,7 @@
         }
         else
         {
-            [self setFooterString:@"Autorefreshing is off.\nPull down to refresh data."];
+            self.footerInfoMessage = @"Autorefreshing is off.\nPull down to refresh data.";
         }
     }
     
@@ -85,15 +84,15 @@
     {
         // left (detail) controller should be NavigationContoller with our TorrentListController
         UINavigationController *rightNav = self.splitViewController.viewControllers[1];
-        _torrentController = rightNav.viewControllers[0];
+        
+        _torrentController = (TorrentListController*)rightNav.topViewController;
         // clear all current torrents
         _torrentController.torrents = nil;
     }
     else
     {
         // on iPhone instantiate this controller
-        UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
-        _torrentController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTLIST];
+        _torrentController = instantiateController( CONTROLLER_ID_TORRENTLIST );
     }
     
     // set us as delegate
@@ -105,81 +104,7 @@
                                           action:@selector(autorefreshTimerUpdateHandler)
                                 forControlEvents:UIControlEventValueChanged];
     
-    self.headerTitleString = @"Updating ...";
-}
-
-- (void)setFooterString:(NSString*)footerString
-{
-    // show message at bottom
-    UILabel *footerLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    footerLabel.textAlignment = NSTextAlignmentCenter;
-    footerLabel.textColor = [UIColor grayColor];
-    footerLabel.font = [UIFont systemFontOfSize:13];
-    footerLabel.numberOfLines = 0;
-    footerLabel.text = footerString;
-    
-    [footerLabel sizeToFit];
-    
-    CGRect r = self.tableView.bounds;
-    r.size.height = footerLabel.bounds.size.height + 20;
-    self.tableView.tableFooterView = footerLabel;
-}
-
-- (void)setHeaderTitleString:(NSString *)headerTitleString
-{
-    static UILabel *label = nil;
-    
-    // show message at bottom
-    if( !label )
-    {
-        label = [[UILabel alloc] initWithFrame:CGRectZero];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor darkGrayColor];
-        label.font = [UIFont systemFontOfSize:14];
-        label.numberOfLines = 0;
-        //label.backgroundColor = [UIColor yellowColor];
-    }
-    
-    label.text = headerTitleString;
-    [label sizeToFit];
-    
-    CGRect r = self.tableView.bounds;
-    r.size.height = label.bounds.size.height + 20;
-    
-    label.bounds = r;
-    self.tableView.tableHeaderView = label;
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    // if there is a leftbutton on _torrentConroller -> change title
-    if( _torrentController.navigationItem.leftBarButtonItem )
-    {
-        _torrentController.popoverButtonTitle = self.navigationItem.title;
-        _torrentController.navigationItem.leftBarButtonItem.title = self.navigationItem.title;
-    }
-    
-    // check if it is ipad we shoud and none of rows is selected - select all row (0)
-    if( self.splitViewController )
-    {
-        if( ![self.tableView indexPathForSelectedRow] )
-        {
-            // select first row
-            // and do it manualy
-            NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
-            // make first row selected
-            [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
-            
-            // set filter to rows
-            [self filterTorrentListWithFilterOptions:TRStatusOptionsAll];
-        }
-    }
-    else
-    {
-        [_connector getAllTorrents];
-    }
+    self.headerInfoMessage = @"Updating ...";
 }
 
 - (void)initNames
@@ -200,15 +125,59 @@
                             @(TRStatusOptionsStop),
                             @(TRStatusOptionsCheck) ];
     
+    _itemImages =        @[ [UIImage imageNamed:@"allIcon"],
+                            [UIImage imageNamed:@"activeIcon"],
+                            [UIImage imageNamed:@"downloadIcon"],
+                            [UIImage imageNamed:@"uploadIcon"],
+                            [UIImage imageNamed:@"stopIcon"],
+                            [UIImage imageNamed:@"checkIcon"] ];
+    
     _cells = [NSMutableDictionary dictionary];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    static BOOL bFirstTime = YES;
+    
+    [super viewDidAppear:animated];
+    
+    // if there is a leftbutton on _torrentConroller -> change title
+    if( self.splitViewController )
+    {
+        _torrentController.popoverButtonTitle = self.title;
+    }
+    
+    // check if it is ipad we shoud and none of rows is selected - select all row (0)
+    if( self.splitViewController && bFirstTime )
+    {
+        if( ![self.tableView indexPathForSelectedRow] )
+        {
+            // select first row
+            // and do it manualy
+            NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+            // make first row selected
+            [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
+            
+            // set filter to rows
+            [self filterTorrentListWithFilterOptions:TRStatusOptionsAll];
+        }
+    }
+    else
+    {
+        [_connector getAllTorrents];
+    }
+    
+    bFirstTime = NO;
 }
 
 - (void)stopUpdating
 {
     [_refreshTimer invalidate];
     [_connector stopRequests];
+    
     _torrentController.refreshControl = nil;
-    _torrentController.backgroundTitle = @"There is no selected server";
+    _torrentController.infoMessage = @"There is no selected server";
 }
 
 // main refresh cycle, updates data in detail view controllers
@@ -236,7 +205,7 @@
 {
     [self.refreshControl endRefreshing];
     [_torrentController.refreshControl endRefreshing];
-    
+  
     // clear error message    
     //self.headerTitleString = @"Request OK";
 }
@@ -260,16 +229,17 @@
     // show torrents in list controller (update)
     _torrentController.torrents = torrents;
     
-    self.headerTitleString = [NSString stringWithFormat:@"UL:%@ DL:%@",
+    self.headerInfoMessage = [NSString stringWithFormat:@"↑UL:%@ ↓DL:%@",
                               torrents.totalUploadRateString,
                               torrents.totalDownloadRateString];
+    //[self setHeaderUploadRate:torrents.totalUploadRateString andDownloadRate:torrents.totalDownloadRateString];
 }
 
 - (void)setCount:(int)count forCellWithTitle:(NSString*)cellTitle
 {
-    UITableViewCell *cell = _cells[cellTitle];
+    StatusListCell *cell = _cells[cellTitle];
     if( cell )
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", count];
+        cell.numberLabel.text = [NSString stringWithFormat:@"%i", count];
 }
 
 
@@ -283,34 +253,16 @@
     [_torrentController.refreshControl endRefreshing];
     
     // show error to background
-    _torrentController.backgroundTitle = errorMessage;
-    [self showErrorMessage:errorMessage];
+    //_torrentController.infoMessage = errorMessage;
+    _torrentController.torrents = nil;
+    _torrentController.errorMessage = errorMessage;
+    self.errorMessage = errorMessage;
     
     UINavigationController *nav = _torrentController.navigationController;
     if( _torrentInfoController && nav.visibleViewController == _torrentInfoController )
     {
         [_torrentInfoController showErrorMessage:errorMessage];
     }
-}
-
-- (void)showErrorMessage:(NSString*)message
-{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont systemFontOfSize:14];
-    label.backgroundColor = [UIColor redColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.numberOfLines = 10;
-    label.text = message;
-    [label sizeToFit];
-    
-    CGRect r = self.tableView.bounds;
-    r.size.height = label.bounds.size.height + 40;
-    
-    label.bounds = r;
-    [self.tableView beginUpdates];
-    self.tableView.tableHeaderView = label;
-    [self.tableView endUpdates];
 }
 
 #pragma mark - TorrentInfoController delegate methods
@@ -372,7 +324,7 @@
 
 - (void)torrentListRemoveTorrentWithId:(int)torrentId removeWithData:(BOOL)removeWithData
 {
-    NSLog(@"StatusListController: Deleting torrent %i %@", torrentId, removeWithData ? @"with data" : @"");
+    //NSLog(@"StatusListController: Deleting torrent %i %@", torrentId, removeWithData ? @"with data" : @"");
     
     [_connector deleteTorrentWithId:torrentId deleteWithData:removeWithData];    
 }
@@ -385,7 +337,7 @@
 
 - (void)reannounceTorrentWithId:(int)torrentId
 {
-    NSLog(@"Reannouncing torrent");
+    //NSLog(@"Reannouncing torrent");
     [_connector reannounceTorrent:torrentId];
 }
 
@@ -412,8 +364,7 @@
 // shows view controller with detailed info
 - (void)showDetailedInfoForTorrentWithId:(int)torrentId
 {
-    UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
-    _torrentInfoController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_TORRENTINFO];
+    _torrentInfoController = instantiateController( CONTROLLER_ID_TORRENTINFO );
     _torrentInfoController.torrentId = torrentId;
     _torrentInfoController.delegate = self;
     
@@ -433,12 +384,10 @@
 
 - (void)showPeersForTorrentWithId:(int)torrentId
 {
-    UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
- 
-    _peerListController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_PEERLIST];
+    _peerListController = instantiateController( CONTROLLER_ID_PEERLIST );
     _peerListController.delegate = self;
     _peerListController.torrentId = torrentId;
-    _peerListController.title = [NSString stringWithFormat:@"Peers: %@", _torrentInfoController.title];
+    _peerListController.title = @"Peers"; //[NSString stringWithFormat:@"Peers: %@", _torrentInfoController.title];
     
     UINavigationController *nav = _torrentController.navigationController;
     [nav pushViewController:_peerListController animated:YES];
@@ -461,12 +410,10 @@
 
 - (void)showFilesForTorrentWithId:(int)torrentId
 {
-    UIStoryboard *board = [UIStoryboard storyboardWithName:@"controllers" bundle:nil];
-    
-    _fileListController = [board instantiateViewControllerWithIdentifier:CONTROLLER_ID_FILELIST];
+    _fileListController = instantiateController( CONTROLLER_ID_FILELIST );
     _fileListController.delegate = self;
     _fileListController.torrentId = torrentId;
-    _fileListController.title = [NSString stringWithFormat:@"Files: %@", _torrentInfoController.title];
+    _fileListController.title = @"Files";//[NSString stringWithFormat:@"Files: %@", _torrentInfoController.title];
     
     UINavigationController *nav = _torrentController.navigationController;
     [nav pushViewController:_fileListController animated:YES];
@@ -504,7 +451,8 @@
 // and fetching all torrents
 - (void)filterTorrentListWithFilterOptions:(TRStatusOptions)filterOptions
 {
-    _torrentController.navigationItem.title = self.navigationItem.title;
+    _torrentController.navigationItem.title = @"Torrents";//self.navigationItem.title;
+    _torrentController.popoverButtonTitle = self.title;
     _torrentController.filterOptions = filterOptions;
     
     // on iPhone we should show _torrentController instead of ours
@@ -550,13 +498,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_TORRENTSTATUS forIndexPath:indexPath];
+    StatusListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_STATUSLIST forIndexPath:indexPath];
     
     NSString *title = _itemNames[indexPath.row];
     
     // Configure the cell
-    cell.detailTextLabel.text  = @" ";
-    cell.textLabel.text = title;
+    cell.numberLabel.text  = @" ";
+    cell.statusLabel.text = title;
+    cell.iconImg.image = _itemImages[ indexPath.row ];
     
     // save the cell
     _cells[title] = cell;

@@ -10,6 +10,7 @@
 #import "TRInfos.h"
 #import "TRPeerInfo.h"
 #import "TRFileInfo.h"
+#import "TRSessionInfo.h"
 
 @class RPCConnector;
 
@@ -26,6 +27,7 @@
 @optional - (void)gotTorrentAdded;
 @optional - (void)gotAllPeers:(NSArray*)peerInfos forTorrentWithId:(int)torrentId;
 @optional - (void)gotAllFiles:(NSArray*)fileInfos forTorrentWithId:(int)torrentId;
+@optional - (void)gotSessionWithInfo:(TRSessionInfo*)info;
 
 @end
 
@@ -47,7 +49,7 @@
 - (void)reannounceTorrent:(int)torrentId;
 - (void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData;
 
-- (void)addTorrentWithData:(NSData*)data;
+- (void)addTorrentWithData:(NSData*)data priority:(int)priority startImmidiately:(BOOL)startImmidiately;
 
 - (void)getAllPeersForTorrentWithId:(int)torrentId;
 - (void)getAllFilesForTorrentWithId:(int)torrentId;
@@ -55,6 +57,9 @@
 - (void)stopDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 - (void)resumeDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 - (void)setPriority:(int)priority forFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
+
+- (void)getSession;
+- (void)setSessionWithSessionInfo:(TRSessionInfo*)info;
 
 @end
 

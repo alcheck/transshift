@@ -7,188 +7,89 @@
 
 
 #import "RPCServerConfigController.h"
-#import "ServerNameCell.h"
-#import "ServerHostCell.h"
-#import "ServerPortCell.h"
-#import "ServerRPCPath.h"
-#import "ServerUserNameCell.h"
-#import "ServerUserPasswordCell.h"
-#import "ServerUseSSLCell.h"
-#import "ServerRefreshTimeoutCell.h"
-#import "ServerRequestTimeoutCell.h"
-
-// section names
-static NSString *SECTION_0_TITLE = @"General";
-static NSString *SECTION_1_TITLE = @"RPC settings";
-static NSString *SECTION_2_TITLE = @"Security settings";
-static NSString *SECTION_3_TITLE = @"Timeout settings";
+#import "GlobalConsts.h"
 
 @interface RPCServerConfigController()
 
-@property(nonatomic) NSArray  *sections;
-@property(nonatomic) NSDictionary *cells;
-@property(nonatomic) NSString *serverName;
-@property(nonatomic) NSString *serverHost;
-@property(nonatomic) NSString *serverRPCPath;
-@property(nonatomic) NSString *userName;
-@property(nonatomic) NSString *userPassword;
-@property(nonatomic) BOOL      useSSL;
-@property(nonatomic) int       refreshTimeout;
-@property(nonatomic) int       requestTimeout;
-@property(nonatomic) int       serverPort;
+// TABLE VIEW CONFIG CONTROLS
+
+// GENERAL SETTINGS
+@property (weak, nonatomic) IBOutlet UIImageView *iconServerName;
+@property (weak, nonatomic) IBOutlet UILabel *labelServerName;
+@property (weak, nonatomic) IBOutlet UITextField *textServerName;
+
+// RPC SETTINGS
+@property (weak, nonatomic) IBOutlet UIImageView *iconHost;
+@property (weak, nonatomic) IBOutlet UILabel *labelHost;
+@property (weak, nonatomic) IBOutlet UITextField *textHost;
+
+@property (weak, nonatomic) IBOutlet UIImageView *iconPort;
+@property (weak, nonatomic) IBOutlet UILabel *labelPort;
+@property (weak, nonatomic) IBOutlet UITextField *textPort;
+
+@property (weak, nonatomic) IBOutlet UIImageView *iconRPCPath;
+@property (weak, nonatomic) IBOutlet UILabel *labelRPCPath;
+@property (weak, nonatomic) IBOutlet UITextField *textRPCPath;
+
+// SECURITY SETTINGS
+@property (weak, nonatomic) IBOutlet UIImageView *iconUserName;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserName;
+@property (weak, nonatomic) IBOutlet UITextField *textUserName;
+
+@property (weak, nonatomic) IBOutlet UIImageView *iconUserPassword;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserPassword;
+@property (weak, nonatomic) IBOutlet UITextField *textUserPassword;
+
+@property (weak, nonatomic) IBOutlet UIImageView *iconUseSSL;
+@property (weak, nonatomic) IBOutlet UILabel *labelUseSSL;
+@property (weak, nonatomic) IBOutlet UISwitch *switchUseSSL;
+
+
+// TIMEOUT SETTINGS
+@property (weak, nonatomic) IBOutlet UIImageView *iconRefreshTimeout;
+@property (weak, nonatomic) IBOutlet UILabel *labelRefreshTimeout;
+@property (weak, nonatomic) IBOutlet UILabel *labelRefreshTimeoutNumber;
+@property (weak, nonatomic) IBOutlet UIStepper *stepperRefreshTimeout;
+
+
+@property (weak, nonatomic) IBOutlet UIImageView *iconRequestTimeout;
+@property (weak, nonatomic) IBOutlet UILabel *labelRequestTimeout;
+@property (weak, nonatomic) IBOutlet UILabel *labelRequestTimeoutNumber;
+@property (weak, nonatomic) IBOutlet UIStepper *stepperRequestTimeout;
 
 @end
 
 
 @implementation RPCServerConfigController
 
-
 - (void)viewDidLoad
 {
-    [self initCellsAndSections];
+    [self initIcons];
     [self loadConfig];
 }
 
-// show/hide error message error message
-- (void)showErrorMessage: (NSString *)msg
+- (void)initIcons
 {
-    // tableview header
-    UILabel *headerView = [[UILabel  alloc] initWithFrame:CGRectZero];
-    headerView.text = msg;
-    headerView.backgroundColor = [UIColor redColor];
-    headerView.textColor = [UIColor whiteColor];
-    headerView.numberOfLines = 0;
-    headerView.font = [UIFont systemFontOfSize:15];
-    headerView.textAlignment = NSTextAlignmentCenter;
-    [headerView sizeToFit];
+    NSArray *arr = @[self.iconServerName,
+                     self.iconHost,
+                     self.iconPort,
+                     self.iconRPCPath,
+                     self.iconUserName,
+                     self.iconUserPassword,
+                     self.iconUseSSL,
+                     self.iconRefreshTimeout,
+                     self.iconRequestTimeout ];
     
-    CGRect r = self.tableView.bounds;
-    r.size.height = headerView.bounds.size.height + 40;
     
-    headerView.bounds = r;
-    
-    [self.tableView beginUpdates];
-    self.tableView.tableHeaderView = headerView;
-    [self.tableView endUpdates];
+    for (UIImageView *iv in arr)
+        iv.image = [iv.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
-- (void)hideErrorMessage
-{
-    [self.tableView beginUpdates];
-    self.tableView.tableHeaderView = nil;
-    [self.tableView endUpdates];
-}
 
-#pragma mark - Reading/Writing field properties
-
-// get/set server name
-- (NSString *)serverName
+- (NSString*)trimString:(NSString*)string
 {
-    ServerNameCell *cell = self.cells[CELL_ID_SERVER_NAME];
-    return [cell.serverName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
-- (void)setServerName:(NSString *)serverName
-{
-    ServerNameCell *cell = self.cells[CELL_ID_SERVER_NAME];
-    cell.serverName.text = serverName;
-}
-
-// get/set server host
-- (NSString *)serverHost
-{
-    ServerHostCell *cell = self.cells[CELL_ID_SERVER_HOST];
-    return [cell.hostName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-- (void)setServerHost:(NSString *)serverHost
-{
-    ServerHostCell *cell = self.cells[CELL_ID_SERVER_HOST];
-    cell.hostName.text = serverHost;
-}
-
-// get/set server RPC path
-- (NSString *)serverRPCPath
-{
-    ServerRPCPathCell *cell = self.cells[CELL_ID_RPCPATH_CELL];
-    return [cell.path.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-- (void)setServerRPCPath:(NSString *)serverRPCPath
-{
-    ServerRPCPathCell *cell = self.cells[CELL_ID_RPCPATH_CELL];
-    cell.path.text = serverRPCPath;
-}
-
-// get/set user name
-- (NSString *)userName
-{
-    ServerUserNameCell *cell = self.cells[CELL_ID_USERNAME];
-    return [cell.userName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-}
-- (void)setUserName:(NSString *)userName
-{
-    ServerUserNameCell *cell = self.cells[CELL_ID_USERNAME];
-    cell.userName.text = userName;
-}
-
-// get/set user password
-- (NSString *)userPassword
-{
-    ServerUserPasswordCell *cell = self.cells[CELL_ID_USERPASSWORD];
-    return cell.userPassword.text;
-}
-- (void)setUserPassword:(NSString *)userPassword
-{
-    ServerUserPasswordCell *cell = self.cells[CELL_ID_USERPASSWORD];
-    cell.userPassword.text = userPassword;
-}
-
-// get/set use SSL flag
-- (BOOL)useSSL
-{
-    ServerUseSSLCell *cell = self.cells[CELL_ID_USESSL];
-    return cell.status;
-}
-- (void)setUseSSL:(BOOL)useSSL
-{
-    ServerUseSSLCell *cell = self.cells[CELL_ID_USESSL];
-    cell.status = useSSL;
-}
-
-// get/set refresh timeout
-- (int)refreshTimeout
-{
-    ServerRefreshTimeoutCell *cell = self.cells[CELL_ID_REFRESHTIMEOUT];
-    return cell.timeoutValue;
-}
-- (void)setRefreshTimeout:(int)refreshTimeout
-{
-    ServerRefreshTimeoutCell *cell = self.cells[CELL_ID_REFRESHTIMEOUT];
-    cell.timeoutValue = refreshTimeout;
-}
-
-// get/set request timeout
-- (int)requestTimeout
-{
-    ServerRequestTimeoutCell *cell = self.cells[CELL_ID_REQUESTTIMEOUT];
-    return cell.timeoutValue;
-}
-- (void)setRequestTimeout:(int)timeout
-{
-    ServerRequestTimeoutCell *cell = self.cells[CELL_ID_REQUESTTIMEOUT];
-    cell.timeoutValue = timeout;
-}
-
-// get/set server port
-- (int)serverPort
-{
-    ServerPortCell *cell = self.cells[CELL_ID_SERVER_PORT];
-    return [cell.portField.text intValue];
-}
-- (void)setServerPort:(int)serverPort
-{
-    ServerPortCell *cell = self.cells[CELL_ID_SERVER_PORT];
-    cell.portField.text = [NSString stringWithFormat:@"%i", serverPort];
-}
-
 
 #pragma mark - utility methods
 
@@ -200,148 +101,160 @@ static NSString *SECTION_3_TITLE = @"Timeout settings";
    // loading values
    if( self.config )
    {
-       self.serverName = self.config.name;
-       self.serverHost = self.config.host;
-       self.serverPort = self.config.port;
-       self.serverRPCPath = self.config.rpcPath;
-       self.userName = self.config.userName;
-       self.userPassword = self.config.userPassword;
-       self.useSSL = self.config.useSSL;
-       self.refreshTimeout = self.config.refreshTimeout;
-       self.requestTimeout = self.config.requestTimeout;
+       self.textServerName.text = self.config.name;
+       
+       self.textHost.text = self.config.host;
+       self.textPort.text = [NSString stringWithFormat:@"%u", self.config.port];
+       self.textRPCPath.text = self.config.rpcPath;
+       
+       self.textUserName.text = self.config.userName;
+       self.textUserPassword.text = self.config.userPassword;
+       self.switchUseSSL.on = self.config.useSSL;
+       
+       self.stepperRefreshTimeout.value = self.config.refreshTimeout;
+       self.stepperRequestTimeout.value = self.config.requestTimeout;
+       [self requestTimeoutValueChagned:self.stepperRequestTimeout];
+       [self refreshTimoutValueChanged:self.stepperRefreshTimeout];
    }
+}
+
+- (void) showRowError:(NSString*)errorMessage icon:(UIImageView*)iconImg label:(UILabel*)label textControl:(UITextField*)textControl
+{
+    UIColor *errColor = [UIColor redColor];
+    UIColor *normalColor = [UIColor blackColor];
+
+    if( errorMessage )
+    {
+        self.errorMessage = @"You should enter server NAME";
+        label.textColor = errColor;
+        iconImg.tintColor = errColor;
+        
+        if( textControl )
+            [textControl becomeFirstResponder];
+    }
+    else
+    {
+        label.textColor = normalColor;
+        iconImg.tintColor = self.tableView.tintColor;
+    }
 }
 
 - (BOOL)saveConfig
 {
-    UIColor *errColor = [UIColor redColor];
-    UIColor *normalColor = [UIColor blackColor];
-    
+    // if server config is not
+    // set, it means that we create new serve config
+    // and should return this config
     if( !self.config )
         self.config = [[RPCServerConfig alloc] init];
     
-    // saving values
-    ServerNameCell *cell = self.cells[CELL_ID_SERVER_NAME];
-    if( self.serverName.length < 1 )
-    {
-        [self showErrorMessage:@"You should enter server NAME"];
-        cell.label.textColor = errColor;
-        [cell.serverName becomeFirstResponder];
-        return NO;
-    }
-    cell.label.textColor = normalColor;
+    NSMutableString *errString = [NSMutableString string];
+    BOOL success = YES;
     
-    ServerHostCell *hostCell = self.cells[CELL_ID_SERVER_HOST];
-    if( self.serverHost.length < 1 )
-    {
-        [self showErrorMessage:@"You should enter server HOST name"];
-        hostCell.label.textColor = errColor;
-        [hostCell.hostName becomeFirstResponder];
-        return NO;
-    }
-    hostCell.label.textColor = normalColor;
+    NSString *serverName;
+    NSString *host;
+    NSString *rpcPath;
     
-    ServerPortCell *portCell = self.cells[CELL_ID_SERVER_PORT];
-    if( !(self.serverPort > 0 && self.serverPort < 655356) )
-    {
-        [self showErrorMessage:@"Server port must be in range from 0 to 65536. By default server port number is 8090"];
-        portCell.label.textColor = errColor;
-        [portCell.portField becomeFirstResponder];
-        return NO;
-    }
-    portCell.label.textColor = normalColor;
+    NSString *str = [self trimString: self.textServerName.text ];
     
-    ServerRPCPathCell *pathCell = self.cells[CELL_ID_RPCPATH_CELL];
-    if( self.serverRPCPath.length < 1 )
+    if( str.length < 1 )
     {
-        [self showErrorMessage:@"You should enter server RPC path. By default server rpc path is /transmission/rpc"];
-        pathCell.label.textColor = errColor;
-        [pathCell.path becomeFirstResponder];
+        [errString appendString: @"You should enter server NAME\n"];
+        [self showRowError:errString
+                      icon:self.iconServerName
+                     label:self.labelServerName
+               textControl:self.textServerName ];
+        
+        success = NO;
+    }
+    else
+    {
+        [self showRowError:nil icon:self.iconServerName label:self.labelServerName textControl:nil ];
+         serverName = str;
+    }
+    
+    str = [self trimString: self.textHost.text ];
+    if( str.length < 1 )
+    {
+        [errString appendString:@"You should enter server HOST name\n"];
+        [self showRowError:errString
+                      icon:self.iconHost
+                     label:self.labelHost
+               textControl:self.textHost ];
+        
+        success = NO;
+    }
+    else
+    {
+        [self showRowError:nil icon:self.iconHost label:self.labelHost textControl:nil];
+        host = str;
+    }
+    
+   
+    int port = [[self trimString:self.textPort.text] intValue];
+    
+    if( port <= 0 || port > 65535 )
+    {
+        [errString appendString:@"Server port must be in range from 0 to 65535. By default server port number is 8090\n"];
+        [self showRowError: errString
+                      icon:self.iconPort
+                     label:self.labelPort
+               textControl:self.textPort];
+        success = NO;
+    }
+    else
+    {
+        [self showRowError:nil icon:self.iconPort label:self.labelPort textControl:nil];
+    }
+    
+    str = [self trimString: self.textRPCPath.text];
+    if( str.length < 1 )
+    {
+        [errString appendString:@"You should enter server RPC path. By default server rpc path is /transmission/rpc"];
+        [self showRowError: errString
+                      icon:self.iconRPCPath
+                     label:self.labelRPCPath
+               textControl:self.textRPCPath];
         return NO;
     }
-    pathCell.label.textColor = normalColor;
-
+    {
+        [self showRowError:nil icon:self.iconRPCPath label:self.labelRPCPath textControl:nil];
+        rpcPath = str;
+    }
+    
+    if( !success )
+    {
+        self.errorMessage = errString;
+        return success;
+    }
+    
     // when all values is ok, save config
-    self.config.port = self.serverPort;
-    self.config.host = self.serverHost;
-    self.config.name = self.serverName;
-    self.config.rpcPath = self.serverRPCPath;
-    self.config.userName = self.userName;
-    self.config.userPassword = self.userPassword;
-    self.config.useSSL = self.useSSL;
-    self.config.refreshTimeout = self.refreshTimeout;
-    self.config.requestTimeout = self.requestTimeout;
+    self.config.port = port;
+    self.config.host = host;
+    self.config.name = serverName;
+    self.config.rpcPath = rpcPath;
     
-    [self hideErrorMessage];
+    self.config.userName = [self trimString: self.textUserName.text];
+    self.config.userPassword = [self trimString: self.textUserPassword.text];
+    self.config.useSSL = self.switchUseSSL.on;
     
-    //NSLog(@"RPC server config saved successfuly: %@", self.config);
+    self.config.refreshTimeout = (int)self.stepperRefreshTimeout.value;
+    self.config.requestTimeout = (int)self.stepperRequestTimeout.value;
+    
+    self.errorMessage = nil;
+    
     return YES;
 }
 
-// return array of sections
--(NSArray*)sections
+- (IBAction)requestTimeoutValueChagned:(UIStepper*)sender
 {
-    if( !_sections || !_cells )
-    {
-        [self initCellsAndSections];
-    }
-    
-    return _sections;
+    self.labelRequestTimeoutNumber.text = [NSString stringWithFormat:@"%02i", (int)sender.value];
 }
 
-- (void)initCellsAndSections
+- (IBAction)refreshTimoutValueChanged:(UIStepper*)sender
 {
-    // init array with section titles and cell's ids int these sections
-    _sections =  @[ @[ SECTION_0_TITLE,  @[CELL_ID_SERVER_NAME] ],
-                    @[ SECTION_1_TITLE,  @[CELL_ID_SERVER_HOST, CELL_ID_SERVER_PORT, CELL_ID_RPCPATH_CELL] ],
-                    @[ SECTION_2_TITLE,  @[CELL_ID_USERNAME, CELL_ID_USERPASSWORD, CELL_ID_USESSL] ],
-                    @[ SECTION_3_TITLE,  @[CELL_ID_REFRESHTIMEOUT, CELL_ID_REQUESTTIMEOUT] ]
-                    ];
-    // init dict with cellids and actual cell's instances
-    _cells = @{
-               CELL_ID_SERVER_NAME : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_SERVER_NAME],
-               CELL_ID_SERVER_HOST : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_SERVER_HOST],
-               CELL_ID_RPCPATH_CELL : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_RPCPATH_CELL],
-               CELL_ID_SERVER_PORT : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_SERVER_PORT],
-               CELL_ID_USERNAME : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_USERNAME],
-               CELL_ID_USERPASSWORD : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_USERPASSWORD],
-               CELL_ID_USESSL : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_USESSL],
-               CELL_ID_REFRESHTIMEOUT : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_REFRESHTIMEOUT],
-               CELL_ID_REQUESTTIMEOUT : [self.tableView dequeueReusableCellWithIdentifier:CELL_ID_REQUESTTIMEOUT]
-               };
-
+    if( sender.value == 0 )
+        self.labelRefreshTimeoutNumber.text = @"OFF";
+    else
+        self.labelRefreshTimeoutNumber.text = [NSString stringWithFormat:@"%02i", (int)sender.value];
 }
-
-#pragma mark - Table view data source
-
-// section 1 - server name, host, port and rpc path
-// section 2 - user name, user password and ssl flag
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.sections.count;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return self.sections[section][0];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSArray *sec = self.sections[section];
-    NSArray *secIds = sec[1];
-    
-    return  secIds.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *section = self.sections[indexPath.section];
-    NSArray *ids = section[1];
-
-    return self.cells[ ids[indexPath.row] ];
-}
-
-
-
 @end

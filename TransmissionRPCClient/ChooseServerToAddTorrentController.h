@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GlobalConsts.h"
+#import "CommonTableController.h"
 
-#define CONTROLLER_ID_CHOOSESERVER  @"chooseServerToAddTorrentController"
+#define CONTROLLER_ID_CHOOSESERVER  @"ChooseServerToAddTorrentController"
 
 @class RPCServerConfig;
 
-@interface ChooseServerToAddTorrentController : UIViewController
+@interface ChooseServerToAddTorrentController : CommonTableController
 
-@property(nonatomic,readonly) RPCServerConfig *selectedRPCConfig;
+@property(nonatomic,readonly) RPCServerConfig *rpcConfig;   // using only for returning config
+@property(nonatomic) int bandwidthPriority;
+@property(nonatomic) BOOL startImmidiately;
 
 @end

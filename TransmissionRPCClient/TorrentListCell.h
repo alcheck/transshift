@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *progressPercents;
 @property (weak, nonatomic) IBOutlet UILabel *peersInfo;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
+@property (weak, nonatomic) IBOutlet UIImageView *statusIcon;
 
 @property (nonatomic) int torrentId;
 

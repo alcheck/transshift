@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "RPCServerConfig.h"
+#import "CommonTableController.h"
 
 #define CONTROLLER_ID_RPCSERVERCONFIG @"RPCServerConfig"
 
-@interface RPCServerConfigController : UITableViewController
+@interface RPCServerConfigController : CommonTableController
 
 @property(nonatomic) RPCServerConfig *config;
 - (BOOL)saveConfig;

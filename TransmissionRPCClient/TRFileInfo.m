@@ -36,7 +36,7 @@
         if( arr && arr.count > 1 )
         {
             _fileName = [arr lastObject];
-            _folderLevel = arr.count - 1;
+            _folderLevel = (int)arr.count - 1;
             _parentFolderName = arr[arr.count - 2];
         }
         else

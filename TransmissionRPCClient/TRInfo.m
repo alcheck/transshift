@@ -220,7 +220,17 @@
             NSTimeInterval seconds = [(NSNumber*)dict[TR_ARG_FIELDS_ETA] doubleValue];
             NSDate *dtFrom = [dtNow dateByAddingTimeInterval:-seconds];
             NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:calendarUnits fromDate:dtFrom toDate:dtNow options:0];
-            _etaTimeString = [NSString stringWithFormat:@"%ld hours %ld mins", (long)dateComponents.hour, (long)dateComponents.minute];
+            
+            if( dateComponents.hour !=0 && dateComponents.minute !=0 )
+                _etaTimeString = [NSString stringWithFormat:@"%ld hours %ld mins", (long)dateComponents.hour, (long)dateComponents.minute];
+            else
+                _etaTimeString = @"unknown";
+        }
+        
+        if( dict[TR_ARG_BANDWIDTHPRIORITY] )
+        {
+            _bandwidthPriority = [(NSNumber*)dict[TR_ARG_BANDWIDTHPRIORITY] intValue];
+            _bandwidthPriorityString = (_bandwidthPriority == 0 ) ? @"normal" : ( _bandwidthPriority == -1 ? @"low" : @"high" );
         }
 
      }

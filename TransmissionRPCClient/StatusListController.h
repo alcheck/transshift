@@ -7,11 +7,12 @@
 
 #import <UIKit/UIKit.h>
 #import "RPCServerConfig.h"
+#import "CommonTableController.h"
+#import "GlobalConsts.h"
 
 #define CONTROLLER_ID_TORRENTSSTATUSLIST    @"torrentsStatusListContoller"
-#define CELL_ID_TORRENTSTATUS               @"torrentStatusCell"
 
-@interface StatusListController : UITableViewController
+@interface StatusListController : CommonTableController
 
 @property(nonatomic) RPCServerConfig *config;
 

@@ -40,6 +40,8 @@
     UIBarButtonItem *_checkButton;
     
     NSURL   *_commentURL;
+    
+    TRInfo *_torrentInfo;
 }
 
 - (void)viewDidLoad {
@@ -53,13 +55,11 @@
                                                       style:UIBarButtonItemStylePlain
                                                      target:self
                                                      action:@selector(reannounceTorrent)];
-    //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(reannounceTorrent)];
+    
     _pauseButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPause target:self action:@selector(stopTorrent)];
     _playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(startTorrent)];
     _spacerButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    
     _checkButton = [[UIBarButtonItem alloc] initWithTitle:@"Verify" style:UIBarButtonItemStylePlain target:self action:@selector(verifyTorrent)];
-    //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(verifyTorrent)];
     
     // configure pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -125,7 +125,7 @@
 - (void)deleteTorrent
 {
     // show action list
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Remove torrent %@?", self.title]
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Remove torrent: %@?", _torrentInfo.name]
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:@"Remove"
@@ -183,16 +183,22 @@
 // update information
 - (void)updateData:(TRInfo *)trInfo
 {
+    _torrentInfo = trInfo;
+    
     [self.refreshControl endRefreshing];
     
     _playButton.enabled = YES;
     _pauseButton.enabled = YES;
     _refreshButton.enabled = YES;
+
     
     UIBarButtonItem *stopResumeButton = trInfo.isStopped ? _playButton : _pauseButton;
-    self.toolbarItems = @[stopResumeButton, _spacerButton, _refreshButton, _spacerButton, _checkButton, _spacerButton, _deleteButton];
     
-    self.title = trInfo.name;
+    stopResumeButton.enabled = !trInfo.isChecking;
+    self.toolbarItems = @[stopResumeButton, _spacerButton, _refreshButton, _spacerButton, _deleteButton];
+    
+    //self.title = trInfo.name;
+    self.title = @"Torrent details";
     
     self.torrentNameLabel.text = trInfo.name;
     self.stateLabel.text = trInfo.statusString;

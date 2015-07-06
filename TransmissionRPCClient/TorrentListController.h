@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TRInfos.h"
+#import "CommonTableController.h"
+#import "GlobalConsts.h"
 
 // section titles
 
@@ -42,11 +44,10 @@ typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
 @end
 
 
-@interface TorrentListController : UITableViewController <UISplitViewControllerDelegate>
+@interface TorrentListController : CommonTableController <UISplitViewControllerDelegate>
 
 @property(weak) id<TorrentListControllerDelegate> delegate;
 
-@property(nonatomic) NSString *backgroundTitle;
 @property(nonatomic) NSString *popoverButtonTitle;
 
 // hold current torrents
