@@ -27,6 +27,8 @@
     NSData *_torrentFileDataToAdd;
     UINavigationController *_chooseNav;
     RPCServerConfig *_selectedConfig;
+    
+    NSString *_magnetURLString;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -70,47 +72,65 @@
 // after this will be launced ApplicationFinishedWithOptions
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    // handle url
+    // handle url - it is a .torrent file or magnet url
     if( url )
     {
-        _torrentFileDataToAdd = [NSData dataWithContentsOfURL:url];
         
-        if( _torrentFileDataToAdd )
+         //NSLog(@"URL Scheme: %@, desc:%@", url.scheme, url );
+        _torrentFileDataToAdd = nil;
+        _magnetURLString = nil;
+        
+        if( ![url.scheme isEqualToString:@"magnet"] )
         {
-            if( [RPCServerConfigDB sharedDB].db.count > 0 )
-            {
-                    // presenting view controller to choose from several remote servers
-                   ChooseServerToAddTorrentController *chooseServerController = instantiateController( CONTROLLER_ID_CHOOSESERVER );
-                   
-                   UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
-                                                                                  style:UIBarButtonItemStylePlain
-                                                                                 target:self
-                                                                                 action:@selector(dismissChooseServerController)];
-                   
-                   UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"OK"
-                                                                                   style:UIBarButtonItemStylePlain
-                                                                                  target:self
-                                                                                  action:@selector(addTorrentToSelectedServer)];
-                   
-                   chooseServerController.navigationItem.leftBarButtonItem = leftButton;
-                   chooseServerController.navigationItem.rightBarButtonItem = rightButton;
-                   
-                
-                   _chooseNav = [[UINavigationController alloc] initWithRootViewController:chooseServerController];
-                   _chooseNav.modalPresentationStyle = UIModalPresentationFormSheet;
-                   
-                   [self.window.rootViewController presentViewController:_chooseNav animated:YES completion:nil];
-            }
-            else    // show message
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                                message:@"There is no servers avalable"
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil, nil];
-                [alert show];
-            }
+            _torrentFileDataToAdd = [NSData dataWithContentsOfURL:url];
         }
+        else
+        {
+            _magnetURLString = url.description;
+        }
+        
+        if( [RPCServerConfigDB sharedDB].db.count > 0 &&
+           ( _torrentFileDataToAdd || _magnetURLString )  )
+        {
+            // presenting view controller to choose from several remote servers
+            ChooseServerToAddTorrentController *chooseServerController = instantiateController( CONTROLLER_ID_CHOOSESERVER );
+            
+            NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
+            byteFormatter.allowsNonnumericFormatting = NO;
+            
+            chooseServerController.headerInfoMessage = _magnetURLString ?
+                [NSString stringWithFormat: @"Add torrent with magnet link:\n%@", _magnetURLString] :
+                [NSString stringWithFormat: @"Add torrent with file size: %@", [byteFormatter stringFromByteCount:_torrentFileDataToAdd.length]];
+            
+            UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                           style:UIBarButtonItemStylePlain
+                                                                          target:self
+                                                                          action:@selector(dismissChooseServerController)];
+            
+            UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"OK"
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(addTorrentToSelectedServer)];
+            
+            chooseServerController.navigationItem.leftBarButtonItem = leftButton;
+            chooseServerController.navigationItem.rightBarButtonItem = rightButton;
+            
+            
+            _chooseNav = [[UINavigationController alloc] initWithRootViewController:chooseServerController];
+            _chooseNav.modalPresentationStyle = UIModalPresentationFormSheet;
+            
+            [self.window.rootViewController presentViewController:_chooseNav animated:YES completion:nil];
+        }
+        else    // show message
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:@"There is no servers avalable"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        
     }
     
     return YES;
@@ -119,7 +139,11 @@
 - (void)addTorrentToServerWithRPCConfig:(RPCServerConfig*)config priority:(int)priority startNow:(BOOL)startNow
 {
     RPCConnector *connector = [[RPCConnector alloc] initWithConfig:config andDelegate:self];
-    [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow];
+    
+    if( _torrentFileDataToAdd )
+        [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow];
+    else if( _magnetURLString )
+        [connector addTorrentWithMagnet:_magnetURLString priority:priority startImmidiately:startNow];
 }
 
 - (void)connector:(RPCConnector *)cn complitedRequestName:(NSString *)requestName withError:(NSString *)errorMessage

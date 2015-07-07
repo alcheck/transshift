@@ -23,6 +23,7 @@
 		2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */; };
 		2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B51B3B446E002666C6 /* ServerListController.m */; };
 		2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */; };
+		2CAD1E461B4AC131005BBDBE /* SpeedLimitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */; };
 		2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651CE1B3DCCBE005C823C /* TorrentListController.m */; };
 		2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651D11B3DCDD4005C823C /* TorrentListCell.m */; };
 		2CE400B81B49927C00BA32C2 /* ChooseServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE400B71B49927C00BA32C2 /* ChooseServerCell.m */; };
@@ -30,6 +31,10 @@
 		2CE400BE1B4992A300BA32C2 /* StartImmidiatelyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE400BD1B4992A300BA32C2 /* StartImmidiatelyCell.m */; };
 		2CE6B4601B49598000157841 /* CommonTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B45F1B49598000157841 /* CommonTableController.m */; };
 		2CE6B4641B495EC700157841 /* GlobalConsts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B4631B495EC700157841 /* GlobalConsts.m */; };
+		2CF6909C1B4BE0D400B2F830 /* FooterViewFreeSpace.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF690991B4BE0D400B2F830 /* FooterViewFreeSpace.xib */; };
+		2CF6909D1B4BE0D400B2F830 /* FooterViewFreeSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF6909B1B4BE0D400B2F830 /* FooterViewFreeSpace.m */; };
+		2CF6909F1B4BE49600B2F830 /* HeaderViewDURates.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF6909E1B4BE49600B2F830 /* HeaderViewDURates.xib */; };
+		2CF690A21B4BE74A00B2F830 /* HeaderViewDURates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF690A11B4BE74A00B2F830 /* HeaderViewDURates.m */; };
 		2CF7D5141B42E78C006D01FD /* PeerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7D5131B42E78C006D01FD /* PeerListController.m */; };
 		2CF8C7651B4302F7005A7DD6 /* PeerListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8C7641B4302F7005A7DD6 /* PeerListCell.m */; };
 		2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */; };
@@ -87,6 +92,8 @@
 		2C6D18B51B3B446E002666C6 /* ServerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListController.m; sourceTree = "<group>"; };
 		2C6D18BB1B3B477E002666C6 /* ServerListItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListItemCell.h; sourceTree = "<group>"; };
 		2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListItemCell.m; sourceTree = "<group>"; };
+		2CAD1E441B4AC131005BBDBE /* SpeedLimitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimitController.h; sourceTree = "<group>"; };
+		2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimitController.m; sourceTree = "<group>"; };
 		2CB651CD1B3DCCBE005C823C /* TorrentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListController.h; sourceTree = "<group>"; };
 		2CB651CE1B3DCCBE005C823C /* TorrentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListController.m; sourceTree = "<group>"; };
 		2CB651D01B3DCDD4005C823C /* TorrentListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListCell.h; sourceTree = "<group>"; };
@@ -101,6 +108,12 @@
 		2CE6B45E1B49598000157841 /* CommonTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTableController.h; sourceTree = "<group>"; };
 		2CE6B45F1B49598000157841 /* CommonTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTableController.m; sourceTree = "<group>"; };
 		2CE6B4631B495EC700157841 /* GlobalConsts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalConsts.m; sourceTree = "<group>"; };
+		2CF690991B4BE0D400B2F830 /* FooterViewFreeSpace.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterViewFreeSpace.xib; sourceTree = "<group>"; };
+		2CF6909A1B4BE0D400B2F830 /* FooterViewFreeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterViewFreeSpace.h; sourceTree = "<group>"; };
+		2CF6909B1B4BE0D400B2F830 /* FooterViewFreeSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterViewFreeSpace.m; sourceTree = "<group>"; };
+		2CF6909E1B4BE49600B2F830 /* HeaderViewDURates.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderViewDURates.xib; sourceTree = "<group>"; };
+		2CF690A01B4BE74A00B2F830 /* HeaderViewDURates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderViewDURates.h; sourceTree = "<group>"; };
+		2CF690A11B4BE74A00B2F830 /* HeaderViewDURates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderViewDURates.m; sourceTree = "<group>"; };
 		2CF7D5121B42E78C006D01FD /* PeerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListController.h; sourceTree = "<group>"; };
 		2CF7D5131B42E78C006D01FD /* PeerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListController.m; sourceTree = "<group>"; };
 		2CF8C7631B4302F7005A7DD6 /* PeerListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListCell.h; sourceTree = "<group>"; };
@@ -207,6 +220,8 @@
 			isa = PBXGroup;
 			children = (
 				2C5810FD1B39BBDD0069020D /* controllers.storyboard */,
+				2CF690981B4BE0B400B2F830 /* Title Views */,
+				2CAD1E431B4AC117005BBDBE /* Speed limit Controller */,
 				2CFAB90F1B49ACA100BE71D9 /* Session Config Controller */,
 				2CFA5E111B432AA400262C36 /* Files Controller */,
 				2CF7D5111B42E768006D01FD /* Peers Controller */,
@@ -216,8 +231,7 @@
 				2CF91D0E1B3C8B000093637A /* Status list controller */,
 				2C6D18B71B3B4706002666C6 /* Server list controller */,
 				2C58110B1B39C3BA0069020D /* RPC Server Config Controller */,
-				2CE6B45E1B49598000157841 /* CommonTableController.h */,
-				2CE6B45F1B49598000157841 /* CommonTableController.m */,
+				2CF999D71B4C290500F4233C /* Common Table Controller */,
 				2CE6B45D1B494D1300157841 /* GlobalConsts.h */,
 				2CE6B4631B495EC700157841 /* GlobalConsts.m */,
 			);
@@ -244,6 +258,15 @@
 			name = "Server list controller";
 			sourceTree = "<group>";
 		};
+		2CAD1E431B4AC117005BBDBE /* Speed limit Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CAD1E441B4AC131005BBDBE /* SpeedLimitController.h */,
+				2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */,
+			);
+			name = "Speed limit Controller";
+			sourceTree = "<group>";
+		};
 		2CB651CC1B3DCC91005C823C /* Torrent list controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +276,19 @@
 				2CB651D11B3DCDD4005C823C /* TorrentListCell.m */,
 			);
 			name = "Torrent list controller";
+			sourceTree = "<group>";
+		};
+		2CF690981B4BE0B400B2F830 /* Title Views */ = {
+			isa = PBXGroup;
+			children = (
+				2CF690991B4BE0D400B2F830 /* FooterViewFreeSpace.xib */,
+				2CF6909A1B4BE0D400B2F830 /* FooterViewFreeSpace.h */,
+				2CF6909B1B4BE0D400B2F830 /* FooterViewFreeSpace.m */,
+				2CF6909E1B4BE49600B2F830 /* HeaderViewDURates.xib */,
+				2CF690A01B4BE74A00B2F830 /* HeaderViewDURates.h */,
+				2CF690A11B4BE74A00B2F830 /* HeaderViewDURates.m */,
+			);
+			name = "Title Views";
 			sourceTree = "<group>";
 		};
 		2CF7D5111B42E768006D01FD /* Peers Controller */ = {
@@ -318,6 +354,15 @@
 				2CFC267D1B44580E0070CC1C /* StatusListCell.m */,
 			);
 			name = "Status list controller";
+			sourceTree = "<group>";
+		};
+		2CF999D71B4C290500F4233C /* Common Table Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CE6B45E1B49598000157841 /* CommonTableController.h */,
+				2CE6B45F1B49598000157841 /* CommonTableController.m */,
+			);
+			name = "Common Table Controller";
 			sourceTree = "<group>";
 		};
 		2CFA5E111B432AA400262C36 /* Files Controller */ = {
@@ -430,9 +475,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CF6909F1B4BE49600B2F830 /* HeaderViewDURates.xib in Resources */,
 				2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */,
 				2C5810FE1B39BBDD0069020D /* controllers.storyboard in Resources */,
 				2C5810E11B39A5E50069020D /* Images.xcassets in Resources */,
+				2CF6909C1B4BE0D400B2F830 /* FooterViewFreeSpace.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,8 +502,10 @@
 				2C0A2AA31B469D5D0042CAA6 /* FileListFSCell.m in Sources */,
 				2CFA5E141B432ABF00262C36 /* FileListController.m in Sources */,
 				2CE6B4601B49598000157841 /* CommonTableController.m in Sources */,
+				2CAD1E461B4AC131005BBDBE /* SpeedLimitController.m in Sources */,
 				2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */,
 				2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */,
+				2CF690A21B4BE74A00B2F830 /* HeaderViewDURates.m in Sources */,
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
 				2C0E34A81B4006EB004303AB /* TRInfos.m in Sources */,
@@ -465,6 +514,7 @@
 				2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */,
 				2CF8C7651B4302F7005A7DD6 /* PeerListCell.m in Sources */,
 				2CE400BB1B49928F00BA32C2 /* BandwidthPriorityCell.m in Sources */,
+				2CF6909D1B4BE0D400B2F830 /* FooterViewFreeSpace.m in Sources */,
 				2C0A2AA61B469EC00042CAA6 /* NSObject+DataObject.m in Sources */,
 				2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */,
 				2CFAB9121B49ACCB00BE71D9 /* SessionConfigController.m in Sources */,

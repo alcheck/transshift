@@ -10,7 +10,7 @@
 #import "GlobalConsts.h"
 #import "CommonTableController.h"
 
-#define CONTROLLER_ID_CHOOSESERVER  @"ChooseServerToAddTorrentController"
+#define CONTROLLER_ID_CHOOSESERVER  @"chooseServerToAddController"
 
 @class RPCServerConfig;
 

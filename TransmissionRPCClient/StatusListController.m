@@ -11,7 +11,11 @@
 #import "TorrentInfoController.h"
 #import "PeerListController.h"
 #import "FileListController.h"
+#import "SessionConfigController.h"
+#import "SpeedLimitController.h"
 #import "RPCConnector.h"
+#import "FooterViewFreeSpace.h"
+#import "HeaderViewDURates.h"
 
 #define STATUS_SECTION_TITILE       @"Torrents"
 
@@ -21,6 +25,8 @@
                                     TorrentInfoControllerDelegate,
                                     PeerListControllerDelegate,
                                     FileListControllerDelegate,
+                                    SpeedLimitControllerDelegate,
+                                    UIPopoverControllerDelegate,
                                     UISplitViewControllerDelegate>
 
 @end
@@ -33,24 +39,53 @@
     NSArray *_itemFilterOptions;
     NSArray *_itemImages;
     
+    NSArray *_speedTitles;  // holds speed titles
+    NSArray *_speedRates;   // holds speed rates for this titles (Kb/s)
+    
+    // selected speed for downloading
+    int     _selectedDownloadRateIndex;         // - 0 - not selected
+    // selected speed for upoading
+    int     _selectedUploadRateIndex;           // - 0 - not selected
+    
     NSMutableDictionary *_cells;
     
+    // this flag used in ViewDidAppear
+    BOOL    _appearedFirstTime;
+    
+    // holds main RPC connector
     RPCConnector *_connector;
     
-    NSTimer *_refreshTimer;                             // holds main autorefresh timer
+    TRSessionInfo          *_sessionInfo;                 // holds session configuration Information
+    NSString               *_uploadRateLimitString;
+    NSString               *_downloadRateLimitString;
     
-    TorrentListController *_torrentController;          // holds detail torrent list controller
-    TorrentInfoController *_torrentInfoController;      // holds torrent info controller (when torrent is selected from torrent list)
-    PeerListController    *_peerListController;         // holds controller for showing peers
-    FileListController    *_fileListController;         // holds controller for showing files
+    NSTimer *_refreshTimer;                               // holds main autorefresh timer
+    
+    // Header/Footer info views
+    FooterViewFreeSpace     *_footerViewFreeSpace;
+    HeaderViewDURates       *_headerViewDURates;
+
+    // controllers
+
+    TorrentListController   *_torrentController;          // holds detail torrent list controller
+    TorrentInfoController   *_torrentInfoController;      // holds torrent info controller (when torrent is selected from torrent list)
+    PeerListController      *_peerListController;         // holds controller for showing peers
+    FileListController      *_fileListController;         // holds controller for showing files
+    SessionConfigController *_sessionConfigController;    // holds session config controller
+    SpeedLimitController    *_speedLimitController;       // holds speed limit controller
+    UIPopoverController     *_speedPopOver;               // holds popover for speed controller
  }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    _appearedFirstTime = YES;
+    
     // initialize section name and section row names
     [self initNames];
+    // initialize speeds
+    [self initSpeedTitles];
     
     // create RPC connector to communicate with selected server
     if( self.config )
@@ -105,6 +140,34 @@
                                 forControlEvents:UIControlEventValueChanged];
     
     self.headerInfoMessage = @"Updating ...";
+    
+    // configure bottom toolbar
+    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconRefresh20x20"]
+                                                           style:UIBarButtonItemStylePlain target:self
+                                                          action:@selector(autorefreshTimerUpdateHandler)],
+                          
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                          
+                          [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconTurtleUpload20x20"]
+                                                           style:UIBarButtonItemStylePlain
+                                                          target:self
+                                                          action:@selector(showUploadLimitRateController:)],
+                          
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                          
+                          [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconTurtleDownload20x20"]
+                                                           style:UIBarButtonItemStylePlain
+                                                          target:self
+                                                          action:@selector(showDownloadLimitRateController:)],
+                          
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                          
+                          
+                          [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconGears20x20"]
+                                                           style:UIBarButtonItemStylePlain
+                                                          target:self
+                                                          action:@selector(showSessionConfiguration)]
+                          ];
 }
 
 - (void)initNames
@@ -135,11 +198,23 @@
     _cells = [NSMutableDictionary dictionary];
 }
 
+- (void)initSpeedTitles
+{
+    _speedTitles = @[ @"Unlimited", @"100 Kb/s",  @"150 Kb/s",
+                      @"200 Kb/s",  @"250 Kb/s",  @"500 Kb/s",
+                      @"750 Kb/s",  @"1024 Kb/s", @"2048 Kb/s" ];
+    
+    _speedRates = @[ @(0),   @(100), @(150),
+                     @(200), @(250), @(500),
+                     @(750), @(1024),@(2048) ];
+    
+    _selectedDownloadRateIndex = 0;
+    _selectedUploadRateIndex = 0;
+    
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    static BOOL bFirstTime = YES;
-    
     [super viewDidAppear:animated];
     
     // if there is a leftbutton on _torrentConroller -> change title
@@ -149,7 +224,7 @@
     }
     
     // check if it is ipad we shoud and none of rows is selected - select all row (0)
-    if( self.splitViewController && bFirstTime )
+    if( self.splitViewController && _appearedFirstTime )
     {
         if( ![self.tableView indexPathForSelectedRow] )
         {
@@ -168,7 +243,16 @@
         [_connector getAllTorrents];
     }
     
-    bFirstTime = NO;
+    if( _appearedFirstTime )
+        [_connector getSessionInfo];
+    
+    _appearedFirstTime = NO;
+    self.navigationController.toolbarHidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.toolbarHidden = YES;
 }
 
 - (void)stopUpdating
@@ -183,6 +267,7 @@
 // main refresh cycle, updates data in detail view controllers
 - (void)autorefreshTimerUpdateHandler
 {
+    //NSLog(@"update");
     
     [_connector getAllTorrents];
    
@@ -196,6 +281,58 @@
             [_connector getAllPeersForTorrentWithId:_peerListController.torrentId];
         else if( nav.topViewController == _fileListController )
             [_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
+        else if( _sessionInfo )
+        {
+            // update free space
+            [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
+        }
+    }
+}
+
+- (void)gotFreeSpaceString:(NSString *)freeSpace
+{
+    NSString *str = [NSString stringWithFormat:@"Free space: %@", freeSpace];
+    //self.footerInfoMessage = str;
+    [self showFreeSpaceInfoWithString:str];
+    
+    if( !self.splitViewController )
+        _torrentController.footerInfoMessage = str;
+}
+
+- (void)showFreeSpaceInfoWithString:(NSString*)string
+{
+    if( !_footerViewFreeSpace )
+    {
+        _footerViewFreeSpace = [FooterViewFreeSpace view];
+        self.tableView.tableFooterView = _footerViewFreeSpace;
+    }
+    
+    _footerViewFreeSpace.label.text = string;
+}
+
+- (void)showHeaderDLRate:(NSString*)dlRate ULRate:(NSString*)ulRate
+{
+    if( !_headerViewDURates )
+    {
+        _headerViewDURates = [HeaderViewDURates view];
+        self.tableView.tableHeaderView = _headerViewDURates;
+    }
+    
+    _headerViewDURates.uploadString = ulRate;
+    _headerViewDURates.downloadString = dlRate;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    if( _footerViewFreeSpace )
+    {
+        [_footerViewFreeSpace setBoundsFromTableView:self.tableView];
+        self.tableView.tableFooterView = _footerViewFreeSpace;
+    }
+    if( _headerViewDURates )
+    {
+        [_headerViewDURates setBoundsFromTableView:self.tableView];
+        self.tableView.tableHeaderView = _headerViewDURates;
     }
 }
 
@@ -229,9 +366,25 @@
     // show torrents in list controller (update)
     _torrentController.torrents = torrents;
     
-    self.headerInfoMessage = [NSString stringWithFormat:@"↑UL:%@ ↓DL:%@",
+    NSString *str = [NSString stringWithFormat:@"↑UL:%@ ↓DL:%@",
                               torrents.totalUploadRateString,
                               torrents.totalDownloadRateString];
+    if( _uploadRateLimitString )
+    {
+        str = [NSString stringWithFormat:@"%@\n%@",str, _uploadRateLimitString];
+    }
+    
+    if( _downloadRateLimitString )
+    {
+        str = [NSString stringWithFormat:@"%@\n%@",str, _downloadRateLimitString];
+    }
+    
+    
+    [self showHeaderDLRate:torrents.totalDownloadRateString ULRate:torrents.totalUploadRateString];
+    
+    //self.headerInfoMessage = str;
+    //if( !self.splitViewController )
+        _torrentController.headerInfoMessage = str;
     //[self setHeaderUploadRate:torrents.totalUploadRateString andDownloadRate:torrents.totalDownloadRateString];
 }
 
@@ -242,6 +395,158 @@
         cell.numberLabel.text = [NSString stringWithFormat:@"%i", count];
 }
 
+#pragma mark - Bottom toolbar button handlers
+
+- (void)showDownloadLimitRateController:(UIBarButtonItem*)sender
+{
+    _speedLimitController = instantiateController(CONTROLLER_ID_SPEEDLIMIT);
+    _speedLimitController.preferredContentSize = CGSizeMake(190, 400);
+    _speedLimitController.selectedSpeed = _selectedDownloadRateIndex;
+    _speedLimitController.speedTitles = _speedTitles;
+    _speedLimitController.delegate = self;
+    _speedLimitController.title = @"Speed download limit";
+    _speedLimitController.isDownload = YES;
+    
+    if( self.splitViewController )
+    {
+        if( _speedPopOver && _speedPopOver.isPopoverVisible )
+            [_speedPopOver dismissPopoverAnimated:YES];
+        
+        _speedPopOver = [[UIPopoverController alloc] initWithContentViewController:_speedLimitController];
+        _speedPopOver.delegate = self;
+
+        [_speedPopOver presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else
+    {
+        [self.navigationController pushViewController:_speedLimitController animated:YES];
+    }
+}
+
+- (void)showUploadLimitRateController:(UIBarButtonItem*)sender
+{
+    _speedLimitController = instantiateController(CONTROLLER_ID_SPEEDLIMIT);
+    _speedLimitController.preferredContentSize = CGSizeMake(190, 400);    
+    _speedLimitController.selectedSpeed = _selectedUploadRateIndex;
+    _speedLimitController.speedTitles = _speedTitles;
+    _speedLimitController.delegate = self;
+    _speedLimitController.title = @"Speed upload limit";
+    _speedLimitController.isDownload = NO;
+    
+    if( self.splitViewController )
+    {
+        if( _speedPopOver && _speedPopOver.isPopoverVisible )
+            [_speedPopOver dismissPopoverAnimated:YES];
+        
+        _speedPopOver = [[UIPopoverController alloc] initWithContentViewController:_speedLimitController];
+        _speedPopOver.delegate = self;
+        [_speedPopOver setPopoverContentSize:CGSizeMake(200, 400)];
+        
+        [_speedPopOver presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+    else
+    {
+        [self.navigationController pushViewController:_speedLimitController animated:YES];
+    }
+}
+
+- (void)speedLimitControllerSpeedSelectedWithIndex:(int)index
+{
+    // take limit number and dissmiss
+    if( _speedPopOver )
+    {
+        [_speedPopOver dismissPopoverAnimated:YES];
+        _speedPopOver = nil;
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    // get the limits!
+    if( _speedLimitController.isDownload )
+    {
+        _selectedDownloadRateIndex = index;
+        int rate = [(NSNumber*)_speedRates[index] intValue];
+        [_connector limitDownloadRateWithSpeed:rate];
+    }
+    else
+    {
+        _selectedUploadRateIndex = index;
+        int rate = [(NSNumber*)_speedRates[index] intValue];
+        [_connector limitUploadRateWithSpeed:rate];
+    }
+    
+    _speedLimitController = nil;
+}
+
+#pragma mark - Working with session information
+
+// shows SessionConfigController and make request
+// for session info
+- (void)showSessionConfiguration
+{
+    _sessionConfigController = instantiateController(CONTROLLER_ID_SESSIONCONFIG);
+    _sessionConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+                                                                                                               target:self
+                                                                                                               action:@selector(saveSessionParametes)];
+    [self.navigationController pushViewController:_sessionConfigController animated:YES];
+    
+    [_connector getSessionInfo];
+    [_connector portTest];
+}
+
+- (void)saveSessionParametes
+{
+    if( [_sessionConfigController saveConfig] )
+    {
+        [_connector setSessionWithSessionInfo:_sessionConfigController.sessionInfo];
+        [self.navigationController popViewControllerAnimated:YES];
+        _sessionConfigController = nil;
+    }
+}
+
+- (void)gotSessionWithInfo:(TRSessionInfo *)info
+{
+    _sessionInfo = info;
+    
+    _uploadRateLimitString = nil;
+    _downloadRateLimitString = nil;
+    
+    // update speed information
+    if(_sessionInfo.upLimitEnabled )
+    {
+        _uploadRateLimitString = [NSString stringWithFormat:@"Upload speed limit: %i Kb/s", _sessionInfo.upLimitRate];
+        
+    }
+    
+    if( _sessionInfo.downLimitEnabled )
+    {
+        _downloadRateLimitString = [NSString stringWithFormat:@"Download speed limit: %i Kb/s", _sessionInfo.downLimitRate];
+    }
+    
+    if( _sessionInfo.altLimitEnabled )
+    {
+        _uploadRateLimitString = [NSString stringWithFormat:@"Alt. speed limits enabled UL:%i KB/s, DL:%i KB/s", _sessionInfo.altUploadRateLimit, _sessionInfo.altDownloadRateLimit];
+        _downloadRateLimitString = nil;
+    }
+    
+    if( _sessionConfigController )
+        _sessionConfigController.sessionInfo = info;
+    
+    _headerViewDURates.limitsIsOn = (_uploadRateLimitString!=nil || _downloadRateLimitString!=nil);
+}
+
+- (void)gotPortTestedWithSuccess:(BOOL)portIsOpen
+{
+    if( _sessionConfigController )
+        _sessionConfigController.portIsOpen = portIsOpen;
+}
+
+- (void)gotSessionSetWithInfo:(TRSessionInfo *)info
+{
+    [self gotSessionWithInfo:info];
+}
 
 #pragma mark - RPCConnector error hangling
 

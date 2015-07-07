@@ -25,9 +25,13 @@
 @optional - (void)gotTorrentVerifyedWithId:(int)torrentId;
 @optional - (void)gotTorrentReannouncedWithId:(int)torrentId;
 @optional - (void)gotTorrentAdded;
+@optional - (void)gotTorrentAddedWithMagnet:(NSString*)magnet;
 @optional - (void)gotAllPeers:(NSArray*)peerInfos forTorrentWithId:(int)torrentId;
 @optional - (void)gotAllFiles:(NSArray*)fileInfos forTorrentWithId:(int)torrentId;
 @optional - (void)gotSessionWithInfo:(TRSessionInfo*)info;
+@optional - (void)gotSessionSetWithInfo:(TRSessionInfo*)info;
+@optional - (void)gotFreeSpaceString:(NSString*)freeSpace;
+@optional - (void)gotPortTestedWithSuccess:(BOOL)portIsOpen;
 
 @end
 
@@ -50,6 +54,7 @@
 - (void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData;
 
 - (void)addTorrentWithData:(NSData*)data priority:(int)priority startImmidiately:(BOOL)startImmidiately;
+- (void)addTorrentWithMagnet:(NSString*)magnetURLString priority:(int)priority startImmidiately:(BOOL)startImmidiately;
 
 - (void)getAllPeersForTorrentWithId:(int)torrentId;
 - (void)getAllFilesForTorrentWithId:(int)torrentId;
@@ -58,8 +63,13 @@
 - (void)resumeDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 - (void)setPriority:(int)priority forFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 
-- (void)getSession;
+- (void)getSessionInfo;
 - (void)setSessionWithSessionInfo:(TRSessionInfo*)info;
+- (void)getFreeSpaceWithDownloadDir:(NSString*)downloadDir;
+- (void)portTest;
+
+- (void)limitUploadRateWithSpeed:(int)rateKbs;
+- (void)limitDownloadRateWithSpeed:(int)rateKbs;
 
 @end
 

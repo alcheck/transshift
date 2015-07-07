@@ -22,6 +22,7 @@
 @property(nonatomic,readonly) float     progress;
 @property(nonatomic,readonly) NSString* progressString;
 @property(nonatomic,readonly) BOOL      isEncrypted;
+@property(nonatomic,readonly) BOOL      isUTP;
 
 + (TRPeerInfo*)peerInfoWithJSONData:(NSDictionary*)dict;
 

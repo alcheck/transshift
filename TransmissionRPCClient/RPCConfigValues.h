@@ -25,12 +25,18 @@
 #define TR_METHODNAME_TORRENTSET                    @"torrent-set"
 #define TR_METHODNAME_SESSIONGET                    @"session-get"
 #define TR_METHODNAME_SESSIONSET                    @"session-set"
+#define TR_METHODNAME_FREESPACE                     @"free-space"
+#define TR_METHODNAME_TESTPORT                      @"port-test"
 
 #define TR_RETURNED_ARG_TORRENTS                    @"torrents"
 #define TR_ARG_DELETELOCALDATA                      @"delete-local-data"
 #define TR_ARG_METAINFO                             @"metainfo"                 /* Base64 encoded info */
+#define TR_ARG_MAGNETFILENAME                       @"filename"
 #define TR_ARG_BANDWIDTHPRIORITY                    @"bandwidthPriority"
 #define TR_ARG_PAUSEONADD                           @"paused"
+#define TR_ARG_FREESPACEPATH                        @"path"
+#define TR_ARG_FREESPACESIZE                        @"size-bytes"
+#define TR_ARG_PORTTESTPORTISOPEN                   @"port-is-open"
 
 // ---- TORRENT GET --- arguments
 
@@ -69,6 +75,7 @@
 #define TR_ARG_FIELDS_PEER_RATETOPEER               @"rateToPeer"   /* upload rate */
 #define TR_ARG_FIELDS_PEER_PROGRESS                 @"progress"
 #define TR_ARG_FIELDS_PEER_ISENCRYPTED              @"isEncrypted"
+#define TR_ARG_FIELDS_PEER_ISUTP                    @"isUTP"
 
 #define TR_ARG_FIELDS_UPLOADEDEVER                  @"uploadedEver"
 #define TR_ARG_FIELDS_UPLOADRATIO                   @"uploadRatio"

@@ -144,7 +144,7 @@
 {
     sender.enabled = NO;
     
-    int priority = sender.selectedSegmentIndex - 1;
+    int priority = (int)sender.selectedSegmentIndex - 1;
     
     if( _delegate && [_delegate respondsToSelector:@selector(fileListControllerSetPriority:forFilesWithIndexes:forTorrentWithId:)])
     {
@@ -185,7 +185,7 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FileListFSCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FILELISTFSCELL forIndexPath:indexPath];
-    FSItem *item = [_fsDir itemAtIndex:indexPath.row];
+    FSItem *item = [_fsDir itemAtIndex:(int)indexPath.row];
    
     //cell.leftLabel.bounds = r;
     cell.nameLabel.text = item.name;

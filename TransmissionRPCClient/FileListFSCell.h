@@ -10,7 +10,7 @@
 
 #define CELL_ID_FILELISTFSCELL                      @"fileListFSCell"
 #define FILELISTFSCELL_LEFTLABEL_WIDTH              28
-#define FILELISTFSCELL_LEFTLABEL_LEVEL_INDENTATION  30
+#define FILELISTFSCELL_LEFTLABEL_LEVEL_INDENTATION  15
 
 @interface FileListFSCell : UITableViewCell
 

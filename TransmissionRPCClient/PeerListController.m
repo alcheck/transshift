@@ -114,6 +114,8 @@
     cell.flagLabel.text = info.flagString;
     cell.downloadLabel.text = info.rateToClient > 0 ? info.rateToClientString : @"-";
     cell.uploadLabel.text = info.rateToPeer > 0 ?  info.rateToPeerString : @"-";
+    cell.isSecure = info.isEncrypted;
+    cell.isUTPEnabled = info.isUTP;
     
     return cell;
 }

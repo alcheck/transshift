@@ -287,6 +287,36 @@
 
 }
 
+- (void)addTorrentWithMagnet:(NSString *)magnetURLString priority:(int)priority startImmidiately:(BOOL)startImmidiately
+{    
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTADD,
+                                  TR_METHOD_ARGS : @{ TR_ARG_MAGNETFILENAME : magnetURLString,
+                                                      TR_ARG_BANDWIDTHPRIORITY : @(priority),
+                                                      TR_ARG_PAUSEONADD: startImmidiately ? @(NO):@(YES) }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTADD andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentAddedWithMagnet:)])
+         {
+             dispatch_async(dispatch_get_main_queue(), ^
+             {
+                 [_delegate gotTorrentAddedWithMagnet:magnetURLString];
+             });
+         }
+         else if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentAdded)])
+         {
+             dispatch_async(dispatch_get_main_queue(), ^
+             {
+                 [_delegate gotTorrentAdded];
+             });
+         }
+     }];
+    
+}
+
+
 - (void)stopDownloadingFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
 {
     NSDictionary *requestVals = @{TR_METHOD : TR_METHODNAME_TORRENTSET,
@@ -331,7 +361,7 @@
      }];
 }
 
-- (void)getSession
+- (void)getSessionInfo
 {
     NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_SESSIONGET };
     
@@ -345,6 +375,95 @@
                           [_delegate gotSessionWithInfo:sessionInfo];
                       });
     }];    
+}
+
+- (void)setSessionWithSessionInfo:(TRSessionInfo *)info
+{
+    NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_SESSIONSET, TR_METHOD_ARGS : info.jsonForRPC };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_SESSIONSET andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotSessionSetWithInfo:)] )
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotSessionSetWithInfo: info];
+                 //[self getSessionInfo];
+             });
+     }];
+}
+
+// if rateKBs is 0 - limit is disabled
+- (void)limitDownloadRateWithSpeed:(int)rateKbs
+{
+    BOOL isEnabled = rateKbs > 0;
+    
+    NSDictionary* args;
+    
+    if( isEnabled )
+        args = @{ TR_ARG_SESSION_ALTLIMITRATEENABLED : @(NO), TR_ARG_SESSION_LIMITDOWNRATEENABLED : @(YES), TR_ARG_SESSION_LIMITDOWNRATE : @(rateKbs) };
+    else
+        args = @{ TR_ARG_SESSION_LIMITDOWNRATEENABLED : @(NO) };
+
+    
+    NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_SESSIONSET, TR_METHOD_ARGS : args };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_SESSIONSET andHandler:^(NSDictionary *json){
+        [self getSessionInfo];
+    }];
+}
+
+// if rateKBs si 0 - limit is disabled
+- (void)limitUploadRateWithSpeed:(int)rateKbs
+{
+    BOOL isEnabled = rateKbs > 0;
+   
+    NSDictionary* args;
+    
+    if( isEnabled )
+        args = @{ TR_ARG_SESSION_ALTLIMITRATEENABLED : @(NO), TR_ARG_SESSION_LIMITUPRATEENABLED : @(YES), TR_ARG_SESSION_LIMITUPRATE : @(rateKbs) };
+    else
+        args = @{ TR_ARG_SESSION_LIMITUPRATEENABLED : @(NO) };
+
+    
+    NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_SESSIONSET, TR_METHOD_ARGS : args };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_SESSIONSET andHandler:^(NSDictionary *json){
+        [self getSessionInfo];
+    }];
+}
+
+- (void)getFreeSpaceWithDownloadDir:(NSString *)downloadDir
+{
+    NSDictionary *requestVals = @{TR_METHOD : TR_METHODNAME_FREESPACE,
+                                  TR_METHOD_ARGS : @{ TR_ARG_FREESPACEPATH : downloadDir } };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_FREESPACE andHandler:^(NSDictionary *json)
+     {
+         long long freeSizeBytes = [(NSNumber*)(json[TR_RETURNED_ARGS][TR_ARG_FREESPACESIZE]) longLongValue];
+
+         NSByteCountFormatter *formatter = [[NSByteCountFormatter alloc] init];
+         formatter.allowsNonnumericFormatting = NO;
+         NSString* freeSizeString = [formatter stringFromByteCount:freeSizeBytes];
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotFreeSpaceString:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotFreeSpaceString:freeSizeString];
+             });
+     }];
+}
+
+- (void)portTest
+{
+    NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_TESTPORT };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TESTPORT andHandler:^(NSDictionary *json)
+     {
+         BOOL portIsOpen = [(NSNumber*)(json[TR_RETURNED_ARGS][TR_ARG_PORTTESTPORTISOPEN]) boolValue];
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotPortTestedWithSuccess:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotPortTestedWithSuccess:portIsOpen];
+             });
+     }];
 }
 
 // perform request with JSON body and handler

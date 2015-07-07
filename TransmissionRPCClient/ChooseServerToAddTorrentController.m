@@ -42,7 +42,7 @@
 
 - (void)priorityChanged:(UISegmentedControl*)sender
 {
-    _bandwidthPriority = sender.selectedSegmentIndex;
+    _bandwidthPriority = (int)sender.selectedSegmentIndex;
 }
 
 - (int)bandwidthPriority
@@ -74,7 +74,7 @@
 {
     if( indexPath.section == 0 )
     {
-        _selectedRow = indexPath.row;
+        _selectedRow = (int)indexPath.row;
         _rpcConfig = [RPCServerConfigDB sharedDB].db[indexPath.row];
         [self.tableView reloadData];
     }

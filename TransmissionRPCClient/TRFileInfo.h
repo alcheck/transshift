@@ -29,6 +29,6 @@
 @property(nonatomic,readonly) float      downloadProgress;       /* 0 .. 1 */
 @property(nonatomic,readonly) NSString*  downloadProgressString;
 @property(nonatomic,readonly) int        folderLevel;
-@property(nonatomic,readonly) NSString*  parentFolderName;       
+@property(nonatomic,readonly) NSString*  parentFolderName;
 
 @end

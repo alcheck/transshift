@@ -52,6 +52,10 @@
     
     if( dict[TR_ARG_FIELDS_PEER_ISENCRYPTED])
         _isEncrypted = [(NSNumber*)dict[TR_ARG_FIELDS_PEER_ISENCRYPTED] boolValue];
+
+    if( dict[TR_ARG_FIELDS_PEER_ISUTP])
+        _isUTP = [(NSNumber*)dict[TR_ARG_FIELDS_PEER_ISUTP] boolValue];
+    
     
     return self;
 }

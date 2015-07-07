@@ -8,48 +8,19 @@
 
 #import "TRSessionInfo.h"
 
+#define ENCRYPTION_ID_REQUIRED   @"required"
+#define ENCRYPTION_ID_PREFFERED  @"preffered"
+#define ENCRYPTION_ID_TOLERATED  @"tolerated"
+
 @interface TRSessionInfo()
-
-@property(nonatomic,readonly) NSString*     transmissionVersion;
-@property(nonatomic,readonly) NSString*     rpcVersion;
-@property(nonatomic,readonly) NSString*     downloadDir;
-
-@property(nonatomic,readonly) BOOL          startDownloadingOnAdd;
-
-@property(nonatomic,readonly) BOOL          upLimitEnabled;
-@property(nonatomic,readonly) BOOL          downLimitEnabled;
-@property(nonatomic,readonly) int           upLimitRate;
-@property(nonatomic,readonly) int           downLimitRate;
-
-@property(nonatomic,readonly) BOOL          seedRatioLimitEnabled;
-@property(nonatomic,readonly) float         seedRatioLimit;
-
-@property(nonatomic,readonly) BOOL          portForfardingEnabled;
-@property(nonatomic,readonly) BOOL          portRandomAtStartEnabled;
-@property(nonatomic,readonly) int           port;
-
-@property(nonatomic,readonly) BOOL          UTPEnabled;
-@property(nonatomic,readonly) BOOL          PEXEnabled;
-@property(nonatomic,readonly) BOOL          LPDEnabled;
-@property(nonatomic,readonly) BOOL          DHTEnabled;
-
-@property(nonatomic,readonly) int           globalPeerLimit;
-@property(nonatomic,readonly) int           torrentPeerLimit;
-
-@property(nonatomic,readonly) NSString*     encryption;
-
-@property(nonatomic,readonly) int           seedIdleLimit;
-@property(nonatomic,readonly) BOOL          seedIdleLimitEnabled;
-
-@property(nonatomic,readonly) BOOL          altLimitEnabled;
-@property(nonatomic,readonly) int           altDownloadRateLimit;
-@property(nonatomic,readonly) int           altUploadRateLimit;
-
-@property(nonatomic,readonly) BOOL          addPartToUnfinishedFilesEnabled;
 
 @end
 
 @implementation TRSessionInfo
+
+{
+    int _encryptionId;
+}
 
 + (TRSessionInfo *)sessionInfoFromJSON:(NSDictionary *)dict
 {
@@ -65,7 +36,7 @@
         return self;
     
     _transmissionVersion = dict[TR_ARG_SESSION_VERSION];
-    _rpcVersion = [NSString stringWithFormat:@"%@.%@", dict[TR_ARG_SESSION_RPCVER], dict[TR_ARG_SESSION_RPCVERMIN]];
+    _rpcVersion = [NSString stringWithFormat:@"%@(min supported %@)", dict[TR_ARG_SESSION_RPCVER], dict[TR_ARG_SESSION_RPCVERMIN]];
     
     _downloadDir = dict[TR_ARG_SESSION_DOWNLOADDIR];
     _startDownloadingOnAdd = [(NSNumber*)dict[TR_ARG_SESSION_STARTONADD] boolValue];
@@ -90,6 +61,7 @@
     _torrentPeerLimit = [(NSNumber*)dict[TR_ARG_SESSION_PEERLIMITPERTORRENT] intValue];
     
     _encryption = dict[TR_ARG_SESSION_ENRYPTION];
+    
     _seedIdleLimit = [(NSNumber*)dict[TR_ARG_SESSION_IDLESEEDLIMIT] intValue];
     _seedIdleLimitEnabled = [(NSNumber*)dict[TR_ARG_SESSION_IDLELIMITENABLED] boolValue];
     
@@ -100,6 +72,68 @@
     _addPartToUnfinishedFilesEnabled = [(NSNumber*)dict[TR_ARG_SESSION_RENAMEPARTIAL] boolValue];
     
     return self;
+}
+
+// return JSON for RPC session-set
+- (NSDictionary *)jsonForRPC
+{
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+    
+    dict[TR_ARG_SESSION_STARTONADD] = @(_startDownloadingOnAdd);
+    dict[TR_ARG_SESSION_RENAMEPARTIAL] = @(_addPartToUnfinishedFilesEnabled);
+    
+    dict[TR_ARG_SESSION_LIMITUPRATEENABLED] = @(_upLimitEnabled);
+    if( _upLimitEnabled )
+        dict[TR_ARG_SESSION_LIMITUPRATE] = @(_upLimitRate);
+    
+    dict[TR_ARG_SESSION_LIMITDOWNRATEENABLED] = @(_downLimitEnabled);
+    if( _downLimitEnabled )
+        dict[TR_ARG_SESSION_LIMITDOWNRATE] = @(_downLimitRate);
+    
+    dict[TR_ARG_SESSION_SEEDRATIOLIMITENABLED] = @(_seedIdleLimitEnabled);
+    
+    if( _seedIdleLimitEnabled )
+        dict[TR_ARG_SESSION_SEEDRATIOLIMIT] = @(_seedRatioLimit);
+    
+    dict[TR_ARG_SESSION_PORTFORWARDENABLED] = @(_portForfardingEnabled);
+    dict[TR_ARG_SESSION_PORTRANDOMONSTART] = @(_portRandomAtStartEnabled);
+    dict[TR_ARG_SESSION_PORT] = @(_port);
+    
+    dict[TR_ARG_SESSION_UTPENABLED] = @(_UTPEnabled);
+    dict[TR_ARG_SESSION_PEXENABLED] = @(_PEXEnabled);
+    dict[TR_ARG_SESSION_LPDENABLED] = @(_LPDEnabled);
+    dict[TR_ARG_SESSION_DHTENABLED] = @(_DHTEnabled);
+    
+    dict[TR_ARG_SESSION_PEERLIMITTOTAL] = @(_globalPeerLimit);
+    dict[TR_ARG_SESSION_PEERLIMITPERTORRENT] = @(_torrentPeerLimit);
+  
+    dict[TR_ARG_SESSION_ENRYPTION] = _encryption;
+    
+    dict[TR_ARG_SESSION_IDLELIMITENABLED] = @(_seedIdleLimitEnabled);
+    
+    if( _seedIdleLimitEnabled )
+        dict[TR_ARG_SESSION_IDLESEEDLIMIT] = @(_seedIdleLimit);
+    
+    dict[TR_ARG_SESSION_ALTLIMITRATEENABLED] = @(_altLimitEnabled);
+    if( _altLimitEnabled )
+    {
+        dict[TR_ARG_SESSION_ALTLIMIDOWNRATE] = @(_altDownloadRateLimit);
+        dict[TR_ARG_SESSION_ALTLIMITUPRATE] = @(_altUploadRateLimit);
+    }
+   
+    return dict;
+}
+
+- (int)encryptionId
+{
+    _encryptionId = [_encryption isEqualToString:ENCRYPTION_ID_REQUIRED] ? 0 : ( [_encryption isEqualToString:ENCRYPTION_ID_PREFFERED] ? 1 : 2 );
+    return _encryptionId;
+}
+
+- (void)setEncryptionId:(int)encryptionId
+{
+    _encryptionId = encryptionId;
+    _encryption = _encryptionId == 0 ? ENCRYPTION_ID_REQUIRED : ( _encryptionId == 1 ? ENCRYPTION_ID_PREFFERED : ENCRYPTION_ID_TOLERATED );
 }
 
 @end

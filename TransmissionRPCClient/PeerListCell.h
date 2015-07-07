@@ -19,5 +19,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *flagLabel;
 @property (weak, nonatomic) IBOutlet UILabel *uploadLabel;
 @property (weak, nonatomic) IBOutlet UILabel *downloadLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *iconSecurity;
+@property (weak, nonatomic) IBOutlet UIImageView *iconUTP;
+
+@property (nonatomic) BOOL isSecure;
+@property (nonatomic) BOOL isUTPEnabled;
 
 @end
