@@ -7,16 +7,19 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeMIMETypes</key>
-			<array>
-				<string></string>
-			</array>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string></string>
 			</array>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>docIcon_22x29</string>
+				<string>docIcon_44x58</string>
+				<string>docIcon_64x64</string>
+				<string>docIcon_320x320</string>
+			</array>
 			<key>CFBundleTypeName</key>
-			<string>TORRENT custom datatype</string>
+			<string>TORRENT custom datatype </string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -43,7 +46,7 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>None</string>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>asc.transmissionrpcclient.magnet</string>
 			<key>CFBundleURLSchemes</key>
@@ -87,6 +90,10 @@
 			<string>Transmission torrent file</string>
 			<key>UTTypeIdentifier</key>
 			<string>ASC.TransmissionRPCClient.torrent</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>docIcon_320x320</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>docIcon_64x64</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
