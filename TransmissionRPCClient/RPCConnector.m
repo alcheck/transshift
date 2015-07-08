@@ -296,7 +296,7 @@
                                                       TR_ARG_PAUSEONADD: startImmidiately ? @(NO):@(YES) }
                                   };
     
-    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTADD andHandler:^(NSDictionary *json)
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTADDURL andHandler:^(NSDictionary *json)
      {
          if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentAddedWithMagnet:)])
          {

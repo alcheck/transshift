@@ -26,6 +26,7 @@
                                     PeerListControllerDelegate,
                                     FileListControllerDelegate,
                                     SpeedLimitControllerDelegate,
+                                    UIAlertViewDelegate,
                                     UIPopoverControllerDelegate,
                                     UISplitViewControllerDelegate>
 
@@ -168,6 +169,12 @@
                                                           target:self
                                                           action:@selector(showSessionConfiguration)]
                           ];
+    
+    // configure "add torrent by url" right nav button
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconLinkAdd20x20"]
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(showAddTorrentByURLDialog)];
 }
 
 - (void)initNames
@@ -307,6 +314,9 @@
         self.tableView.tableFooterView = _footerViewFreeSpace;
     }
     
+    if( self.tableView.tableFooterView != _footerViewFreeSpace )
+        self.tableView.tableFooterView = _footerViewFreeSpace;
+    
     _footerViewFreeSpace.label.text = string;
 }
 
@@ -317,6 +327,10 @@
         _headerViewDURates = [HeaderViewDURates view];
         self.tableView.tableHeaderView = _headerViewDURates;
     }
+  
+    // fix - hide error message
+    if( self.tableView.tableHeaderView != _headerViewDURates )
+        self.tableView.tableHeaderView = _headerViewDURates;
     
     _headerViewDURates.uploadString = ulRate;
     _headerViewDURates.downloadString = dlRate;
@@ -324,6 +338,8 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    
     if( _footerViewFreeSpace )
     {
         [_footerViewFreeSpace setBoundsFromTableView:self.tableView];
@@ -384,7 +400,7 @@
     
     //self.headerInfoMessage = str;
     //if( !self.splitViewController )
-        _torrentController.headerInfoMessage = str;
+    _torrentController.headerInfoMessage = str;
     //[self setHeaderUploadRate:torrents.totalUploadRateString andDownloadRate:torrents.totalDownloadRateString];
 }
 
@@ -393,6 +409,32 @@
     StatusListCell *cell = _cells[cellTitle];
     if( cell )
         cell.numberLabel.text = [NSString stringWithFormat:@"%i", count];
+}
+
+// shows alert view for adding torrent by URL (magnet url also)
+- (void)showAddTorrentByURLDialog
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add torrent by URL"
+                                                    message:@"Type URL of MAGNET URL"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Add torrent", nil];
+    
+    alert.delegate = self;
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    [alert show];
+}
+
+#pragma mark - Alert View delegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if( buttonIndex != alertView.cancelButtonIndex )
+    {
+        // get url
+        NSString* urlString = [alertView textFieldAtIndex:0].text;
+        [_connector addTorrentWithMagnet:urlString priority:0 startImmidiately:YES];
+    }
 }
 
 #pragma mark - Bottom toolbar button handlers

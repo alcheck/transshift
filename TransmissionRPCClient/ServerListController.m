@@ -43,6 +43,12 @@
     
     self.navigationItem.leftBarButtonItem = _buttonEdit;
     self.navigationItem.rightBarButtonItem = _buttonAdd;
+    
+    // show version
+    NSString *version = [NSString stringWithFormat:@"version %@(%@)",
+                         [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"],
+                         [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
+    self.footerInfoMessage = version;
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -21,6 +21,7 @@
 #define TR_METHODNAME_TORRENTVERIFY                 @"torrent-verify"
 #define TR_METHODNAME_TORRENTREMOVE                 @"torrent-remove"
 #define TR_METHODNAME_TORRENTADD                    @"torrent-add"
+#define TR_METHODNAME_TORRENTADDURL                 @"torrent-add-url"
 #define TR_METHODNAME_TORRENTGET                    @"torrent-get"
 #define TR_METHODNAME_TORRENTSET                    @"torrent-set"
 #define TR_METHODNAME_SESSIONGET                    @"session-get"

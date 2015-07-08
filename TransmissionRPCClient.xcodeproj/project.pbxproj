@@ -40,6 +40,10 @@
 		2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */; };
 		2CF911981B41CD66003D0753 /* TorrentInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911971B41CD66003D0753 /* TorrentInfoController.m */; };
 		2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF91D101B3C8B3B0093637A /* StatusListController.m */; };
+		2CF964EE1B4D5DB9006D8C7E /* docIcon_22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EA1B4D5DB9006D8C7E /* docIcon_22x29.png */; };
+		2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */; };
+		2CF964F01B4D5DB9006D8C7E /* docIcon_64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EC1B4D5DB9006D8C7E /* docIcon_64x64.png */; };
+		2CF964F11B4D5DB9006D8C7E /* docIcon_320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964ED1B4D5DB9006D8C7E /* docIcon_320x320.png */; };
 		2CFA5E101B43237400262C36 /* TRFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA5E0F1B43237400262C36 /* TRFileInfo.m */; };
 		2CFA5E141B432ABF00262C36 /* FileListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA5E131B432ABF00262C36 /* FileListController.m */; };
 		2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA9DC01B42CE0D005629C2 /* TRPeerInfo.m */; };
@@ -123,6 +127,10 @@
 		2CF911971B41CD66003D0753 /* TorrentInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentInfoController.m; sourceTree = "<group>"; };
 		2CF91D0F1B3C8B3B0093637A /* StatusListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListController.h; sourceTree = "<group>"; };
 		2CF91D101B3C8B3B0093637A /* StatusListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListController.m; sourceTree = "<group>"; };
+		2CF964EA1B4D5DB9006D8C7E /* docIcon_22x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_22x29.png; sourceTree = "<group>"; };
+		2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_44x58.png; sourceTree = "<group>"; };
+		2CF964EC1B4D5DB9006D8C7E /* docIcon_64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_64x64.png; sourceTree = "<group>"; };
+		2CF964ED1B4D5DB9006D8C7E /* docIcon_320x320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_320x320.png; sourceTree = "<group>"; };
 		2CFA5E0E1B43237400262C36 /* TRFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFileInfo.h; sourceTree = "<group>"; };
 		2CFA5E0F1B43237400262C36 /* TRFileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFileInfo.m; sourceTree = "<group>"; };
 		2CFA5E121B432ABF00262C36 /* FileListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListController.h; sourceTree = "<group>"; };
@@ -191,6 +199,7 @@
 		2C5810D91B39A5E50069020D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2CF9AF031B4D59B800D687C7 /* docIcons */,
 				2C5810E21B39A5E50069020D /* LaunchScreen.xib */,
 				2C5810E01B39A5E50069020D /* Images.xcassets */,
 				2C5810DA1B39A5E50069020D /* Info.plist */,
@@ -365,6 +374,17 @@
 			name = "Common Table Controller";
 			sourceTree = "<group>";
 		};
+		2CF9AF031B4D59B800D687C7 /* docIcons */ = {
+			isa = PBXGroup;
+			children = (
+				2CF964EA1B4D5DB9006D8C7E /* docIcon_22x29.png */,
+				2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */,
+				2CF964EC1B4D5DB9006D8C7E /* docIcon_64x64.png */,
+				2CF964ED1B4D5DB9006D8C7E /* docIcon_320x320.png */,
+			);
+			name = docIcons;
+			sourceTree = "<group>";
+		};
 		2CFA5E111B432AA400262C36 /* Files Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,7 +499,11 @@
 				2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */,
 				2C5810FE1B39BBDD0069020D /* controllers.storyboard in Resources */,
 				2C5810E11B39A5E50069020D /* Images.xcassets in Resources */,
+				2CF964F11B4D5DB9006D8C7E /* docIcon_320x320.png in Resources */,
 				2CF6909C1B4BE0D400B2F830 /* FooterViewFreeSpace.xib in Resources */,
+				2CF964EE1B4D5DB9006D8C7E /* docIcon_22x29.png in Resources */,
+				2CF964F01B4D5DB9006D8C7E /* docIcon_64x64.png in Resources */,
+				2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +674,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -662,6 +687,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

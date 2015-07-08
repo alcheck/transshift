@@ -32,7 +32,7 @@
     
     _bandwidthPriority = 1;
     _startImmidiately = YES;
-    _rpcConfig = [RPCServerConfigDB sharedDB].db[0];
+    _rpcConfig = [[RPCServerConfigDB sharedDB].db firstObject];
 }
 
 - (void)swithValueChanged:(UISwitch*)sender
@@ -78,6 +78,14 @@
         _rpcConfig = [RPCServerConfigDB sharedDB].db[indexPath.row];
         [self.tableView reloadData];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if( indexPath.section == 0 )
+        return 70;
+    else
+        return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -117,7 +117,7 @@
             
             
             _chooseNav = [[UINavigationController alloc] initWithRootViewController:chooseServerController];
-            _chooseNav.modalPresentationStyle = UIModalPresentationFormSheet;
+            _chooseNav.modalPresentationStyle = UIModalPresentationFormSheet;            
             
             [self.window.rootViewController presentViewController:_chooseNav animated:YES completion:nil];
         }

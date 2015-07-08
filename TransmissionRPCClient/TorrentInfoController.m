@@ -51,7 +51,7 @@
 
     _deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteTorrent)];
     
-    _refreshButton = [[UIBarButtonItem alloc] initWithTitle:@"Reannounce"
+    _refreshButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconReannounce20x20"]
                                                       style:UIBarButtonItemStylePlain
                                                      target:self
                                                      action:@selector(reannounceTorrent)];
