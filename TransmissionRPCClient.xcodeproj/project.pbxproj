@@ -491,6 +491,11 @@
 					2C5810D51B39A5E50069020D = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 72C28QMYS6;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					2C5810E81B39A5E50069020D = {
 						CreatedOnToolsVersion = 6.3.2;

@@ -19,6 +19,8 @@
 
 @interface AppDelegate() <RPCConnectorDelegate>
 
+@property(atomic) TRInfos*  bgTRInfos;
+
 @end
 
 @implementation AppDelegate
@@ -30,6 +32,12 @@
     RPCServerConfig *_selectedConfig;
     
     NSString *_magnetURLString;
+    
+    // flag showing - that we use background fetching
+    BOOL _isBackgroundFetching;
+    
+    // background fetch complition handler
+    void (^_bgComplitionHandler)(UIBackgroundFetchResult);
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -62,6 +70,9 @@
     }
     
     self.window.rootViewController = rootController;
+    // set background fetch interval
+    _isBackgroundFetching = NO;
+    [application setMinimumBackgroundFetchInterval:20];         // 20 seconds fetching
     
     // show main window
     self.window.backgroundColor = [UIColor whiteColor];
@@ -155,12 +166,20 @@
 
 - (void)connector:(RPCConnector *)cn complitedRequestName:(NSString *)requestName withError:(NSString *)errorMessage
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't add torrent"
-                                                    message:[NSString stringWithFormat:@"%@", errorMessage]
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil, nil];
-    [alert show];
+    if( !_isBackgroundFetching )
+    {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't add torrent"
+                                                        message:[NSString stringWithFormat:@"%@", errorMessage]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        _bgComplitionHandler(UIBackgroundFetchResultFailed);
+    }
 }
 
 - (void)addTorrentToSelectedServer
@@ -180,6 +199,111 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     [[RPCServerConfigDB sharedDB] saveDB];
+}
+
+- (void)gotAllTorrents:(TRInfos *)trInfos
+{
+    if( _isBackgroundFetching )
+    {
+        // fetch is complite
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *downIds = [defaults arrayForKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
+        
+
+        // update current downloading torrents ids
+        // in NSUserDefaults
+        NSArray *curDownIds = trInfos.downloadingTorrents;
+        if( curDownIds && curDownIds.count > 0 )
+        {
+            NSMutableArray *downIds = [NSMutableArray array];
+            for (TRInfo* t in downIds)
+                [downIds addObject:@(t.trId)];
+            
+            [defaults setObject:downIds forKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
+            [defaults synchronize];
+        }
+        else // there is no ids, remove key
+        {
+            [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
+            [defaults synchronize];
+        }
+        
+        
+        if( !downIds )
+        {
+            // there is downIds - try to create new and return
+            _bgComplitionHandler(UIBackgroundFetchResultNoData);
+        }
+        else
+        {
+            // info string
+            NSMutableString *infoStr = [NSMutableString string];
+            
+            // searching finished torrents
+            NSArray* seedTrs = trInfos.seedingTorrents;
+            for ( NSNumber* trId in downIds )
+            {
+                int torrentId = [trId intValue];
+                
+                for( TRInfo* info in seedTrs )
+                {
+                    if( torrentId == info.trId )
+                    {
+                        // we have found torrent that is finished
+                        [infoStr appendString: [NSString stringWithFormat:@"Torrent: %@, has finished downloading\n", info.name] ];
+                    }
+                }
+            } // end for searching
+            
+            if( infoStr.length > 0 )
+            {
+                // we should show
+                // show local notification
+                UILocalNotification *notification = [[UILocalNotification alloc] init];
+                notification.fireDate = nil;
+                notification.alertTitle = @"Torrent(s) downloaded";
+                notification.alertBody = infoStr;
+                notification.soundName = UILocalNotificationDefaultSoundName;
+                
+                [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+                
+                _bgComplitionHandler(UIBackgroundFetchResultNewData);
+            }
+            else
+            {
+                _bgComplitionHandler(UIBackgroundFetchResultNoData);
+            }
+        }
+    }
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    // peform fetch in background
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *plist = [defaults dictionaryForKey: USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
+    
+    if( plist )
+    {
+        NSLog(@"BackgroundFetch: - GETTING DATA .... ");
+        
+        RPCServerConfig *config = [[RPCServerConfig alloc] initFromPList:plist];
+        // try to get update on this torrents
+        
+        self.bgTRInfos = nil;
+        // set request timeout max to 5 seconds
+        config.requestTimeout = 5;
+        RPCConnector *connector = [[RPCConnector alloc] initWithConfig:config andDelegate:self];
+        _isBackgroundFetching = YES;
+        _bgComplitionHandler = completionHandler;
+        // try to get all torrents
+        [connector getAllTorrents];
+    }
+    else
+    {
+        NSLog(@"BackgroundFetch: - NO DATA FETCHED");
+        completionHandler( UIBackgroundFetchResultNoData );
+    }
 }
 
 @end

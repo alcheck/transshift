@@ -15,6 +15,8 @@
 
 @interface RPCServerConfig : NSObject <NSCoding>
 
+- (instancetype)initFromPList:(NSDictionary*)plist;
+
 @property(nonatomic) NSString *name;            // common server name
 @property(nonatomic) NSString *host;            // ip address of domain name of server
 @property(nonatomic) int       port;            // RPC port to connect to (default 8090)
@@ -25,5 +27,7 @@
 @property(nonatomic) int       refreshTimeout;  // refresh time in seconds
 @property(nonatomic) int       requestTimeout;  // request timeout to server in seconds
 @property(nonatomic,readonly)  NSString* urlString; // return short descriptions of class
+
+@property(nonatomic,readonly) NSDictionary* plist; // return property list object
 
 @end

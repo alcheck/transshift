@@ -69,6 +69,11 @@
         
         [nc popToRootViewControllerAnimated:YES];
     }
+    
+    // remove keys for background fetching
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
+    [defaults synchronize];
 }
 
 - (RPCServerConfigController *)rpcConfigController
@@ -162,6 +167,12 @@
     _statusListController = instantiateController(CONTROLLER_ID_TORRENTSSTATUSLIST);
     
     RPCServerConfig *selectedConfig = [RPCServerConfigDB sharedDB].db[indexPath.row];
+    
+    // register config for background fetchig
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:selectedConfig.plist forKey:USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
+    [defaults synchronize];    
+    // ---
     
     _statusListController.config = selectedConfig ;
     _statusListController.title = selectedConfig.name;

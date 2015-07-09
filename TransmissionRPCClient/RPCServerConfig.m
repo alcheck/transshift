@@ -87,4 +87,40 @@ static NSString *CODER_REQUEST_TIMEOUT = @"reqtimeout";
     [coder encodeBool:self.useSSL forKey:CODER_USE_SSL];
 }
 
+- (NSDictionary *)plist
+{
+    NSDictionary *pList = @{
+                            CODER_NAME : _name,
+                            CODER_RPC_PATH : _rpcPath,
+                            CODER_HOST : _host,
+                            CODER_PORT : @(_port),
+                            CODER_USE_SSL : @(_useSSL),
+                            CODER_USER_NAME : _userName,
+                            CODER_USER_PASSWORD : _userPassword,
+                            CODER_REFRESH_TIMEOUT : @(_refreshTimeout),
+                            CODER_REQUEST_TIMEOUT : @(_refreshTimeout)
+                            };
+    
+    return pList;
+}
+
+- (instancetype)initFromPList:(NSDictionary *)plist
+{
+    self = [super init];
+    if( self )
+    {
+        _name = plist[CODER_NAME];
+        _rpcPath = plist[CODER_RPC_PATH];
+        _host = plist[CODER_HOST];
+        _port = [(NSNumber*)plist[CODER_PORT] intValue];
+        _useSSL = [(NSNumber*)plist[CODER_USE_SSL] boolValue];
+        _userName = plist[CODER_USER_NAME];
+        _userPassword = plist[CODER_USER_PASSWORD];
+        _refreshTimeout = [(NSNumber*)plist[CODER_REFRESH_TIMEOUT] intValue];
+        _requestTimeout = [(NSNumber*)plist[CODER_REQUEST_TIMEOUT] intValue];
+    }
+    
+    return self;
+}
+
 @end
