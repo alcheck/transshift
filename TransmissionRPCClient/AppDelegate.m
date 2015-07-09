@@ -13,6 +13,7 @@
 #import "ServerListController.h"
 #import "ChooseServerToAddTorrentController.h"
 #import "TorrentListController.h"
+#import "InfoMessage.h"
 
 #import "FSDirectory.h"
 
@@ -144,6 +145,12 @@
         [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow];
     else if( _magnetURLString )
         [connector addTorrentWithMagnet:_magnetURLString priority:priority startImmidiately:startNow];
+}
+
+- (void)gotTorrentAdded
+{
+    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(250, 50)];
+    [msg showInfo:@"New torrent has been added" fromView:self.window.rootViewController.view];
 }
 
 - (void)connector:(RPCConnector *)cn complitedRequestName:(NSString *)requestName withError:(NSString *)errorMessage

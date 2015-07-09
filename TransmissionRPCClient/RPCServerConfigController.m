@@ -125,7 +125,7 @@
 
     if( errorMessage )
     {
-        self.errorMessage = @"You should enter server NAME";
+        //self.errorMessage = errorMessage;
         label.textColor = errColor;
         iconImg.tintColor = errColor;
         
@@ -214,8 +214,9 @@
                       icon:self.iconRPCPath
                      label:self.labelRPCPath
                textControl:self.textRPCPath];
-        return NO;
+        success = NO;
     }
+    else
     {
         [self showRowError:nil icon:self.iconRPCPath label:self.labelRPCPath textControl:nil];
         rpcPath = str;

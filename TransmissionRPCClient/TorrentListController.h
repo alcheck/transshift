@@ -47,9 +47,7 @@ typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
 @interface TorrentListController : CommonTableController <UISplitViewControllerDelegate>
 
 @property(weak) id<TorrentListControllerDelegate> delegate;
-
 @property(nonatomic) NSString *popoverButtonTitle;
-
 // hold current torrents
 @property(nonatomic) TRInfos *torrents;
 @property(nonatomic) TRStatusOptions filterOptions;

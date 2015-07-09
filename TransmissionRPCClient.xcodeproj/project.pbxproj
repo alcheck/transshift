@@ -23,6 +23,9 @@
 		2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */; };
 		2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B51B3B446E002666C6 /* ServerListController.m */; };
 		2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */; };
+		2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */; };
+		2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */; };
+		2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */; };
 		2CAD1E461B4AC131005BBDBE /* SpeedLimitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */; };
 		2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651CE1B3DCCBE005C823C /* TorrentListController.m */; };
 		2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651D11B3DCDD4005C823C /* TorrentListCell.m */; };
@@ -96,6 +99,10 @@
 		2C6D18B51B3B446E002666C6 /* ServerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListController.m; sourceTree = "<group>"; };
 		2C6D18BB1B3B477E002666C6 /* ServerListItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListItemCell.h; sourceTree = "<group>"; };
 		2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListItemCell.m; sourceTree = "<group>"; };
+		2C80AEA91B4EBA6B00377E11 /* InfoMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoMessage.h; sourceTree = "<group>"; };
+		2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMessage.m; sourceTree = "<group>"; };
+		2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoMessage.xib; sourceTree = "<group>"; };
+		2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = InfoMessageIcons.xcassets; sourceTree = "<group>"; };
 		2CAD1E441B4AC131005BBDBE /* SpeedLimitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimitController.h; sourceTree = "<group>"; };
 		2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimitController.m; sourceTree = "<group>"; };
 		2CB651CD1B3DCCBE005C823C /* TorrentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListController.h; sourceTree = "<group>"; };
@@ -191,6 +198,7 @@
 				2C5810DE1B39A5E50069020D /* AppDelegate.m */,
 				2CF91D0D1B3C62BF0093637A /* Model */,
 				2C5810FC1B39BBB50069020D /* UI Controllers */,
+				2C80AEA71B4EBA4F00377E11 /* UI addons */,
 				2C5810D91B39A5E50069020D /* Supporting Files */,
 			);
 			path = TransmissionRPCClient;
@@ -265,6 +273,25 @@
 				2C6D18B51B3B446E002666C6 /* ServerListController.m */,
 			);
 			name = "Server list controller";
+			sourceTree = "<group>";
+		};
+		2C80AEA71B4EBA4F00377E11 /* UI addons */ = {
+			isa = PBXGroup;
+			children = (
+				2C80AEA81B4EBA5A00377E11 /* Info Message */,
+			);
+			name = "UI addons";
+			sourceTree = "<group>";
+		};
+		2C80AEA81B4EBA5A00377E11 /* Info Message */ = {
+			isa = PBXGroup;
+			children = (
+				2C80AEA91B4EBA6B00377E11 /* InfoMessage.h */,
+				2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */,
+				2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */,
+				2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */,
+			);
+			name = "Info Message";
 			sourceTree = "<group>";
 		};
 		2CAD1E431B4AC117005BBDBE /* Speed limit Controller */ = {
@@ -503,7 +530,9 @@
 				2CF6909C1B4BE0D400B2F830 /* FooterViewFreeSpace.xib in Resources */,
 				2CF964EE1B4D5DB9006D8C7E /* docIcon_22x29.png in Resources */,
 				2CF964F01B4D5DB9006D8C7E /* docIcon_64x64.png in Resources */,
+				2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */,
 				2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */,
+				2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +560,7 @@
 				2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */,
 				2CF690A21B4BE74A00B2F830 /* HeaderViewDURates.m in Sources */,
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
+				2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
 				2C0E34A81B4006EB004303AB /* TRInfos.m in Sources */,
 				2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */,

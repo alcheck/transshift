@@ -273,9 +273,20 @@
         
         // add handler to folder icon for collapsing/uncollapsing folder
         cell.iconImg.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
-        tapRecognizer.dataObject = item;
-        [cell.iconImg addGestureRecognizer:tapRecognizer];
+        cell.nameLabel.userInteractionEnabled = YES;
+        cell.detailLabel.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer *tapRecIcon = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
+        UITapGestureRecognizer *tapRecLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
+        UITapGestureRecognizer *tapRecDetail = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
+        
+        tapRecDetail.dataObject = item;
+        tapRecIcon.dataObject = item;
+        tapRecLabel.dataObject = item;
+        
+        [cell.iconImg addGestureRecognizer:tapRecIcon];
+        [cell.nameLabel addGestureRecognizer:tapRecLabel];
+        [cell.detailLabel addGestureRecognizer:tapRecDetail];
     }
     
     return cell;

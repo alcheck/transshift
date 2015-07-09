@@ -16,6 +16,7 @@
 #import "RPCConnector.h"
 #import "FooterViewFreeSpace.h"
 #import "HeaderViewDURates.h"
+#import "InfoMessage.h"
 
 #define STATUS_SECTION_TITILE       @"Torrents"
 
@@ -220,6 +221,36 @@
     
 }
 
+- (void)showInfoPopup:(NSString*)infoStr
+{
+    UIView *v = self.parentViewController.view;
+
+    float factor = 1.2;
+    if( self.splitViewController )
+    {
+        factor = 2.4;
+        v = self.splitViewController.view;
+    }
+    
+    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(v.bounds.size.width/factor, 50)];
+    [msg showInfo:infoStr fromView:v];
+}
+
+- (void)showErrorPopup:(NSString*)errStr
+{
+    UIView *v = self.parentViewController.view;
+    
+    float factor = 1.2;
+    if( self.splitViewController )
+    {
+        factor = 2.4;
+        v = self.splitViewController.view;
+    }
+    
+    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(v.bounds.size.width/factor, 50)];
+    [msg showErrorInfo:errStr fromView:v];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -274,25 +305,23 @@
 // main refresh cycle, updates data in detail view controllers
 - (void)autorefreshTimerUpdateHandler
 {
-    //NSLog(@"update");
-    
     [_connector getAllTorrents];
    
-    //if( _torrentInfoController )
+    UINavigationController *nav = _torrentController.navigationController;
+    
+    if( nav.topViewController == _torrentInfoController )
+        [_connector getDetailedInfoForTorrentWithId:_torrentInfoController.torrentId];
+    
+    else if( nav.topViewController == _peerListController)
+        [_connector getAllPeersForTorrentWithId:_peerListController.torrentId];
+    
+    else if( nav.topViewController == _fileListController )
+        [_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
+    
+    else if( _sessionInfo )
     {
-        UINavigationController *nav = _torrentController.navigationController;
-        
-        if( nav.topViewController == _torrentInfoController )
-            [_connector getDetailedInfoForTorrentWithId:_torrentInfoController.torrentId];
-        else if( nav.topViewController == _peerListController)
-            [_connector getAllPeersForTorrentWithId:_peerListController.torrentId];
-        else if( nav.topViewController == _fileListController )
-            [_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
-        else if( _sessionInfo )
-        {
-            // update free space
-            [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
-        }
+        // update free space
+        [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
     }
 }
 
@@ -380,11 +409,38 @@
     [self setCount:torrents.stopCount     forCellWithTitle:STATUS_ROW_STOP];
     
     // show torrents in list controller (update)
+    TRInfos *prev = _torrentController.torrents;
+    if( prev )
+    {
+        NSArray *dtors = prev.downloadingTorrents;
+        NSArray *stors = torrents.seedingTorrents;
+        
+        NSMutableString *sInfo = [NSMutableString string];
+        
+        for (TRInfo* dt in dtors)
+        {
+            for( TRInfo* st in stors )
+            {
+                if( st.trId == dt.trId )
+                {
+                    // we have found finished torrent need to
+                    [sInfo appendString:[NSString stringWithFormat:@"Torrent: %@\n has finished downloading\n", st.name]];
+                }
+            }
+        }
+        
+        if( sInfo.length > 0 )
+        {
+            [self showInfoPopup:sInfo];
+        }
+    }
+    
     _torrentController.torrents = torrents;
     
     NSString *str = [NSString stringWithFormat:@"↑UL:%@ ↓DL:%@",
                               torrents.totalUploadRateString,
                               torrents.totalDownloadRateString];
+    
     if( _uploadRateLimitString )
     {
         str = [NSString stringWithFormat:@"%@\n%@",str, _uploadRateLimitString];
@@ -400,7 +456,7 @@
     
     //self.headerInfoMessage = str;
     //if( !self.splitViewController )
-    _torrentController.headerInfoMessage = str;
+    //_torrentController.headerInfoMessage = str;
     //[self setHeaderUploadRate:torrents.totalUploadRateString andDownloadRate:torrents.totalDownloadRateString];
 }
 
@@ -414,8 +470,8 @@
 // shows alert view for adding torrent by URL (magnet url also)
 - (void)showAddTorrentByURLDialog
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add torrent by URL"
-                                                    message:@"Type URL of MAGNET URL"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add torrent"
+                                                    message:@"Type URL or MAGNET URL"
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Add torrent", nil];
@@ -424,6 +480,11 @@
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alert show];
+}
+
+- (void)gotTorrentAdded
+{
+    [self showInfoPopup:@"New torrent was added"];
 }
 
 #pragma mark - Alert View delegate methods
@@ -550,6 +611,11 @@
 
 - (void)gotSessionWithInfo:(TRSessionInfo *)info
 {
+    // getting session information for the first time
+    // get free space (fix)
+    if( !_sessionInfo )
+        [_connector getFreeSpaceWithDownloadDir:info.downloadDir];
+        
     _sessionInfo = info;
     
     _uploadRateLimitString = nil;
@@ -576,6 +642,7 @@
     if( _sessionConfigController )
         _sessionConfigController.sessionInfo = info;
     
+    // show/hide limit icon
     _headerViewDURates.limitsIsOn = (_uploadRateLimitString!=nil || _downloadRateLimitString!=nil);
 }
 
@@ -588,6 +655,7 @@
 - (void)gotSessionSetWithInfo:(TRSessionInfo *)info
 {
     [self gotSessionWithInfo:info];
+    [self showInfoPopup:@"Settings are saved"];
 }
 
 #pragma mark - RPCConnector error hangling
@@ -598,6 +666,14 @@
     // end of refreshing (if it is)
     [self.refreshControl endRefreshing];
     [_torrentController.refreshControl endRefreshing];
+    
+    if( [requestName isEqualToString:TR_METHODNAME_TORRENTADD] ||
+        [requestName isEqualToString:TR_METHODNAME_TORRENTADDURL] )
+    {
+        [self showErrorPopup:errorMessage];
+        return;
+    }
+    
     
     // show error to background
     //_torrentController.infoMessage = errorMessage;
@@ -624,6 +700,7 @@
 - (void)gotTorrentStopedWithId:(int)torrentId
 {
     [_connector getDetailedInfoForTorrentWithId:torrentId];
+    [self showInfoPopup:@"Torrent was stopped"];
 }
 
 -(void)resumeTorrentWithId:(int)torrentId
@@ -636,18 +713,19 @@
 - (void)gotTorrentResumedWithId:(int)torrentId
 {
     [_connector getDetailedInfoForTorrentWithId:torrentId];
+    [self showInfoPopup:@"Torrent was resumed"];
+
 }
 
 -(void)verifyTorrentWithId:(int)torrentId
 {
-    //NSLog(@"Verifying torrent");
-    
-    [_connector verifyTorrent:torrentId];
+     [_connector verifyTorrent:torrentId];
 }
 
 - (void)gotTorrentVerifyedWithId:(int)torrentId
 {
     [_connector getDetailedInfoForTorrentWithId:torrentId];
+    [self showInfoPopup:@"Torrent is verifying ..."];
 }
 
 // delegate method from TorrentInfoController
@@ -680,6 +758,7 @@
 {
     //[_connector getDetailedInfoForTorrentWithId:torrentId];
     [_connector getAllTorrents];
+    [self showInfoPopup:@"Torrent was deleted"];
 }
 
 - (void)reannounceTorrentWithId:(int)torrentId
@@ -691,6 +770,7 @@
 - (void)gotTorrentReannouncedWithId:(int)torrentId
 {
     [_connector getDetailedInfoForTorrentWithId:torrentId];
+    [self showInfoPopup:@"Torrent is reannouncing ..."];
 }
 
 - (void)gotTorrentDetailedInfo:(TRInfo *)torrentInfo
