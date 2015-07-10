@@ -12,8 +12,6 @@
 #define CONTROLLER_ID_SERVERLIST    @"ServerListController"
 #define SERVERLIST_CONTROLLER_TITLE @"Servers"
 
-#define USERDEFAULTS_BGFETCH_KEY_RPCCONFG           @"bgCurrentRPCConfig"
-#define USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS     @"bgDownloadingTorrentIds"
 
 @interface ServerListController : CommonTableController
 

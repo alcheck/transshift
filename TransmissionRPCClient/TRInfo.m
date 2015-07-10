@@ -148,7 +148,13 @@
             _creator = dict[TR_ARG_FIELDS_CREATOR];
         
         if(dict[TR_ARG_FIELDS_ERRORSTRING])
+        {
             _errorString = dict[TR_ARG_FIELDS_ERRORSTRING];
+            if (_errorString.length > 0)
+            {
+                _isError = YES;
+            }
+        }
         
         if( dict[TR_ARG_FIELDS_ERRORNUM] )
             _errorNumber = [(NSNumber*)dict[TR_ARG_FIELDS_ERRORNUM] intValue];

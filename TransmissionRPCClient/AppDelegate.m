@@ -166,7 +166,7 @@
 
 - (void)gotTorrentAdded
 {
-    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(250, 50)];
+    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(300, 50)];
     [msg showInfo:@"New torrent has been added" fromView:self.window.rootViewController.view];
 }
 
@@ -222,7 +222,7 @@
         // in NSUserDefaults
         NSArray *curDownIds = trInfos.downloadingTorrents;
         
-        NSLog(@"curDownIds from NsUserDefaults: %i", curDownIds.count );
+        NSLog(@"curDownIds from NsUserDefaults: %i", (int)curDownIds.count );
         
         if( curDownIds && curDownIds.count > 0 )
         {
@@ -233,7 +233,7 @@
             for ( TRInfo* t in curDownIds )
                 [downIds addObject:@(t.trId)];
             
-            NSLog( @"Setting updated array with Ids count :%i", downIds.count );
+            NSLog( @"Setting updated array with Ids count :%i", (int)downIds.count );
             [defaults setObject:downIds forKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
             [defaults synchronize];
         }
@@ -252,7 +252,7 @@
         }
         else
         {
-            NSLog(@"There are downloading torrents, %i ", downIds.count);
+            NSLog(@"There are downloading torrents, %i ", (int)downIds.count);
             // info string
             NSMutableString *infoStr = [NSMutableString string];
             
@@ -301,6 +301,14 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
+    
+//    // just for test
+//    UILocalNotification *notification = [[UILocalNotification alloc] init];
+//    notification.soundName = UILocalNotificationDefaultSoundName;
+//    notification.alertBody = @"Background fetch!";
+//    [application presentLocalNotificationNow:notification];
+//    
+    
     // peform fetch in background
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *plist = [defaults dictionaryForKey: USERDEFAULTS_BGFETCH_KEY_RPCCONFG];

@@ -257,7 +257,7 @@
         
         // search this rate in tables
         BOOL needToInsertNew = YES;
-        int  insertIndex = _speedDownRates.count;
+        int  insertIndex = (int)_speedDownRates.count;
 
         int prevRate = INT_MAX;
         for( int i = 1; i < _speedDownRates.count; i++ ) // start from 1 - skip the first element
@@ -313,7 +313,7 @@
         
         // search this rate in tables
         BOOL needToInsertNew = YES;
-        int  insertIndex = _speedUpRates.count;
+        int  insertIndex = (int)_speedUpRates.count;
         
         int prevRate = INT_MAX;
         for( int i = 1; i < _speedUpRates.count; i++ ) // start from 1 - skip the first element
@@ -576,6 +576,23 @@
         {
             [self showInfoPopup:sInfo];
         }
+        
+        // update NsUserDefaults for background fetch notifications
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSArray *currentDownTorrents = torrents.downloadingTorrents;
+        if( currentDownTorrents.count > 0 )
+        {
+            NSMutableArray *downIds = [NSMutableArray array];
+            for( TRInfo *t in currentDownTorrents )
+                [downIds addObject:@(t.trId)];
+            
+            [defaults setObject:downIds forKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
+        }
+        else
+        {
+            [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
+        }
+        
     } // end of finding finished torrents
     
     _torrentController.torrents = torrents;

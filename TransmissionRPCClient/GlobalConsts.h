@@ -22,4 +22,8 @@
 // utility functions
 #define GLOBAL_CONTROLLERS_STORYBOARD           @"controllers"
 
+
+#define USERDEFAULTS_BGFETCH_KEY_RPCCONFG           @"bgCurrentRPCConfig"
+#define USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS     @"bgDownloadingTorrentIds"
+
 id instantiateController( NSString* controllerId );

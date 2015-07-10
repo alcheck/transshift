@@ -44,6 +44,7 @@
 @property(readonly)  BOOL                   isSeeding;
 @property(readonly)  BOOL                   isStopped;
 @property(readonly)  BOOL                   isChecking;
+@property(readonly)  BOOL                   isError;
 
 // detailed info
 @property(nonatomic,readonly) NSString*     hashString;

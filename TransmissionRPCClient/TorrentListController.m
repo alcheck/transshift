@@ -13,6 +13,7 @@
 #define ICON_UPLOAD     @"uploadIcon"
 #define ICON_STOP       @"stopIcon"
 #define ICON_CHECK      @"checkIcon"
+#define ICON_ERROR      @"iconErrorTorrent40x40"
 
 @interface TorrentListController () <UIActionSheetDelegate>
 
@@ -37,7 +38,8 @@
     _statusIconImages = @{ ICON_DOWNLOAD : [[UIImage imageNamed:ICON_DOWNLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
                            ICON_STOP : [[UIImage imageNamed:ICON_STOP] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
                            ICON_UPLOAD : [[UIImage imageNamed:ICON_UPLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_CHECK : [[UIImage imageNamed:ICON_CHECK] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] };
+                           ICON_CHECK : [[UIImage imageNamed:ICON_CHECK] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                           ICON_ERROR : [[UIImage imageNamed:ICON_ERROR] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]};
 }
 
 
@@ -279,6 +281,16 @@
         cell.progressPercents.text = info.recheckProgressString;
         cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.downloadedEverString];
         cell.statusIcon.image = _statusIconImages[ICON_CHECK];
+    }
+    
+    if( info.isError )
+    {
+        detailInfo = [NSString stringWithFormat:@"Error: %@", info.errorString]; //@"Paused due to some error";
+        progressBarColor = [UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1];
+        //cell.downloadRate.text = [NSString stringWithFormat:@"Error[%i]", info.errorNumber];
+        //cell.downloadRate.textColor = [UIColor lightGrayColor];
+        cell.size.text = [NSString stringWithFormat:@"%@ of %@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
+        cell.statusIcon.image = _statusIconImages[ICON_ERROR];
     }
     
     cell.progressBar.tintColor = progressBarColor;

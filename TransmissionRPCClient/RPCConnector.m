@@ -34,6 +34,8 @@
                         TR_ARG_FIELDS_ID,
                         TR_ARG_FIELDS_NAME,
                         TR_ARG_FIELDS_STATUS,
+                        TR_ARG_FIELDS_ERRORNUM,
+                        TR_ARG_FIELDS_ERRORSTRING,
                         TR_ARG_FIELDS_TOTALSIZE,
                         TR_ARG_FIELDS_PERCENTDONE,
                         TR_ARG_FIELDS_RATEDOWNLOAD,
