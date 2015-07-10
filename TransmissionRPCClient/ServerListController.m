@@ -82,7 +82,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
     [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
-    [defaults synchronize];
 }
 
 - (RPCServerConfigController *)rpcConfigController
@@ -180,7 +179,6 @@
     // register config for background fetchig
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:selectedConfig.plist forKey:USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
-    [defaults synchronize];    
     // ---
     
     _statusListController.config = selectedConfig ;

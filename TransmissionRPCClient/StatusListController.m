@@ -17,8 +17,11 @@
 #import "FooterViewFreeSpace.h"
 #import "HeaderViewDURates.h"
 #import "InfoMessage.h"
+#import "RateLimitTable.h"
 
 #define STATUS_SECTION_TITILE       @"Torrents"
+
+#define POPOVER_LIMITSPEEDCONTROLLER_SIZE   CGSizeMake(190,400)
 
 
 @interface StatusListController () <RPCConnectorDelegate,
@@ -41,16 +44,8 @@
     NSArray *_itemFilterOptions;
     NSArray *_itemImages;
     
-    NSArray *_speedUpTitles;  // holds speed titles
-    NSArray *_speedUpRates;   // holds speed rates for this titles (Kb/s)
-
-    NSArray *_speedDownTitles;  // holds speed titles
-    NSArray *_speedDownRates;   // holds speed rates for this titles (Kb/s)
-    
-    // selected speed for downloading
-    int     _selectedDownloadRateIndex;         // - 0 - not selected
-    // selected speed for upoading
-    int     _selectedUploadRateIndex;           // - 0 - not selected
+    RateLimitTable *_ratesDown;  // holds download speed limits (kb/s)
+    RateLimitTable *_ratesUp;    // holds uplaod speed limits (kb/s)
     
     NSMutableDictionary *_cells;
     
@@ -61,17 +56,21 @@
     RPCConnector *_connector;
     
     TRSessionInfo          *_sessionInfo;                 // holds session configuration Information
-    NSString               *_uploadRateLimitString;
-    NSString               *_downloadRateLimitString;
     
     NSTimer *_refreshTimer;                               // holds main autorefresh timer
     
     // Header/Footer info views
     FooterViewFreeSpace     *_footerViewFreeSpace;
     HeaderViewDURates       *_headerViewDURates;
+    
+    // toolbar buttons
+    UIBarButtonItem         *_btnRefresh;
+    UIBarButtonItem         *_btnLimitDownSpeed;
+    UIBarButtonItem         *_btnLimitUpSpeed;
+    UIBarButtonItem         *_btnSessionConfig;
+    UIBarButtonItem         *_btnSpacer;
 
     // controllers
-
     TorrentListController   *_torrentController;          // holds detail torrent list controller
     TorrentInfoController   *_torrentInfoController;      // holds torrent info controller (when torrent is selected from torrent list)
     PeerListController      *_peerListController;         // holds controller for showing peers
@@ -89,8 +88,9 @@
     
     // initialize section name and section row names
     [self initNames];
-    // initialize speeds
-    [self initSpeedTitles];
+    
+    // initialize speed limit tables with names
+    [self initSpeedLimitTables];
     
     // create RPC connector to communicate with selected server
     if( self.config )
@@ -103,7 +103,7 @@
                                 action:@selector(autorefreshTimerUpdateHandler)
                       forControlEvents:UIControlEventValueChanged];
         
-        // configure autorefresh timer
+        // schedule autorefresh timer
         if( self.config.refreshTimeout > 0 )
         {
             _refreshTimer = [NSTimer scheduledTimerWithTimeInterval:self.config.refreshTimeout target:self
@@ -146,35 +146,37 @@
     
     self.headerInfoMessage = @"Updating ...";
     
-    // configure bottom toolbar
-    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconRefresh20x20"]
-                                                           style:UIBarButtonItemStylePlain target:self
-                                                          action:@selector(autorefreshTimerUpdateHandler)],
-                          
-                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                          
-                          [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconTurtleUpload20x20"]
-                                                           style:UIBarButtonItemStylePlain
-                                                          target:self
-                                                          action:@selector(showUploadLimitRateController:)],
-                          
-                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                          
-                          [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconTurtleDownload20x20"]
-                                                           style:UIBarButtonItemStylePlain
-                                                          target:self
-                                                          action:@selector(showDownloadLimitRateController:)],
-                          
-                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                          
-                          
-                          [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconGears20x20"]
-                                                           style:UIBarButtonItemStylePlain
-                                                          target:self
-                                                          action:@selector(showSessionConfiguration)]
-                          ];
+    // configure bottom toolbar buttons
+    _btnRefresh = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconRefresh20x20"]
+                                                   style:UIBarButtonItemStylePlain target:self
+                                                  action:@selector(autorefreshTimerUpdateHandler)];
     
-    // configure "add torrent by url" right nav button
+    _btnLimitUpSpeed = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconTurtleUpload20x20"]
+                                                        style:UIBarButtonItemStylePlain
+                                                       target:self
+                                                       action:@selector(showUploadLimitRateController:)];
+    
+    _btnLimitDownSpeed = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconTurtleDownload20x20"]
+                                                          style:UIBarButtonItemStylePlain
+                                                         target:self
+                                                         action:@selector(showDownloadLimitRateController:)];
+    
+    _btnSessionConfig = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconGears20x20"]
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(showSessionConfiguration)];
+    
+    _btnSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil
+                                                                               action:nil];
+    
+    _btnLimitDownSpeed.enabled =  NO;
+    _btnLimitUpSpeed.enabled = NO;
+    _btnSessionConfig.enabled = NO;
+    
+    self.toolbarItems = @[ _btnRefresh, _btnSpacer, _btnLimitUpSpeed, _btnSpacer, _btnLimitDownSpeed, _btnSpacer, _btnSessionConfig];
+    
+       // configure "add torrent by url" right nav button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconLinkAdd20x20"]
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
@@ -199,168 +201,32 @@
                             @(TRStatusOptionsStop),
                             @(TRStatusOptionsCheck) ];
     
-    _itemImages =        @[ [UIImage imageNamed:@"allIcon"],
-                            [UIImage imageNamed:@"activeIcon"],
-                            [UIImage imageNamed:@"downloadIcon"],
-                            [UIImage imageNamed:@"uploadIcon"],
-                            [UIImage imageNamed:@"stopIcon"],
-                            [UIImage imageNamed:@"checkIcon"] ];
+    _itemImages =        @[ [[UIImage imageNamed:@"allIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                            [[UIImage imageNamed:@"activeIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                            [[UIImage imageNamed:@"downloadIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                            [[UIImage imageNamed:@"uploadIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                            [[UIImage imageNamed:@"stopIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                            [[UIImage imageNamed:@"checkIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     
     _cells = [NSMutableDictionary dictionary];
 }
 
-- (void)initSpeedTitles
+- (void)initSpeedLimitTables
 {
     // UP rate limits
-    _speedUpTitles = @[ @"Unlimited", @"50 Kb/s", @"100 Kb/s",  @"150 Kb/s",
-                        @"200 Kb/s",  @"250 Kb/s",  @"500 Kb/s",
-                        @"750 Kb/s",  @"1024 Kb/s", @"2048 Kb/s" ];
+    NSArray *titles = @[ @"Unlimited", @"50 Kb/s", @"100 Kb/s",  @"150 Kb/s",
+                         @"200 Kb/s",  @"250 Kb/s",  @"500 Kb/s",
+                         @"750 Kb/s",  @"1024 Kb/s", @"2048 Kb/s" ];
     
-    _speedUpRates = @[ @(0),   @(50),  @(100), @(150),
-                       @(200), @(250), @(500),
-                       @(750), @(1024),@(2048) ];
-    
-    
-    // DOWN  rate limits
-    _speedDownTitles = @[ @"Unlimited", @"50 Kb/s", @"100 Kb/s",  @"150 Kb/s",
-                          @"200 Kb/s",  @"250 Kb/s",  @"500 Kb/s",
-                          @"750 Kb/s",  @"1024 Kb/s", @"2048 Kb/s" ];
-    
-    _speedDownRates = @[ @(0),   @(50),  @(100), @(150),
+    NSArray *rates  = @[ @(0),   @(50),  @(100), @(150),
                          @(200), @(250), @(500),
                          @(750), @(1024),@(2048) ];
-
     
-    _selectedDownloadRateIndex = 0;
-    _selectedUploadRateIndex = 0;
-}
-
-// adjusts tables of rate limits
-// add new item in tables if needed
-- (void)adjustSpeedLimitTables
-{
-    _selectedUploadRateIndex = 0;
-    _selectedDownloadRateIndex = 0;
+    _ratesDown = [RateLimitTable tableWithTitles:titles andRates:rates];
+    _ratesUp = [RateLimitTable tableWithTitles:titles andRates:rates];
     
-    if( !_sessionInfo )
-        return;
-
-    BOOL needToCheck = _sessionInfo.downLimitEnabled || _sessionInfo.upLimitEnabled || _sessionInfo.altLimitEnabled;
-    
-    if( !needToCheck )
-        return;
-
-    // check download speeds
-    if( _sessionInfo.downLimitEnabled || _sessionInfo.altLimitEnabled )
-    {
-        int curRate = _sessionInfo.altLimitEnabled ? _sessionInfo.altDownloadRateLimit : _sessionInfo.downLimitRate;
-        
-        // search this rate in tables
-        BOOL needToInsertNew = YES;
-        int  insertIndex = (int)_speedDownRates.count;
-
-        int prevRate = INT_MAX;
-        for( int i = 1; i < _speedDownRates.count; i++ ) // start from 1 - skip the first element
-        {
-            int tableRate = [(NSNumber*)_speedDownRates[i] intValue];
-            
-            if( tableRate == curRate )
-            {
-                needToInsertNew = NO;
-                _selectedDownloadRateIndex = i;
-                break;
-            }
-            
-            if( curRate > prevRate &&  curRate < tableRate )
-            {
-                insertIndex = i;
-                break;
-            }
-            
-            prevRate = tableRate;
-        }
-        
-        if( needToInsertNew )
-        {
-            // insert new item in table
-            NSMutableArray *curRates = [NSMutableArray arrayWithArray:_speedDownRates];
-            NSMutableArray *curTitles = [NSMutableArray arrayWithArray:_speedDownTitles];
-            
-            NSString *newTitle = [NSString stringWithFormat:@"%i Kb/s", curRate];
-            
-            if( insertIndex >= _speedDownRates.count)
-            {
-                [curRates addObject:@(curRate)];
-                [curTitles addObject:newTitle];
-            }
-            else
-            {
-                [curRates insertObject:@(curRate) atIndex: insertIndex];
-                [curTitles insertObject:newTitle atIndex: insertIndex];
-            }
-            
-            _selectedDownloadRateIndex = insertIndex;
-            
-            _speedDownTitles = curTitles;
-            _speedDownRates = curRates;
-        }
-    } // session download speed adjust
-    
-    // session upload speed adjust
-    if( _sessionInfo.upLimitEnabled || _sessionInfo.altLimitEnabled )
-    {
-        int curRate = _sessionInfo.altLimitEnabled ? _sessionInfo.altUploadRateLimit : _sessionInfo.upLimitRate;
-        
-        // search this rate in tables
-        BOOL needToInsertNew = YES;
-        int  insertIndex = (int)_speedUpRates.count;
-        
-        int prevRate = INT_MAX;
-        for( int i = 1; i < _speedUpRates.count; i++ ) // start from 1 - skip the first element
-        {
-            int tableRate = [(NSNumber*)_speedUpRates[i] intValue];
-            
-            if( tableRate == curRate )
-            {
-                needToInsertNew = NO;
-                _selectedUploadRateIndex = i;
-                break;
-            }
-            
-            if( curRate > prevRate &&  curRate < tableRate )
-            {
-                insertIndex = i;
-                break;
-            }
-            
-            prevRate = tableRate;
-        }
-        
-        if( needToInsertNew )
-        {
-            // insert new item in table
-            NSMutableArray *curRates = [NSMutableArray arrayWithArray:_speedUpRates];
-            NSMutableArray *curTitles = [NSMutableArray arrayWithArray:_speedUpTitles];
-            
-            NSString *newTitle = [NSString stringWithFormat:@"%i Kb/s", curRate];
-            
-            if( insertIndex >= _speedUpRates.count)
-            {
-                [curRates addObject:@(curRate)];
-                [curTitles addObject:newTitle];
-            }
-            else
-            {
-                [curRates insertObject:@(curRate) atIndex: insertIndex];
-                [curTitles insertObject:newTitle atIndex: insertIndex];
-            }
-            
-            _selectedUploadRateIndex = insertIndex;
-            
-            _speedUpTitles = curTitles;
-            _speedUpRates = curRates;
-        }
-    } // session upload speed adjust
+    _ratesDown.tableTitle = @"Limit download speed";
+    _ratesUp.tableTitle = @"Limit upload speed";
 }
 
 - (void)showInfoPopup:(NSString*)infoStr
@@ -423,6 +289,7 @@
         [_connector getAllTorrents];
     }
     
+    // at first initialization, get session info
     if( _appearedFirstTime )
         [_connector getSessionInfo];
     
@@ -601,22 +468,13 @@
                               torrents.totalUploadRateString,
                               torrents.totalDownloadRateString];
     
-    if( _uploadRateLimitString )
-    {
-        str = [NSString stringWithFormat:@"%@\n%@",str, _uploadRateLimitString];
-    }
-    
-    if( _downloadRateLimitString )
-    {
-        str = [NSString stringWithFormat:@"%@\n%@",str, _downloadRateLimitString];
-    }
     
     
     [self showHeaderDLRate:torrents.totalDownloadRateString ULRate:torrents.totalUploadRateString];
     
     //self.headerInfoMessage = str;
-    //if( !self.splitViewController )
-    //_torrentController.headerInfoMessage = str;
+    if( !self.splitViewController )
+        _torrentController.headerInfoMessage = str;
     //[self setHeaderUploadRate:torrents.totalUploadRateString andDownloadRate:torrents.totalDownloadRateString];
 }
 
@@ -624,7 +482,12 @@
 {
     StatusListCell *cell = _cells[cellTitle];
     if( cell )
+    {
         cell.numberLabel.text = [NSString stringWithFormat:@"%i", count];
+        
+        // set icon in gray if there are not items
+        cell.iconImg.tintColor = count > 0 ? cell.tintColor : [UIColor lightGrayColor];
+    }
 }
 
 // shows alert view for adding torrent by URL (magnet url also)
@@ -663,11 +526,10 @@
 - (void)showDownloadLimitRateController:(UIBarButtonItem*)sender
 {
     _speedLimitController = instantiateController(CONTROLLER_ID_SPEEDLIMIT);
-    _speedLimitController.preferredContentSize = CGSizeMake(190, 400);
-    _speedLimitController.selectedSpeed = _selectedDownloadRateIndex;
-    _speedLimitController.speedTitles = _speedDownTitles;
+    _speedLimitController.preferredContentSize = POPOVER_LIMITSPEEDCONTROLLER_SIZE;
+    _speedLimitController.rates = _ratesDown;
     _speedLimitController.delegate = self;
-    _speedLimitController.title = @"Speed download limit";
+    _speedLimitController.title = @"Download speed limits";
     _speedLimitController.isDownload = YES;
     
     if( self.splitViewController )
@@ -689,11 +551,10 @@
 - (void)showUploadLimitRateController:(UIBarButtonItem*)sender
 {
     _speedLimitController = instantiateController(CONTROLLER_ID_SPEEDLIMIT);
-    _speedLimitController.preferredContentSize = CGSizeMake(190, 400);    
-    _speedLimitController.selectedSpeed = _selectedUploadRateIndex;
-    _speedLimitController.speedTitles = _speedUpTitles;
+    _speedLimitController.preferredContentSize = POPOVER_LIMITSPEEDCONTROLLER_SIZE;
+    _speedLimitController.rates = _ratesUp;
     _speedLimitController.delegate = self;
-    _speedLimitController.title = @"Speed upload limit";
+    _speedLimitController.title = @"Upload speed limits";
     _speedLimitController.isDownload = NO;
     
     if( self.splitViewController )
@@ -703,7 +564,6 @@
         
         _speedPopOver = [[UIPopoverController alloc] initWithContentViewController:_speedLimitController];
         _speedPopOver.delegate = self;
-        [_speedPopOver setPopoverContentSize:CGSizeMake(200, 400)];
         
         [_speedPopOver presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
@@ -717,30 +577,18 @@
 {
     // take limit number and dissmiss
     if( _speedPopOver )
-    {
         [_speedPopOver dismissPopoverAnimated:YES];
-        _speedPopOver = nil;
-    }
     else
-    {
         [self.navigationController popViewControllerAnimated:YES];
-    }
     
     // get the limits!
     if( _speedLimitController.isDownload )
-    {
-        _selectedDownloadRateIndex = index;
-        int rate = [(NSNumber*)_speedDownRates[index] intValue];
-        [_connector limitDownloadRateWithSpeed:rate];
-    }
+        [_connector limitDownloadRateWithSpeed:_ratesDown.selectedRate];
     else
-    {
-        _selectedUploadRateIndex = index;
-        int rate = [(NSNumber*)_speedUpRates[index] intValue];
-        [_connector limitUploadRateWithSpeed:rate];
-    }
+        [_connector limitUploadRateWithSpeed:_ratesUp.selectedRate];
     
     _speedLimitController = nil;
+    _speedPopOver = nil;
 }
 
 #pragma mark - Working with session information
@@ -782,35 +630,35 @@
         
     _sessionInfo = info;
     
-    _uploadRateLimitString = nil;
-    _downloadRateLimitString = nil;
-    
-    // update speed information
-    if(_sessionInfo.upLimitEnabled )
-    {
-        _uploadRateLimitString = [NSString stringWithFormat:@"Upload speed limit: %i Kb/s", _sessionInfo.upLimitRate];
-        
-    }
-    
-    if( _sessionInfo.downLimitEnabled )
-    {
-        _downloadRateLimitString = [NSString stringWithFormat:@"Download speed limit: %i Kb/s", _sessionInfo.downLimitRate];
-    }
-    
-    if( _sessionInfo.altLimitEnabled )
-    {
-        _uploadRateLimitString = [NSString stringWithFormat:@"Alt. speed limits enabled UL:%i KB/s, DL:%i KB/s", _sessionInfo.altUploadRateLimit, _sessionInfo.altDownloadRateLimit];
-        _downloadRateLimitString = nil;
-    }
-    
+    // update session config if controller is on
+    // the screen
     if( _sessionConfigController )
         _sessionConfigController.sessionInfo = info;
+
+    // enable buttons
+    _btnSessionConfig.enabled = YES;
+    _btnLimitDownSpeed.enabled = YES;
+    _btnLimitUpSpeed.enabled = YES;
     
     // show/hide limit icon
-    _headerViewDURates.upLimitIsOn = _uploadRateLimitString != nil;
-    _headerViewDURates.downLimitIsOn = _downloadRateLimitString != nil;
+    _headerViewDURates.upLimitIsOn =  info.upLimitEnabled || info.altLimitEnabled;
+    _headerViewDURates.downLimitIsOn = info.downLimitEnabled || info.altLimitEnabled;
     
-    [self adjustSpeedLimitTables];
+    NSLog(@"downLimits: %@ ,upLimits: %@",
+          _headerViewDURates.downLimitIsOn ? @"ON":@"OFF",
+          _headerViewDURates.upLimitIsOn ? @"ON":@"OFF");
+    
+    if( info.upLimitEnabled || info.altLimitEnabled )
+    {
+        int curRate = _sessionInfo.altLimitEnabled ? _sessionInfo.altUploadRateLimit : _sessionInfo.upLimitRate;
+        [_ratesUp updateTableWithRate:curRate];
+    }
+    
+    if( info.downLimitEnabled || info.altLimitEnabled )
+    {
+        int curRate = _sessionInfo.altLimitEnabled ? _sessionInfo.altDownloadRateLimit : _sessionInfo.downLimitRate;
+        [_ratesDown updateTableWithRate:curRate];
+    }        
 }
 
 - (void)gotPortTestedWithSuccess:(BOOL)portIsOpen

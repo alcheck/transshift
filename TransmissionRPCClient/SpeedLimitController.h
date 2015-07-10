@@ -7,6 +7,7 @@
 //
 
 #import "CommonTableController.h"
+#import "RateLimitTable.h"
 
 #define CONTROLLER_ID_SPEEDLIMIT    @"speedLimitController"
 #define CELL_ID_SPEED               @"speedCell"
@@ -21,7 +22,7 @@
 
 @property(weak) id<SpeedLimitControllerDelegate> delegate;
 
-@property(nonatomic) NSArray *speedTitles;
+@property(nonatomic) RateLimitTable *rates;
 
 @property(nonatomic) int      selectedSpeed;
 @property(nonatomic) BOOL     isDownload;

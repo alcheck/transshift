@@ -52,6 +52,7 @@
 		2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA9DC01B42CE0D005629C2 /* TRPeerInfo.m */; };
 		2CFAB9121B49ACCB00BE71D9 /* SessionConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFAB9111B49ACCB00BE71D9 /* SessionConfigController.m */; };
 		2CFAB9151B49B7FD00BE71D9 /* TRSessionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFAB9141B49B7FD00BE71D9 /* TRSessionInfo.m */; };
+		2CFBA7991B5017DA00202281 /* RateLimitTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBA7981B5017DA00202281 /* RateLimitTable.m */; };
 		2CFBE1CC1B458F6100B15DEE /* FSDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBE1CB1B458F6100B15DEE /* FSDirectory.m */; };
 		2CFC267E1B44580E0070CC1C /* StatusListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC267D1B44580E0070CC1C /* StatusListCell.m */; };
 /* End PBXBuildFile section */
@@ -150,6 +151,8 @@
 		2CFAB9131B49B7FD00BE71D9 /* TRSessionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSessionInfo.h; sourceTree = "<group>"; };
 		2CFAB9141B49B7FD00BE71D9 /* TRSessionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRSessionInfo.m; sourceTree = "<group>"; };
 		2CFBA7961B4FA9D600202281 /* TransmissionRPCClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TransmissionRPCClient.entitlements; sourceTree = "<group>"; };
+		2CFBA7971B5017DA00202281 /* RateLimitTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateLimitTable.h; sourceTree = "<group>"; };
+		2CFBA7981B5017DA00202281 /* RateLimitTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateLimitTable.m; sourceTree = "<group>"; };
 		2CFBE1CA1B458F6100B15DEE /* FSDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSDirectory.h; sourceTree = "<group>"; };
 		2CFBE1CB1B458F6100B15DEE /* FSDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDirectory.m; sourceTree = "<group>"; };
 		2CFC267C1B44580E0070CC1C /* StatusListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListCell.h; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				2CFBE1CB1B458F6100B15DEE /* FSDirectory.m */,
 				2C0A2AA41B469E910042CAA6 /* NSObject+DataObject.h */,
 				2C0A2AA51B469EC00042CAA6 /* NSObject+DataObject.m */,
+				2CFBA7971B5017DA00202281 /* RateLimitTable.h */,
+				2CFBA7981B5017DA00202281 /* RateLimitTable.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -590,6 +595,7 @@
 				2CE6B4641B495EC700157841 /* GlobalConsts.m in Sources */,
 				2CFBE1CC1B458F6100B15DEE /* FSDirectory.m in Sources */,
 				2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */,
+				2CFBA7991B5017DA00202281 /* RateLimitTable.m in Sources */,
 				2CFC267E1B44580E0070CC1C /* StatusListCell.m in Sources */,
 				2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */,
 				2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */,

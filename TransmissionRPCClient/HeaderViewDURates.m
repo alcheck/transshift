@@ -55,32 +55,28 @@
 - (void)setUpLimitIsOn:(BOOL)upLimitIsOn
 {
     _upLimitIsOn = upLimitIsOn;
-    self.iconTurtle.hidden = !(_upLimitIsOn || _downLimitIsOn);
-    
-    if( upLimitIsOn && _downLimitIsOn )
-    {
-        self.iconTurtle.image = self.iconUpDown;
-    }
-    else if( upLimitIsOn )
-    {
-        self.iconTurtle.image = self.iconUp;
-    }
+    [self setLimitIcon];
 }
 
 - (void)setDownLimitIsOn:(BOOL)downLimitIsOn
 {
     _downLimitIsOn = downLimitIsOn;
+   [self setLimitIcon];
+}
+
+
+- (void)setLimitIcon
+{
     self.iconTurtle.hidden = !(_upLimitIsOn || _downLimitIsOn);
     
-    if( downLimitIsOn && _upLimitIsOn )
-    {
+    if( _downLimitIsOn && _upLimitIsOn )
         self.iconTurtle.image = self.iconUpDown;
-    }
-    else if( downLimitIsOn )
-    {
+    else if( _downLimitIsOn )
         self.iconTurtle.image = self.iconDown;
-    }
+    else if( _upLimitIsOn )
+        self.iconTurtle.image = self.iconUp;
 }
+
 
 - (void)setBoundsFromTableView:(UITableView *)tableView
 {

@@ -170,6 +170,7 @@
     [msg showInfo:@"New torrent has been added" fromView:self.window.rootViewController.view];
 }
 
+// error handler
 - (void)connector:(RPCConnector *)cn complitedRequestName:(NSString *)requestName withError:(NSString *)errorMessage
 {
     if( !_isBackgroundFetching )
@@ -205,7 +206,12 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    // Save db changes
     [[RPCServerConfigDB sharedDB] saveDB];
+    
+    // Save settings changes
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize];
 }
 
 - (void)gotAllTorrents:(TRInfos *)trInfos
@@ -335,5 +341,6 @@
         completionHandler( UIBackgroundFetchResultNoData );
     }
 }
+
 
 @end
