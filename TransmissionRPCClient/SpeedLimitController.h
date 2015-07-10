@@ -20,7 +20,9 @@
 @interface SpeedLimitController : CommonTableController
 
 @property(weak) id<SpeedLimitControllerDelegate> delegate;
+
 @property(nonatomic) NSArray *speedTitles;
+
 @property(nonatomic) int      selectedSpeed;
 @property(nonatomic) BOOL     isDownload;
 

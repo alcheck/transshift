@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelUL;
 @property (weak, nonatomic) IBOutlet UIImageView *iconTurtle;
 
+@property(nonatomic) UIImage *iconUp;
+@property(nonatomic) UIImage *iconDown;
+@property(nonatomic) UIImage *iconUpDown;
 
 @end
 
@@ -32,21 +35,51 @@
     
     view.iconDL.image = [view.iconDL.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     view.iconUL.image = [view.iconUL.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    view.iconTurtle.image = [view.iconTurtle.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //view.iconTurtle.image = [view.iconTurtle.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    view.iconUp = [[UIImage imageNamed:@"iconTurtleUpload20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    view.iconDown = [[UIImage imageNamed:@"iconTurtleDownload20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    view.iconUpDown = [[UIImage imageNamed:@"iconTurtleUpDown20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     view.iconDL.tintColor = view.labelDL.textColor;
     view.iconUL.tintColor = view.labelUL.textColor;
     view.iconTurtle.tintColor = view.tintColor;
-    view.iconTurtle.hidden = YES;
     
+    view.iconTurtle.hidden = YES;
+    view.downLimitIsOn = NO;
+    view.upLimitIsOn = NO;
     
     return view;
 }
 
-- (void)setLimitsIsOn:(BOOL)limitsIsOn
+- (void)setUpLimitIsOn:(BOOL)upLimitIsOn
 {
-    _limitsIsOn = limitsIsOn;
-    self.iconTurtle.hidden = !limitsIsOn;
+    _upLimitIsOn = upLimitIsOn;
+    self.iconTurtle.hidden = !(_upLimitIsOn || _downLimitIsOn);
+    
+    if( upLimitIsOn && _downLimitIsOn )
+    {
+        self.iconTurtle.image = self.iconUpDown;
+    }
+    else if( upLimitIsOn )
+    {
+        self.iconTurtle.image = self.iconUp;
+    }
+}
+
+- (void)setDownLimitIsOn:(BOOL)downLimitIsOn
+{
+    _downLimitIsOn = downLimitIsOn;
+    self.iconTurtle.hidden = !(_upLimitIsOn || _downLimitIsOn);
+    
+    if( downLimitIsOn && _upLimitIsOn )
+    {
+        self.iconTurtle.image = self.iconUpDown;
+    }
+    else if( downLimitIsOn )
+    {
+        self.iconTurtle.image = self.iconDown;
+    }
 }
 
 - (void)setBoundsFromTableView:(UITableView *)tableView

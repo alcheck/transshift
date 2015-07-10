@@ -22,7 +22,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+   
+    // preload icons
     _iconDown = [[UIImage imageNamed:@"iconSpeedDownLimit20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     _iconUp = [[UIImage imageNamed:@"iconSpeedUpLimit20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     

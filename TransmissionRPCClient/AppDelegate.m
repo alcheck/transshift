@@ -71,8 +71,8 @@
     
     self.window.rootViewController = rootController;
     // set background fetch interval
-    _isBackgroundFetching = NO;
-    [application setMinimumBackgroundFetchInterval:20];         // 20 seconds fetching
+    
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     // show main window
     self.window.backgroundColor = [UIColor whiteColor];
@@ -148,6 +148,12 @@
     return YES;
 }
 
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    _isBackgroundFetching = NO;
+}
+
 - (void)addTorrentToServerWithRPCConfig:(RPCServerConfig*)config priority:(int)priority startNow:(BOOL)startNow
 {
     RPCConnector *connector = [[RPCConnector alloc] initWithConfig:config andDelegate:self];
@@ -178,6 +184,7 @@
     }
     else
     {
+        NSLog(@"BackgroundFetch: connector request error, %@", errorMessage);
         _bgComplitionHandler(UIBackgroundFetchResultFailed);
     }
 }
@@ -205,20 +212,28 @@
 {
     if( _isBackgroundFetching )
     {
+        NSLog(@"BackgroundFetch: got all torrents");
+        
         // fetch is complite
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSArray *downIds = [defaults arrayForKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
-        
 
         // update current downloading torrents ids
         // in NSUserDefaults
         NSArray *curDownIds = trInfos.downloadingTorrents;
+        
+        NSLog(@"curDownIds from NsUserDefaults: %i", curDownIds.count );
+        
         if( curDownIds && curDownIds.count > 0 )
         {
+            NSLog(@"Updating NsUserDefaults with curDownIds ...");
+            
             NSMutableArray *downIds = [NSMutableArray array];
-            for (TRInfo* t in downIds)
+            
+            for ( TRInfo* t in curDownIds )
                 [downIds addObject:@(t.trId)];
             
+            NSLog( @"Setting updated array with Ids count :%i", downIds.count );
             [defaults setObject:downIds forKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
             [defaults synchronize];
         }
@@ -231,11 +246,13 @@
         
         if( !downIds )
         {
+            NSLog(@"No previous downloading torrent ids found. Exit");
             // there is downIds - try to create new and return
             _bgComplitionHandler(UIBackgroundFetchResultNoData);
         }
         else
         {
+            NSLog(@"There are downloading torrents, %i ", downIds.count);
             // info string
             NSMutableString *infoStr = [NSMutableString string];
             
@@ -257,11 +274,15 @@
             
             if( infoStr.length > 0 )
             {
+                NSLog(@"Found finished torrents: %@", infoStr);
                 // we should show
                 // show local notification
                 UILocalNotification *notification = [[UILocalNotification alloc] init];
-                notification.fireDate = nil;
+                
+                /* supported only on iOS > 8.1
                 notification.alertTitle = @"Torrent(s) downloaded";
+                */
+                
                 notification.alertBody = infoStr;
                 notification.soundName = UILocalNotificationDefaultSoundName;
                 
@@ -271,6 +292,7 @@
             }
             else
             {
+                NSLog(@"No finished torrents found. Exit.");
                 _bgComplitionHandler(UIBackgroundFetchResultNoData);
             }
         }

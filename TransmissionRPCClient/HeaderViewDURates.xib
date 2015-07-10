@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTurtle20x20" translatesAutoresizingMaskIntoConstraints="NO" id="xi1-Kl-9rL">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xi1-Kl-9rL">
                     <rect key="frame" x="292" y="24" width="20" height="20"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="9O3-9I-YE1"/>
@@ -89,6 +89,5 @@
     <resources>
         <image name="iconHalfCloudDownload20x20" width="21" height="20"/>
         <image name="iconHalfCloudUpload20x20" width="21" height="20"/>
-        <image name="iconTurtle20x20" width="21" height="20"/>
     </resources>
 </document>

@@ -16,6 +16,8 @@
 
 @property(nonatomic) NSString*  uploadString;
 @property(nonatomic) NSString*  downloadString;
-@property(nonatomic) BOOL       limitsIsOn;
+
+@property(nonatomic) BOOL downLimitIsOn;
+@property(nonatomic) BOOL upLimitIsOn;
 
 @end

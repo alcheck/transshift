@@ -37,9 +37,17 @@
     self.title = SERVERLIST_CONTROLLER_TITLE;
        
      // predefine buttons
-    _buttonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(toggleEditMode)];
-    _buttonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleEditMode)];
-    _buttonAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAddNewRPCConfigController)];
+    _buttonDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                target:self
+                                                                action:@selector(toggleEditMode)];
+    
+    _buttonEdit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                target:self
+                                                                action:@selector(toggleEditMode)];
+    
+    _buttonAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                               target:self
+                                                               action:@selector(showAddNewRPCConfigController)];
     
     self.navigationItem.leftBarButtonItem = _buttonEdit;
     self.navigationItem.rightBarButtonItem = _buttonAdd;
@@ -73,6 +81,7 @@
     // remove keys for background fetching
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
+    [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
     [defaults synchronize];
 }
 

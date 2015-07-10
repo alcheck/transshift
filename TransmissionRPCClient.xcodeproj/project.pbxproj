@@ -149,6 +149,7 @@
 		2CFAB9111B49ACCB00BE71D9 /* SessionConfigController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionConfigController.m; sourceTree = "<group>"; };
 		2CFAB9131B49B7FD00BE71D9 /* TRSessionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSessionInfo.h; sourceTree = "<group>"; };
 		2CFAB9141B49B7FD00BE71D9 /* TRSessionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRSessionInfo.m; sourceTree = "<group>"; };
+		2CFBA7961B4FA9D600202281 /* TransmissionRPCClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TransmissionRPCClient.entitlements; sourceTree = "<group>"; };
 		2CFBE1CA1B458F6100B15DEE /* FSDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSDirectory.h; sourceTree = "<group>"; };
 		2CFBE1CB1B458F6100B15DEE /* FSDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDirectory.m; sourceTree = "<group>"; };
 		2CFC267C1B44580E0070CC1C /* StatusListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListCell.h; sourceTree = "<group>"; };
@@ -194,6 +195,7 @@
 		2C5810D81B39A5E50069020D /* TransmissionRPCClient */ = {
 			isa = PBXGroup;
 			children = (
+				2CFBA7961B4FA9D600202281 /* TransmissionRPCClient.entitlements */,
 				2C5810DD1B39A5E50069020D /* AppDelegate.h */,
 				2C5810DE1B39A5E50069020D /* AppDelegate.m */,
 				2CF91D0D1B3C62BF0093637A /* Model */,
@@ -495,6 +497,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.WAC = {
+								enabled = 0;
+							};
 						};
 					};
 					2C5810E81B39A5E50069020D = {
@@ -711,10 +716,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -724,10 +731,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

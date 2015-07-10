@@ -41,8 +41,11 @@
     NSArray *_itemFilterOptions;
     NSArray *_itemImages;
     
-    NSArray *_speedTitles;  // holds speed titles
-    NSArray *_speedRates;   // holds speed rates for this titles (Kb/s)
+    NSArray *_speedUpTitles;  // holds speed titles
+    NSArray *_speedUpRates;   // holds speed rates for this titles (Kb/s)
+
+    NSArray *_speedDownTitles;  // holds speed titles
+    NSArray *_speedDownRates;   // holds speed rates for this titles (Kb/s)
     
     // selected speed for downloading
     int     _selectedDownloadRateIndex;         // - 0 - not selected
@@ -208,17 +211,156 @@
 
 - (void)initSpeedTitles
 {
-    _speedTitles = @[ @"Unlimited", @"100 Kb/s",  @"150 Kb/s",
-                      @"200 Kb/s",  @"250 Kb/s",  @"500 Kb/s",
-                      @"750 Kb/s",  @"1024 Kb/s", @"2048 Kb/s" ];
+    // UP rate limits
+    _speedUpTitles = @[ @"Unlimited", @"50 Kb/s", @"100 Kb/s",  @"150 Kb/s",
+                        @"200 Kb/s",  @"250 Kb/s",  @"500 Kb/s",
+                        @"750 Kb/s",  @"1024 Kb/s", @"2048 Kb/s" ];
     
-    _speedRates = @[ @(0),   @(100), @(150),
-                     @(200), @(250), @(500),
-                     @(750), @(1024),@(2048) ];
+    _speedUpRates = @[ @(0),   @(50),  @(100), @(150),
+                       @(200), @(250), @(500),
+                       @(750), @(1024),@(2048) ];
+    
+    
+    // DOWN  rate limits
+    _speedDownTitles = @[ @"Unlimited", @"50 Kb/s", @"100 Kb/s",  @"150 Kb/s",
+                          @"200 Kb/s",  @"250 Kb/s",  @"500 Kb/s",
+                          @"750 Kb/s",  @"1024 Kb/s", @"2048 Kb/s" ];
+    
+    _speedDownRates = @[ @(0),   @(50),  @(100), @(150),
+                         @(200), @(250), @(500),
+                         @(750), @(1024),@(2048) ];
+
     
     _selectedDownloadRateIndex = 0;
     _selectedUploadRateIndex = 0;
+}
+
+// adjusts tables of rate limits
+// add new item in tables if needed
+- (void)adjustSpeedLimitTables
+{
+    _selectedUploadRateIndex = 0;
+    _selectedDownloadRateIndex = 0;
     
+    if( !_sessionInfo )
+        return;
+
+    BOOL needToCheck = _sessionInfo.downLimitEnabled || _sessionInfo.upLimitEnabled || _sessionInfo.altLimitEnabled;
+    
+    if( !needToCheck )
+        return;
+
+    // check download speeds
+    if( _sessionInfo.downLimitEnabled || _sessionInfo.altLimitEnabled )
+    {
+        int curRate = _sessionInfo.altLimitEnabled ? _sessionInfo.altDownloadRateLimit : _sessionInfo.downLimitRate;
+        
+        // search this rate in tables
+        BOOL needToInsertNew = YES;
+        int  insertIndex = _speedDownRates.count;
+
+        int prevRate = INT_MAX;
+        for( int i = 1; i < _speedDownRates.count; i++ ) // start from 1 - skip the first element
+        {
+            int tableRate = [(NSNumber*)_speedDownRates[i] intValue];
+            
+            if( tableRate == curRate )
+            {
+                needToInsertNew = NO;
+                _selectedDownloadRateIndex = i;
+                break;
+            }
+            
+            if( curRate > prevRate &&  curRate < tableRate )
+            {
+                insertIndex = i;
+                break;
+            }
+            
+            prevRate = tableRate;
+        }
+        
+        if( needToInsertNew )
+        {
+            // insert new item in table
+            NSMutableArray *curRates = [NSMutableArray arrayWithArray:_speedDownRates];
+            NSMutableArray *curTitles = [NSMutableArray arrayWithArray:_speedDownTitles];
+            
+            NSString *newTitle = [NSString stringWithFormat:@"%i Kb/s", curRate];
+            
+            if( insertIndex >= _speedDownRates.count)
+            {
+                [curRates addObject:@(curRate)];
+                [curTitles addObject:newTitle];
+            }
+            else
+            {
+                [curRates insertObject:@(curRate) atIndex: insertIndex];
+                [curTitles insertObject:newTitle atIndex: insertIndex];
+            }
+            
+            _selectedDownloadRateIndex = insertIndex;
+            
+            _speedDownTitles = curTitles;
+            _speedDownRates = curRates;
+        }
+    } // session download speed adjust
+    
+    // session upload speed adjust
+    if( _sessionInfo.upLimitEnabled || _sessionInfo.altLimitEnabled )
+    {
+        int curRate = _sessionInfo.altLimitEnabled ? _sessionInfo.altUploadRateLimit : _sessionInfo.upLimitRate;
+        
+        // search this rate in tables
+        BOOL needToInsertNew = YES;
+        int  insertIndex = _speedUpRates.count;
+        
+        int prevRate = INT_MAX;
+        for( int i = 1; i < _speedUpRates.count; i++ ) // start from 1 - skip the first element
+        {
+            int tableRate = [(NSNumber*)_speedUpRates[i] intValue];
+            
+            if( tableRate == curRate )
+            {
+                needToInsertNew = NO;
+                _selectedUploadRateIndex = i;
+                break;
+            }
+            
+            if( curRate > prevRate &&  curRate < tableRate )
+            {
+                insertIndex = i;
+                break;
+            }
+            
+            prevRate = tableRate;
+        }
+        
+        if( needToInsertNew )
+        {
+            // insert new item in table
+            NSMutableArray *curRates = [NSMutableArray arrayWithArray:_speedUpRates];
+            NSMutableArray *curTitles = [NSMutableArray arrayWithArray:_speedUpTitles];
+            
+            NSString *newTitle = [NSString stringWithFormat:@"%i Kb/s", curRate];
+            
+            if( insertIndex >= _speedUpRates.count)
+            {
+                [curRates addObject:@(curRate)];
+                [curTitles addObject:newTitle];
+            }
+            else
+            {
+                [curRates insertObject:@(curRate) atIndex: insertIndex];
+                [curTitles insertObject:newTitle atIndex: insertIndex];
+            }
+            
+            _selectedUploadRateIndex = insertIndex;
+            
+            _speedUpTitles = curTitles;
+            _speedUpRates = curRates;
+        }
+    } // session upload speed adjust
 }
 
 - (void)showInfoPopup:(NSString*)infoStr
@@ -228,7 +370,7 @@
     float factor = 1.2;
     if( self.splitViewController )
     {
-        factor = 2.4;
+        factor = 2.3;
         v = self.splitViewController.view;
     }
     
@@ -243,7 +385,7 @@
     float factor = 1.2;
     if( self.splitViewController )
     {
-        factor = 2.4;
+        factor = 2.3;
         v = self.splitViewController.view;
     }
     
@@ -409,6 +551,7 @@
     [self setCount:torrents.stopCount     forCellWithTitle:STATUS_ROW_STOP];
     
     // show torrents in list controller (update)
+    // find torrents that are finished downloading
     TRInfos *prev = _torrentController.torrents;
     if( prev )
     {
@@ -433,7 +576,7 @@
         {
             [self showInfoPopup:sInfo];
         }
-    }
+    } // end of finding finished torrents
     
     _torrentController.torrents = torrents;
     
@@ -505,7 +648,7 @@
     _speedLimitController = instantiateController(CONTROLLER_ID_SPEEDLIMIT);
     _speedLimitController.preferredContentSize = CGSizeMake(190, 400);
     _speedLimitController.selectedSpeed = _selectedDownloadRateIndex;
-    _speedLimitController.speedTitles = _speedTitles;
+    _speedLimitController.speedTitles = _speedDownTitles;
     _speedLimitController.delegate = self;
     _speedLimitController.title = @"Speed download limit";
     _speedLimitController.isDownload = YES;
@@ -531,7 +674,7 @@
     _speedLimitController = instantiateController(CONTROLLER_ID_SPEEDLIMIT);
     _speedLimitController.preferredContentSize = CGSizeMake(190, 400);    
     _speedLimitController.selectedSpeed = _selectedUploadRateIndex;
-    _speedLimitController.speedTitles = _speedTitles;
+    _speedLimitController.speedTitles = _speedUpTitles;
     _speedLimitController.delegate = self;
     _speedLimitController.title = @"Speed upload limit";
     _speedLimitController.isDownload = NO;
@@ -570,13 +713,13 @@
     if( _speedLimitController.isDownload )
     {
         _selectedDownloadRateIndex = index;
-        int rate = [(NSNumber*)_speedRates[index] intValue];
+        int rate = [(NSNumber*)_speedDownRates[index] intValue];
         [_connector limitDownloadRateWithSpeed:rate];
     }
     else
     {
         _selectedUploadRateIndex = index;
-        int rate = [(NSNumber*)_speedRates[index] intValue];
+        int rate = [(NSNumber*)_speedUpRates[index] intValue];
         [_connector limitUploadRateWithSpeed:rate];
     }
     
@@ -589,6 +732,10 @@
 // for session info
 - (void)showSessionConfiguration
 {
+    // fix
+    if( _speedPopOver &&  _speedPopOver.isPopoverVisible )
+        [_speedPopOver dismissPopoverAnimated:YES];
+    
     _sessionConfigController = instantiateController(CONTROLLER_ID_SESSIONCONFIG);
     _sessionConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                                                                                target:self
@@ -643,7 +790,10 @@
         _sessionConfigController.sessionInfo = info;
     
     // show/hide limit icon
-    _headerViewDURates.limitsIsOn = (_uploadRateLimitString!=nil || _downloadRateLimitString!=nil);
+    _headerViewDURates.upLimitIsOn = _uploadRateLimitString != nil;
+    _headerViewDURates.downLimitIsOn = _downloadRateLimitString != nil;
+    
+    [self adjustSpeedLimitTables];
 }
 
 - (void)gotPortTestedWithSuccess:(BOOL)portIsOpen
