@@ -78,7 +78,7 @@
     BOOL needToUpdate = YES;
     int  insertIndex = (int)_rates.count;
     
-    int prevRate = INT_MAX;
+    int prevRate = 0;
     for( int i = 1; i < _rates.count; i++ ) // start from 1 - skip the first element
     {
         int tableRate = [(NSNumber*)_rates[i] intValue];

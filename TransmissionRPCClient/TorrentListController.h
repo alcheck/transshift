@@ -19,6 +19,7 @@
 #define STATUS_ROW_STOP             @"Stopped"
 #define STATUS_ROW_CHECK            @"Checking"
 #define STATUS_ROW_ACTIVE           @"Active"
+#define STATUS_ROW_ERROR            @"Error"
 
 // options for our titles
 typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
@@ -28,6 +29,7 @@ typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
     TRStatusOptionsStop             = 1 << 2,
     TRStatusOptionsCheck            = 1 << 3,
     TRStatusOptionsActive           = 1 << 4,
+    TRStatusOptionsError            = 1 << 5,
     TRStatusOptionsAll              = 15
 };
 

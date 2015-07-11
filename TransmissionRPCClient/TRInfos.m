@@ -107,14 +107,25 @@
     return count;
 }
 
+- (int)errorCount
+{
+    int count = 0;
+    for (TRInfo *info in _items )
+        if( info.isError )
+            count++;
+    
+    return count;
+}
+
 - (NSString *)totalUploadRateString
 {
     long long c = 0;
+    
     for( TRInfo* info in _items )
         c += info.uploadRate;
     
-//    if( c == 0 )
-//        return @"-";
+    if( c == 0 )
+        return @"0 KB/s";
     
     NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
     byteFormatter.allowsNonnumericFormatting = NO;
@@ -127,13 +138,13 @@
     long long c = 0;
     for( TRInfo* info in _items )
         c += info.downloadRate;
-//    
-//    if( c == 0 )
-//        return @"-";
+    
+    if( c == 0 )
+        return @"0 KB/s";
     
     NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
     byteFormatter.allowsNonnumericFormatting = NO;
-    
+
     return [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
 }
 
@@ -166,34 +177,40 @@
     return _items;
 }
 
+- (NSArray*)filterWithPredicateString:(NSString*)filterString
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:filterString];
+    return [_items filteredArrayUsingPredicate:predicate];
+}
+
 - (NSArray *)seedingTorrents
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isSeeding == YES"];
-    return [_items filteredArrayUsingPredicate:predicate];
+    return [self filterWithPredicateString:@"isSeeding == YES"];
 }
 
 - (NSArray *)downloadingTorrents
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isDownloading == YES"];
-    return [_items filteredArrayUsingPredicate:predicate];
+    return [self filterWithPredicateString:@"isDownloading == YES"];
 }
 
 - (NSArray *)checkingTorrents
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isChecking == YES"];
-    return [_items filteredArrayUsingPredicate:predicate];
+    return [self filterWithPredicateString:@"isChecking == YES"];
 }
 
 - (NSArray *)stoppedTorrents
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isStopped == YES"];
-    return [_items filteredArrayUsingPredicate:predicate];
+    return [self filterWithPredicateString:@"isStopped == YES"];
+}
+
+- (NSArray *)errorTorrents
+{
+    return [self filterWithPredicateString:@"isError == YES"];
 }
 
 - (NSArray *)activeTorrents
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"downloadRate > 0 OR uploadRate > 0"];
-    return [_items filteredArrayUsingPredicate:predicate];
+    return [self filterWithPredicateString:@"downloadRate > 0 OR uploadRate > 0"];
 }
 
 @end

@@ -35,11 +35,11 @@
     [super viewDidLoad];
     [self prepareData];
     
-    _statusIconImages = @{ ICON_DOWNLOAD : [[UIImage imageNamed:ICON_DOWNLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_STOP : [[UIImage imageNamed:ICON_STOP] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_UPLOAD : [[UIImage imageNamed:ICON_UPLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_CHECK : [[UIImage imageNamed:ICON_CHECK] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_ERROR : [[UIImage imageNamed:ICON_ERROR] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]};
+    _statusIconImages = @{ ICON_DOWNLOAD :  [[UIImage imageNamed:ICON_DOWNLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                           ICON_STOP :      [[UIImage imageNamed:ICON_STOP] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                           ICON_UPLOAD :    [[UIImage imageNamed:ICON_UPLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                           ICON_CHECK :     [[UIImage imageNamed:ICON_CHECK] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                           ICON_ERROR :     [[UIImage imageNamed:ICON_ERROR] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]};
 }
 
 
@@ -116,6 +116,16 @@
         if( arr.count > 0 )
         {
             [_sectionTitles addObject:STATUS_ROW_ACTIVE];
+            [_sectionTorrents addObject:arr];
+        }
+    }
+    
+    if( _filterOptions & TRStatusOptionsError )
+    {
+        NSArray *arr = _torrents.errorTorrents;
+        if( arr.count > 0 )
+        {
+            [_sectionTitles addObject:STATUS_ROW_ERROR];
             [_sectionTorrents addObject:arr];
         }
     }
@@ -283,6 +293,8 @@
         cell.statusIcon.image = _statusIconImages[ICON_CHECK];
     }
     
+    // because error torrent has native status as "stopped" we
+    // should handle this case aside of common "if"
     if( info.isError )
     {
         detailInfo = [NSString stringWithFormat:@"Error: %@", info.errorString]; //@"Paused due to some error";

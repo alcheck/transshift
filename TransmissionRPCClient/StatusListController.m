@@ -50,14 +50,16 @@
     NSMutableDictionary *_cells;
     
     // this flag used in ViewDidAppear
-    BOOL    _appearedFirstTime;
+    BOOL                    _appearedFirstTime;
+    BOOL                    _showCheckItems;              // allows to see "checking" status
+    BOOL                    _showErrorItems;              // allows to see "error" status
     
     // holds main RPC connector
-    RPCConnector *_connector;
+    RPCConnector            *_connector;
     
-    TRSessionInfo          *_sessionInfo;                 // holds session configuration Information
+    TRSessionInfo           *_sessionInfo;                 // holds session configuration Information
     
-    NSTimer *_refreshTimer;                               // holds main autorefresh timer
+    NSTimer                 *_refreshTimer;                // holds main autorefresh timer
     
     // Header/Footer info views
     FooterViewFreeSpace     *_footerViewFreeSpace;
@@ -181,6 +183,10 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(showAddTorrentByURLDialog)];
+    
+    // hide check and error statuses
+    _showCheckItems = NO;
+    _showErrorItems = NO;
 }
 
 - (void)initNames
@@ -192,21 +198,24 @@
                             STATUS_ROW_DOWNLOAD,
                             STATUS_ROW_SEED,
                             STATUS_ROW_STOP,
-                            STATUS_ROW_CHECK ];
+                            STATUS_ROW_CHECK,
+                            STATUS_ROW_ERROR ];
     
     _itemFilterOptions = @[ @(TRStatusOptionsAll),
                             @(TRStatusOptionsActive),
                             @(TRStatusOptionsDownload),
                             @(TRStatusOptionsSeed),
                             @(TRStatusOptionsStop),
-                            @(TRStatusOptionsCheck) ];
+                            @(TRStatusOptionsCheck),
+                            @(TRStatusOptionsError) ];
     
     _itemImages =        @[ [[UIImage imageNamed:@"allIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
                             [[UIImage imageNamed:@"activeIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
                             [[UIImage imageNamed:@"downloadIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
                             [[UIImage imageNamed:@"uploadIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
                             [[UIImage imageNamed:@"stopIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                            [[UIImage imageNamed:@"checkIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+                            [[UIImage imageNamed:@"checkIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
+                            [[UIImage imageNamed:@"iconErrorTorrent40x40"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] ];
     
     _cells = [NSMutableDictionary dictionary];
 }
@@ -417,6 +426,39 @@
     [self setCount:torrents.seedCount     forCellWithTitle:STATUS_ROW_SEED];
     [self setCount:torrents.stopCount     forCellWithTitle:STATUS_ROW_STOP];
     
+    if( torrents.errorCount > 0 )
+    {
+        if( _showErrorItems )
+        {
+            [self setCount:torrents.errorCount forCellWithTitle:STATUS_ROW_ERROR];
+        }
+        else
+        {
+            _showErrorItems = YES;
+            // add new row to table
+            [self.tableView beginUpdates];
+            
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:6 inSection:0]]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+            [self.tableView endUpdates];
+            
+            [self setCount:torrents.errorCount forCellWithTitle:STATUS_ROW_ERROR];
+        }
+    }
+    else
+    {
+        if( _showErrorItems )
+        {
+            _showErrorItems = NO;
+            //[self.tableView reloadData];
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:6 inSection:0]]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+        }
+    }
+    
     // show torrents in list controller (update)
     // find torrents that are finished downloading
     TRInfos *prev = _torrentController.torrents;
@@ -487,6 +529,8 @@
         
         // set icon in gray if there are not items
         cell.iconImg.tintColor = count > 0 ? cell.tintColor : [UIColor lightGrayColor];
+        if( [cellTitle isEqualToString:STATUS_ROW_ERROR] )
+            cell.iconImg.tintColor = [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
     }
 }
 
@@ -597,10 +641,6 @@
 // for session info
 - (void)showSessionConfiguration
 {
-    // fix
-    if( _speedPopOver &&  _speedPopOver.isPopoverVisible )
-        [_speedPopOver dismissPopoverAnimated:YES];
-    
     _sessionConfigController = instantiateController(CONTROLLER_ID_SESSIONCONFIG);
     _sessionConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
                                                                                                                target:self
@@ -609,6 +649,15 @@
     
     [_connector getSessionInfo];
     [_connector portTest];
+    
+    // FIX: WARNING - don't get it right, but if I put this code
+    // above - app is crashing on iOS 8.3 (nsarray is filled with nil)
+    // it seems that controls is not loaded
+    if( _speedPopOver &&  _speedPopOver.isPopoverVisible )
+    {
+        [_speedPopOver dismissPopoverAnimated:NO];
+        _speedPopOver = nil;
+    }
 }
 
 - (void)saveSessionParametes
@@ -644,16 +693,18 @@
     _headerViewDURates.upLimitIsOn =  info.upLimitEnabled || info.altLimitEnabled;
     _headerViewDURates.downLimitIsOn = info.downLimitEnabled || info.altLimitEnabled;
     
-    NSLog(@"downLimits: %@ ,upLimits: %@",
-          _headerViewDURates.downLimitIsOn ? @"ON":@"OFF",
-          _headerViewDURates.upLimitIsOn ? @"ON":@"OFF");
+//    NSLog(@"downLimits: %@ ,upLimits: %@",
+//          _headerViewDURates.downLimitIsOn ? @"ON":@"OFF",
+//          _headerViewDURates.upLimitIsOn ? @"ON":@"OFF");
     
+    _ratesUp.selectedRateIndex = 0;
     if( info.upLimitEnabled || info.altLimitEnabled )
     {
         int curRate = _sessionInfo.altLimitEnabled ? _sessionInfo.altUploadRateLimit : _sessionInfo.upLimitRate;
         [_ratesUp updateTableWithRate:curRate];
     }
     
+    _ratesDown.selectedRateIndex = 0;
     if( info.downLimitEnabled || info.altLimitEnabled )
     {
         int curRate = _sessionInfo.altLimitEnabled ? _sessionInfo.altDownloadRateLimit : _sessionInfo.downLimitRate;
@@ -893,7 +944,7 @@
 // and fetching all torrents
 - (void)filterTorrentListWithFilterOptions:(TRStatusOptions)filterOptions
 {
-    _torrentController.navigationItem.title = @"Torrents";//self.navigationItem.title;
+    _torrentController.title = @"Torrents";
     _torrentController.popoverButtonTitle = self.title;
     _torrentController.filterOptions = filterOptions;
     
@@ -935,14 +986,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _itemNames.count;
+    NSInteger c =  _itemNames.count - 1;
+    if( _showErrorItems )
+        c++;
+    
+    return c;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    StatusListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_STATUSLIST forIndexPath:indexPath];
-    
     NSString *title = _itemNames[indexPath.row];
+    
+    StatusListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_STATUSLIST forIndexPath:indexPath];
     
     // Configure the cell
     cell.numberLabel.text  = @" ";

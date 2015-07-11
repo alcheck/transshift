@@ -51,9 +51,16 @@
 
 @implementation SessionConfigController
 
+{
+    NSArray *_controls;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //NSLog(@"SessionConfigController: viewDidLoad");
+    
     self.enableControls = NO;
     
     self.title = @"Settings";
@@ -234,16 +241,19 @@
 - (void)setEnableControls:(BOOL)enableControls
 {
     _enableControls = enableControls;
-    // disable all switches
-    NSArray* controls = @[ _switchAddPartToUnfinishedFiles, _switchAltDownloadRateEnabled, _switchAltUploadRateEnabled,
-                          _switchDHTEnabled, _switchDownloadRateEnabled, _switchIdleSeedEnabled, _switchLPDEnabled,
+    
+    if( !_controls )
+    {
+            _controls = @[ _switchAddPartToUnfinishedFiles, _switchAltDownloadRateEnabled, _switchAltUploadRateEnabled,
+                           _switchDHTEnabled, _switchDownloadRateEnabled, _switchIdleSeedEnabled, _switchLPDEnabled,
                            _switchPEXEnabled, _switchPortForwardingEnabled, _switchRandomPortEnabled, _switchSeedRatioLimitEnabled,
                            _switchStartDownloadImmidiately, _switchUploadRateEnabled, _switchUTPEnabled, _textAltDownloadRateNumber,
                            _textAltUploadRateNumber, _textDownloadRateNumber, _textIdleSeedNumber, _textPeersPerTorrentNumber, _textPortNumber,
                            _textSeedRatioLimitNumber, _textSeedRatioLimitNumber, _textTotalPeersCountNumber, _textUploadRateNumber, _segmentEncryption
                           ];
+    }
     
-    for (UIControl *c in controls)
+    for (UIControl *c in _controls)
         c.enabled = enableControls;
 }
 
