@@ -28,6 +28,8 @@
     UIBarButtonItem *_buttonAdd;
     
     StatusListController *_statusListController;
+    
+    NSString        *_version;
 }
 
 - (void)viewDidLoad
@@ -53,10 +55,11 @@
     self.navigationItem.rightBarButtonItem = _buttonAdd;
     
     // show version
-    NSString *version = [NSString stringWithFormat:@"version %@(%@)",
+    _version = [NSString stringWithFormat:@"version %@(%@)",
                          [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"],
                          [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
-    self.footerInfoMessage = version;
+    
+    //self.footerInfoMessage = _version;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -133,11 +136,25 @@
         [[RPCServerConfigDB sharedDB].db addObject:self.rpcConfigController.config];
         [[RPCServerConfigDB sharedDB] saveDB];
         
-        [self.tableView reloadData];
+        NSUInteger count = [RPCServerConfigDB sharedDB].db.count;
+        
+        //[self.tableView reloadData];
         [self hideRPCConfigController];
+        
+        [self.tableView beginUpdates];
+        
+        if( count > 1 )
+            [self.tableView insertRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:(count-1) inSection:0] ]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+        else
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self.tableView endUpdates];
     }
 }
 
+// save editted RPC config
 - (void)commitEditingRPCConfig
 {
     if( [self.rpcConfigController saveConfig] )
@@ -147,7 +164,6 @@
         [self hideRPCConfigController];
     }
 }
-
 
 // handler for editing
 - (void)editButtonTouched:(UISegmentedControl *)button atPath:(NSIndexPath *)indexPath
@@ -176,10 +192,10 @@
     
     RPCServerConfig *selectedConfig = [RPCServerConfigDB sharedDB].db[indexPath.row];
     
-    // register config for background fetchig
+    // - BACKGROUND FETCHING register config for background fetchig
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:selectedConfig.plist forKey:USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
-    // ---
+    // -
     
     _statusListController.config = selectedConfig ;
     _statusListController.title = selectedConfig.name;
@@ -206,6 +222,7 @@
 
     self.navigationItem.leftBarButtonItem.enabled = itemsCount > 0;
     self.infoMessage = itemsCount > 0 ? nil : @"There are no servers available.\nAdd server to the list.";
+    self.footerInfoMessage = itemsCount > 0 ? _version : nil;
     
     return itemsCount > 0 ? 1 : 0;
  }
@@ -221,8 +238,20 @@
     {
         // perform delete of the item
         [[RPCServerConfigDB sharedDB].db removeObjectAtIndex:indexPath.row ];
-            
-        [tableView reloadData];
+        [[RPCServerConfigDB sharedDB] saveDB];
+        
+        NSUInteger count = [RPCServerConfigDB sharedDB].db.count;
+        
+        [tableView beginUpdates];
+        
+        if( count > 0 )
+            [tableView deleteRowsAtIndexPaths:@[ indexPath ]
+                             withRowAnimation:UITableViewRowAnimationAutomatic];
+        else
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:0]
+                     withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [tableView endUpdates];
     }
 }
 

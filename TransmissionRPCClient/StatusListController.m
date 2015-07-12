@@ -627,9 +627,31 @@
     
     // get the limits!
     if( _speedLimitController.isDownload )
+    {
         [_connector limitDownloadRateWithSpeed:_ratesDown.selectedRate];
+        
+        if( _ratesDown.selectedRate == 0)
+        {
+            [self showInfoPopup:@"Disable download speed limit"];
+        }
+        else
+        {
+            [self showInfoPopup:[NSString stringWithFormat:@"Setting download speed limit to %i KB/s", _ratesDown.selectedRate]];
+        }
+    }
     else
+    {
         [_connector limitUploadRateWithSpeed:_ratesUp.selectedRate];
+        
+        if( _ratesUp.selectedRate == 0)
+        {
+            [self showInfoPopup:@"Disable upload speed limit"];
+        }
+        else
+        {
+            [self showInfoPopup:[NSString stringWithFormat:@"Setting upload speed limit to %i KB/s", _ratesUp.selectedRate]];
+        }
+    }
     
     _speedLimitController = nil;
     _speedPopOver = nil;
