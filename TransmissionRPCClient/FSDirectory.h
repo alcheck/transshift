@@ -51,7 +51,8 @@ typedef NS_ENUM(unichar, FSItemType)
 
 @interface FSDirectory : NSObject
 
-@property(nonatomic,readonly) int count;    // count of elements
+@property(nonatomic,readonly) int     count;    // count of elements
+@property(nonatomic,readonly) FSItem *rootItem;
 
 + (FSDirectory*)directory;
 - (FSItem*)addFilePath:(NSString*)path withIndex:(int)index;

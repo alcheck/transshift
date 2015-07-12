@@ -304,6 +304,8 @@
     
     _appearedFirstTime = NO;
     self.navigationController.toolbarHidden = NO;
+    
+    [self fixFooterHeaderViews];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -383,10 +385,8 @@
     _headerViewDURates.downloadString = dlRate;
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+- (void)fixFooterHeaderViews
 {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    
     if( _footerViewFreeSpace )
     {
         [_footerViewFreeSpace setBoundsFromTableView:self.tableView];
@@ -397,6 +397,13 @@
         [_headerViewDURates setBoundsFromTableView:self.tableView];
         self.tableView.tableHeaderView = _headerViewDURates;
     }
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    
+    [self fixFooterHeaderViews];
 }
 
 // should be performed when there is no errors

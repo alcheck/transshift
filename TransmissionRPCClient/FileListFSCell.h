@@ -19,5 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *prioritySegment;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImg;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameLabelTrailConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameLabelTrailToSegmentConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftIndentConstraint;
 
 @end

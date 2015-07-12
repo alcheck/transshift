@@ -191,20 +191,28 @@
     cell.nameLabel.text = item.name;
     cell.iconImg.image = item.isFile ? _iconImgFile : (  item.isCollapsed ? _iconImgFolderClosed : _iconImgFolderOpened );
     
-    NSArray *arr = cell.leftLabel.constraints;
-    [cell.leftLabel removeConstraints:arr];
+    //NSArray *arr = cell.leftLabel.constraints;
+    //[cell.leftLabel removeConstraints:arr];
     
     // make indentation
     float leftIdent = FILELISTFSCELL_LEFTLABEL_WIDTH + ( (item.level - 1) * FILELISTFSCELL_LEFTLABEL_LEVEL_INDENTATION );
-    NSLayoutConstraint *widthConstraint = [arr firstObject];
-    widthConstraint.constant = leftIdent;
-    [cell.leftLabel addConstraints:arr];
+    
+    if( _fsDir.rootItem.folderDownloadProgress >= 1.0 )
+        leftIdent = ((item.level - 1) * FILELISTFSCELL_LEFTLABEL_LEVEL_INDENTATION);
+    
+    cell.leftIndentConstraint.constant = leftIdent;
+    //NSLayoutConstraint *widthConstraint = [arr firstObject];
+    //widthConstraint.constant = leftIdent;
+    //[cell.leftLabel addConstraints:arr];
     
     cell.iconImg.userInteractionEnabled = NO;
     cell.iconImg.tintColor = cell.tintColor;            // default (blue) tintColor
     cell.leftLabel.userInteractionEnabled = NO;
     cell.prioritySegment.hidden = YES;
     cell.nameLabel.textColor = [UIColor blackColor];
+    
+    cell.nameLabelTrailConstraint.priority = 751;
+    cell.nameLabelTrailToSegmentConstraint.priority = 750;
     
     if( item.isFile )
     {
@@ -233,6 +241,11 @@
                 cell.prioritySegment.hidden = YES;
                 cell.iconImg.tintColor = [UIColor grayColor];
                 cell.nameLabel.textColor = [UIColor grayColor];
+            }
+            else
+            {
+                cell.nameLabelTrailConstraint.priority = 750;
+                cell.nameLabelTrailToSegmentConstraint.priority = 751;
             }
             
             cell.leftLabel.text = item.info.wanted ? @"☑︎" : @"◻︎";

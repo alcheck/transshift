@@ -22,7 +22,10 @@
 @interface FileListController : UITableViewController
 
 @property(weak) id<FileListControllerDelegate> delegate;
+
 @property(nonatomic) NSArray*   fileInfos;
 @property(nonatomic) int        torrentId;
+
+@property(nonatomic) BOOL       torrentIsFinished;
 
 @end

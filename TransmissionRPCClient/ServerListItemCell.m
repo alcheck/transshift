@@ -12,6 +12,7 @@
 
 {
     UISegmentedControl *_segmentButton;
+    __weak IBOutlet NSLayoutConstraint *_labelNameTrailConstraint;
 }
 
 // add Edit button to the row
@@ -41,19 +42,12 @@
 
 - (void)willTransitionToState:(UITableViewCellStateMask)state
 {
+    if( state == (UITableViewCellStateShowingEditControlMask | UITableViewCellStateShowingDeleteConfirmationMask) )
+        _labelNameTrailConstraint.constant = -(16 + _segmentButton.bounds.size.width);
+    else
+        _labelNameTrailConstraint.constant = - 8;
+    
     [super willTransitionToState:state];
-    
-    NSLayoutConstraint *nameLabelTrail = self.contentView.constraints[4];
-
-    if( state & UITableViewCellStateShowingDeleteConfirmationMask )
-    {
-         nameLabelTrail.constant = -(16 + _segmentButton.bounds.size.width);
-    }
-    
-    if( state == UITableViewCellStyleDefault )
-    {
-        nameLabelTrail.constant = - 8;
-    }
 }
 
 @end

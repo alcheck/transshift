@@ -303,6 +303,11 @@
     return self;
 }
 
+- (FSItem *)rootItem
+{
+    return _root;
+}
+
 // add file to tree
 // file is a path with format /root/subfolder/.../filename it
 // should be from root
