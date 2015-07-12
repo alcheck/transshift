@@ -1505,7 +1505,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Giga" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bws-TG-qbq">
-                                            <rect key="frame" x="61" y="14" width="438" height="24"/>
+                                            <rect key="frame" x="61" y="14" width="498" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="250" constant="25" id="vi6-4p-9QB"/>
                                             </constraints>
@@ -1514,7 +1514,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://192.168.0.1:8090/transmission/rpc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAv-EQ-tHa">
-                                            <rect key="frame" x="61" y="40" width="438" height="18"/>
+                                            <rect key="frame" x="61" y="40" width="498" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="250" constant="21" id="13q-1R-rRv"/>
                                             </constraints>
@@ -1533,8 +1533,8 @@
                                     <constraints>
                                         <constraint firstItem="Bws-TG-qbq" firstAttribute="leading" secondItem="zpY-Q6-0Kp" secondAttribute="trailing" constant="8" symbolic="YES" id="4k5-E4-ZAJ"/>
                                         <constraint firstItem="Bws-TG-qbq" firstAttribute="top" secondItem="oUt-NH-48g" secondAttribute="topMargin" constant="6" id="5sk-yN-zbe"/>
-                                        <constraint firstItem="Bws-TG-qbq" firstAttribute="trailing" secondItem="oUt-NH-48g" secondAttribute="trailingMargin" constant="-60" id="BFA-VE-msH"/>
-                                        <constraint firstItem="OAv-EQ-tHa" firstAttribute="trailing" secondItem="oUt-NH-48g" secondAttribute="trailingMargin" constant="-60" id="FEa-Qg-2lP"/>
+                                        <constraint firstItem="OAv-EQ-tHa" firstAttribute="width" secondItem="Bws-TG-qbq" secondAttribute="width" id="7lh-kG-Vvb"/>
+                                        <constraint firstItem="Bws-TG-qbq" firstAttribute="trailing" secondItem="oUt-NH-48g" secondAttribute="trailingMargin" id="BFA-VE-msH"/>
                                         <constraint firstItem="zpY-Q6-0Kp" firstAttribute="leading" secondItem="oUt-NH-48g" secondAttribute="leadingMargin" id="LZD-Tm-W43"/>
                                         <constraint firstItem="OAv-EQ-tHa" firstAttribute="leading" secondItem="zpY-Q6-0Kp" secondAttribute="trailing" constant="8" symbolic="YES" id="Rhu-M8-SJw"/>
                                         <constraint firstAttribute="centerY" secondItem="zpY-Q6-0Kp" secondAttribute="centerY" id="bR5-2K-DcT"/>

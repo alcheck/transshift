@@ -81,10 +81,11 @@
         [nc popToRootViewControllerAnimated:YES];
     }
     
-    // remove keys for background fetching
+    // - BACKGOUND FETCHING remove keys for background fetching
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
     [defaults removeObjectForKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
+    // -
 }
 
 - (RPCServerConfigController *)rpcConfigController

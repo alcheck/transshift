@@ -198,7 +198,6 @@
 		2C5810D81B39A5E50069020D /* TransmissionRPCClient */ = {
 			isa = PBXGroup;
 			children = (
-				2CFBA7961B4FA9D600202281 /* TransmissionRPCClient.entitlements */,
 				2C5810DD1B39A5E50069020D /* AppDelegate.h */,
 				2C5810DE1B39A5E50069020D /* AppDelegate.m */,
 				2CF91D0D1B3C62BF0093637A /* Model */,
@@ -411,6 +410,7 @@
 		2CF9AF031B4D59B800D687C7 /* docIcons */ = {
 			isa = PBXGroup;
 			children = (
+				2CFBA7961B4FA9D600202281 /* TransmissionRPCClient.entitlements */,
 				2CF964EA1B4D5DB9006D8C7E /* docIcon_22x29.png */,
 				2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */,
 				2CF964EC1B4D5DB9006D8C7E /* docIcon_64x64.png */,

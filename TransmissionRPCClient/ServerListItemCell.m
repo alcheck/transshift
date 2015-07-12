@@ -10,18 +10,22 @@
 
 @implementation ServerListItemCell
 
+{
+    UISegmentedControl *_segmentButton;
+}
+
 // add Edit button to the row
 - (void)awakeFromNib
 {
     [super awakeFromNib];
 
    // lets try uisegmented control
-    UISegmentedControl *segmentButton = [[UISegmentedControl alloc] initWithItems:@[@"Edit"]];
-    [segmentButton setTintColor:[UIColor grayColor]];
-    [segmentButton addTarget:self action:@selector(segmentTouched:) forControlEvents:UIControlEventValueChanged];
-    [segmentButton setWidth:segmentButton.bounds.size.width * 1.5 forSegmentAtIndex:0];
+    _segmentButton = [[UISegmentedControl alloc] initWithItems:@[@"Edit"]];
+    [_segmentButton setTintColor:[UIColor grayColor]];
+    [_segmentButton addTarget:self action:@selector(segmentTouched:) forControlEvents:UIControlEventValueChanged];
+    [_segmentButton setWidth:_segmentButton.bounds.size.width * 1.5 forSegmentAtIndex:0];
     
-    self.editingAccessoryView = segmentButton;
+    self.editingAccessoryView = _segmentButton;
 }
 
 - (void)segmentTouched:(UISegmentedControl*)sender
@@ -33,6 +37,23 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         sender.selectedSegmentIndex = UISegmentedControlNoSegment;
     });
+}
+
+- (void)willTransitionToState:(UITableViewCellStateMask)state
+{
+    [super willTransitionToState:state];
+    
+    NSLayoutConstraint *nameLabelTrail = self.contentView.constraints[4];
+
+    if( state & UITableViewCellStateShowingDeleteConfirmationMask )
+    {
+         nameLabelTrail.constant = -(16 + _segmentButton.bounds.size.width);
+    }
+    
+    if( state == UITableViewCellStyleDefault )
+    {
+        nameLabelTrail.constant = - 8;
+    }
 }
 
 @end
