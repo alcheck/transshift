@@ -291,7 +291,7 @@
         {
             // select first row
             // and do it manualy
-            NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+            // NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
             // make first row selected
             //[self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
             
@@ -344,16 +344,16 @@
     else if( nav.topViewController == _fileListController )
         [_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
     
-    else if( _sessionInfo )
-    {
+    //if( _sessionInfo )
         // update free space
-        [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
-    }
+    //    [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
 }
 
 - (void)gotFreeSpaceString:(NSString *)freeSpace
 {
+    //NSLog(@"gotFreeSpace");
     NSString *str = [NSString stringWithFormat:@"Free space: %@", freeSpace];
+    
     //self.footerInfoMessage = str;
     [self showFreeSpaceInfoWithString:str];
     
@@ -449,8 +449,7 @@
         [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
         
         [self.tableView endUpdates];
-    }
-    
+    }    
     
     arr = [_items updateForInsertWithInfos: torrents];
     if( arr.count > 0 )
@@ -530,11 +529,13 @@
                               torrents.totalDownloadRateString];
     
     
-    
     [self showHeaderDLRate:torrents.totalDownloadRateString ULRate:torrents.totalUploadRateString];
     
     if( !self.splitViewController )
         _torrentController.headerInfoMessage = str;
+    
+    if( _config.showFreeSpace && _sessionInfo && self.navigationController.visibleViewController == self )
+        [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
 }
 
 - (void)setCount:(int)count forCellWithTitle:(NSString*)cellTitle
@@ -713,7 +714,7 @@
 {
     // getting session information for the first time
     // get free space (fix)
-    if( !_sessionInfo )
+    if( !_sessionInfo && _config.showFreeSpace )
         [_connector getFreeSpaceWithDownloadDir:info.downloadDir];
         
     _sessionInfo = info;

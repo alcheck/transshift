@@ -274,6 +274,17 @@
 			name = "RPC Server Config Controller";
 			sourceTree = "<group>";
 		};
+		2C6757441B530B52005C9EDC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C039F391B52D33C00233534 /* StatusCategory.h */,
+				2C039F3A1B52D33C00233534 /* StatusCategory.m */,
+				2C039F3C1B52D3DD00233534 /* StatusCategories.h */,
+				2C039F3D1B52D3DD00233534 /* StatusCategories.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		2C6D18B71B3B4706002666C6 /* Server list controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,14 +407,11 @@
 		2CF91D0E1B3C8B000093637A /* Status list controller */ = {
 			isa = PBXGroup;
 			children = (
+				2C6757441B530B52005C9EDC /* Model */,
 				2CF91D0F1B3C8B3B0093637A /* StatusListController.h */,
 				2CF91D101B3C8B3B0093637A /* StatusListController.m */,
 				2CFC267C1B44580E0070CC1C /* StatusListCell.h */,
 				2CFC267D1B44580E0070CC1C /* StatusListCell.m */,
-				2C039F391B52D33C00233534 /* StatusCategory.h */,
-				2C039F3A1B52D33C00233534 /* StatusCategory.m */,
-				2C039F3C1B52D3DD00233534 /* StatusCategories.h */,
-				2C039F3D1B52D3DD00233534 /* StatusCategories.m */,
 			);
 			name = "Status list controller";
 			sourceTree = "<group>";

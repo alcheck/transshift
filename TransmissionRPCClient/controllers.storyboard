@@ -404,6 +404,43 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Misc" id="sgr-nD-tEg">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Vp4-dw-QmF">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vp4-dw-QmF" id="Kwh-Yj-dIO">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconFreeSpace36x36" translatesAutoresizingMaskIntoConstraints="NO" id="k9n-5e-6SX">
+                                                    <rect key="frame" x="8" y="4" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="MNf-qk-b17"/>
+                                                        <constraint firstAttribute="height" constant="36" id="xwx-nz-kiY"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show free space" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56X-ZI-KZz">
+                                                    <rect key="frame" x="52" y="13" width="483" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="87Q-A2-dBz">
+                                                    <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="87Q-A2-dBz" firstAttribute="leading" secondItem="56X-ZI-KZz" secondAttribute="trailing" constant="8" symbolic="YES" id="0Ki-J1-ASE"/>
+                                                <constraint firstAttribute="centerY" secondItem="87Q-A2-dBz" secondAttribute="centerY" id="9uZ-QS-7uh"/>
+                                                <constraint firstItem="k9n-5e-6SX" firstAttribute="leading" secondItem="Kwh-Yj-dIO" secondAttribute="leadingMargin" id="Cck-1y-zlC"/>
+                                                <constraint firstItem="56X-ZI-KZz" firstAttribute="leading" secondItem="k9n-5e-6SX" secondAttribute="trailing" constant="8" symbolic="YES" id="QXA-DD-Ihb"/>
+                                                <constraint firstAttribute="centerY" secondItem="k9n-5e-6SX" secondAttribute="centerY" id="SYM-ZI-zdH"/>
+                                                <constraint firstItem="87Q-A2-dBz" firstAttribute="trailing" secondItem="Kwh-Yj-dIO" secondAttribute="trailingMargin" id="iUD-ys-PvK"/>
+                                                <constraint firstAttribute="centerY" secondItem="56X-ZI-KZz" secondAttribute="centerY" id="oHP-ci-Thw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="dhR-eQ-deP" id="qcp-Tx-ace"/>
@@ -417,6 +454,7 @@
                         <outlet property="iconRefreshTimeout" destination="op5-UB-VF2" id="CF9-rt-jvj"/>
                         <outlet property="iconRequestTimeout" destination="Uno-6S-uDJ" id="JSq-W5-52u"/>
                         <outlet property="iconServerName" destination="4YT-aG-pDY" id="S37-2y-Stp"/>
+                        <outlet property="iconShowFreeSpace" destination="k9n-5e-6SX" id="Qb6-sO-XEY"/>
                         <outlet property="iconUseSSL" destination="0Hn-6c-5jT" id="Qm2-rQ-L9w"/>
                         <outlet property="iconUserName" destination="bMk-9J-pZC" id="s0l-hn-6o4"/>
                         <outlet property="iconUserPassword" destination="hk5-Et-nzv" id="0cR-dZ-Cgu"/>
@@ -433,6 +471,7 @@
                         <outlet property="labelUserPassword" destination="kea-W2-FXd" id="54U-gg-MTj"/>
                         <outlet property="stepperRefreshTimeout" destination="fuW-g8-PbR" id="Wdd-du-YYp"/>
                         <outlet property="stepperRequestTimeout" destination="dnP-eN-o3r" id="cTy-LV-s2l"/>
+                        <outlet property="switchShowFreeSpace" destination="87Q-A2-dBz" id="mn6-6F-0pS"/>
                         <outlet property="switchUseSSL" destination="2YI-40-Bj6" id="KiQ-LQ-pa7"/>
                         <outlet property="textHost" destination="smZ-GO-STl" id="1ov-4r-Fnd"/>
                         <outlet property="textPort" destination="FPd-0s-og7" id="Kl4-A2-zHv"/>
@@ -2526,6 +2565,7 @@
         <image name="iconComputer" width="37" height="37"/>
         <image name="iconFile" width="36" height="36"/>
         <image name="iconFolderClosed" width="36" height="36"/>
+        <image name="iconFreeSpace36x36" width="36" height="36"/>
         <image name="iconKey" width="37" height="37"/>
         <image name="iconLock" width="37" height="37"/>
         <image name="iconMan" width="37" height="37"/>

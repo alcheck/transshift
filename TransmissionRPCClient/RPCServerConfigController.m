@@ -57,6 +57,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelRequestTimeoutNumber;
 @property (weak, nonatomic) IBOutlet UIStepper *stepperRequestTimeout;
 
+// MISC
+@property (weak, nonatomic) IBOutlet UISwitch *switchShowFreeSpace;
+@property (weak, nonatomic) IBOutlet UIImageView *iconShowFreeSpace;
+
+
 @end
 
 
@@ -78,7 +83,8 @@
                      self.iconUserPassword,
                      self.iconUseSSL,
                      self.iconRefreshTimeout,
-                     self.iconRequestTimeout ];
+                     self.iconRequestTimeout,
+                     self.iconShowFreeSpace ];
     
     
     for (UIImageView *iv in arr)
@@ -115,6 +121,8 @@
        self.stepperRequestTimeout.value = self.config.requestTimeout;
        [self requestTimeoutValueChagned:self.stepperRequestTimeout];
        [self refreshTimoutValueChanged:self.stepperRefreshTimeout];
+       
+       self.switchShowFreeSpace.on = self.config.showFreeSpace;
    }
 }
 
@@ -240,6 +248,8 @@
     
     self.config.refreshTimeout = (int)self.stepperRefreshTimeout.value;
     self.config.requestTimeout = (int)self.stepperRequestTimeout.value;
+    
+    self.config.showFreeSpace = self.switchShowFreeSpace.on;
     
     self.errorMessage = nil;
     

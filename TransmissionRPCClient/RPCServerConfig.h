@@ -12,6 +12,7 @@
 #define RPC_DEFAULT_USE_SSL             NO
 #define RPC_DEFAULT_NAME                @"?"
 #define RPC_DEFAULT_HOST                @"?"
+#define RPC_DEFAULT_SHOWFREESPACE       YES
 
 @interface RPCServerConfig : NSObject <NSCoding>
 
@@ -24,6 +25,7 @@
 @property(nonatomic) NSString *userName;        // http basic auth user name
 @property(nonatomic) NSString *userPassword;    // http basic auth password
 @property(nonatomic) BOOL      useSSL;          // use https
+@property(nonatomic) BOOL      showFreeSpace;   // update free space on server info
 @property(nonatomic) int       refreshTimeout;  // refresh time in seconds
 @property(nonatomic) int       requestTimeout;  // request timeout to server in seconds
 @property(nonatomic,readonly)  NSString* urlString; // return short descriptions of class
