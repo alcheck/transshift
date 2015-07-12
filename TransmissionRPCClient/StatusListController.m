@@ -18,6 +18,7 @@
 #import "HeaderViewDURates.h"
 #import "InfoMessage.h"
 #import "RateLimitTable.h"
+#import "StatusCategories.h"
 
 #define STATUS_SECTION_TITILE       @"Torrents"
 
@@ -80,11 +81,16 @@
     SessionConfigController *_sessionConfigController;    // holds session config controller
     SpeedLimitController    *_speedLimitController;       // holds speed limit controller
     UIPopoverController     *_speedPopOver;               // holds popover for speed controller
+    
+    // categories
+    StatusCategories        *_items;                      // holds status categories
  }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _items = [[StatusCategories alloc] init];
     
     _appearedFirstTime = YES;
     
@@ -287,10 +293,10 @@
             // and do it manualy
             NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
             // make first row selected
-            [self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
+            //[self.tableView selectRowAtIndexPath:path animated:YES scrollPosition:UITableViewScrollPositionNone];
             
             // set filter to rows
-            [self filterTorrentListWithFilterOptions:TRStatusOptionsAll];
+            //[self filterTorrentListWithFilterOptions:TRStatusOptionsAll];
         }
     }
     else
@@ -424,48 +430,54 @@
 {
     [self requestToServerSucceeded];
     
+    //[_items updateInfos:torrents];
+    //[self.tableView reloadData];
+    
+    NSArray *arr;
+    
+    arr = [_items updateForDeleteWithInfos:torrents];
+    if( arr.count > 0 )
+    {
+        NSMutableArray *indexPathsToDelete = [NSMutableArray array];
+        for( NSNumber* n in arr )
+        {
+            [indexPathsToDelete addObject:[NSIndexPath indexPathForRow:[n intValue] inSection:0]];
+        }
+        
+        [self.tableView beginUpdates];
+        
+        [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self.tableView endUpdates];
+    }
+    
+    
+    arr = [_items updateForInsertWithInfos: torrents];
+    if( arr.count > 0 )
+    {
+        NSMutableArray *indexPathsToInsert = [NSMutableArray array];
+        for( NSNumber* n in arr )
+        {
+            [indexPathsToInsert addObject:[NSIndexPath indexPathForRow:[n intValue] inSection:0]];
+        }
+        
+        [self.tableView beginUpdates];
+        
+        [self.tableView insertRowsAtIndexPaths:indexPathsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self.tableView endUpdates];
+    }
+    
     // update numbers
+    for( int i = 0; i < _items.countOfVisible; i++ )
+    {
+        StatusCategory *c = [_items categoryAtIndex:i];
+        
+        StatusListCell *cell = (StatusListCell*)c.cell;
+        
+        cell.numberLabel.text = [NSString stringWithFormat:@"%i", c.count];
+    }
 
-    [self setCount:torrents.allCount      forCellWithTitle:STATUS_ROW_ALL];
-    [self setCount:torrents.activeCount   forCellWithTitle:STATUS_ROW_ACTIVE];
-    [self setCount:torrents.checkCount    forCellWithTitle:STATUS_ROW_CHECK];
-    [self setCount:torrents.downloadCount forCellWithTitle:STATUS_ROW_DOWNLOAD];
-    [self setCount:torrents.seedCount     forCellWithTitle:STATUS_ROW_SEED];
-    [self setCount:torrents.stopCount     forCellWithTitle:STATUS_ROW_STOP];
-    
-    if( torrents.errorCount > 0 )
-    {
-        if( _showErrorItems )
-        {
-            [self setCount:torrents.errorCount forCellWithTitle:STATUS_ROW_ERROR];
-        }
-        else
-        {
-            _showErrorItems = YES;
-            // add new row to table
-            [self.tableView beginUpdates];
-            
-            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:6 inSection:0]]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-            
-            [self.tableView endUpdates];
-            
-            [self setCount:torrents.errorCount forCellWithTitle:STATUS_ROW_ERROR];
-        }
-    }
-    else
-    {
-        if( _showErrorItems )
-        {
-            _showErrorItems = NO;
-            //[self.tableView reloadData];
-            [self.tableView beginUpdates];
-            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:6 inSection:0]]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView endUpdates];
-        }
-    }
-    
     // show torrents in list controller (update)
     // find torrents that are finished downloading
     TRInfos *prev = _torrentController.torrents;
@@ -521,10 +533,8 @@
     
     [self showHeaderDLRate:torrents.totalDownloadRateString ULRate:torrents.totalUploadRateString];
     
-    //self.headerInfoMessage = str;
     if( !self.splitViewController )
         _torrentController.headerInfoMessage = str;
-    //[self setHeaderUploadRate:torrents.totalUploadRateString andDownloadRate:torrents.totalDownloadRateString];
 }
 
 - (void)setCount:(int)count forCellWithTitle:(NSString*)cellTitle
@@ -1005,36 +1015,36 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return _sections[section];
+   // return _sections[section];
+    return STATUS_SECTION_TITILE;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _sections.count;
+    return _items.countOfVisible > 0 ? 1 : 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger c =  _itemNames.count - 1;
-    if( _showErrorItems )
-        c++;
-    
-    return c;
+    return _items.countOfVisible;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *title = _itemNames[indexPath.row];
+    //NSString *title = _itemNames[indexPath.row];
+    StatusCategory *c = [_items categoryAtIndex:indexPath.row];
     
     StatusListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_STATUSLIST forIndexPath:indexPath];
     
     // Configure the cell
     cell.numberLabel.text  = @" ";
-    cell.statusLabel.text = title;
-    cell.iconImg.image = _itemImages[ indexPath.row ];
-    
-    // save the cell
-    _cells[title] = cell;
+    cell.statusLabel.text = c.title;
+    cell.iconImg.image = c.iconImage;
+    cell.iconImg.tintColor = c.iconColor ? c.iconColor : cell.tintColor;
+      
+    // store cell reference for later cell
+    // updating
+    c.cell = cell;
     
     return cell;
 }

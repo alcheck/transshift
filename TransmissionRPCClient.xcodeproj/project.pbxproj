@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C039F3B1B52D33C00233534 /* StatusCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C039F3A1B52D33C00233534 /* StatusCategory.m */; };
+		2C039F3E1B52D3DD00233534 /* StatusCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C039F3D1B52D3DD00233534 /* StatusCategories.m */; };
 		2C0A2AA31B469D5D0042CAA6 /* FileListFSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A2AA21B469D5D0042CAA6 /* FileListFSCell.m */; };
 		2C0A2AA61B469EC00042CAA6 /* NSObject+DataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A2AA51B469EC00042CAA6 /* NSObject+DataObject.m */; };
 		2C0E34A51B400134004303AB /* TRInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E34A41B400134004303AB /* TRInfo.m */; };
@@ -68,6 +70,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C039F391B52D33C00233534 /* StatusCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCategory.h; sourceTree = "<group>"; };
+		2C039F3A1B52D33C00233534 /* StatusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCategory.m; sourceTree = "<group>"; };
+		2C039F3C1B52D3DD00233534 /* StatusCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCategories.h; sourceTree = "<group>"; };
+		2C039F3D1B52D3DD00233534 /* StatusCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCategories.m; sourceTree = "<group>"; };
 		2C0A2AA11B469D5D0042CAA6 /* FileListFSCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListFSCell.h; sourceTree = "<group>"; };
 		2C0A2AA21B469D5D0042CAA6 /* FileListFSCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileListFSCell.m; sourceTree = "<group>"; };
 		2C0A2AA41B469E910042CAA6 /* NSObject+DataObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DataObject.h"; sourceTree = "<group>"; };
@@ -394,6 +400,10 @@
 				2CF91D101B3C8B3B0093637A /* StatusListController.m */,
 				2CFC267C1B44580E0070CC1C /* StatusListCell.h */,
 				2CFC267D1B44580E0070CC1C /* StatusListCell.m */,
+				2C039F391B52D33C00233534 /* StatusCategory.h */,
+				2C039F3A1B52D33C00233534 /* StatusCategory.m */,
+				2C039F3C1B52D3DD00233534 /* StatusCategories.h */,
+				2C039F3D1B52D3DD00233534 /* StatusCategories.m */,
 			);
 			name = "Status list controller";
 			sourceTree = "<group>";
@@ -585,12 +595,14 @@
 				2CFAB9151B49B7FD00BE71D9 /* TRSessionInfo.m in Sources */,
 				2CF911981B41CD66003D0753 /* TorrentInfoController.m in Sources */,
 				2C0A2AA31B469D5D0042CAA6 /* FileListFSCell.m in Sources */,
+				2C039F3E1B52D3DD00233534 /* StatusCategories.m in Sources */,
 				2CFA5E141B432ABF00262C36 /* FileListController.m in Sources */,
 				2CE6B4601B49598000157841 /* CommonTableController.m in Sources */,
 				2CAD1E461B4AC131005BBDBE /* SpeedLimitController.m in Sources */,
 				2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */,
 				2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */,
 				2CF690A21B4BE74A00B2F830 /* HeaderViewDURates.m in Sources */,
+				2C039F3B1B52D33C00233534 /* StatusCategory.m in Sources */,
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
 				2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
