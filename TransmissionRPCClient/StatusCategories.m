@@ -8,9 +8,9 @@
 
 #import "StatusCategories.h"
 #import "TRInfos.h"
+#import "GlobalConsts.h"
 
 @interface StatusCategories()
-
 @end
 
 @implementation StatusCategories
@@ -36,36 +36,39 @@
     StatusCategory *c;
     
     // Fill categories
-    c = [StatusCategory categoryWithTitle:@"All" items:nil isAlwaysVisible:YES iconImageName:@"allIcon"];
-    c.trInfoArrayName = @"allTorrents";
+    c = [StatusCategory categoryWithTitle:@"All" isAlwaysVisible:YES iconImageName:@"allIcon"];
+    [c addItemWithTitle:@"Downloading"  filter: TRINFOS_KEY_DOWNTORRENTS];
+    [c addItemWithTitle:@"Seeding"      filter: TRINFOS_KEY_SEEDTORRENTS];
+    [c addItemWithTitle:@"Stopped"      filter: TRINFOS_KEY_STOPTORRENTS];
+    [c addItemWithTitle:@"Checking"     filter: TRINFOS_KEY_STOPTORRENTS];
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Active" items:nil isAlwaysVisible:NO iconImageName:@"activeIcon"];
-    c.trInfoArrayName = @"activeTorrents";
+    c = [StatusCategory categoryWithTitle:@"Active" isAlwaysVisible:NO iconImageName:@"activeIcon"];
+    [c addItemWithTitle:@"Active" filter:TRINFOS_KEY_ACTIVETORRENTS];
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Downloading" items:nil isAlwaysVisible:NO iconImageName:@"downloadIcon"];
-    c.trInfoArrayName = @"downloadingTorrents";
+    c = [StatusCategory categoryWithTitle:@"Downloading" isAlwaysVisible:NO iconImageName:@"downloadIcon"];
+    [c addItemWithTitle:@"Downloading" filter: TRINFOS_KEY_DOWNTORRENTS];
+       [_items addObject:c];
+    
+    c = [StatusCategory categoryWithTitle:@"Seeding" isAlwaysVisible:NO iconImageName:@"uploadIcon"];
+    [c addItemWithTitle:@"Seeding" filter: TRINFOS_KEY_SEEDTORRENTS];
+    c.iconColor = [UIColor seedColor];
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Seeding" items:nil isAlwaysVisible:NO iconImageName:@"uploadIcon"];
-    c.trInfoArrayName = @"seedingTorrents";
-    c.iconColor = [UIColor colorWithRed:0 green:0.7 blue:0 alpha:1];
+    c = [StatusCategory categoryWithTitle:@"Stopped" isAlwaysVisible:NO iconImageName:@"stopIcon"];
+    [c addItemWithTitle:@"Stopped" filter: TRINFOS_KEY_STOPTORRENTS];
+    c.iconColor = [UIColor stopColor];
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Stopped" items:nil isAlwaysVisible:NO iconImageName:@"stopIcon"];
-    c.trInfoArrayName = @"stoppedTorrents";
-    c.iconColor = [UIColor colorWithRed:0.7 green:0.7 blue:0 alpha:1];
+    c = [StatusCategory categoryWithTitle:@"Checking" isAlwaysVisible:NO iconImageName:@"checkIcon"];
+    [c addItemWithTitle:@"Checking" filter: TRINFOS_KEY_CHECKTORRENTS];
+    c.iconColor = [UIColor checkColor];
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Checking" items:nil isAlwaysVisible:NO iconImageName:@"checkIcon"];
-    c.trInfoArrayName = @"checkingTorrents";
-    c.iconColor = [UIColor lightGrayColor];
-    [_items addObject:c];
-    
-    c = [StatusCategory categoryWithTitle:@"Error" items:nil isAlwaysVisible:NO iconImageName:@"iconErrorTorrent40x40"];
-    c.trInfoArrayName = @"errorTorrents";
-    c.iconColor = [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
+    c = [StatusCategory categoryWithTitle:@"Error" isAlwaysVisible:NO iconImageName:@"iconErrorTorrent40x40"];
+    [c addItemWithTitle:@"Errors" filter: TRINFOS_KEY_ERRORTORRENTS];
+    c.iconColor = [UIColor errorColor];
     [_items addObject:c];
                        
     return self;

@@ -449,7 +449,7 @@
         [self.tableView deleteRowsAtIndexPaths:indexPathsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
         
         [self.tableView endUpdates];
-    }    
+    }
     
     arr = [_items updateForInsertWithInfos: torrents];
     if( arr.count > 0 )

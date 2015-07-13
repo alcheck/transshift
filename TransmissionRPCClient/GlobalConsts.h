@@ -27,3 +27,14 @@
 #define USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS     @"bgDownloadingTorrentIds"
 
 id instantiateController( NSString* controllerId );
+//
+@interface UIColor(transmissionColors)
+//
++ (UIColor*)seedColor;
+//+ (UIColor*)downloadColor;
++ (UIColor*)stopColor;
++ (UIColor*)checkColor;
++ (UIColor*)errorColor;
+//+ (UIColor*)activeColor;
+//
+@end
