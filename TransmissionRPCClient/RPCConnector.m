@@ -318,7 +318,6 @@
     
 }
 
-
 - (void)stopDownloadingFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
 {
     NSDictionary *requestVals = @{TR_METHOD : TR_METHODNAME_TORRENTSET,

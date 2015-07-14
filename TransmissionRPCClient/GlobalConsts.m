@@ -30,6 +30,88 @@
     return [UIColor colorWithRed:0.7 green:0.7 blue:0 alpha:1];
 }
 
++ (UIColor *)progressBarTrackColor
+{
+    return [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
+}
+
+@end
+
+
+@implementation UIImage (transmissionIcons)
+
++ (UIImage *)iconActive
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"activeIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
++ (UIImage *)iconAll
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"allIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
++ (UIImage *)iconCheck
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"checkIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
++ (UIImage *)iconDownload
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"downloadIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
++ (UIImage *)iconError
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"iconErrorTorrent40x40"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
++ (UIImage *)iconStop
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"stopIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
++ (UIImage *)iconUpload
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"uploadIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
++ (UIImage *)iconPlay
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"iconPlay36x36"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
++ (UIImage *)iconPause
+{
+    static UIImage *icon = nil;
+    if( !icon )
+        icon = [[UIImage imageNamed:@"iconStop36x36"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return icon;
+}
+
 @end
 
 

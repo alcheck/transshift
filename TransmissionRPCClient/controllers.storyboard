@@ -624,6 +624,14 @@
                                                 <constraint firstAttribute="width" constant="40" id="eXL-h2-SF7"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZd-t4-mcM">
+                                            <rect key="frame" x="8" y="74" width="36" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="36" id="2hT-Rv-njF"/>
+                                                <constraint firstAttribute="height" constant="36" id="DVJ-H4-GwZ"/>
+                                            </constraints>
+                                            <state key="normal" image="iconPlay36x36"/>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="yat-p1-hDj" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" constant="50" id="2RN-GG-FuA"/>
@@ -633,9 +641,11 @@
                                         <constraint firstItem="J98-Qj-QR3" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="6Ak-AX-dLN"/>
                                         <constraint firstItem="i61-wq-qNA" firstAttribute="centerY" secondItem="mJB-qz-MXe" secondAttribute="centerY" constant="0.5" id="6wE-Is-Yz9"/>
                                         <constraint firstItem="i61-wq-qNA" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" constant="50" id="DNI-v1-EKr"/>
+                                        <constraint firstItem="VZd-t4-mcM" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="Hfw-0r-FGZ"/>
                                         <constraint firstItem="fpS-ju-QSU" firstAttribute="top" secondItem="r0e-Lm-a6J" secondAttribute="bottom" id="IbY-Q1-Phn"/>
                                         <constraint firstItem="b02-ZR-iDV" firstAttribute="top" secondItem="hpW-AA-kYy" secondAttribute="topMargin" id="Jnb-Tu-QIJ"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="b02-ZR-iDV" secondAttribute="trailing" constant="50" id="Jyh-s8-opV"/>
+                                        <constraint firstItem="VZd-t4-mcM" firstAttribute="top" secondItem="J98-Qj-QR3" secondAttribute="bottom" constant="16" id="MJO-HU-fCN"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="i61-wq-qNA" secondAttribute="trailing" constant="55" id="Pne-qm-jgk"/>
                                         <constraint firstItem="r0e-Lm-a6J" firstAttribute="leading" secondItem="yat-p1-hDj" secondAttribute="trailing" id="Rpr-gS-JUs"/>
                                         <constraint firstItem="HAT-qH-kcb" firstAttribute="top" secondItem="i61-wq-qNA" secondAttribute="bottom" constant="8" id="UQM-Z9-9Gw"/>
@@ -649,6 +659,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="buttonStopResume" destination="VZd-t4-mcM" id="WOB-td-FAT"/>
                                     <outlet property="downloadRate" destination="yat-p1-hDj" id="l3X-qI-4Rq"/>
                                     <outlet property="name" destination="b02-ZR-iDV" id="TpN-Tv-xj3"/>
                                     <outlet property="peersInfo" destination="HAT-qH-kcb" id="e6v-sg-oz5"/>
@@ -2572,6 +2583,7 @@
         <image name="iconPeers" width="37" height="37"/>
         <image name="iconPercents" width="37" height="37"/>
         <image name="iconPig" width="37" height="37"/>
+        <image name="iconPlay36x36" width="36" height="36"/>
         <image name="iconRefreshTime" width="37" height="37"/>
         <image name="iconTotalDownloaded" width="37" height="37"/>
         <image name="iconTotalSize" width="37" height="37"/>

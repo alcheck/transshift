@@ -74,7 +74,7 @@
     {
         UINavigationController *nc = self.splitViewController.viewControllers[1];
         TorrentListController *tlc = nc.viewControllers[0];
-        tlc.torrents = nil;
+        tlc.items = nil;
 
         tlc.popoverButtonTitle = SERVERLIST_CONTROLLER_TITLE;
         

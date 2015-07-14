@@ -8,12 +8,7 @@
 
 #import "TorrentListController.h"
 #import "TorrentListCell.h"
-
-#define ICON_DOWNLOAD   @"downloadIcon"
-#define ICON_UPLOAD     @"uploadIcon"
-#define ICON_STOP       @"stopIcon"
-#define ICON_CHECK      @"checkIcon"
-#define ICON_ERROR      @"iconErrorTorrent40x40"
+#import "NSObject+DataObject.h"
 
 @interface TorrentListController () <UIActionSheetDelegate>
 
@@ -22,113 +17,305 @@
 @implementation TorrentListController
 
 {
-    UILabel *_backgroundLabel;
-    NSMutableArray *_sectionTitles;
-    NSMutableArray *_sectionTorrents;
     TorrentListCell *_editCell;
-    
-    NSDictionary*   _statusIconImages;
+    NSMutableArray  *_catitems;  // array of StatusCategoryItem objects
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self prepareData];
     
-    _statusIconImages = @{ ICON_DOWNLOAD :  [[UIImage imageNamed:ICON_DOWNLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_STOP :      [[UIImage imageNamed:ICON_STOP] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_UPLOAD :    [[UIImage imageNamed:ICON_UPLOAD] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_CHECK :     [[UIImage imageNamed:ICON_CHECK] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate],
-                           ICON_ERROR :     [[UIImage imageNamed:ICON_ERROR] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]};
+    _catitems = [NSMutableArray array];
+}
+
+// searchs categoryitem in @arr by its title and returns it, or nil if not found
+- (StatusCategoryItem*)categoryFrom:(NSArray*)arr byTitle:(NSString*)title
+{
+    for (StatusCategoryItem *i in arr )
+    {
+        if( [i.title isEqualToString:title] )
+            return i;
+    }
+    
+    return nil;
+}
+
+- (TRInfo*)infoFromArray:(NSArray*)array withId:(int)torrentId
+{
+    for( TRInfo* info in array )
+        if( info.trId == torrentId )
+            return info;
+        
+    return nil;
 }
 
 
-- (void)setTorrents:(TRInfos *)torrents
+- (void)updateIndexesForNewCategoryItem:(StatusCategoryItem*)newCat
+                        currentCategory:(StatusCategoryItem*)curCat
+                           indexesToAdd:(NSMutableArray*)idxPathsToAdd
+                        indexesToRemove:(NSMutableArray*)idxPathsToRemove
+                        indexesToReload:(NSMutableArray*)idxPathsToReload
+                       withSectionIndex:(NSUInteger)section
+
 {
-    _torrents = torrents;
-    self.errorMessage = nil;
-    
-    [self prepareData];
-    [self.tableView reloadData];
+    // RELOAD + UPDATE
+    if( curCat.count == newCat.count )
+    {
+        for( NSUInteger row = 0; row < newCat.items.count; row++)
+        {
+            TRInfo *infoCur = curCat.items[row];
+            TRInfo *infoNew = newCat.items[row];
+            
+            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+            
+            if( infoCur.trId == infoNew.trId )
+            {
+                // UPDATE
+                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
+                if( cell )
+                    [self updateCell:cell withTorrentInfo:infoNew];
+            }
+            else
+            {
+                // RELOAD
+                [idxPathsToReload addObject:path];
+            }
+        }
+    }
+    // RELOAD + UPDATE + DELETE
+    else if( curCat.count > newCat.count )
+    {
+        for( NSUInteger row = 0; row < curCat.items.count; row++)
+        {
+            TRInfo *infoNew = row < newCat.items.count ? newCat.items[row] : nil;
+            TRInfo *infoCur = curCat.items[row];
+            
+            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+            
+            if( infoNew == nil )
+            {
+                // DELETE
+                [idxPathsToRemove addObject:path];
+            }
+            else if( infoCur.trId == infoNew.trId )
+            {
+                // UPDATE
+                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
+                if( cell )
+                    [self updateCell:cell withTorrentInfo:infoNew];
+            }
+            else
+            {
+                // RELOAD
+                [idxPathsToReload addObject:path];
+            }
+        }
+    }
+    else
+    // RELOAD + UPDATE + INSERT
+    {
+        for( NSUInteger row = 0; row < newCat.items.count; row++)
+        {
+            TRInfo *infoNew = newCat.items[row];
+            TRInfo *infoCur = row < curCat.items.count ? curCat.items[row] : nil;
+            
+            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+            
+            if( infoCur == nil )
+            {
+                // INSERT
+                [idxPathsToAdd addObject:path];
+            }
+            else if( infoCur.trId == infoNew.trId )
+            {
+                // UPDATE
+                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
+                if( cell )
+                    [self updateCell:cell withTorrentInfo:infoNew];
+            }
+            else
+            {
+                // RELOAD
+                [idxPathsToReload addObject:path];
+            }
+        }
+    }
 }
 
-
-- (void)setFilterOptions:(TRStatusOptions)filterOptions
+// update model to the new state from @items
+- (void)setItems:(StatusCategory *)items
 {
-    _filterOptions = filterOptions;
+    // get mutable copy of non empty CategoryItems (sections of the table)
+    NSMutableArray *newCats = [items mutableCopyOfNonEmptyItems];
     
-    [self prepareData];
-    [self.tableView reloadData];
+    // section indexes
+    NSMutableIndexSet *idxSectionToReload  = [NSMutableIndexSet indexSet];
+    NSMutableIndexSet *idxSectionToAdd     = [NSMutableIndexSet indexSet];
+    NSMutableIndexSet *idxSectionToRemove  = [NSMutableIndexSet indexSet];
+    NSMutableIndexSet *idxSectionToUpdate  = [NSMutableIndexSet indexSet];
+    
+    // NSIndex paths for sections
+    NSMutableArray *idxPathsToRemove    = [NSMutableArray array];
+    NSMutableArray *idxPathsToAdd       = [NSMutableArray array];
+    NSMutableArray *idxPathsToReload    = [NSMutableArray array];
+    
+    // UPDATE OR RELOAD SECTIONS
+    if( newCats.count == _catitems.count )
+    {
+        for( NSUInteger i = 0; i < newCats.count; i ++ )
+        {
+            StatusCategoryItem *curCat = _catitems[i];
+            StatusCategoryItem *newCat = newCats[i];
+            
+            if( [curCat.title isEqualToString:newCat.title] )
+            {
+                // UPDATE SECTION
+                [self updateIndexesForNewCategoryItem:newCat
+                                      currentCategory:curCat
+                                         indexesToAdd:idxPathsToAdd
+                                      indexesToRemove:idxPathsToRemove
+                                      indexesToReload:idxPathsToReload
+                                     withSectionIndex:i];
+                
+                [idxSectionToUpdate addIndex:i];
+            }
+            else
+            {
+                // RELOAD SECTION
+                [idxSectionToReload addIndex:i];
+            }
+        }
+    }
+    // UPDATE, RELOAD AND INSERT
+    else if( newCats.count > _catitems.count )
+    {
+        for( NSUInteger i = 0; i < newCats.count; i ++ )
+        {
+            StatusCategoryItem *newCat = newCats[i];
+            StatusCategoryItem *curCat = i < _catitems.count ? _catitems[i] : nil;
+            
+            if( curCat == nil )
+            {
+                // INSERT SECTION
+                [idxSectionToAdd addIndex:i];
+            }
+            else if( [curCat.title isEqualToString:newCat.title] )
+            {
+                // UPDATE SECTION
+                [self updateIndexesForNewCategoryItem:newCat
+                                      currentCategory:curCat
+                                         indexesToAdd:idxPathsToAdd
+                                      indexesToRemove:idxPathsToRemove
+                                      indexesToReload:idxPathsToReload
+                                     withSectionIndex:i];
+                
+                [idxSectionToUpdate addIndex:i];
+
+            }
+            else
+            {
+                // RELOAD SECTION
+                [idxSectionToReload addIndex:i];
+            }
+        }
+
+    }
+    // UPDATE, RELOAD AND DELETE
+    else
+    {
+        for( NSUInteger i = 0; i < _catitems.count; i ++ )
+        {
+            StatusCategoryItem *newCat = i < newCats.count ? newCats[i] : nil;
+            StatusCategoryItem *curCat = _catitems[i];
+            
+            if( newCat == nil )
+            {
+                // INSERT SECTION
+                [idxSectionToRemove addIndex:i];
+            }
+            else if( [curCat.title isEqualToString:newCat.title] )
+            {
+                // UPDATE SECTION
+                [self updateIndexesForNewCategoryItem:newCat
+                                      currentCategory:curCat
+                                         indexesToAdd:idxPathsToAdd
+                                      indexesToRemove:idxPathsToRemove
+                                      indexesToReload:idxPathsToReload
+                                     withSectionIndex:i];
+                
+                [idxSectionToUpdate addIndex:i];
+
+            }
+            else
+            {
+                // RELOAD SECTION
+                [idxSectionToReload addIndex:i];
+            }
+        }
+    }
+    
+    if( newCats )
+    {
+        // now we update model
+        _items = items;
+        _catitems = newCats;
+    }
+    
+    if( idxSectionToAdd.count > 0 ||
+        idxSectionToReload.count > 0 ||
+        idxSectionToRemove.count > 0 ||
+        idxSectionToUpdate.count > 0 )
+    {
+        [self.tableView beginUpdates];
+        
+        if( idxSectionToAdd.count > 0 )
+            [self.tableView insertSections:idxSectionToAdd withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if( idxSectionToRemove.count > 0 )
+            [self.tableView deleteSections:idxSectionToRemove withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if( idxSectionToReload.count > 0 )
+            [self.tableView reloadSections:idxSectionToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if( idxPathsToAdd.count > 0 )
+            [self.tableView insertRowsAtIndexPaths:idxPathsToAdd withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if( idxPathsToRemove.count > 0 )
+            [self.tableView deleteRowsAtIndexPaths:idxPathsToRemove withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if( idxPathsToReload.count > 0 )
+            [self.tableView reloadRowsAtIndexPaths:idxPathsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        
+        [self.tableView endUpdates];
+    }
+        
+    
+    //NSLog(@"Sections[RELOAD:%i, ADD:%i, REMOVE:%i, UPDATE:%i]",
+    //      idxSectionToReload.count, idxSectionToAdd.count, idxSectionToRemove.count, idxSectionToUpdate.count);
+
+    // table view batch update
+    //[self.tableView reloadData];
 }
 
-- (void)prepareData
-{
-    // init data for rows
-    _sectionTitles = [NSMutableArray array];
-    _sectionTorrents = [NSMutableArray array];
+#pragma mark - UIActionSheet delegate methods (allow to delete torrent with swipe-to delete gesture)
 
-    if( !_torrents )
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [self.tableView setEditing:NO animated:YES];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.tableView setEditing:NO animated:NO];
+    
+    if( buttonIndex == actionSheet.cancelButtonIndex )
         return;
     
-    if( _filterOptions & TRStatusOptionsDownload )
-    {
-        NSArray *arr = _torrents.downloadingTorrents;
-        if( arr.count > 0 )
-        {
-            [_sectionTitles addObject:STATUS_ROW_DOWNLOAD];
-            [_sectionTorrents addObject:arr];
-        }
-    }
+    BOOL removeWithData = (buttonIndex != actionSheet.destructiveButtonIndex);
     
-    if( _filterOptions & TRStatusOptionsSeed )
-    {
-        NSArray *arr = _torrents.seedingTorrents;
-        if( arr.count > 0 )
-        {
-            [_sectionTitles addObject:STATUS_ROW_SEED];
-            [_sectionTorrents addObject:arr];
-        }
-    }
-    
-    if( _filterOptions & TRStatusOptionsStop )
-    {
-        NSArray *arr = _torrents.stoppedTorrents;
-        if( arr.count > 0 )
-        {
-            [_sectionTitles addObject:STATUS_ROW_STOP];
-            [_sectionTorrents addObject:arr];
-        }
-    }
-    
-    if( _filterOptions & TRStatusOptionsCheck )
-    {
-        NSArray *arr = _torrents.checkingTorrents;
-        if( arr.count > 0 )
-        {
-            [_sectionTitles addObject:STATUS_ROW_CHECK];
-            [_sectionTorrents addObject:arr];
-        }
-    }
-    
-    if( _filterOptions & TRStatusOptionsActive )
-    {
-        NSArray *arr = _torrents.activeTorrents;
-        if( arr.count > 0 )
-        {
-            [_sectionTitles addObject:STATUS_ROW_ACTIVE];
-            [_sectionTorrents addObject:arr];
-        }
-    }
-    
-    if( _filterOptions & TRStatusOptionsError )
-    {
-        NSArray *arr = _torrents.errorTorrents;
-        if( arr.count > 0 )
-        {
-            [_sectionTitles addObject:STATUS_ROW_ERROR];
-            [_sectionTorrents addObject:arr];
-        }
-    }
+    if( _delegate && [_delegate respondsToSelector:@selector(torrentListRemoveTorrentWithId:removeWithData:)])
+        [_delegate torrentListRemoveTorrentWithId:_editCell.torrentId removeWithData:removeWithData];
 }
 
 #pragma mark - UISplitViewControllerDelegate methods
@@ -137,17 +324,12 @@
 {
     _popoverButtonTitle = popoverButtonTitle;
     if( self.splitViewController && self.navigationItem.leftBarButtonItem )
-    {
        [self.navigationItem.leftBarButtonItem setTitle:popoverButtonTitle];
-    }
 }
 
 - (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
 {
-    //NSLog(@"TorrentListControllerWillHideForPopover: %@", self.popoverButtonTitle);
-    
     barButtonItem.title = self.popoverButtonTitle;
-    
     self.navigationItem.leftBarButtonItem = barButtonItem;
 }
 
@@ -157,7 +339,7 @@
         self.navigationItem.leftBarButtonItem = nil;
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableView delegate/datasource methods
 
 // torrent is selected, signal to delegate with
 // correspondend torrent id
@@ -193,49 +375,40 @@
     }
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    [self.tableView setEditing:NO animated:YES];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    [self.tableView setEditing:NO animated:NO];
-    
-    if( buttonIndex == actionSheet.cancelButtonIndex )
-        return;
- 
-    BOOL removeWithData = (buttonIndex != actionSheet.destructiveButtonIndex);
-    
-    if( _delegate && [_delegate respondsToSelector:@selector(torrentListRemoveTorrentWithId:removeWithData:)])
-        [_delegate torrentListRemoveTorrentWithId:_editCell.torrentId removeWithData:removeWithData];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // check how many sections do we have
-    if ( _sectionTitles && _sectionTitles.count > 0 )
+    //if ( _items && _items.countOfNonEmptyItems > 0 )
+    if( _catitems && _catitems.count > 0 )
     {
         self.infoMessage = nil;
-        return _sectionTitles.count;
+        self.errorMessage = nil;
+        //return _items.countOfNonEmptyItems;
+        return _catitems.count;
     }
     
-    self.infoMessage = @"There are no torrents to show.";
+    if( _items && _items.emptyTitle )
+        self.infoMessage = _items.emptyTitle;
+    else
+        self.infoMessage = @"There are no torrents to show.";
+    
     return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return _sectionTitles[section];
+    StatusCategoryItem *item = _catitems[section];
+    //StatusCategoryItem *item = [_items nonEmptyItemAtIndex:(int)section];
+    
+    return item.title;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    if ( _sectionTitles )
-        return ((NSArray *)_sectionTorrents[section]).count;
+    StatusCategoryItem *item = _catitems[section];
+    //StatusCategoryItem *item = [_items nonEmptyItemAtIndex:(int)section];
     
-    return 0;
+    return item.count;
 }
 
 // returns configured cell for torrent
@@ -243,27 +416,47 @@
 {
     TorrentListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_TORRENTLIST forIndexPath:indexPath];
     
-    TRInfo *info = _sectionTorrents[indexPath.section][indexPath.row];
+    //StatusCategoryItem *item = [_items nonEmptyItemAtIndex:(int)indexPath.section];
+    StatusCategoryItem *item = _catitems[indexPath.section];
+    
+    TRInfo *info = item.items[indexPath.row];
+    
+    [self updateCell:cell withTorrentInfo:info];
+    
+    return cell;
+}
+
+- (void)updateCell:(TorrentListCell*)cell withTorrentInfo:(TRInfo*)info
+{
+    cell.torrentId = info.trId;
     
     cell.name.text = info.name;
     cell.progressPercents.text = info.percentsDoneString;
     cell.progressBar.progress = info.percentsDone;
-    cell.torrentId = info.trId;
     cell.downloadRate.text = @"";
     cell.uploadRate.text = @"";
-    //cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.totalSizeString ];
-    cell.progressBar.trackTintColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
+    cell.progressBar.trackTintColor = [UIColor progressBarTrackColor];
+    //cell.buttonStopResume.imageView.image = nil;
+    cell.buttonStopResume.hidden = NO;
+    cell.buttonStopResume.enabled = YES;
+    cell.buttonStopResume.dataObject = info;
+    [cell.buttonStopResume addTarget:self action:@selector(playPauseButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIColor *progressBarColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:1];
+    UIColor *progressBarColor = cell.tintColor;
     NSString *detailInfo = @"";
+    
+    UIImage *btnImg;
+    UIColor *btnTintColor;
     
     if ( info.isSeeding )
     {
-        progressBarColor = [UIColor colorWithRed:0 green:0.8 blue:0 alpha:1.0];
+        progressBarColor = [UIColor seedColor];
         detailInfo = [NSString stringWithFormat:@"Seeding to %i of %i peers", info.peersGettingFromUs, info.peersConnected ];
         cell.downloadRate.text = [NSString stringWithFormat:@"↑UL: %@/s", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.uploadedEverString, info.uploadRatio];
-        cell.statusIcon.image = _statusIconImages[ICON_UPLOAD];
+        cell.statusIcon.image = [UIImage iconUpload];
+        btnImg = [UIImage iconPause];
+        btnTintColor = [UIColor stopColor];
     }
     else if( info.isDownloading )
     {
@@ -271,45 +464,68 @@
         cell.downloadRate.text = [NSString stringWithFormat:@"↓DL: %@/s", info.downloadRateString];
         cell.uploadRate.text = [NSString stringWithFormat:@"↑UL: %@/s", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.totalSizeString ];
-        cell.statusIcon.image = _statusIconImages[ICON_DOWNLOAD];
+        cell.statusIcon.image = [UIImage iconDownload];
+        cell.buttonStopResume.imageView.image = [UIImage iconPlay];
+        btnImg = [UIImage iconPause];
+        btnTintColor = [UIColor stopColor];
     }
     else if( info.isStopped )
     {
         detailInfo = @"Paused";
-        progressBarColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.0 alpha:1];
+        progressBarColor = [UIColor stopColor];
         cell.downloadRate.text = @"no activity";
-        //cell.downloadRate.textColor = [UIColor lightGrayColor];
         cell.size.text = [NSString stringWithFormat:@"%@ of %@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
-        cell.statusIcon.image = _statusIconImages[ICON_STOP];
-
+        cell.statusIcon.image = [UIImage iconStop];
+        cell.buttonStopResume.imageView.image = [UIImage iconPlay];
+        btnImg = [UIImage iconPlay];
+        btnTintColor = [UIColor seedColor];
     }
     else if( info.isChecking )
     {
-        detailInfo = @"Checking";
-        progressBarColor = [UIColor colorWithRed:0 green:0 blue:0.7 alpha:1];
+        detailInfo = @"Checking data ...";
+        progressBarColor = [UIColor checkColor];
         cell.progressBar.progress = info.recheckProgress;
         cell.progressPercents.text = info.recheckProgressString;
         cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.downloadedEverString];
-        cell.statusIcon.image = _statusIconImages[ICON_CHECK];
+        cell.statusIcon.image = [UIImage iconCheck];
+        cell.buttonStopResume.hidden = YES;
     }
     
     // because error torrent has native status as "stopped" we
     // should handle this case aside of common "if"
     if( info.isError )
     {
-        detailInfo = [NSString stringWithFormat:@"Error: %@", info.errorString]; //@"Paused due to some error";
-        progressBarColor = [UIColor colorWithRed:0.8 green:0.0 blue:0.0 alpha:1];
-        //cell.downloadRate.text = [NSString stringWithFormat:@"Error[%i]", info.errorNumber];
-        //cell.downloadRate.textColor = [UIColor lightGrayColor];
+        detailInfo = [NSString stringWithFormat:@"Error: %@", info.errorString];
+        progressBarColor = [UIColor errorColor];
         cell.size.text = [NSString stringWithFormat:@"%@ of %@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
-        cell.statusIcon.image = _statusIconImages[ICON_ERROR];
+        cell.statusIcon.image = [UIImage iconError];
     }
     
     cell.progressBar.tintColor = progressBarColor;
     cell.peersInfo.text = detailInfo;
     cell.statusIcon.tintColor = progressBarColor;
+    cell.buttonStopResume.imageView.image = btnImg;
+    cell.buttonStopResume.tintColor = btnTintColor;
+}
+
+- (void)playPauseButtonPressed:(UIButton*)sender
+{
+    TRInfo *info = sender.dataObject;
+    sender.enabled = NO;
     
-    return cell;
+    if( _delegate )
+    {
+        if ( info.isStopped &&
+            [_delegate respondsToSelector:@selector(torrentListResumeTorrentWithId:)] )
+        {
+            [_delegate torrentListResumeTorrentWithId:info.trId];
+        }
+        else if( (info.isSeeding || info.isDownloading) &&
+                [_delegate respondsToSelector:@selector(torrentListStopTorrentWithId:)])
+        {
+            [_delegate torrentListStopTorrentWithId:info.trId];
+        }
+    }
 }
 
 @end

@@ -10,6 +10,14 @@
 #import "TRInfos.h"
 #import "GlobalConsts.h"
 
+static NSString* TITLE_ALL      = @"All";
+static NSString* TITLE_DOWN     = @"Downloading";
+static NSString* TITLE_SEED     = @"Seeding";
+static NSString* TITLE_STOP     = @"Stopped";
+static NSString* TITLE_ACTIVE   = @"Active";
+static NSString* TITLE_CHECK    = @"Checking";
+static NSString* TITLE_ERROR    = @"Error";
+
 @interface StatusCategories()
 @end
 
@@ -36,39 +44,47 @@
     StatusCategory *c;
     
     // Fill categories
-    c = [StatusCategory categoryWithTitle:@"All" isAlwaysVisible:YES iconImageName:@"allIcon"];
-    [c addItemWithTitle:@"Downloading"  filter: TRINFOS_KEY_DOWNTORRENTS];
-    [c addItemWithTitle:@"Seeding"      filter: TRINFOS_KEY_SEEDTORRENTS];
-    [c addItemWithTitle:@"Stopped"      filter: TRINFOS_KEY_STOPTORRENTS];
-    [c addItemWithTitle:@"Checking"     filter: TRINFOS_KEY_STOPTORRENTS];
+    c = [StatusCategory categoryWithTitle:TITLE_ALL isAlwaysVisible:YES icon:[UIImage iconAll]];
+    [c addItemWithTitle:TITLE_DOWN  filter: TRINFOS_KEY_DOWNTORRENTS];
+    [c addItemWithTitle:TITLE_SEED  filter: TRINFOS_KEY_SEEDTORRENTS];
+    [c addItemWithTitle:TITLE_STOP  filter: TRINFOS_KEY_STOPTORRENTS];
+    [c addItemWithTitle:TITLE_CHECK filter: TRINFOS_KEY_CHECKTORRENTS];
+    
+    c.emptyTitle = @"There are no torrents to show";
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Active" isAlwaysVisible:NO iconImageName:@"activeIcon"];
-    [c addItemWithTitle:@"Active" filter:TRINFOS_KEY_ACTIVETORRENTS];
+    c = [StatusCategory categoryWithTitle:TITLE_ACTIVE isAlwaysVisible:YES icon:[UIImage iconActive]];
+    [c addItemWithTitle:TITLE_ACTIVE filter:TRINFOS_KEY_ACTIVETORRENTS];
+    c.emptyTitle = @"There are no active torrents to show";
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Downloading" isAlwaysVisible:NO iconImageName:@"downloadIcon"];
-    [c addItemWithTitle:@"Downloading" filter: TRINFOS_KEY_DOWNTORRENTS];
-       [_items addObject:c];
+    c = [StatusCategory categoryWithTitle:TITLE_DOWN isAlwaysVisible:NO icon:[UIImage iconDownload]];
+    [c addItemWithTitle:TITLE_DOWN filter: TRINFOS_KEY_DOWNTORRENTS];
+    c.emptyTitle = @"There are no downloading torrents to show";
+    [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Seeding" isAlwaysVisible:NO iconImageName:@"uploadIcon"];
-    [c addItemWithTitle:@"Seeding" filter: TRINFOS_KEY_SEEDTORRENTS];
+    c = [StatusCategory categoryWithTitle:TITLE_SEED isAlwaysVisible:NO icon:[UIImage iconUpload]];
+    [c addItemWithTitle:TITLE_SEED filter: TRINFOS_KEY_SEEDTORRENTS];
     c.iconColor = [UIColor seedColor];
+    c.emptyTitle = @"There are no seeding torrents to show";
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Stopped" isAlwaysVisible:NO iconImageName:@"stopIcon"];
-    [c addItemWithTitle:@"Stopped" filter: TRINFOS_KEY_STOPTORRENTS];
+    c = [StatusCategory categoryWithTitle:TITLE_STOP isAlwaysVisible:NO icon:[UIImage iconStop]];
+    [c addItemWithTitle:TITLE_STOP filter: TRINFOS_KEY_STOPTORRENTS];
     c.iconColor = [UIColor stopColor];
+    c.emptyTitle = @"There are no stopped torrents to show";
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Checking" isAlwaysVisible:NO iconImageName:@"checkIcon"];
-    [c addItemWithTitle:@"Checking" filter: TRINFOS_KEY_CHECKTORRENTS];
+    c = [StatusCategory categoryWithTitle:TITLE_CHECK isAlwaysVisible:NO icon:[UIImage iconCheck]];
+    [c addItemWithTitle:TITLE_CHECK filter: TRINFOS_KEY_CHECKTORRENTS];
     c.iconColor = [UIColor checkColor];
+    c.emptyTitle = @"There are no checking torrents to show";
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:@"Error" isAlwaysVisible:NO iconImageName:@"iconErrorTorrent40x40"];
-    [c addItemWithTitle:@"Errors" filter: TRINFOS_KEY_ERRORTORRENTS];
+    c = [StatusCategory categoryWithTitle:TITLE_ERROR isAlwaysVisible:NO icon:[UIImage iconError]];
+    [c addItemWithTitle:TITLE_ERROR filter: TRINFOS_KEY_ERRORTORRENTS];
     c.iconColor = [UIColor errorColor];
+    c.emptyTitle = @"There are no error torrents to show";
     [_items addObject:c];
                        
     return self;
@@ -159,6 +175,7 @@
 
 // returns number of visible items
 // the visible item is the item that has visibility flag is ON or count of elements > 0
+// this method also make reindex of items on the pass (I know, this is SRP violation)
 - (int)countOfVisible
 {
     int i = 0;

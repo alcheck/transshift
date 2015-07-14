@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *peersInfo;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (weak, nonatomic) IBOutlet UIImageView *statusIcon;
+@property (weak, nonatomic) IBOutlet UIButton *buttonStopResume;
 
 @property (nonatomic) int torrentId;
 

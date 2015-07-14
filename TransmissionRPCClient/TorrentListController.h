@@ -7,41 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TRInfos.h"
 #import "CommonTableController.h"
 #import "GlobalConsts.h"
-
-// section titles
-
-#define STATUS_ROW_ALL              @"All"
-#define STATUS_ROW_DOWNLOAD         @"Downloading"
-#define STATUS_ROW_SEED             @"Seeding"
-#define STATUS_ROW_STOP             @"Stopped"
-#define STATUS_ROW_CHECK            @"Checking"
-#define STATUS_ROW_ACTIVE           @"Active"
-#define STATUS_ROW_ERROR            @"Error"
-
-// options for our titles
-typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
-{
-    TRStatusOptionsDownload         = 1 << 0,
-    TRStatusOptionsSeed             = 1 << 1,
-    TRStatusOptionsStop             = 1 << 2,
-    TRStatusOptionsCheck            = 1 << 3,
-    TRStatusOptionsActive           = 1 << 4,
-    TRStatusOptionsError            = 1 << 5,
-    TRStatusOptionsAll              = 15
-};
+#import "StatusCategory.h"
 
 #define CONTROLLER_ID_TORRENTLIST   @"torrentListController"
 
 // delegate protocol
 @protocol TorrentListControllerDelegate <NSObject>
 
-// when torrent selected this method signals what torrent
-// should be shown with detail info
+// ask delegate to show detail info for torrent with given id
 @optional - (void)showDetailedInfoForTorrentWithId:(int)torrentId;
+
+// ask delegate to delete torrent with given id
 @optional - (void)torrentListRemoveTorrentWithId:(int)torrentId removeWithData:(BOOL)removeWithData;
+
+@optional - (void)torrentListStopTorrentWithId:(int)torrentId;
+@optional - (void)torrentListResumeTorrentWithId:(int)torrentId;
 
 @end
 
@@ -49,9 +31,13 @@ typedef NS_OPTIONS(NSUInteger, TRStatusOptions)
 @interface TorrentListController : CommonTableController <UISplitViewControllerDelegate>
 
 @property(weak) id<TorrentListControllerDelegate> delegate;
+
 @property(nonatomic) NSString *popoverButtonTitle;
-// hold current torrents
-@property(nonatomic) TRInfos *torrents;
-@property(nonatomic) TRStatusOptions filterOptions;
+
+// hold current torrents (will dispose later)
+//@property(nonatomic) TRInfos *torrents;
+
+// this is main method for updating data
+@property(nonatomic) StatusCategory *items;
 
 @end

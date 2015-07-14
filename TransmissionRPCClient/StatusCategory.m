@@ -10,13 +10,17 @@
 
 @implementation StatusCategoryItem
 
-{
-    NSArray *_items;
-}
-
 + (instancetype)itemWithTitle:(NSString *)title filter:(NSString *)filter
 {
     return [[StatusCategoryItem alloc] initWithTitle:title filter:filter];
+}
+
++ (instancetype)itemWithItem:(StatusCategoryItem *)item
+{
+    StatusCategoryItem *copyItem = [[StatusCategoryItem alloc] initWithTitle:item.title filter:item.filterString];
+    copyItem.items = [NSArray arrayWithArray:item.items];
+    
+    return copyItem;
 }
 
 - (instancetype)initWithTitle:(NSString*)title filter:(NSString*)filter
@@ -32,11 +36,6 @@
     return self;
 }
 
-- (NSArray *)items
-{
-    return _items;
-}
-
 - (int)count
 {
     return  _items ? (int)_items.count : 0;
@@ -45,6 +44,16 @@
 - (void)fillItemsFromInfos:(TRInfos*)infos
 {
     _items = [infos valueForKey:_filterString];
+}
+
+
+- (TRInfo*)trInfoWithId:(int)torrentId
+{
+    for( TRInfo* info in _items )
+        if( info.trId == torrentId )
+            return info;
+    
+    return nil;
 }
 
 @end
@@ -56,12 +65,12 @@
     NSMutableArray *_items;
 }
 
-+ (instancetype)categoryWithTitle:(NSString *)title isAlwaysVisible:(BOOL)visible iconImageName:(NSString *)iconName
++ (instancetype)categoryWithTitle:(NSString *)title isAlwaysVisible:(BOOL)visible icon:(UIImage *)icon
 {
-    return [[StatusCategory alloc] initWithTitle:title isAlwaysVisible:visible iconImageName:iconName];
+    return [[StatusCategory alloc] initWithTitle:title isAlwaysVisible:visible icon:icon];
 }
 
-- (instancetype)initWithTitle:(NSString*)title isAlwaysVisible:(BOOL)alwaysVisible iconImageName:(NSString*)iconImageName
+- (instancetype)initWithTitle:(NSString*)title isAlwaysVisible:(BOOL)alwaysVisible icon:(UIImage*)icon
 {
     self = [super init];
     
@@ -70,7 +79,7 @@
         _title = title;
         _alwaysVisible = alwaysVisible;
         _items = [NSMutableArray array];
-        _iconImage = [[UIImage imageNamed:iconImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _iconImage = icon;
     }
     
     return self;
@@ -79,6 +88,61 @@
 - (void)addItemWithTitle:(NSString *)title filter:(NSString *)filterString
 {
     [_items addObject:[StatusCategoryItem itemWithTitle:title filter:filterString]];
+}
+
+- (void)removeEmptyItems
+{
+    BOOL repeat = YES;
+    
+    while( repeat )
+    {
+        repeat = NO;
+        for( StatusCategoryItem *item in _items )
+        {
+            if( item.count == 0 )
+            {
+                [_items removeObject:item];
+                repeat = YES;
+                break;
+            }
+        }
+    }
+}
+
+- (NSArray *)items
+{
+    return _items;
+}
+
+-(NSMutableArray*)mutableCopyOfNonEmptyItems
+{
+    if( _items )
+    {
+        NSMutableArray *resultArray = [NSMutableArray array];
+        for( StatusCategoryItem *i in _items )
+        {
+            if( i.count > 0 )
+            {
+                [resultArray addObject: [StatusCategoryItem itemWithItem:i] ];
+            }
+        }
+        return resultArray;
+    }
+    
+    return nil;
+}
+
+- (StatusCategoryItem *)categoryItemWithTitle:(NSString *)categoryTitle
+{
+    if( _items )
+    {
+        for( StatusCategoryItem *i in _items )
+        {
+            if( [i.title isEqualToString:categoryTitle] )
+                return i;
+        }
+    }
+    return nil;
 }
 
 - (void)fillCategoryFromInfos:(TRInfos *)infos
@@ -96,6 +160,37 @@
             c += item.count;
     
     return (int)c;
+}
+
+- (int)countOfNonEmptyItems
+{
+    int c = 0;
+    for( StatusCategoryItem *item in _items )
+    {
+        if( item.count > 0 )
+        {
+            item.index = c;
+            c++;
+        }
+    }
+    
+    return c;
+}
+
+- (StatusCategoryItem *)nonEmptyItemAtIndex:(int)index
+{
+    int c = 0;
+    for( StatusCategoryItem *item in _items )
+    {
+        if( item.count > 0 )
+        {
+            if( c == index )
+                return item;
+            c++;
+        }
+    }
+    
+    @throw [NSException exceptionWithName:@"StatusCategory:nonEmptyItemAtIndex" reason:@"there is no element at given index" userInfo:nil];
 }
 
 - (BOOL)isVisible

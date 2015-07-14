@@ -35,6 +35,23 @@ id instantiateController( NSString* controllerId );
 + (UIColor*)stopColor;
 + (UIColor*)checkColor;
 + (UIColor*)errorColor;
++ (UIColor*)progressBarTrackColor;
 //+ (UIColor*)activeColor;
 //
+@end
+
+
+@interface UIImage(transmissionIcons)
+
++ (UIImage*)iconUpload;
++ (UIImage*)iconDownload;
++ (UIImage*)iconStop;
++ (UIImage*)iconCheck;
++ (UIImage*)iconError;
++ (UIImage*)iconActive;
++ (UIImage*)iconAll;
+
++ (UIImage*)iconPause;
++ (UIImage*)iconPlay;
+
 @end
