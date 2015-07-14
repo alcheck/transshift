@@ -254,12 +254,9 @@
         }
     }
     
-    if( newCats )
-    {
-        // now we update model
-        _items = items;
-        _catitems = newCats;
-    }
+    // now we update model
+    _items = items;
+    _catitems = newCats;
     
     if( idxSectionToAdd.count > 0 ||
         idxSectionToReload.count > 0 ||
@@ -284,8 +281,7 @@
             [self.tableView deleteRowsAtIndexPaths:idxPathsToRemove withRowAnimation:UITableViewRowAnimationAutomatic];
         
         if( idxPathsToReload.count > 0 )
-            [self.tableView reloadRowsAtIndexPaths:idxPathsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
-        
+            [self.tableView reloadRowsAtIndexPaths:idxPathsToReload withRowAnimation:UITableViewRowAnimationAutomatic];        
         
         [self.tableView endUpdates];
     }

@@ -385,6 +385,8 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 {
     [self requestToServerSucceeded];
     
+    //NSLog( @"%s", __PRETTY_FUNCTION__ );
+    
     //[_items updateInfos:torrents];
     //[self.tableView reloadData];
     
@@ -430,16 +432,6 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
         cell.numberLabel.text = [NSString stringWithFormat:@"%i", c.count];
     }
     
-    // update torrents list
-//    NSIndexPath *path = self.tableView.indexPathForSelectedRow;
-//    if( path )
-//    {
-//        _torrentController.items = [_items categoryAtIndex:(int)path.row];
-//    }
-//    else
-//    {
-//        _torrentController.items = nil;
-//    }
     _torrentController.items = _selectedCategory;
     
     [self showFinishedTorrentsWithInfo:torrents];
@@ -764,12 +756,24 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 
 - (void)gotTorrentStopedWithId:(int)torrentId
 {
+    // NSLog(@"%s, id: %i", __PRETTY_FUNCTION__, torrentId);
+    
     UIViewController *topVC = _torrentController.navigationController.topViewController;
     
     if( topVC == _torrentInfoController )
-        [_connector getDetailedInfoForTorrentWithId:torrentId];
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+        ^{
+            [_connector getDetailedInfoForTorrentWithId:torrentId];
+        });
+    }
     else if( topVC == _torrentController )
-        [_connector getAllTorrents];
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+        ^{
+            [_connector getAllTorrents];            
+         });
+    }
     
     [self showInfoPopup:@"Torrent was stopped"];
 }
@@ -788,7 +792,12 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     if( topVC == _torrentInfoController )
         [_connector getDetailedInfoForTorrentWithId:torrentId];
     else if( topVC == _torrentController )
-        [_connector getAllTorrents];
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(),
+        ^{
+            [_connector getAllTorrents];
+         });
+    }
 
     [self showInfoPopup:@"Torrent was resumed"];
 }
