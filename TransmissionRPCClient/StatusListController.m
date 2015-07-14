@@ -775,7 +775,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
          });
     }
     
-    [self showInfoPopup:@"Torrent was stopped"];
+    [self showInfoPopup:@"Torrent is stopping ..."];
 }
 
 -(void)resumeTorrentWithId:(int)torrentId
@@ -799,7 +799,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
          });
     }
 
-    [self showInfoPopup:@"Torrent was resumed"];
+    [self showInfoPopup:@"Torrent is starting ..."];
 }
 
 -(void)verifyTorrentWithId:(int)torrentId

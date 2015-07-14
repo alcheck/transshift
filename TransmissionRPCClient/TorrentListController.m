@@ -28,119 +28,119 @@
     _catitems = [NSMutableArray array];
 }
 
-// searchs categoryitem in @arr by its title and returns it, or nil if not found
-- (StatusCategoryItem*)categoryFrom:(NSArray*)arr byTitle:(NSString*)title
-{
-    for (StatusCategoryItem *i in arr )
-    {
-        if( [i.title isEqualToString:title] )
-            return i;
-    }
-    
-    return nil;
-}
+//// searchs categoryitem in @arr by its title and returns it, or nil if not found
+//- (StatusCategoryItem*)categoryFrom:(NSArray*)arr byTitle:(NSString*)title
+//{
+//    for (StatusCategoryItem *i in arr )
+//    {
+//        if( [i.title isEqualToString:title] )
+//            return i;
+//    }
+//    
+//    return nil;
+//}
+//
+//- (TRInfo*)infoFromArray:(NSArray*)array withId:(int)torrentId
+//{
+//    for( TRInfo* info in array )
+//        if( info.trId == torrentId )
+//            return info;
+//        
+//    return nil;
+//}
 
-- (TRInfo*)infoFromArray:(NSArray*)array withId:(int)torrentId
-{
-    for( TRInfo* info in array )
-        if( info.trId == torrentId )
-            return info;
-        
-    return nil;
-}
 
-
-- (void)updateIndexesForNewCategoryItem:(StatusCategoryItem*)newCat
-                        currentCategory:(StatusCategoryItem*)curCat
-                           indexesToAdd:(NSMutableArray*)idxPathsToAdd
-                        indexesToRemove:(NSMutableArray*)idxPathsToRemove
-                        indexesToReload:(NSMutableArray*)idxPathsToReload
-                       withSectionIndex:(NSUInteger)section
-
-{
-    // RELOAD + UPDATE
-    if( curCat.count == newCat.count )
-    {
-        for( NSUInteger row = 0; row < newCat.items.count; row++)
-        {
-            TRInfo *infoCur = curCat.items[row];
-            TRInfo *infoNew = newCat.items[row];
-            
-            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
-            
-            if( infoCur.trId == infoNew.trId )
-            {
-                // UPDATE
-                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
-                if( cell )
-                    [self updateCell:cell withTorrentInfo:infoNew];
-            }
-            else
-            {
-                // RELOAD
-                [idxPathsToReload addObject:path];
-            }
-        }
-    }
-    // RELOAD + UPDATE + DELETE
-    else if( curCat.count > newCat.count )
-    {
-        for( NSUInteger row = 0; row < curCat.items.count; row++)
-        {
-            TRInfo *infoNew = row < newCat.items.count ? newCat.items[row] : nil;
-            TRInfo *infoCur = curCat.items[row];
-            
-            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
-            
-            if( infoNew == nil )
-            {
-                // DELETE
-                [idxPathsToRemove addObject:path];
-            }
-            else if( infoCur.trId == infoNew.trId )
-            {
-                // UPDATE
-                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
-                if( cell )
-                    [self updateCell:cell withTorrentInfo:infoNew];
-            }
-            else
-            {
-                // RELOAD
-                [idxPathsToReload addObject:path];
-            }
-        }
-    }
-    else
-    // RELOAD + UPDATE + INSERT
-    {
-        for( NSUInteger row = 0; row < newCat.items.count; row++)
-        {
-            TRInfo *infoNew = newCat.items[row];
-            TRInfo *infoCur = row < curCat.items.count ? curCat.items[row] : nil;
-            
-            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
-            
-            if( infoCur == nil )
-            {
-                // INSERT
-                [idxPathsToAdd addObject:path];
-            }
-            else if( infoCur.trId == infoNew.trId )
-            {
-                // UPDATE
-                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
-                if( cell )
-                    [self updateCell:cell withTorrentInfo:infoNew];
-            }
-            else
-            {
-                // RELOAD
-                [idxPathsToReload addObject:path];
-            }
-        }
-    }
-}
+//- (void)updateIndexesForNewCategoryItem:(StatusCategoryItem*)newCat
+//                        currentCategory:(StatusCategoryItem*)curCat
+//                           indexesToAdd:(NSMutableArray*)idxPathsToAdd
+//                        indexesToRemove:(NSMutableArray*)idxPathsToRemove
+//                        indexesToReload:(NSMutableArray*)idxPathsToReload
+//                       withSectionIndex:(NSUInteger)section
+//
+//{
+//    // RELOAD + UPDATE
+//    if( curCat.count == newCat.count )
+//    {
+//        for( NSUInteger row = 0; row < newCat.items.count; row++)
+//        {
+//            TRInfo *infoCur = curCat.items[row];
+//            TRInfo *infoNew = newCat.items[row];
+//            
+//            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+//            
+//            if( infoCur.trId == infoNew.trId )
+//            {
+//                // UPDATE
+//                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
+//                if( cell )
+//                    [self updateCell:cell withTorrentInfo:infoNew];
+//            }
+//            else
+//            {
+//                // RELOAD
+//                [idxPathsToReload addObject:path];
+//            }
+//        }
+//    }
+//    // RELOAD + UPDATE + DELETE
+//    else if( curCat.count > newCat.count )
+//    {
+//        for( NSUInteger row = 0; row < curCat.items.count; row++)
+//        {
+//            TRInfo *infoNew = row < newCat.items.count ? newCat.items[row] : nil;
+//            TRInfo *infoCur = curCat.items[row];
+//            
+//            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+//            
+//            if( infoNew == nil )
+//            {
+//                // DELETE
+//                [idxPathsToRemove addObject:path];
+//            }
+//            else if( infoCur.trId == infoNew.trId )
+//            {
+//                // UPDATE
+//                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
+//                if( cell )
+//                    [self updateCell:cell withTorrentInfo:infoNew];
+//            }
+//            else
+//            {
+//                // RELOAD
+//                [idxPathsToReload addObject:path];
+//            }
+//        }
+//    }
+//    else
+//    // RELOAD + UPDATE + INSERT
+//    {
+//        for( NSUInteger row = 0; row < newCat.items.count; row++)
+//        {
+//            TRInfo *infoNew = newCat.items[row];
+//            TRInfo *infoCur = row < curCat.items.count ? curCat.items[row] : nil;
+//            
+//            NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:section];
+//            
+//            if( infoCur == nil )
+//            {
+//                // INSERT
+//                [idxPathsToAdd addObject:path];
+//            }
+//            else if( infoCur.trId == infoNew.trId )
+//            {
+//                // UPDATE
+//                TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
+//                if( cell )
+//                    [self updateCell:cell withTorrentInfo:infoNew];
+//            }
+//            else
+//            {
+//                // RELOAD
+//                [idxPathsToReload addObject:path];
+//            }
+//        }
+//    }
+//}
 
 // update model to the new state from @items
 - (void)setItems:(StatusCategory *)items
@@ -159,100 +159,167 @@
     NSMutableArray *idxPathsToAdd       = [NSMutableArray array];
     NSMutableArray *idxPathsToReload    = [NSMutableArray array];
     
-    // UPDATE OR RELOAD SECTIONS
-    if( newCats.count == _catitems.count )
+    NSUInteger maxSections = MAX(newCats.count, _catitems.count);
+    for( NSUInteger i = 0; i < maxSections; i ++ )
     {
-        for( NSUInteger i = 0; i < newCats.count; i ++ )
+        StatusCategoryItem *newCat = i < newCats.count ?  newCats[i] : nil;
+        StatusCategoryItem *curCat = i < _catitems.count ? _catitems[i] : nil;
+        
+        if( curCat == nil )
         {
-            StatusCategoryItem *curCat = _catitems[i];
-            StatusCategoryItem *newCat = newCats[i];
+            // INSERT SECTION
+            [idxSectionToAdd addIndex:i];
+        }
+        else if ( newCat == nil )
+        {
+            // DELETE
+            [idxSectionToRemove addIndex:i];
+        }
+        else if( [curCat.title isEqualToString:newCat.title] )
+        {
+            // UPDATE SECTION
+//            [self updateIndexesForNewCategoryItem:newCat
+//                                  currentCategory:curCat
+//                                     indexesToAdd:idxPathsToAdd
+//                                  indexesToRemove:idxPathsToRemove
+//                                  indexesToReload:idxPathsToReload
+//                                 withSectionIndex:i];
+//            
+            [idxSectionToUpdate addIndex:i];
             
-            if( [curCat.title isEqualToString:newCat.title] )
+            NSUInteger maxRows = MAX(curCat.items.count, newCat.items.count);
+            for( NSUInteger row = 0; row < maxRows; row++)
             {
-                // UPDATE SECTION
-                [self updateIndexesForNewCategoryItem:newCat
-                                      currentCategory:curCat
-                                         indexesToAdd:idxPathsToAdd
-                                      indexesToRemove:idxPathsToRemove
-                                      indexesToReload:idxPathsToReload
-                                     withSectionIndex:i];
+                TRInfo *infoNew = row < newCat.items.count ? newCat.items[row] : nil;
+                TRInfo *infoCur = row < curCat.items.count ? curCat.items[row] : nil;
                 
-                [idxSectionToUpdate addIndex:i];
-            }
-            else
-            {
-                // RELOAD SECTION
-                [idxSectionToReload addIndex:i];
+                NSIndexPath *path = [NSIndexPath indexPathForRow:row inSection:i];
+                
+                if( infoNew == nil )
+                {
+                    // DELETE
+                    [idxPathsToRemove addObject:path];
+                }
+                else if ( infoCur == nil )
+                {
+                    // INSERT
+                    [idxPathsToAdd addObject:path];
+                }
+                else if( infoCur.trId == infoNew.trId )
+                {
+                    // UPDATE
+                    TorrentListCell *cell = (TorrentListCell*)[self.tableView cellForRowAtIndexPath:path];
+                    if( cell )
+                        [self updateCell:cell withTorrentInfo:infoNew];
+                }
+                else
+                {
+                    // RELOAD
+                    [idxPathsToReload addObject:path];
+                }
             }
         }
-    }
-    // UPDATE, RELOAD AND INSERT
-    else if( newCats.count > _catitems.count )
-    {
-        for( NSUInteger i = 0; i < newCats.count; i ++ )
+        else
         {
-            StatusCategoryItem *newCat = newCats[i];
-            StatusCategoryItem *curCat = i < _catitems.count ? _catitems[i] : nil;
-            
-            if( curCat == nil )
-            {
-                // INSERT SECTION
-                [idxSectionToAdd addIndex:i];
-            }
-            else if( [curCat.title isEqualToString:newCat.title] )
-            {
-                // UPDATE SECTION
-                [self updateIndexesForNewCategoryItem:newCat
-                                      currentCategory:curCat
-                                         indexesToAdd:idxPathsToAdd
-                                      indexesToRemove:idxPathsToRemove
-                                      indexesToReload:idxPathsToReload
-                                     withSectionIndex:i];
-                
-                [idxSectionToUpdate addIndex:i];
-
-            }
-            else
-            {
-                // RELOAD SECTION
-                [idxSectionToReload addIndex:i];
-            }
-        }
-
-    }
-    // UPDATE, RELOAD AND DELETE
-    else
-    {
-        for( NSUInteger i = 0; i < _catitems.count; i ++ )
-        {
-            StatusCategoryItem *newCat = i < newCats.count ? newCats[i] : nil;
-            StatusCategoryItem *curCat = _catitems[i];
-            
-            if( newCat == nil )
-            {
-                // INSERT SECTION
-                [idxSectionToRemove addIndex:i];
-            }
-            else if( [curCat.title isEqualToString:newCat.title] )
-            {
-                // UPDATE SECTION
-                [self updateIndexesForNewCategoryItem:newCat
-                                      currentCategory:curCat
-                                         indexesToAdd:idxPathsToAdd
-                                      indexesToRemove:idxPathsToRemove
-                                      indexesToReload:idxPathsToReload
-                                     withSectionIndex:i];
-                
-                [idxSectionToUpdate addIndex:i];
-
-            }
-            else
-            {
-                // RELOAD SECTION
-                [idxSectionToReload addIndex:i];
-            }
+            // RELOAD SECTION
+            [idxSectionToReload addIndex:i];
         }
     }
+    
+//    // UPDATE OR RELOAD SECTIONS
+//    if( newCats.count == _catitems.count )
+//    {
+//        for( NSUInteger i = 0; i < newCats.count; i ++ )
+//        {
+//            StatusCategoryItem *curCat = _catitems[i];
+//            StatusCategoryItem *newCat = newCats[i];
+//            
+//            if( [curCat.title isEqualToString:newCat.title] )
+//            {
+//                // UPDATE SECTION
+//                [self updateIndexesForNewCategoryItem:newCat
+//                                      currentCategory:curCat
+//                                         indexesToAdd:idxPathsToAdd
+//                                      indexesToRemove:idxPathsToRemove
+//                                      indexesToReload:idxPathsToReload
+//                                     withSectionIndex:i];
+//                
+//                [idxSectionToUpdate addIndex:i];
+//            }
+//            else
+//            {
+//                // RELOAD SECTION
+//                [idxSectionToReload addIndex:i];
+//            }
+//        }
+//    }
+//    // UPDATE, RELOAD AND INSERT
+//    else if( newCats.count > _catitems.count )
+//    {
+//        for( NSUInteger i = 0; i < newCats.count; i ++ )
+//        {
+//            StatusCategoryItem *newCat = newCats[i];
+//            StatusCategoryItem *curCat = i < _catitems.count ? _catitems[i] : nil;
+//            
+//            if( curCat == nil )
+//            {
+//                // INSERT SECTION
+//                [idxSectionToAdd addIndex:i];
+//            }
+//            else if( [curCat.title isEqualToString:newCat.title] )
+//            {
+//                // UPDATE SECTION
+//                [self updateIndexesForNewCategoryItem:newCat
+//                                      currentCategory:curCat
+//                                         indexesToAdd:idxPathsToAdd
+//                                      indexesToRemove:idxPathsToRemove
+//                                      indexesToReload:idxPathsToReload
+//                                     withSectionIndex:i];
+//                
+//                [idxSectionToUpdate addIndex:i];
+//
+//            }
+//            else
+//            {
+//                // RELOAD SECTION
+//                [idxSectionToReload addIndex:i];
+//            }
+//        }
+//
+//    }
+//    // UPDATE, RELOAD AND DELETE
+//    else
+//    {
+//        for( NSUInteger i = 0; i < _catitems.count; i ++ )
+//        {
+//            StatusCategoryItem *newCat = i < newCats.count ? newCats[i] : nil;
+//            StatusCategoryItem *curCat = _catitems[i];
+//            
+//            if( newCat == nil )
+//            {
+//                // INSERT SECTION
+//                [idxSectionToRemove addIndex:i];
+//            }
+//            else if( [curCat.title isEqualToString:newCat.title] )
+//            {
+//                // UPDATE SECTION
+//                [self updateIndexesForNewCategoryItem:newCat
+//                                      currentCategory:curCat
+//                                         indexesToAdd:idxPathsToAdd
+//                                      indexesToRemove:idxPathsToRemove
+//                                      indexesToReload:idxPathsToReload
+//                                     withSectionIndex:i];
+//                
+//                [idxSectionToUpdate addIndex:i];
+//
+//            }
+//            else
+//            {
+//                // RELOAD SECTION
+//                [idxSectionToReload addIndex:i];
+//            }
+//        }
+//    }
     
     // now we update model
     _items = items;
@@ -261,7 +328,9 @@
     if( idxSectionToAdd.count > 0 ||
         idxSectionToReload.count > 0 ||
         idxSectionToRemove.count > 0 ||
-        idxSectionToUpdate.count > 0 )
+        idxPathsToAdd.count > 0 ||
+        idxPathsToReload.count > 0 ||
+        idxPathsToRemove.count > 0 )
     {
         [self.tableView beginUpdates];
         
