@@ -1026,7 +1026,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    StatusCategory *c = [_items categoryAtIndex:indexPath.row];
+    StatusCategory *c = [_items categoryAtIndex:(int)indexPath.row];
     
     StatusListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_STATUSLIST forIndexPath:indexPath];
     

@@ -10,7 +10,7 @@
 #import "CommonTableController.h"
 
 #define CONTROLLER_ID_SERVERLIST    @"ServerListController"
-#define SERVERLIST_CONTROLLER_TITLE @"Servers"
+#define SERVERLIST_CONTROLLER_TITLE NSLocalizedString(@"Servers", @"")
 
 
 @interface ServerListController : CommonTableController

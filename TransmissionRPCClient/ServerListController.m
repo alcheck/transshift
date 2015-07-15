@@ -95,7 +95,7 @@
         _rpcConfigController = instantiateController(CONTROLLER_ID_RPCSERVERCONFIG);
     
         // add buttons
-        _rpcConfigController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+        _rpcConfigController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString( @"Cancel", @"")
                                                                                                  style:UIBarButtonItemStyleDone
                                                                                                 target:self
                                                                                                 action:@selector(hideRPCConfigController)];

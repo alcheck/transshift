@@ -52,25 +52,25 @@
             if( _status == TR_STATUS_DOWNLOAD || _status == TR_STATUS_DOWNLOAD_WAIT )
             {
                 _isDownloading = YES;
-                _statusString = @"Downloading";
+                _statusString = NSLocalizedString(@"trDownloading", @"");
             }
             
             if( _status == TR_STATUS_CHECK || _status == TR_STATUS_CHECK_WAIT )
             {
                 _isChecking = YES;
-                _statusString = @"Checking";
+                _statusString = NSLocalizedString(@"trChecking", @"");
             }
             
             if ( _status == TR_STATUS_SEED || _status == TR_STATUS_SEED_WAIT )
             {
                 _isSeeding = YES;
-                _statusString = @"Seeding";
+                _statusString = NSLocalizedString(@"trSeeding", @"");
             }
             
             if( _status == TR_STATUS_STOPPED )
             {
                 _isStopped = YES;
-                _statusString = @"Stopped";
+                _statusString = NSLocalizedString(@"trStopped", @"");
             }
         }
         

@@ -231,7 +231,7 @@
 "bH3-2W-RoQ.text" = "Остановить раздачу если рейтинг выше";
 
 /* Class = "UITableViewSection"; headerTitle = "Activity"; ObjectID = "bbe-iG-gF8"; */
-"bbe-iG-gF8.headerTitle" = "Активности";
+"bbe-iG-gF8.headerTitle" = "Активность";
 
 /* Class = "UILabel"; text = "State"; ObjectID = "c2b-hl-pB6"; */
 "c2b-hl-pB6.text" = "Статус";
@@ -360,7 +360,7 @@
 "uUU-MZ-oe7.text" = "Прогресс";
 
 /* Class = "UILabel"; text = "Enable LPD (Local Peer Descovery)"; ObjectID = "ueC-fy-EGJ"; */
-"ueC-fy-EGJ.text" = "Разрешить LPD (Local Peer Descovery)";
+"ueC-fy-EGJ.text" = "Разрешить LPD";
 
 /* Class = "UILabel"; text = "Bandwidth priority"; ObjectID = "ugc-JD-qEY"; */
 "ugc-JD-qEY.text" = "Приоритет трафика";
