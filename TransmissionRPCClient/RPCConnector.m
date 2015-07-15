@@ -508,7 +508,7 @@
                 {
                     _lastErrorMessage = [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode];
                     if( statusCode == HTTP_RESPONSE_UNAUTHORIZED )
-                        _lastErrorMessage = @"You are unauthorized to access server";
+                        _lastErrorMessage = NSLocalizedString(@"You are unauthorized to access server", @"");
                     
                     [self sendErrorMessage:[NSString stringWithFormat:@"%li %@", (long)statusCode, _lastErrorMessage]
                           toDelegateWithRequestMethodName:requestName];
@@ -520,7 +520,7 @@
                     NSDictionary *ansJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                     if( !ansJSON )
                     {
-                        [self sendErrorMessage:@"Server response wrong data"
+                        [self sendErrorMessage:NSLocalizedString(@"Server response wrong data", @"")
                               toDelegateWithRequestMethodName:requestName];
                     }
                     // JSON is OK, trying to retrieve result of request it should be TR_RESULT_SUCCEED
@@ -529,12 +529,12 @@
                         NSString *result =  ansJSON[TR_RESULT];
                         if( !result )
                         {
-                            [self sendErrorMessage:@"Server failed to return data"
+                            [self sendErrorMessage:NSLocalizedString(@"Server failed to return data", @"")
                                   toDelegateWithRequestMethodName:requestName];
                         }
                         else if( ![result isEqualToString: TR_RESULT_SUCCEED] )
                         {
-                            [self sendErrorMessage:[NSString stringWithFormat:@"Server failed to return data: %@", result]
+                            [self sendErrorMessage:[NSString stringWithFormat:NSLocalizedString(@"Server failed to return data: %@", @""), result]
                                   toDelegateWithRequestMethodName:requestName];
                         }
                         else

@@ -37,7 +37,8 @@
         return self;
     
     _transmissionVersion = dict[TR_ARG_SESSION_VERSION];
-    _rpcVersion = [NSString stringWithFormat:@"%@(min supported %@)", dict[TR_ARG_SESSION_RPCVER], dict[TR_ARG_SESSION_RPCVERMIN]];
+    _rpcVersion = [NSString stringWithFormat: NSLocalizedString(@"%@(min supported %@)", @"RPC min verson supported"),
+                   dict[TR_ARG_SESSION_RPCVER], dict[TR_ARG_SESSION_RPCVERMIN]];
     
     _downloadDir = dict[TR_ARG_SESSION_DOWNLOADDIR];
     _startDownloadingOnAdd = [dict[TR_ARG_SESSION_STARTONADD] boolValue];

@@ -34,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationItem.leftBarButtonItem.title = @"Info";    
+    self.navigationItem.leftBarButtonItem.title =  NSLocalizedString(@"Info", @"");
 }
 
 - (void)askDelegateToUpdateData
@@ -81,13 +81,13 @@
     }
     
     // Return the number of sections.
-    self.backgroundTitle = @"There are no peers avalable.";
+    self.backgroundTitle =  NSLocalizedString(@"There are no peers avalable.", @"PeerList background message");
     return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {    
-    return @"Peers";
+    return  NSLocalizedString(@"Peers", @"");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -106,7 +106,7 @@
     // add this new rate in proper position
     if( needToUpdate )
     {
-        NSString *title = [NSString stringWithFormat:@"%i KB/s", rate];
+        NSString *title = [NSString stringWithFormat: NSLocalizedString(@"%i KB/s", @"RateLimitTable added title"), rate];
         
         if( insertIndex >= _rates.count )
         {

@@ -21,7 +21,7 @@
     [super awakeFromNib];
 
    // lets try uisegmented control
-    _segmentButton = [[UISegmentedControl alloc] initWithItems:@[@"Edit"]];
+    _segmentButton = [[UISegmentedControl alloc] initWithItems:@[ NSLocalizedString(@"Edit", @"") ]];
     [_segmentButton setTintColor:[UIColor grayColor]];
     [_segmentButton addTarget:self action:@selector(segmentTouched:) forControlEvents:UIControlEventValueChanged];
     [_segmentButton setWidth:_segmentButton.bounds.size.width * 1.5 forSegmentAtIndex:0];

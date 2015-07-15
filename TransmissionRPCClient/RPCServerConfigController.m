@@ -166,7 +166,7 @@
     
     if( str.length < 1 )
     {
-        [errString appendString: @"You should enter server NAME\n"];
+        [errString appendString: NSLocalizedString(@"You should enter server NAME\n", @"RPCServerConfig error message")];
         [self showRowError:errString
                       icon:self.iconServerName
                      label:self.labelServerName
@@ -183,7 +183,7 @@
     str = [self trimString: self.textHost.text ];
     if( str.length < 1 )
     {
-        [errString appendString:@"You should enter server HOST name\n"];
+        [errString appendString: NSLocalizedString(@"You should enter server HOST name\n", @"RPCServerConfig error message")];
         [self showRowError:errString
                       icon:self.iconHost
                      label:self.labelHost
@@ -202,7 +202,7 @@
     
     if( port <= 0 || port > 65535 )
     {
-        [errString appendString:@"Server port must be in range from 0 to 65535. By default server port number is 8090\n"];
+        [errString appendString: NSLocalizedString(@"Server port must be in range from 0 to 65535. By default server port number is 8090\n", @"RPCServerConfig error message")];
         [self showRowError: errString
                       icon:self.iconPort
                      label:self.labelPort
@@ -217,7 +217,7 @@
     str = [self trimString: self.textRPCPath.text];
     if( str.length < 1 )
     {
-        [errString appendString:@"You should enter server RPC path. By default server rpc path is /transmission/rpc"];
+        [errString appendString: NSLocalizedString(@"You should enter server RPC path. By default server rpc path is /transmission/rpc", @"RPCServerConfig error message")];
         [self showRowError: errString
                       icon:self.iconRPCPath
                      label:self.labelRPCPath
@@ -264,7 +264,7 @@
 - (IBAction)refreshTimoutValueChanged:(UIStepper*)sender
 {
     if( sender.value == 0 )
-        self.labelRefreshTimeoutNumber.text = @"OFF";
+        self.labelRefreshTimeoutNumber.text =  NSLocalizedString(@"OFF", @"RPCServerConfig timeouf message is OFF");
     else
         self.labelRefreshTimeoutNumber.text = [NSString stringWithFormat:@"%02i", (int)sender.value];
 }

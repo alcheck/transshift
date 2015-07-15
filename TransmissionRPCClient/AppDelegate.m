@@ -57,9 +57,9 @@
     if( [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
     {
         TorrentListController *trc = instantiateController( CONTROLLER_ID_TORRENTLIST );
-        trc.infoMessage = @"There is no selected server. Select server from list of servers.";
-        trc.title = @"Transmission remote client";
-        trc.popoverButtonTitle = SERVERLIST_CONTROLLER_TITLE;
+        trc.infoMessage = NSLocalizedString(@"There is no selected server. Select server from list of servers.", @"");
+        trc.title = NSLocalizedString(@"Transmission remote client", @"TorrentList start title");
+        trc.popoverButtonTitle = NSLocalizedString(@"Servers", @"ServerListController title");//SERVERLIST_CONTROLLER_TITLE;
         
         UINavigationController *rightNav = [[UINavigationController alloc] initWithRootViewController:trc];
         
@@ -111,15 +111,15 @@
             byteFormatter.allowsNonnumericFormatting = NO;
             
             chooseServerController.headerInfoMessage = _magnetURLString ?
-                [NSString stringWithFormat: @"Add torrent with magnet link:\n%@", _magnetURLString] :
-                [NSString stringWithFormat: @"Add torrent with file size: %@", [byteFormatter stringFromByteCount:_torrentFileDataToAdd.length]];
+                [NSString stringWithFormat: NSLocalizedString(@"Add torrent with magnet link:\n%@", @""), _magnetURLString] :
+                [NSString stringWithFormat: NSLocalizedString(@"Add torrent with file size: %@", @""), [byteFormatter stringFromByteCount:_torrentFileDataToAdd.length]];
             
-            UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+            UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                            style:UIBarButtonItemStylePlain
                                                                           target:self
                                                                           action:@selector(dismissChooseServerController)];
             
-            UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"OK"
+            UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"OK", @"")
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:self
                                                                            action:@selector(addTorrentToSelectedServer)];
@@ -136,9 +136,9 @@
         else    // show message
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:@"There is no servers avalable"
+                                                            message:NSLocalizedString(@"There is no servers avalable", @"AlerView message OpenURL")
                                                            delegate:nil
-                                                  cancelButtonTitle:@"OK"
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", @"")
                                                   otherButtonTitles:nil, nil];
             [alert show];
         }
@@ -147,7 +147,6 @@
     
     return YES;
 }
-
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
@@ -167,7 +166,8 @@
 - (void)gotTorrentAdded
 {
     InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(300, 50)];
-    [msg showInfo:@"New torrent has been added" fromView:self.window.rootViewController.view];
+    [msg showInfo:NSLocalizedString(@"New torrent has been added", @"AppDelegate float message")
+         fromView:self.window.rootViewController.view];
 }
 
 // error handler
@@ -176,16 +176,16 @@
     if( !_isBackgroundFetching )
     {
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Can't add torrent"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Can't add torrent", @"Alert view title")
                                                         message:[NSString stringWithFormat:@"%@", errorMessage]
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:NSLocalizedString(@"OK", @"")
                                               otherButtonTitles:nil, nil];
         [alert show];
     }
     else
     {
-        NSLog(@"BackgroundFetch: connector request error, %@", errorMessage);
+        //NSLog(@"BackgroundFetch: connector request error, %@", errorMessage);
         _bgComplitionHandler(UIBackgroundFetchResultFailed);
     }
 }
@@ -218,7 +218,7 @@
 {
     if( _isBackgroundFetching )
     {
-        NSLog(@"BackgroundFetch: got all torrents");
+        //NSLog(@"BackgroundFetch: got all torrents");
         
         // fetch is complite
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -228,18 +228,18 @@
         // in NSUserDefaults
         NSArray *curDownIds = trInfos.downloadingTorrents;
         
-        NSLog(@"curDownIds from NsUserDefaults: %i", (int)curDownIds.count );
+        //NSLog(@"curDownIds from NsUserDefaults: %i", (int)curDownIds.count );
         
         if( curDownIds && curDownIds.count > 0 )
         {
-            NSLog(@"Updating NsUserDefaults with curDownIds ...");
+            //NSLog(@"Updating NsUserDefaults with curDownIds ...");
             
             NSMutableArray *downIds = [NSMutableArray array];
             
             for ( TRInfo* t in curDownIds )
                 [downIds addObject:@(t.trId)];
             
-            NSLog( @"Setting updated array with Ids count :%i", (int)downIds.count );
+            //NSLog( @"Setting updated array with Ids count :%i", (int)downIds.count );
             [defaults setObject:downIds forKey:USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS];
             [defaults synchronize];
         }
@@ -252,13 +252,13 @@
         
         if( !downIds )
         {
-            NSLog(@"No previous downloading torrent ids found. Exit");
+            //NSLog(@"No previous downloading torrent ids found. Exit");
             // there is downIds - try to create new and return
             _bgComplitionHandler(UIBackgroundFetchResultNoData);
         }
         else
         {
-            NSLog(@"There are downloading torrents, %i ", (int)downIds.count);
+            //NSLog(@"There are downloading torrents, %i ", (int)downIds.count);
             // info string
             NSMutableString *infoStr = [NSMutableString string];
             
@@ -273,14 +273,14 @@
                     if( torrentId == info.trId )
                     {
                         // we have found torrent that is finished
-                        [infoStr appendString: [NSString stringWithFormat:@"Torrent: %@, has finished downloading\n", info.name] ];
+                        [infoStr appendString: [NSString stringWithFormat:NSLocalizedString( @"Torrent: %@, has finished downloading\n", @""), info.name] ];
                     }
                 }
             } // end for searching
             
             if( infoStr.length > 0 )
             {
-                NSLog(@"Found finished torrents: %@", infoStr);
+                //NSLog(@"Found finished torrents: %@", infoStr);
                 // we should show
                 // show local notification
                 UILocalNotification *notification = [[UILocalNotification alloc] init];
@@ -298,7 +298,7 @@
             }
             else
             {
-                NSLog(@"No finished torrents found. Exit.");
+                //NSLog(@"No finished torrents found. Exit.");
                 _bgComplitionHandler(UIBackgroundFetchResultNoData);
             }
         }
@@ -321,7 +321,7 @@
     
     if( plist )
     {
-        NSLog(@"BackgroundFetch: - GETTING DATA .... ");
+        //NSLog(@"BackgroundFetch: - GETTING DATA .... ");
         
         RPCServerConfig *config = [[RPCServerConfig alloc] initFromPList:plist];
         // try to get update on this torrents
@@ -337,7 +337,7 @@
     }
     else
     {
-        NSLog(@"BackgroundFetch: - NO DATA FETCHED");
+        //NSLog(@"BackgroundFetch: - NO DATA FETCHED");
         completionHandler( UIBackgroundFetchResultNoData );
     }
 }

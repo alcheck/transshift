@@ -205,7 +205,7 @@
         if( dict[TR_ARG_FIELDS_ETA] )
         {
             NSTimeInterval seconds = [dict[TR_ARG_FIELDS_ETA] doubleValue];
-            _etaTimeString = (seconds > 0) ? formatHoursMinutes(seconds) :  @"unknown";
+            _etaTimeString = (seconds > 0) ? formatHoursMinutes(seconds) :   NSLocalizedString(@"unknown", @"ETA time string");
         }
         
         if( dict[TR_ARG_BANDWIDTHPRIORITY] )

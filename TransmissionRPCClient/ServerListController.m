@@ -55,7 +55,7 @@
     self.navigationItem.rightBarButtonItem = _buttonAdd;
     
     // show version
-    _version = [NSString stringWithFormat:@"version %@(%@)",
+    _version = [NSString stringWithFormat: NSLocalizedString(@"version %@(%@)", "ServerListController version"),
                          [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"],
                          [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
     
@@ -114,11 +114,12 @@
 - (void)showAddNewRPCConfigController
 {  
     // show view controller with two buttons "Cancel and Save"
-    self.rpcConfigController.title = @"Add new server";
-    self.rpcConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add"
-                                                                                              style:UIBarButtonItemStyleDone
-                                                                                             target:self
-                                                                                              action:@selector(addNewRPCConfig)];
+    self.rpcConfigController.title =  NSLocalizedString(@"Add new server", @"");
+    self.rpcConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                                                  initWithTitle: NSLocalizedString(@"Add", @"")
+                                                                  style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(addNewRPCConfig)];
     
     [self.navigationController pushViewController:self.rpcConfigController animated:YES];
 }
@@ -171,11 +172,12 @@
 {
      RPCServerConfig *configToEdit = [RPCServerConfigDB sharedDB].db[indexPath.row];
     
-    self.rpcConfigController.title = @"Edit server";
-    self.rpcConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save"
-                                                                                              style:UIBarButtonItemStyleDone
-                                                                                             target:self
-                                                                                             action:@selector(commitEditingRPCConfig)];
+    self.rpcConfigController.title =  NSLocalizedString(@"Edit server", @"RPCConfigController title");
+    self.rpcConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                                                  initWithTitle: NSLocalizedString(@"Save", @"")
+                                                                  style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(commitEditingRPCConfig)];
     
     self.rpcConfigController.config = configToEdit;
     
@@ -222,7 +224,7 @@
     NSUInteger itemsCount = [RPCServerConfigDB sharedDB].db.count;
 
     self.navigationItem.leftBarButtonItem.enabled = itemsCount > 0;
-    self.infoMessage = itemsCount > 0 ? nil : @"There are no servers available.\nAdd server to the list.";
+    self.infoMessage = itemsCount > 0 ? nil :  NSLocalizedString(@"There are no servers available.\nAdd server to the list.", @"Background info");
     self.footerInfoMessage = itemsCount > 0 ? _version : nil;
     
     return itemsCount > 0 ? 1 : 0;
@@ -230,7 +232,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"List of configured servers";
+    return NSLocalizedString(@"List of configured servers", @"section title");
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath

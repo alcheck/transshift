@@ -25,9 +25,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Add torrent";
+    self.title = NSLocalizedString(@"Add torrent", @"Choose server controller title");
     
-    _sectionTitles = @[ @"Chooser server to add torrent", @"Additional parameters"  ];
+    _sectionTitles = @[  NSLocalizedString(@"Choose server to add torrent", @"Section title"),
+                         NSLocalizedString(@"Additional parameters", @"Section title")  ];
     _selectedRow = 0;
     
     _bandwidthPriority = 1;

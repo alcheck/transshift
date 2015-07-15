@@ -139,14 +139,15 @@ NSString* formatByteCount(long long byteCount)
     }
     
     if( byteCount == 0 )
-        return @"0 KB";
+        return  NSLocalizedString(@"0 KB", @"formatByCount");
     
     return [formatter stringFromByteCount:byteCount];
 }
 
 NSString* formatByteRate(long long bytesPerSeconds)
 {
-    return [NSString stringWithFormat:@"%@/s", formatByteCount(bytesPerSeconds)];
+    return [NSString stringWithFormat: NSLocalizedString(@"%@/s", @"formatByRate"),
+            formatByteCount(bytesPerSeconds)];
 }
 
 NSString* formatDateFrom1970(NSTimeInterval seconds)
@@ -172,7 +173,8 @@ NSString* formatHoursMinutes(NSTimeInterval seconds)
     NSDate *dtNow = [NSDate date];
     NSDate *dtFrom = [dtNow dateByAddingTimeInterval:-seconds];
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:calendarUnits fromDate:dtFrom toDate:dtNow options:(NSCalendarOptions)0];
-    return [NSString stringWithFormat:@"%ld hours %ld mins", (long)dateComponents.hour, (long)dateComponents.minute];
+    return [NSString stringWithFormat: NSLocalizedString(@"%ld hours %ld mins", @"formateHoursMinutes"),
+            (long)dateComponents.hour, (long)dateComponents.minute];
 }
 
 

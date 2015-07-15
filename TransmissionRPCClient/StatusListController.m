@@ -22,9 +22,6 @@
 
 #define POPOVER_LIMITSPEEDCONTROLLER_SIZE   CGSizeMake(190,400)
 
-static NSString* STATUS_SECTION_TITLE = @"Torrents";
-static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
-
 
 @interface StatusListController () <RPCConnectorDelegate,
                                     TorrentListControllerDelegate,
@@ -119,7 +116,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
         }
         else
         {
-            self.footerInfoMessage = @"Autorefreshing is off.\nPull down to refresh data.";
+            self.footerInfoMessage = NSLocalizedString( @"Autorefreshing is off.\nPull down to refresh data.", @"");
         }
     }
     
@@ -151,7 +148,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
                                           action:@selector(autorefreshTimerUpdateHandler)
                                 forControlEvents:UIControlEventValueChanged];
     
-    self.headerInfoMessage = @"Updating ...";
+    self.headerInfoMessage = NSLocalizedString( @"Updating ...", @"StatusList header title");
     
     // configure bottom toolbar buttons
     _btnRefresh = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconRefresh20x20"]
@@ -197,9 +194,16 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 - (void)initSpeedLimitTables
 {
     // UP rate limits
-    NSArray *titles = @[ @"Unlimited", @"50 Kb/s", @"100 Kb/s",  @"150 Kb/s",
-                         @"200 Kb/s",  @"250 Kb/s",  @"500 Kb/s",
-                         @"750 Kb/s",  @"1024 Kb/s", @"2048 Kb/s" ];
+    NSArray *titles = @[ NSLocalizedString(@"Unlimited", @"Speed limit"),
+                         NSLocalizedString(@"50 Kb/s", @""),
+                         NSLocalizedString(@"100 Kb/s", @""),
+                         NSLocalizedString(@"150 Kb/s", @""),
+                         NSLocalizedString(@"200 Kb/s", @""),
+                         NSLocalizedString(@"250 Kb/s", @""),
+                         NSLocalizedString(@"500 Kb/s", @""),
+                         NSLocalizedString(@"750 Kb/s", @""),
+                         NSLocalizedString(@"1024 Kb/s", @""),
+                         NSLocalizedString(@"2048 Kb/s", @"") ];
     
     NSArray *rates  = @[ @(0),   @(50),  @(100), @(150),
                          @(200), @(250), @(500),
@@ -208,8 +212,8 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     _ratesDown = [RateLimitTable tableWithTitles:titles andRates:rates];
     _ratesUp = [RateLimitTable tableWithTitles:titles andRates:rates];
     
-    _ratesDown.tableTitle = @"Limit download speed";
-    _ratesUp.tableTitle = @"Limit upload speed";
+    _ratesDown.tableTitle = NSLocalizedString( @"Limit download speed", @"Speed limit table header" );
+    _ratesUp.tableTitle =  NSLocalizedString( @"Limit upload speed", @"Speed limit table header" );
 }
 
 - (void)showInfoPopup:(NSString*)infoStr
@@ -280,7 +284,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     [_connector stopRequests];
     
     _torrentController.refreshControl = nil;
-    _torrentController.infoMessage = @"There is no selected server";
+    _torrentController.infoMessage =  NSLocalizedString( @"There is no selected server", @"BgMessage" );
 }
 
 // main refresh cycle, updates data in detail view controllers
@@ -307,7 +311,8 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 - (void)gotFreeSpaceString:(NSString *)freeSpace
 {
     //NSLog(@"gotFreeSpace");
-    NSString *str = [NSString stringWithFormat:@"Free space: %@", freeSpace];
+    NSString *str = [NSString stringWithFormat: NSLocalizedString( @"Free space: %@", @"Free space fotter message" ),
+                     freeSpace];
     
     //self.footerInfoMessage = str;
     [self showFreeSpaceInfoWithString:str];
@@ -440,7 +445,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     
     if( !self.splitViewController )
     {
-        NSString *str = [NSString stringWithFormat:@"↑UL:%@ ↓DL:%@",
+        NSString *str = [NSString stringWithFormat:NSLocalizedString(@"↑UL:%@ ↓DL:%@", @""),
                          torrents.totalUploadRateString,
                          torrents.totalDownloadRateString];
 
@@ -505,11 +510,11 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 // shows alert view for adding torrent by URL (magnet url also)
 - (void)showAddTorrentByURLDialog
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add torrent"
-                                                    message:@"Type URL or MAGNET URL"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: NSLocalizedString( @"Add torrent", @"" )
+                                                    message: NSLocalizedString( @"Type URL or MAGNET URL", @"" )
                                                    delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Add torrent", nil];
+                                          cancelButtonTitle: NSLocalizedString( @"Cancel", @"" )
+                                          otherButtonTitles: NSLocalizedString( @"Add torrent", @""), nil];
     
     alert.delegate = self;
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -519,7 +524,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 
 - (void)gotTorrentAdded
 {
-    [self showInfoPopup:@"New torrent was added"];
+    [self showInfoPopup: NSLocalizedString(@"New torrent was added",@"float info message")];
 }
 
 #pragma mark - UIAlertView delegate methods, add torrent by URL
@@ -541,7 +546,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     _speedLimitController.preferredContentSize = POPOVER_LIMITSPEEDCONTROLLER_SIZE;
     _speedLimitController.rates = _ratesDown;
     _speedLimitController.delegate = self;
-    _speedLimitController.title = @"Download speed limits";
+    _speedLimitController.title =  NSLocalizedString(@"Download speed limits", @"_speedLimitController title");
     _speedLimitController.isDownload = YES;
     
     if( self.splitViewController )
@@ -566,7 +571,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     _speedLimitController.preferredContentSize = POPOVER_LIMITSPEEDCONTROLLER_SIZE;
     _speedLimitController.rates = _ratesUp;
     _speedLimitController.delegate = self;
-    _speedLimitController.title = @"Upload speed limits";
+    _speedLimitController.title =  NSLocalizedString(@"Upload speed limits", @"_speedLimitController title");
     _speedLimitController.isDownload = NO;
     
     if( self.splitViewController )
@@ -600,11 +605,12 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
         
         if( _ratesDown.selectedRate == 0)
         {
-            [self showInfoPopup:@"Disablilng download speed limit"];
+            [self showInfoPopup: NSLocalizedString(@"Disablilng download speed limit", @"")];
         }
         else
         {
-            [self showInfoPopup:[NSString stringWithFormat:@"Setting download speed limit to %i KB/s", _ratesDown.selectedRate]];
+            [self showInfoPopup:[NSString stringWithFormat: NSLocalizedString(@"Setting download speed limit to %i KB/s", @""),
+                                 _ratesDown.selectedRate]];
         }
     }
     else
@@ -613,11 +619,12 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
         
         if( _ratesUp.selectedRate == 0)
         {
-            [self showInfoPopup:@"Disabling upload speed limit"];
+            [self showInfoPopup: NSLocalizedString(@"Disabling upload speed limit",@"float info")];
         }
         else
         {
-            [self showInfoPopup:[NSString stringWithFormat:@"Setting upload speed limit to %i KB/s", _ratesUp.selectedRate]];
+            [self showInfoPopup:[NSString stringWithFormat: NSLocalizedString(@"Setting upload speed limit to %i KB/s", @"float info"),
+                                 _ratesUp.selectedRate]];
         }
     }
     
@@ -711,7 +718,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 - (void)gotSessionSetWithInfo:(TRSessionInfo *)info
 {
     [self gotSessionWithInfo:info];
-    [self showInfoPopup:@"Settings have been saved"];
+    [self showInfoPopup: NSLocalizedString(@"Settings have been saved", @"float info message")];
 }
 
 #pragma mark - RPCConnector error hangling
@@ -775,7 +782,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
          });
     }
     
-    [self showInfoPopup:@"Torrent is stopping ..."];
+    [self showInfoPopup: NSLocalizedString(@"Torrent is stopping ...", @"float info message")];
 }
 
 -(void)resumeTorrentWithId:(int)torrentId
@@ -799,7 +806,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
          });
     }
 
-    [self showInfoPopup:@"Torrent is starting ..."];
+    [self showInfoPopup: NSLocalizedString(@"Torrent is starting ...", @"float info message")];
 }
 
 -(void)verifyTorrentWithId:(int)torrentId
@@ -810,7 +817,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 - (void)gotTorrentVerifyedWithId:(int)torrentId
 {
     [_connector getDetailedInfoForTorrentWithId:torrentId];
-    [self showInfoPopup:@"Torrent is verifying ..."];
+    [self showInfoPopup:  NSLocalizedString(@"Torrent is verifying ...", @"float info message")];
 }
 
 // delegate method from TorrentInfoController
@@ -843,7 +850,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 {
     //[_connector getDetailedInfoForTorrentWithId:torrentId];
     [_connector getAllTorrents];
-    [self showInfoPopup:@"Torrent was deleted"];
+    [self showInfoPopup: NSLocalizedString(@"Torrent was deleted", @"float info message")];
 }
 
 - (void)reannounceTorrentWithId:(int)torrentId
@@ -855,7 +862,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 - (void)gotTorrentReannouncedWithId:(int)torrentId
 {
     [_connector getDetailedInfoForTorrentWithId:torrentId];
-    [self showInfoPopup:@"Torrent is reannouncing ..."];
+    [self showInfoPopup: NSLocalizedString(@"Torrent is reannouncing ...", @"float info message")];
 }
 
 - (void)gotTorrentDetailedInfo:(TRInfo *)torrentInfo
@@ -909,7 +916,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     _peerListController = instantiateController( CONTROLLER_ID_PEERLIST );
     _peerListController.delegate = self;
     _peerListController.torrentId = torrentId;
-    _peerListController.title = @"Peers"; //[NSString stringWithFormat:@"Peers: %@", _torrentInfoController.title];
+    _peerListController.title =  NSLocalizedString(@"Peers", @"_peerListController title");
     
     UINavigationController *nav = _torrentController.navigationController;
     [nav pushViewController:_peerListController animated:YES];
@@ -935,7 +942,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     _fileListController = instantiateController( CONTROLLER_ID_FILELIST );
     _fileListController.delegate = self;
     _fileListController.torrentId = torrentId;
-    _fileListController.title = @"Files";//[NSString stringWithFormat:@"Files: %@", _torrentInfoController.title];
+    _fileListController.title =  NSLocalizedString(@"Files", @"_fileListController title");
     
     UINavigationController *nav = _torrentController.navigationController;
     [nav pushViewController:_fileListController animated:YES];
@@ -988,7 +995,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
     _selectedCategory  = [_items categoryAtIndex: rowIndex];
     
     _torrentController.items = _selectedCategory;
-    _torrentController.title = TORRENTLISTCONTROLLER_TITLE;
+    _torrentController.title = NSLocalizedString(@"Torrents", @"");
     _torrentController.popoverButtonTitle = self.title;
     
     // on iPhone we should show _torrentController instead of ours
@@ -1004,7 +1011,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return STATUS_SECTION_TITLE;
+    return NSLocalizedString(@"Torrents", @"");
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

@@ -50,7 +50,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.navigationItem.leftBarButtonItem.title = @"Info";
+    self.navigationItem.leftBarButtonItem.title =  NSLocalizedString(@"Info", @"FileListController nav left button title");
 }
 
 - (void)askDelegateForDataUpdate
@@ -216,7 +216,7 @@
     
     if( item.isFile )
     {
-        cell.detailLabel.text = [NSString stringWithFormat:@"%@ of %@, %@ downloaded",
+        cell.detailLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, %@ downloaded", @"FileList cell file info"),
                                  item.info.bytesComplitedString,
                                  item.info.lengthString,
                                  item.info.downloadProgressString];
@@ -257,7 +257,7 @@
     }
     else // it is folder
     {
-        cell.detailLabel.text = [NSString stringWithFormat:@"%i files, %@ of %@, %@ downloaded",
+        cell.detailLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%i files, %@ of %@, %@ downloaded", @"FileList cell folder info"),
                                  item.filesCount,
                                  item.folderDownloadedString,
                                  item.folderSizeString,

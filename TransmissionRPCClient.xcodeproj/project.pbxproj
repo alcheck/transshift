@@ -20,7 +20,6 @@
 		2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810E21B39A5E50069020D /* LaunchScreen.xib */; };
 		2C5810F01B39A5E50069020D /* TransmissionRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */; };
 		2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810FA1B39A7B20069020D /* RPCServerConfig.m */; };
-		2C5810FE1B39BBDD0069020D /* controllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810FD1B39BBDD0069020D /* controllers.storyboard */; };
 		2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */; };
 		2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */; };
 		2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B51B3B446E002666C6 /* ServerListController.m */; };
@@ -54,6 +53,8 @@
 		2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA9DC01B42CE0D005629C2 /* TRPeerInfo.m */; };
 		2CFAB9121B49ACCB00BE71D9 /* SessionConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFAB9111B49ACCB00BE71D9 /* SessionConfigController.m */; };
 		2CFAB9151B49B7FD00BE71D9 /* TRSessionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFAB9141B49B7FD00BE71D9 /* TRSessionInfo.m */; };
+		2CFB92CD1B56D25400C83354 /* controllers.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFB92CF1B56D25400C83354 /* controllers.storyboard */; };
+		2CFB9BA61B56FA1300D4A51C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CFB9BA81B56FA1300D4A51C /* Localizable.strings */; };
 		2CFBA7991B5017DA00202281 /* RateLimitTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBA7981B5017DA00202281 /* RateLimitTable.m */; };
 		2CFBE1CC1B458F6100B15DEE /* FSDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBE1CB1B458F6100B15DEE /* FSDirectory.m */; };
 		2CFC267E1B44580E0070CC1C /* StatusListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC267D1B44580E0070CC1C /* StatusListCell.m */; };
@@ -97,7 +98,6 @@
 		2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransmissionRPCClientTests.m; sourceTree = "<group>"; };
 		2C5810F91B39A7B20069020D /* RPCServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfig.h; sourceTree = "<group>"; };
 		2C5810FA1B39A7B20069020D /* RPCServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfig.m; sourceTree = "<group>"; };
-		2C5810FD1B39BBDD0069020D /* controllers.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = controllers.storyboard; sourceTree = "<group>"; };
 		2C58110C1B39C3FC0069020D /* RPCServerConfigController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfigController.h; sourceTree = "<group>"; };
 		2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfigController.m; sourceTree = "<group>"; };
 		2C6D18B11B3B37CC002666C6 /* RPCServerConfigDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfigDB.h; sourceTree = "<group>"; };
@@ -156,6 +156,10 @@
 		2CFAB9111B49ACCB00BE71D9 /* SessionConfigController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionConfigController.m; sourceTree = "<group>"; };
 		2CFAB9131B49B7FD00BE71D9 /* TRSessionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSessionInfo.h; sourceTree = "<group>"; };
 		2CFAB9141B49B7FD00BE71D9 /* TRSessionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRSessionInfo.m; sourceTree = "<group>"; };
+		2CFB92CE1B56D25400C83354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/controllers.storyboard; sourceTree = "<group>"; };
+		2CFB92D01B56D26E00C83354 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/controllers.strings; sourceTree = "<group>"; };
+		2CFB9BA71B56FA1300D4A51C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2CFB9BA91B56FA1F00D4A51C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2CFBA7961B4FA9D600202281 /* TransmissionRPCClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TransmissionRPCClient.entitlements; sourceTree = "<group>"; };
 		2CFBA7971B5017DA00202281 /* RateLimitTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateLimitTable.h; sourceTree = "<group>"; };
 		2CFBA7981B5017DA00202281 /* RateLimitTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateLimitTable.m; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 			children = (
 				2CF9AF031B4D59B800D687C7 /* docIcons */,
 				2C5810E21B39A5E50069020D /* LaunchScreen.xib */,
+				2CFB9BA81B56FA1300D4A51C /* Localizable.strings */,
 				2C5810E01B39A5E50069020D /* Images.xcassets */,
 				2C5810DA1B39A5E50069020D /* Info.plist */,
 				2C5810DB1B39A5E50069020D /* main.m */,
@@ -246,7 +251,7 @@
 		2C5810FC1B39BBB50069020D /* UI Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2C5810FD1B39BBDD0069020D /* controllers.storyboard */,
+				2CFB92CF1B56D25400C83354 /* controllers.storyboard */,
 				2CF690981B4BE0B400B2F830 /* Title Views */,
 				2CAD1E431B4AC117005BBDBE /* Speed limit Controller */,
 				2CFAB90F1B49ACA100BE71D9 /* Session Config Controller */,
@@ -539,6 +544,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 2C5810CD1B39A5E50069020D;
 			productRefGroup = 2C5810D71B39A5E50069020D /* Products */;
@@ -557,8 +563,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CF6909F1B4BE49600B2F830 /* HeaderViewDURates.xib in Resources */,
+				2CFB9BA61B56FA1300D4A51C /* Localizable.strings in Resources */,
 				2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */,
-				2C5810FE1B39BBDD0069020D /* controllers.storyboard in Resources */,
+				2CFB92CD1B56D25400C83354 /* controllers.storyboard in Resources */,
 				2C5810E11B39A5E50069020D /* Images.xcassets in Resources */,
 				2CF964F11B4D5DB9006D8C7E /* docIcon_320x320.png in Resources */,
 				2CF6909C1B4BE0D400B2F830 /* FooterViewFreeSpace.xib in Resources */,
@@ -666,6 +673,24 @@
 				2C5810E31B39A5E50069020D /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		2CFB92CF1B56D25400C83354 /* controllers.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2CFB92CE1B56D25400C83354 /* Base */,
+				2CFB92D01B56D26E00C83354 /* ru */,
+			);
+			name = controllers.storyboard;
+			sourceTree = "<group>";
+		};
+		2CFB9BA81B56FA1300D4A51C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2CFB9BA71B56FA1300D4A51C /* Base */,
+				2CFB9BA91B56FA1F00D4A51C /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

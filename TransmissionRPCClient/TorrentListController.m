@@ -426,11 +426,12 @@
         TorrentListCell *cell = (TorrentListCell*)[tableView cellForRowAtIndexPath:indexPath];
         
         // show action sheet
-        UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Remove torrent %@?", cell.name.text]
-                                                            delegate:self
-                                                   cancelButtonTitle:@"Cancel"
-                                              destructiveButtonTitle:@"Remove"
-                                                   otherButtonTitles:@"Remove with data", nil];
+        UIActionSheet *action = [[UIActionSheet alloc]
+                                 initWithTitle:[NSString stringWithFormat: NSLocalizedString(@"Remove torrent: %@?", @""), cell.name.text]
+                                 delegate:self
+                                 cancelButtonTitle: NSLocalizedString(@"Cancel", @"")
+                                 destructiveButtonTitle: NSLocalizedString(@"Remove", @"")
+                                 otherButtonTitles: NSLocalizedString(@"Remove with data", @""), nil];
         CGRect r = cell.bounds;
         r.origin.x = r.size.width - 30;
         
@@ -455,7 +456,7 @@
     if( _items && _items.emptyTitle )
         self.infoMessage = _items.emptyTitle;
     else
-        self.infoMessage = @"There are no torrents to show.";
+        self.infoMessage =  NSLocalizedString(@"There are no torrents to show.", @"TorrentList background message");
     
     return 0;
 }
@@ -516,19 +517,21 @@
     if ( info.isSeeding )
     {
         progressBarColor = [UIColor seedColor];
-        detailInfo = [NSString stringWithFormat:@"Seeding to %i of %i peers", info.peersGettingFromUs, info.peersConnected ];
-        cell.downloadRate.text = [NSString stringWithFormat:@"↑UL: %@", info.uploadRateString];
-        cell.size.text = [NSString stringWithFormat:@"%@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.uploadedEverString, info.uploadRatio];
+        detailInfo = [NSString stringWithFormat: NSLocalizedString(@"Seeding to %i of %i peers",@""),
+                      info.peersGettingFromUs, info.peersConnected ];
+        cell.downloadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↑UL: %@", @""), info.uploadRateString];
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@, uploaded %@ (Ratio %0.2f)", @""), info.downloadedSizeString, info.uploadedEverString, info.uploadRatio];
         cell.statusIcon.image = [UIImage iconUpload];
         btnImg = [UIImage iconPause];
         btnTintColor = [UIColor stopColor];
     }
     else if( info.isDownloading )
     {
-        detailInfo = [NSString stringWithFormat:@"Downloading from %i of %i peers, ETA: %@", info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
-        cell.downloadRate.text = [NSString stringWithFormat:@"↓DL: %@", info.downloadRateString];
-        cell.uploadRate.text = [NSString stringWithFormat:@"↑UL: %@", info.uploadRateString];
-        cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.totalSizeString ];
+        detailInfo = [NSString stringWithFormat: NSLocalizedString(@"Downloading from %i of %i peers, ETA: %@", @""),
+                      info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
+        cell.downloadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↓DL: %@", @""), info.downloadRateString];
+        cell.uploadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↑UL: %@", @""), info.uploadRateString];
+        cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedSizeString, info.totalSizeString ];
         cell.statusIcon.image = [UIImage iconDownload];
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
         btnImg = [UIImage iconPause];
@@ -536,10 +539,10 @@
     }
     else if( info.isStopped )
     {
-        detailInfo = @"Paused";
+        detailInfo =  NSLocalizedString(@"Paused", @"TorrentListController torrent info");
         progressBarColor = [UIColor stopColor];
-        cell.downloadRate.text = @"no activity";
-        cell.size.text = [NSString stringWithFormat:@"%@ of %@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
+        cell.downloadRate.text = NSLocalizedString(@"no activity", @"");
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, uploaded %@ (Ratio %0.2f)", @""), info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
         cell.statusIcon.image = [UIImage iconStop];
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
         btnImg = [UIImage iconPlay];
@@ -547,11 +550,11 @@
     }
     else if( info.isChecking )
     {
-        detailInfo = @"Checking data ...";
+        detailInfo =  NSLocalizedString(@"Checking data ...", @"");
         progressBarColor = [UIColor checkColor];
         cell.progressBar.progress = info.recheckProgress;
         cell.progressPercents.text = info.recheckProgressString;
-        cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.downloadedEverString];
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@", @""), info.downloadedSizeString, info.downloadedEverString];
         cell.statusIcon.image = [UIImage iconCheck];
         cell.buttonStopResume.hidden = YES;
     }
@@ -560,9 +563,9 @@
     // should handle this case aside of common "if"
     if( info.isError )
     {
-        detailInfo = [NSString stringWithFormat:@"Error: %@", info.errorString];
+        detailInfo = [NSString stringWithFormat: NSLocalizedString(@"Error: %@", @""), info.errorString];
         progressBarColor = [UIColor errorColor];
-        cell.size.text = [NSString stringWithFormat:@"%@ of %@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, uploaded %@ (Ratio %0.2f)", @""), info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
         cell.statusIcon.image = [UIImage iconError];
     }
     

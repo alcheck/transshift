@@ -125,11 +125,11 @@
 - (void)deleteTorrent
 {
     // show action list
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat: @"Remove torrent: %@?", _torrentInfo.name]
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:  NSLocalizedString(@"Remove torrent: %@?",@""), _torrentInfo.name]
                                                              delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:@"Remove"
-                                                    otherButtonTitles:@"Remove with data", nil];
+                                                    cancelButtonTitle: NSLocalizedString(@"Cancel", @"")
+                                               destructiveButtonTitle: NSLocalizedString(@"Remove", @"")
+                                                    otherButtonTitles: NSLocalizedString(@"Remove with data", @""), nil];
     
     [actionSheet showFromBarButtonItem:_deleteButton animated:YES];
 }
@@ -198,7 +198,7 @@
     self.toolbarItems = @[stopResumeButton, _spacerButton, _refreshButton, _spacerButton, _deleteButton];
     
     //self.title = trInfo.name;
-    self.title = @"Torrent details";
+    self.title =  NSLocalizedString(@"Torrent details", @"TorrentInfoController title");
     
     self.torrentNameLabel.text = trInfo.name;
     self.stateLabel.text = trInfo.statusString;
@@ -258,13 +258,13 @@
     if( actionSheet.destructiveButtonIndex == buttonIndex )
     {
         // delete;
-        NSLog(@"TorrentInfoController: deleting torrent");
+        //NSLog(@"TorrentInfoController: deleting torrent");
         [_delegate deleteTorrentWithId:_torrentId deleteWithData:NO];
     }
     else if( buttonIndex == 1 )
     {
         // delete with data
-        NSLog(@"TorrentInfoController: deleting torrent with data");
+        //NSLog(@"TorrentInfoController: deleting torrent with data");
         [_delegate deleteTorrentWithId:_torrentId deleteWithData:YES];
     }
 }
