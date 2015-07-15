@@ -600,7 +600,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
         
         if( _ratesDown.selectedRate == 0)
         {
-            [self showInfoPopup:@"Disable download speed limit"];
+            [self showInfoPopup:@"Disablilng download speed limit"];
         }
         else
         {
@@ -613,7 +613,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
         
         if( _ratesUp.selectedRate == 0)
         {
-            [self showInfoPopup:@"Disable upload speed limit"];
+            [self showInfoPopup:@"Disabling upload speed limit"];
         }
         else
         {
@@ -711,7 +711,7 @@ static NSString* TORRENTLISTCONTROLLER_TITLE = @"Torrents";
 - (void)gotSessionSetWithInfo:(TRSessionInfo *)info
 {
     [self gotSessionWithInfo:info];
-    [self showInfoPopup:@"Settings are saved"];
+    [self showInfoPopup:@"Settings have been saved"];
 }
 
 #pragma mark - RPCConnector error hangling

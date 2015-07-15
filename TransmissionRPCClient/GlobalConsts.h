@@ -26,8 +26,32 @@
 #define USERDEFAULTS_BGFETCH_KEY_RPCCONFG           @"bgCurrentRPCConfig"
 #define USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS     @"bgDownloadingTorrentIds"
 
+/*!
+    Retruns the new instance of UIViewController
+    from global storyboard
+    @param controllerId - storyboardId of the controller
+ */
 id instantiateController( NSString* controllerId );
-//
+
+
+/*!
+    Returns formatted localized string for count of bytes
+    @param count - count of bytes per second
+    @return string representation (localized)
+ */
+NSString* formatByteCount(long long bytes);
+
+/// Returns formatted localized string for rate bytes/second
+NSString* formatByteRate(long long bytesPerSeconds);
+
+/// Returns formatted localized date string
+NSString* formatDateFrom1970(NSTimeInterval intevalSince1970);
+
+/// Returns formatted localized string of hours and minutes
+/// from time interval since 1970
+NSString* formatHoursMinutes(NSTimeInterval intervalSince1970);
+
+/// Global colors extension
 @interface UIColor(transmissionColors)
 //
 + (UIColor*)seedColor;
@@ -50,7 +74,6 @@ id instantiateController( NSString* controllerId );
 + (UIImage*)iconError;
 + (UIImage*)iconActive;
 + (UIImage*)iconAll;
-
 + (UIImage*)iconPause;
 + (UIImage*)iconPlay;
 

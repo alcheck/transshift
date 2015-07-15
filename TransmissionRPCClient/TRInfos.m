@@ -7,6 +7,7 @@
 //
 
 #import "TRInfos.h"
+#import "GlobalConsts.h"
 
 @interface TRInfos()
 
@@ -169,18 +170,7 @@
     for( TRInfo* info in _items )
         c += info.uploadRate;
     
-    NSString *str;
-    if( c == 0 )
-    {
-        str = @"0 KB/s";
-    }
-    else
-    {
-        NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
-        byteFormatter.allowsNonnumericFormatting = NO;
-        str = [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
-    }
-    
+    NSString *str = formatByteRate(c);
     _chache[CHACHE_KEY_TOTALUPSTR] = str;
     
     return str;
@@ -196,18 +186,7 @@
     for( TRInfo* info in _items )
         c += info.downloadRate;
     
-    NSString *str;
-    if( c == 0 )
-    {
-        str = @"0 KB/s";
-    }
-    else
-    {
-        NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
-        byteFormatter.allowsNonnumericFormatting = NO;
-        str = [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
-    }
-    
+    NSString *str = formatByteRate(c);
     _chache[CHACHE_KEY_TOTALDOWNSTR] = str;
     
     return str;
@@ -222,11 +201,8 @@
     long long c = 0;
     for( TRInfo* info in _items )
         c += info.downloadedSize;
-    
-    NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
-    byteFormatter.allowsNonnumericFormatting = NO;
-    
-    NSString *str = [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
+ 
+    NSString *str = formatByteCount(c);
     
     _chache[CHACHE_KEY_TOTALDOWNSIZESTR] = str;
     
@@ -242,11 +218,8 @@
     long long c = 0;
     for( TRInfo* info in _items )
         c += info.uploadedEver;
-    
-    NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
-    byteFormatter.allowsNonnumericFormatting = NO;
-    
-    NSString *str = [NSString stringWithFormat:@"%@/s", [byteFormatter stringFromByteCount:c]];
+ 
+    NSString *str = formatByteCount(c);
     
     _chache[CHACHE_KEY_TOTALUPSIZESTR] = str;
     

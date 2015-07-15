@@ -7,6 +7,7 @@
 //
 
 #import "TRSessionInfo.h"
+#import "GlobalConsts.h"
 
 #define ENCRYPTION_ID_REQUIRED   @"required"
 #define ENCRYPTION_ID_PREFFERED  @"preffered"
@@ -39,37 +40,37 @@
     _rpcVersion = [NSString stringWithFormat:@"%@(min supported %@)", dict[TR_ARG_SESSION_RPCVER], dict[TR_ARG_SESSION_RPCVERMIN]];
     
     _downloadDir = dict[TR_ARG_SESSION_DOWNLOADDIR];
-    _startDownloadingOnAdd = [(NSNumber*)dict[TR_ARG_SESSION_STARTONADD] boolValue];
-    _upLimitEnabled = [(NSNumber*)dict[TR_ARG_SESSION_LIMITUPRATEENABLED] boolValue];
-    _downLimitEnabled = [(NSNumber*)dict[TR_ARG_SESSION_LIMITDOWNRATEENABLED] boolValue];
-    _upLimitRate = [(NSNumber*)dict[TR_ARG_SESSION_LIMITUPRATE] intValue];
-    _downLimitRate = [(NSNumber*)dict[TR_ARG_SESSION_LIMITDOWNRATE] intValue];
+    _startDownloadingOnAdd = [dict[TR_ARG_SESSION_STARTONADD] boolValue];
+    _upLimitEnabled = [dict[TR_ARG_SESSION_LIMITUPRATEENABLED] boolValue];
+    _downLimitEnabled = [dict[TR_ARG_SESSION_LIMITDOWNRATEENABLED] boolValue];
+    _upLimitRate = [dict[TR_ARG_SESSION_LIMITUPRATE] intValue];
+    _downLimitRate = [dict[TR_ARG_SESSION_LIMITDOWNRATE] intValue];
     
-    _seedRatioLimitEnabled = [(NSNumber*)dict[TR_ARG_SESSION_SEEDRATIOLIMITENABLED] boolValue];
-    _seedRatioLimit = [(NSNumber*)dict[TR_ARG_SESSION_SEEDRATIOLIMIT] floatValue];
+    _seedRatioLimitEnabled = [dict[TR_ARG_SESSION_SEEDRATIOLIMITENABLED] boolValue];
+    _seedRatioLimit = [dict[TR_ARG_SESSION_SEEDRATIOLIMIT] floatValue];
     
-    _portForfardingEnabled = [(NSNumber*)dict[TR_ARG_SESSION_PORTFORWARDENABLED] boolValue];
-    _portRandomAtStartEnabled = [(NSNumber*)dict[TR_ARG_SESSION_PORTRANDOMONSTART] boolValue];
-    _port = [(NSNumber*)dict[TR_ARG_SESSION_PORT] intValue];
+    _portForfardingEnabled = [dict[TR_ARG_SESSION_PORTFORWARDENABLED] boolValue];
+    _portRandomAtStartEnabled = [dict[TR_ARG_SESSION_PORTRANDOMONSTART] boolValue];
+    _port = [dict[TR_ARG_SESSION_PORT] intValue];
     
-    _UTPEnabled = [(NSNumber*)dict[TR_ARG_SESSION_UTPENABLED] boolValue];
-    _PEXEnabled = [(NSNumber*)dict[TR_ARG_SESSION_PEXENABLED] boolValue];
-    _LPDEnabled = [(NSNumber*)dict[TR_ARG_SESSION_LPDENABLED] boolValue];
-    _DHTEnabled = [(NSNumber*)dict[TR_ARG_SESSION_DHTENABLED] boolValue];
+    _UTPEnabled = [dict[TR_ARG_SESSION_UTPENABLED] boolValue];
+    _PEXEnabled = [dict[TR_ARG_SESSION_PEXENABLED] boolValue];
+    _LPDEnabled = [dict[TR_ARG_SESSION_LPDENABLED] boolValue];
+    _DHTEnabled = [dict[TR_ARG_SESSION_DHTENABLED] boolValue];
     
-    _globalPeerLimit = [(NSNumber*)dict[TR_ARG_SESSION_PEERLIMITTOTAL] intValue];
-    _torrentPeerLimit = [(NSNumber*)dict[TR_ARG_SESSION_PEERLIMITPERTORRENT] intValue];
+    _globalPeerLimit = [dict[TR_ARG_SESSION_PEERLIMITTOTAL] intValue];
+    _torrentPeerLimit = [dict[TR_ARG_SESSION_PEERLIMITPERTORRENT] intValue];
     
     _encryption = dict[TR_ARG_SESSION_ENRYPTION];
     
-    _seedIdleLimit = [(NSNumber*)dict[TR_ARG_SESSION_IDLESEEDLIMIT] intValue];
-    _seedIdleLimitEnabled = [(NSNumber*)dict[TR_ARG_SESSION_IDLELIMITENABLED] boolValue];
+    _seedIdleLimit = [dict[TR_ARG_SESSION_IDLESEEDLIMIT] intValue];
+    _seedIdleLimitEnabled = [dict[TR_ARG_SESSION_IDLELIMITENABLED] boolValue];
     
-    _altLimitEnabled = [(NSNumber*)dict[TR_ARG_SESSION_ALTLIMITRATEENABLED] boolValue];
-    _altDownloadRateLimit = [(NSNumber*)dict[TR_ARG_SESSION_ALTLIMIDOWNRATE] intValue];
-    _altUploadRateLimit = [(NSNumber*)dict[TR_ARG_SESSION_ALTLIMITUPRATE] intValue];
+    _altLimitEnabled = [dict[TR_ARG_SESSION_ALTLIMITRATEENABLED] boolValue];
+    _altDownloadRateLimit = [dict[TR_ARG_SESSION_ALTLIMIDOWNRATE] intValue];
+    _altUploadRateLimit = [dict[TR_ARG_SESSION_ALTLIMITUPRATE] intValue];
     
-    _addPartToUnfinishedFilesEnabled = [(NSNumber*)dict[TR_ARG_SESSION_RENAMEPARTIAL] boolValue];
+    _addPartToUnfinishedFilesEnabled = [dict[TR_ARG_SESSION_RENAMEPARTIAL] boolValue];
     
     return self;
 }

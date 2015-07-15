@@ -6,6 +6,7 @@
 //
 
 #import "TRFileInfo.h"
+#import "GlobalConsts.h"
 
 @interface TRFileInfo()
 
@@ -23,9 +24,6 @@
     self = [super init];
     if( !self )
         return self;
-    
-    NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
-    byteFormatter.allowsNonnumericFormatting = NO;
     
     if( dict[TR_ARG_FILEINFO_NAME] )
     {
@@ -47,14 +45,14 @@
     
     if ( dict[TR_ARG_FILEINFO_LENGTH] )
     {
-        _length = [(NSNumber*)dict[TR_ARG_FILEINFO_LENGTH] longLongValue];
-        _lengthString = [byteFormatter stringFromByteCount:_length];
+        _length = [dict[TR_ARG_FILEINFO_LENGTH] longLongValue];
+        _lengthString = formatByteCount(_length);
     }
     
     if( dict[TR_ARG_FILEINFO_BYTESCOMPLETED] )
     {
-        _bytesComplited = [(NSNumber*)dict[TR_ARG_FILEINFO_BYTESCOMPLETED] longLongValue];
-        _bytesComplitedString = [byteFormatter stringFromByteCount:_bytesComplited];
+        _bytesComplited = [dict[TR_ARG_FILEINFO_BYTESCOMPLETED] longLongValue];
+        _bytesComplitedString = formatByteCount(_bytesComplited);
     }
     
     if( _length > 0 )
@@ -64,11 +62,11 @@
     }
     
     if( dict[TR_ARG_FILEINFO_WANTED] )
-        _wanted = [(NSNumber*)dict[TR_ARG_FILEINFO_WANTED] boolValue];
+        _wanted = [dict[TR_ARG_FILEINFO_WANTED] boolValue];
     
     if( dict[TR_ARG_FILEINFO_PRIORITY] )
     {
-        _priority = [(NSNumber*)dict[TR_ARG_FILEINFO_PRIORITY] intValue];
+        _priority = [dict[TR_ARG_FILEINFO_PRIORITY] intValue];
         _priorityString = @"unknown";
         if( _priority == TR_FILEINFO_PRIORITY_NORMAL )
             _priorityString = @"normal";

@@ -127,3 +127,53 @@ id instantiateController( NSString *controllerId )
     
     return [storyboard instantiateViewControllerWithIdentifier:controllerId];
 }
+
+NSString* formatByteCount(long long byteCount)
+{
+    static NSByteCountFormatter *formatter = nil;
+    
+    if( !formatter )
+    {
+        formatter = [[NSByteCountFormatter alloc] init];
+        formatter.allowsNonnumericFormatting = NO;
+    }
+    
+    if( byteCount == 0 )
+        return @"0 KB";
+    
+    return [formatter stringFromByteCount:byteCount];
+}
+
+NSString* formatByteRate(long long bytesPerSeconds)
+{
+    return [NSString stringWithFormat:@"%@/s", formatByteCount(bytesPerSeconds)];
+}
+
+NSString* formatDateFrom1970(NSTimeInterval seconds)
+{
+    static NSDateFormatter *formatter = nil;
+    
+    if( !formatter )
+    {
+        NSLocale *locale = [NSLocale currentLocale];
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.locale = locale;
+        formatter.timeStyle = NSDateFormatterShortStyle;
+        formatter.dateStyle = NSDateFormatterMediumStyle;
+    }
+    
+    NSDate *dt = [NSDate dateWithTimeIntervalSince1970:seconds];
+    return [formatter stringFromDate:dt];
+}
+
+NSString* formatHoursMinutes(NSTimeInterval seconds)
+{
+    NSCalendarUnit calendarUnits = (NSCalendarUnit)(NSHourCalendarUnit|NSMinuteCalendarUnit);
+    NSDate *dtNow = [NSDate date];
+    NSDate *dtFrom = [dtNow dateByAddingTimeInterval:-seconds];
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:calendarUnits fromDate:dtFrom toDate:dtNow options:(NSCalendarOptions)0];
+    return [NSString stringWithFormat:@"%ld hours %ld mins", (long)dateComponents.hour, (long)dateComponents.minute];
+}
+
+
+

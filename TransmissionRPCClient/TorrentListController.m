@@ -517,7 +517,7 @@
     {
         progressBarColor = [UIColor seedColor];
         detailInfo = [NSString stringWithFormat:@"Seeding to %i of %i peers", info.peersGettingFromUs, info.peersConnected ];
-        cell.downloadRate.text = [NSString stringWithFormat:@"↑UL: %@/s", info.uploadRateString];
+        cell.downloadRate.text = [NSString stringWithFormat:@"↑UL: %@", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@, uploaded %@ (Ratio %0.2f)", info.downloadedSizeString, info.uploadedEverString, info.uploadRatio];
         cell.statusIcon.image = [UIImage iconUpload];
         btnImg = [UIImage iconPause];
@@ -526,8 +526,8 @@
     else if( info.isDownloading )
     {
         detailInfo = [NSString stringWithFormat:@"Downloading from %i of %i peers, ETA: %@", info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
-        cell.downloadRate.text = [NSString stringWithFormat:@"↓DL: %@/s", info.downloadRateString];
-        cell.uploadRate.text = [NSString stringWithFormat:@"↑UL: %@/s", info.uploadRateString];
+        cell.downloadRate.text = [NSString stringWithFormat:@"↓DL: %@", info.downloadRateString];
+        cell.uploadRate.text = [NSString stringWithFormat:@"↑UL: %@", info.uploadRateString];
         cell.size.text = [NSString stringWithFormat:@"%@ of %@", info.downloadedSizeString, info.totalSizeString ];
         cell.statusIcon.image = [UIImage iconDownload];
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
