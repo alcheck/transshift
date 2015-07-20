@@ -77,6 +77,8 @@
         
         tlc.items = nil;
         tlc.infoMessage = NSLocalizedString( @"There is no selected server.", @"" );
+        tlc.errorMessage = nil;
+        tlc.footerInfoMessage = nil;
         tlc.popoverButtonTitle = SERVERLIST_CONTROLLER_TITLE;
         
         [nc popToRootViewControllerAnimated:YES];

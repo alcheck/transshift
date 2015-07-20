@@ -86,7 +86,7 @@
     {
         _fileList = instantiateController(CONTROLLER_ID_FILELIST);
         _fileList.fsDir = _files;
-        _fileList.title = NSLocalizedString(@"Select files to download", @"");
+        _fileList.title = NSLocalizedString(@"Select files to download", @"UIViewController Title");
         [self.navigationController pushViewController:_fileList animated:YES];
     }
 }

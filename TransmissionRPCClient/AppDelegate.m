@@ -93,7 +93,7 @@
         // FIX: when user tryes to load file serveral times in a row
         if( _chooseNav )
         {
-            [_chooseNav dismissViewControllerAnimated:NO completion:nil];
+            [_chooseNav dismissViewControllerAnimated:YES completion:nil];
         }
         
          //NSLog(@"URL Scheme: %@, desc:%@", url.scheme, url );

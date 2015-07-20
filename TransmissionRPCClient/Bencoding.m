@@ -10,7 +10,7 @@
 
 #define UTF8_ACCEPT 0
 #define UTF8_REJECT 1
-#define ISDIGIT(c) ( (c) >= '0' && (c) <= '9' )
+#define ISDIGIT(c) ( ((c) >= '0' && (c) <= '9') )
 #define DATA_ALWAYS_UTF8    0
 
 
@@ -58,6 +58,10 @@ long long decodeInt()
 {
     p0 = p;
     
+    // FIX: process negative and strict positive numbers
+    if( *p == '-' || *p == '+' )
+        p++;
+        
     while ( ISDIGIT(*p) ) p++;
     
     *p++ = '\0';
