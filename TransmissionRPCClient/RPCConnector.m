@@ -289,6 +289,32 @@
 
 }
 
+- (void)addTorrentWithData:(NSData *)data
+                  priority:(int)priority
+          startImmidiately:(BOOL)startImmidiately
+           indexesUnwanted:(NSArray*)idxUnwanted
+{
+    NSString *base64content = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTADD,
+                                  TR_METHOD_ARGS : @{ TR_ARG_METAINFO : base64content,
+                                                      TR_ARG_BANDWIDTHPRIORITY : @(priority),
+                                                      TR_ARG_PAUSEONADD: startImmidiately ? @(NO):@(YES),
+                                                      TR_ARG_FIELDS_FILES_UNWANTED : idxUnwanted
+                                                    }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTADD andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentAdded)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTorrentAdded];
+             });
+     }];
+    
+}
+
 - (void)addTorrentWithMagnet:(NSString *)magnetURLString priority:(int)priority startImmidiately:(BOOL)startImmidiately
 {    
     NSDictionary *requestVals = @{

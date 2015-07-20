@@ -27,7 +27,8 @@
     UIImage *_iconImgFolderOpened;
     UIImage *_iconImgFolderClosed;
     
-    FSDirectory *_fsDir;
+    //FSDirectory *_fsDir;
+    BOOL     _isSelectOnly;
 }
 
 - (void)viewDidLoad
@@ -58,6 +59,14 @@
     [self.refreshControl endRefreshing];
     if( _delegate && [_delegate respondsToSelector:@selector(fileListControllerNeedUpdateFilesForTorrentWithId:)])
         [_delegate fileListControllerNeedUpdateFilesForTorrentWithId:_torrentId];
+}
+
+- (void)setFsDir:(FSDirectory *)fsDir
+{
+    _fsDir = fsDir;
+    _isSelectOnly = YES;
+    
+    [self.tableView reloadData];
 }
 
 // update file infos
@@ -98,6 +107,13 @@
     
     BOOL wanted = !item.isAllFilesWanted;
     
+    if( _isSelectOnly )
+    {
+        item.isAllFilesWanted = wanted;
+        [self.tableView reloadData];
+        return;
+    }
+    
     if( _delegate && wanted &&
        [_delegate respondsToSelector:@selector(fileListControllerResumeDownloadingFilesWithIndexes:forTorrentWithId:)])
     {
@@ -119,6 +135,13 @@
 {
     FSItem* item = sender.dataObject;
     BOOL wanted = !item.info.wanted;
+    
+    if( _isSelectOnly )
+    {
+        item.info.wanted = wanted;
+        [self.tableView reloadData];
+        return;
+    }
     
     //sender.enabled = NO;
     sender.view.userInteractionEnabled = NO;
@@ -216,19 +239,29 @@
     
     if( item.isFile )
     {
-        cell.detailLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, %@ downloaded", @"FileList cell file info"),
-                                 item.info.bytesComplitedString,
-                                 item.info.lengthString,
-                                 item.info.downloadProgressString];
+        if (_isSelectOnly)
+        {
+            cell.detailLabel.text = item.info.lengthString;
+        }
+        else
+        {
+            cell.detailLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, %@ downloaded", @"FileList cell file info"),
+                                     item.info.bytesComplitedString,
+                                     item.info.lengthString,
+                                     item.info.downloadProgressString];
+        }
         
         if( item.info.downloadProgress < 1.0f )
         {
+            if( !_isSelectOnly )
+            {
             // configure priority segment control
             [cell.prioritySegment addTarget:self action:@selector(prioritySegmentToggled:) forControlEvents:UIControlEventValueChanged];
             cell.prioritySegment.dataObject = @(item.index);
             cell.prioritySegment.selectedSegmentIndex = item.info.priority + 1;
             cell.prioritySegment.enabled = YES;
             cell.prioritySegment.hidden = NO;
+            }
 
             // configure left checkBox control
             cell.leftLabel.userInteractionEnabled = YES;
@@ -257,11 +290,19 @@
     }
     else // it is folder
     {
-        cell.detailLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%i files, %@ of %@, %@ downloaded", @"FileList cell folder info"),
-                                 item.filesCount,
-                                 item.folderDownloadedString,
-                                 item.folderSizeString,
-                                 item.folderDownloadProgressString];
+        
+        if (_isSelectOnly)
+        {
+            cell.detailLabel.text = [NSString stringWithFormat:NSLocalizedString(  @"%i files, %@", @"" ), item.filesCount, item.folderSizeString];
+        }
+        else
+        {
+            cell.detailLabel.text = [NSString stringWithFormat: NSLocalizedString(@"%i files, %@ of %@, %@ downloaded", @"FileList cell folder info"),
+                                     item.filesCount,
+                                     item.folderDownloadedString,
+                                     item.folderSizeString,
+                                     item.folderDownloadProgressString];
+        }
         
         if( item.folderDownloadProgress < 1.0 )
         {

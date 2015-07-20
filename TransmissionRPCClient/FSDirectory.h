@@ -40,11 +40,15 @@ typedef NS_ENUM(unichar, FSItemType)
 @property(nonatomic,readonly) float                 folderDownloadProgress;
 @property(nonatomic,readonly) NSString*             folderDownloadProgressString;
 
-@property(nonatomic,readonly) BOOL                  isAllFilesWanted;
+@property(nonatomic)          BOOL                  isAllFilesWanted;
 @property(nonatomic,readonly) NSArray*              fileIndexes;
+@property(nonatomic,readonly) NSArray*              fileIndexesWanted;
+@property(nonatomic,readonly) NSArray*              fileIndexesUnwanted;
 
 + (FSItem*)itemWithName:(NSString*)name andType:(FSItemType)itemType;
 - (FSItem*)addItemWithName:(NSString*)name ofType:(FSItemType)itemType;
+
+
 
 @end
 

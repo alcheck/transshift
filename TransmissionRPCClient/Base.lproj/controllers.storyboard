@@ -877,6 +877,34 @@
                                     <outlet property="swith" destination="8Xo-qK-Lg9" id="Obv-oB-AZH"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="filesToDownloadCell" id="rGb-hW-mc3" customClass="StartImmidiatelyCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rGb-hW-mc3" id="iJu-YW-dij">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filesIcon" translatesAutoresizingMaskIntoConstraints="NO" id="hYt-OA-7yO">
+                                            <rect key="frame" x="8" y="4" width="36" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="36" id="0B8-2J-VzR"/>
+                                                <constraint firstAttribute="height" constant="36" id="kEY-KD-Kyt"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select files to download" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3g-l8-p6g">
+                                            <rect key="frame" x="52" y="13" width="507" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerY" secondItem="F3g-l8-p6g" secondAttribute="centerY" id="1tE-gL-LUT"/>
+                                        <constraint firstItem="F3g-l8-p6g" firstAttribute="leading" secondItem="hYt-OA-7yO" secondAttribute="trailing" constant="8" symbolic="YES" id="57N-eG-JU4"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="F3g-l8-p6g" secondAttribute="trailing" id="Hem-9z-Kd9"/>
+                                        <constraint firstItem="hYt-OA-7yO" firstAttribute="leading" secondItem="iJu-YW-dij" secondAttribute="leadingMargin" id="PMT-4z-RvR"/>
+                                        <constraint firstAttribute="centerY" secondItem="hYt-OA-7yO" secondAttribute="centerY" id="fcT-Kl-Ked"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="QX4-Ch-2jm" id="LbQ-Hb-M9x"/>
@@ -1156,8 +1184,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y5J-Q4-5sy" id="PM0-tm-1rl">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Stop seeding if torrent idle more than(min)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Aj1-0q-21X">
-                                                    <rect key="frame" x="8" y="8" width="469" height="27"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" text="Stop seeding if torrent idle more than(min)" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.70000000000000018" translatesAutoresizingMaskIntoConstraints="NO" id="Aj1-0q-21X">
+                                                    <rect key="frame" x="8" y="13" width="469" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1178,13 +1206,12 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Aj1-0q-21X" firstAttribute="top" secondItem="PM0-tm-1rl" secondAttribute="topMargin" id="Hhg-Jb-W5U"/>
                                                 <constraint firstItem="UOG-Zv-kEX" firstAttribute="trailing" secondItem="PM0-tm-1rl" secondAttribute="trailingMargin" id="Sr5-yy-CWI"/>
                                                 <constraint firstItem="Jyj-0e-xdY" firstAttribute="leading" secondItem="Aj1-0q-21X" secondAttribute="trailing" constant="8" symbolic="YES" id="Ycl-cC-igY"/>
                                                 <constraint firstItem="UOG-Zv-kEX" firstAttribute="leading" secondItem="Jyj-0e-xdY" secondAttribute="trailing" constant="8" symbolic="YES" id="dcI-Xq-z2e"/>
+                                                <constraint firstAttribute="centerY" secondItem="Aj1-0q-21X" secondAttribute="centerY" id="llV-1Q-tID"/>
                                                 <constraint firstAttribute="centerY" secondItem="UOG-Zv-kEX" secondAttribute="centerY" id="mQ1-I9-YcE"/>
                                                 <constraint firstItem="Aj1-0q-21X" firstAttribute="leading" secondItem="PM0-tm-1rl" secondAttribute="leadingMargin" id="qlg-J6-oag"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Aj1-0q-21X" secondAttribute="bottom" id="sZ4-F5-fjK"/>
                                                 <constraint firstAttribute="centerY" secondItem="Jyj-0e-xdY" secondAttribute="centerY" id="tcT-QJ-UNM"/>
                                             </constraints>
                                         </tableViewCellContentView>

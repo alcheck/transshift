@@ -157,6 +157,78 @@
     }
 }
 
+- (void)setIsAllFilesWanted:(BOOL)isAllFilesWanted
+{
+    [self setNeedToRecalcStats];
+    [self traverse:self setWanted:isAllFilesWanted];
+}
+
+- (void)traverse:(FSItem*)item setWanted:(BOOL)wanted
+{
+    if( item.items )
+    {
+        for( FSItem *i in item.items )
+        {
+            if( i.isFile )
+            {
+                if( i.info )
+                {
+                    i.info.wanted = wanted;
+                }
+            }
+            else
+            {
+                [self traverse:i setWanted:wanted];
+            }
+        }
+    }
+}
+
+- (NSArray*)fileIndexesUnwanted
+{
+    NSMutableArray *indexes = [NSMutableArray array];
+    
+    if (_items)
+    {
+        for( FSItem *i in _items )
+        {
+            if( i.isFile && !i.info.wanted )
+            {
+                [indexes addObject:@(i.index)];
+            }
+            else
+            {
+                [indexes addObjectsFromArray:i.fileIndexesUnwanted];
+            }
+        }
+    }
+    
+    return indexes;
+}
+
+
+- (NSArray*)fileIndexesWanted
+{
+    NSMutableArray *indexes = [NSMutableArray array];
+    
+    if (_items)
+    {
+        for( FSItem *i in _items )
+        {
+            if( i.isFile && i.info.wanted )
+            {
+                [indexes addObject:@(i.index)];
+            }
+            else
+            {
+                [indexes addObjectsFromArray:i.fileIndexesWanted];
+            }
+        }
+    }
+    
+    return indexes;
+}
+
 - (NSArray *)fileIndexes
 {
     NSMutableArray *indexes = [NSMutableArray array];
@@ -194,6 +266,7 @@
     [self calcStats];
     return _allFilesWanted;
 }
+
 
 // add item to children, if it is already exists
 // return existing item

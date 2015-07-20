@@ -10,6 +10,8 @@
 
 #define CONTROLLER_ID_FILELIST  @"fileListController"
 
+@class FSDirectory;
+
 @protocol FileListControllerDelegate <NSObject>
 
 @optional - (void)fileListControllerNeedUpdateFilesForTorrentWithId:(int)torrentId;
@@ -27,5 +29,6 @@
 @property(nonatomic) int        torrentId;
 
 @property(nonatomic) BOOL       torrentIsFinished;
+@property(nonatomic) FSDirectory *fsDir;
 
 @end

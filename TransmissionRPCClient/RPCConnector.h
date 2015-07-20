@@ -54,6 +54,8 @@
 - (void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData;
 
 - (void)addTorrentWithData:(NSData*)data priority:(int)priority startImmidiately:(BOOL)startImmidiately;
+- (void)addTorrentWithData:(NSData *)data priority:(int)priority startImmidiately:(BOOL)startImmidiately indexesUnwanted:(NSArray*)idxUnwanted;
+
 - (void)addTorrentWithMagnet:(NSString*)magnetURLString priority:(int)priority startImmidiately:(BOOL)startImmidiately;
 
 - (void)getAllPeersForTorrentWithId:(int)torrentId;

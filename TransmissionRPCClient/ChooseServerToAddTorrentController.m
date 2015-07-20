@@ -11,6 +11,8 @@
 #import "ChooseServerCell.h"
 #import "BandwidthPriorityCell.h"
 #import "StartImmidiatelyCell.h"
+#import "FileListController.h"
+#import "GlobalConsts.h"
 
 @interface ChooseServerToAddTorrentController ()
 @end
@@ -18,8 +20,9 @@
 @implementation ChooseServerToAddTorrentController
 
 {
-    NSArray *_sectionTitles;
-    int     _selectedRow;
+    NSArray            *_sectionTitles;
+    int                _selectedRow;
+    FileListController *_fileList;
 }
 
 - (void)viewDidLoad
@@ -68,7 +71,7 @@
     if( section == 0 )
         return [RPCServerConfigDB sharedDB].db.count;
 
-    return 2;
+    return _files ? 3 : 2;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -78,6 +81,13 @@
         _selectedRow = (int)indexPath.row;
         _rpcConfig = [RPCServerConfigDB sharedDB].db[indexPath.row];
         [self.tableView reloadData];
+    }
+    else if( indexPath.section == 1 && indexPath.row == 2 )
+    {
+        _fileList = instantiateController(CONTROLLER_ID_FILELIST);
+        _fileList.fsDir = _files;
+        _fileList.title = NSLocalizedString(@"Select files to download", @"");
+        [self.navigationController pushViewController:_fileList animated:YES];
     }
 }
 
@@ -89,8 +99,10 @@
         return 44;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // choose server to add torrent
     if( indexPath.section == 0 )
     {
         ChooseServerCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CHOOSESERVER forIndexPath:indexPath];
@@ -108,6 +120,7 @@
         return cell;
     }
     
+    // additional paramters
     if( indexPath.section == 1)
     {
         if( indexPath.row == 0)
@@ -117,11 +130,16 @@
             [cell.segment addTarget:self action:@selector(priorityChanged:) forControlEvents:UIControlEventValueChanged];
             return cell;
         }
-        else
+        else if( indexPath.row == 1 )
         {
             StartImmidiatelyCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_STARTIMMIDIATELY forIndexPath:indexPath];
             cell.swith.on = _startImmidiately;
             [cell.swith addTarget:self action:@selector(swithValueChanged:) forControlEvents:UIControlEventValueChanged];
+            return cell;
+        }
+        else
+        {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FILESTODOWNLOAD forIndexPath:indexPath];
             return cell;
         }
     }

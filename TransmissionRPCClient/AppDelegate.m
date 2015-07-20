@@ -16,6 +16,7 @@
 #import "InfoMessage.h"
 #import "FSDirectory.h"
 #import "Bencoding.h"
+#import "TRFileInfo.h"
 
 @interface AppDelegate() <RPCConnectorDelegate>
 
@@ -32,6 +33,8 @@
     RPCServerConfig *_selectedConfig;
     
     NSString *_magnetURLString;
+    
+    NSArray *_unwantedFilesIdx;
     
     // flag showing - that we use background fetching
     BOOL _isBackgroundFetching;
@@ -87,6 +90,11 @@
     // handle url - it is a .torrent file or magnet url
     if( url )
     {
+        // FIX: when user tryes to load file serveral times in a row
+        if( _chooseNav )
+        {
+            [_chooseNav dismissViewControllerAnimated:NO completion:nil];
+        }
         
          //NSLog(@"URL Scheme: %@, desc:%@", url.scheme, url );
         _torrentFileDataToAdd = nil;
@@ -107,6 +115,7 @@
             if (trData)
             {
                 fs = [FSDirectory directory];
+                
                 // get name
                 trName = trData[@"info"][@"name"];
                 
@@ -115,16 +124,27 @@
                 
                 for( NSDictionary *fileDesc in trData[@"info"][@"files"] )
                 {
-                    c += [fileDesc[@"length"] longLongValue];
+                    long long fileLength = [fileDesc[@"length"] longLongValue];
+                    c += fileLength;
                     
                     NSMutableString *fileFullPath = [NSMutableString string];
                     
                     for( NSString *path in fileDesc[@"path"] )
-                        [fileFullPath appendString:path];
+                        [fileFullPath appendFormat:@"/%@", path];
                     
-                    [fs addFilePath:fileFullPath withIndex:idx];
+                    FSItem *item = [fs addFilePath:fileFullPath withIndex:idx];
+                    TRFileInfo *info = [[TRFileInfo alloc] init];
+                    info.length = fileLength;
+                    info.lengthString = formatByteCount(fileLength);
+                    info.wanted = YES;
+                    info.downloadProgress = 0.1;
+                    info.downloadProgressString = @"";
+                    item.info = info;
+                    
                     idx++;
                 }
+                
+                [fs sort];
                 
                 trSize = formatByteCount(c);
             }
@@ -139,6 +159,9 @@
         {
             // presenting view controller to choose from several remote servers
             ChooseServerToAddTorrentController *chooseServerController = instantiateController( CONTROLLER_ID_CHOOSESERVER );
+            
+            if( fs )
+                chooseServerController.files = fs;
             
             chooseServerController.headerInfoMessage = _magnetURLString ?
                 [NSString stringWithFormat: NSLocalizedString(@"Add torrent with magnet link:\n%@", @""), _magnetURLString] :
@@ -188,7 +211,12 @@
     RPCConnector *connector = [[RPCConnector alloc] initWithConfig:config andDelegate:self];
     
     if( _torrentFileDataToAdd )
-        [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow];
+    {
+        if( _unwantedFilesIdx )
+            [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow indexesUnwanted:_unwantedFilesIdx];
+        else
+            [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow];
+    }
     else if( _magnetURLString )
         [connector addTorrentWithMagnet:_magnetURLString priority:priority startImmidiately:startNow];
 }
@@ -224,6 +252,12 @@
 {
     ChooseServerToAddTorrentController *csc = (ChooseServerToAddTorrentController*)_chooseNav.viewControllers[0];
     
+    if( csc.files )
+    {
+        NSArray *tmp = csc.files.rootItem.fileIndexesUnwanted;
+        _unwantedFilesIdx = ( tmp && tmp.count > 0 ) ? tmp : nil;
+    }
+    
     [self addTorrentToServerWithRPCConfig:csc.rpcConfig priority:csc.bandwidthPriority startNow:csc.startImmidiately];
     
     [self dismissChooseServerController];
@@ -232,6 +266,7 @@
 - (void)dismissChooseServerController
 {
     [_chooseNav dismissViewControllerAnimated:YES completion:nil];
+    _chooseNav = nil;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
