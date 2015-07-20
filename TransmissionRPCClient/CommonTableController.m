@@ -23,7 +23,7 @@
 {
     _errorMessage = errorMessage;
     
-    // lazy inst
+    // lazy instantiation
     if( !_errorLabel )
     {
         _errorLabel = [[UILabel  alloc] initWithFrame:CGRectZero];

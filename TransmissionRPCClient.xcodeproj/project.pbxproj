@@ -21,6 +21,7 @@
 		2C5810F01B39A5E50069020D /* TransmissionRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */; };
 		2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810FA1B39A7B20069020D /* RPCServerConfig.m */; };
 		2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */; };
+		2C6668341B5BB1D3004B6FA4 /* Bencoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6668331B5BB1D3004B6FA4 /* Bencoding.m */; };
 		2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */; };
 		2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B51B3B446E002666C6 /* ServerListController.m */; };
 		2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */; };
@@ -100,6 +101,8 @@
 		2C5810FA1B39A7B20069020D /* RPCServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfig.m; sourceTree = "<group>"; };
 		2C58110C1B39C3FC0069020D /* RPCServerConfigController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfigController.h; sourceTree = "<group>"; };
 		2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfigController.m; sourceTree = "<group>"; };
+		2C6668321B5BB180004B6FA4 /* Bencoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bencoding.h; sourceTree = "<group>"; };
+		2C6668331B5BB1D3004B6FA4 /* Bencoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bencoding.m; sourceTree = "<group>"; };
 		2C6D18B11B3B37CC002666C6 /* RPCServerConfigDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfigDB.h; sourceTree = "<group>"; };
 		2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfigDB.m; sourceTree = "<group>"; };
 		2C6D18B41B3B446E002666C6 /* ServerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListController.h; sourceTree = "<group>"; };
@@ -208,6 +211,7 @@
 		2C5810D81B39A5E50069020D /* TransmissionRPCClient */ = {
 			isa = PBXGroup;
 			children = (
+				2C6668311B5BB164004B6FA4 /* Bencoding */,
 				2C5810DD1B39A5E50069020D /* AppDelegate.h */,
 				2C5810DE1B39A5E50069020D /* AppDelegate.m */,
 				2CF91D0D1B3C62BF0093637A /* Model */,
@@ -277,6 +281,15 @@
 				2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */,
 			);
 			name = "RPC Server Config Controller";
+			sourceTree = "<group>";
+		};
+		2C6668311B5BB164004B6FA4 /* Bencoding */ = {
+			isa = PBXGroup;
+			children = (
+				2C6668321B5BB180004B6FA4 /* Bencoding.h */,
+				2C6668331B5BB1D3004B6FA4 /* Bencoding.m */,
+			);
+			name = Bencoding;
 			sourceTree = "<group>";
 		};
 		2C6757441B530B52005C9EDC /* Model */ = {
@@ -621,6 +634,7 @@
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
 				2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
+				2C6668341B5BB1D3004B6FA4 /* Bencoding.m in Sources */,
 				2C0E34A81B4006EB004303AB /* TRInfos.m in Sources */,
 				2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */,
 				2C5810DC1B39A5E50069020D /* main.m in Sources */,

@@ -136,6 +136,7 @@ NSString* formatByteCount(long long byteCount)
     {
         formatter = [[NSByteCountFormatter alloc] init];
         formatter.allowsNonnumericFormatting = NO;
+        formatter.countStyle = NSByteCountFormatterCountStyleBinary;
     }
     
     if( byteCount == 0 )
@@ -153,6 +154,9 @@ NSString* formatByteRate(long long bytesPerSeconds)
 NSString* formatDateFrom1970(NSTimeInterval seconds)
 {
     static NSDateFormatter *formatter = nil;
+    
+    if( seconds == 0 )
+        return @"-";
     
     if( !formatter )
     {

@@ -125,7 +125,11 @@
         }
         
         if( dict[TR_ARG_FIELDS_UPLOADRATIO] )
+        {
             _uploadRatio = [dict[TR_ARG_FIELDS_UPLOADRATIO] floatValue];
+            if( _uploadRatio < 0 )
+                _uploadRatio = 0;
+        }
         
         if( dict[TR_ARG_FIELDS_PEERSCONNECTED] )
             _peersConnected = [dict[TR_ARG_FIELDS_PEERSCONNECTED] intValue];

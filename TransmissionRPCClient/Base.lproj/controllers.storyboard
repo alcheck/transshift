@@ -904,8 +904,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PeD-6m-iZn" id="krO-tV-7mg">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Download rate limit (KB/s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0vZ-Sc-tn9">
-                                                    <rect key="frame" x="8" y="13" width="445" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Download rate limit (KB/s)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0vZ-Sc-tn9">
+                                                    <rect key="frame" x="8" y="8" width="445" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -929,10 +929,11 @@
                                                 <constraint firstItem="o1I-Jq-xnz" firstAttribute="leading" secondItem="ami-zV-vyv" secondAttribute="trailing" constant="8" symbolic="YES" id="84H-gm-WW6"/>
                                                 <constraint firstItem="0vZ-Sc-tn9" firstAttribute="leading" secondItem="krO-tV-7mg" secondAttribute="leadingMargin" id="A1K-T6-0vR"/>
                                                 <constraint firstItem="o1I-Jq-xnz" firstAttribute="trailing" secondItem="krO-tV-7mg" secondAttribute="trailingMargin" id="BhF-Q1-37J"/>
-                                                <constraint firstAttribute="centerY" secondItem="0vZ-Sc-tn9" secondAttribute="centerY" id="DJy-kQ-ItK"/>
                                                 <constraint firstAttribute="centerY" secondItem="o1I-Jq-xnz" secondAttribute="centerY" id="K1x-2d-HdV"/>
                                                 <constraint firstAttribute="centerY" secondItem="ami-zV-vyv" secondAttribute="centerY" id="WSq-4y-8Q9"/>
+                                                <constraint firstItem="0vZ-Sc-tn9" firstAttribute="top" secondItem="krO-tV-7mg" secondAttribute="topMargin" id="bXa-cs-MSk"/>
                                                 <constraint firstItem="ami-zV-vyv" firstAttribute="leading" secondItem="0vZ-Sc-tn9" secondAttribute="trailing" constant="8" symbolic="YES" id="jZl-Ot-Ah7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="0vZ-Sc-tn9" secondAttribute="bottom" id="m8K-BE-fk0"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -941,8 +942,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mUf-be-Khi" id="ZzK-Zw-BZw">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Upload rate limit (KB/s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LD8-gw-42B">
-                                                    <rect key="frame" x="8" y="13" width="445" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Upload rate limit (KB/s)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LD8-gw-42B">
+                                                    <rect key="frame" x="8" y="8" width="445" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -963,11 +964,12 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="LD8-gw-42B" secondAttribute="centerY" id="6Ea-eO-oMs"/>
                                                 <constraint firstAttribute="centerY" secondItem="KMw-Eh-ead" secondAttribute="centerY" id="7qD-Kq-VeM"/>
                                                 <constraint firstItem="KMw-Eh-ead" firstAttribute="trailing" secondItem="ZzK-Zw-BZw" secondAttribute="trailingMargin" id="D39-sP-REh"/>
                                                 <constraint firstItem="KMw-Eh-ead" firstAttribute="leading" secondItem="RDl-va-FuC" secondAttribute="trailing" constant="8" symbolic="YES" id="WUU-W2-61H"/>
                                                 <constraint firstItem="RDl-va-FuC" firstAttribute="leading" secondItem="LD8-gw-42B" secondAttribute="trailing" constant="8" symbolic="YES" id="Yxk-QH-5N5"/>
+                                                <constraint firstItem="LD8-gw-42B" firstAttribute="top" secondItem="ZzK-Zw-BZw" secondAttribute="topMargin" id="bVD-of-7A8"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LD8-gw-42B" secondAttribute="bottom" id="ead-yo-scz"/>
                                                 <constraint firstItem="LD8-gw-42B" firstAttribute="leading" secondItem="ZzK-Zw-BZw" secondAttribute="leadingMargin" id="iHc-sz-V8V"/>
                                                 <constraint firstAttribute="centerY" secondItem="RDl-va-FuC" secondAttribute="centerY" id="os9-JN-JIu"/>
                                             </constraints>
@@ -982,8 +984,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uAp-lJ-vdA" id="G1h-i7-quC">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Download rate limit (KB/s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6qR-bg-gbB">
-                                                    <rect key="frame" x="8" y="13" width="445" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Download rate limit (KB/s)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6qR-bg-gbB">
+                                                    <rect key="frame" x="8" y="8" width="445" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1005,11 +1007,12 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="r2F-Jq-fHv" firstAttribute="leading" secondItem="fxM-rt-hEh" secondAttribute="trailing" constant="8" symbolic="YES" id="6a2-aF-PkR"/>
-                                                <constraint firstAttribute="centerY" secondItem="6qR-bg-gbB" secondAttribute="centerY" id="BQg-ih-qlr"/>
                                                 <constraint firstItem="fxM-rt-hEh" firstAttribute="leading" secondItem="6qR-bg-gbB" secondAttribute="trailing" constant="8" symbolic="YES" id="C6I-xP-JNI"/>
                                                 <constraint firstAttribute="centerY" secondItem="r2F-Jq-fHv" secondAttribute="centerY" id="LvJ-JI-dfK"/>
                                                 <constraint firstItem="6qR-bg-gbB" firstAttribute="leading" secondItem="G1h-i7-quC" secondAttribute="leadingMargin" id="M1i-G6-092"/>
                                                 <constraint firstItem="r2F-Jq-fHv" firstAttribute="trailing" secondItem="G1h-i7-quC" secondAttribute="trailingMargin" id="PO9-q2-rOd"/>
+                                                <constraint firstItem="6qR-bg-gbB" firstAttribute="top" secondItem="G1h-i7-quC" secondAttribute="topMargin" id="eov-AD-z3T"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6qR-bg-gbB" secondAttribute="bottom" id="hJk-6R-2kY"/>
                                                 <constraint firstAttribute="centerY" secondItem="fxM-rt-hEh" secondAttribute="centerY" id="kZ0-wz-pNi"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1019,8 +1022,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kM6-Ni-nqC" id="8WZ-j4-8bM">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Upload rate limit (KB/s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2eP-Fa-9ww">
-                                                    <rect key="frame" x="8" y="13" width="445" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Upload rate limit (KB/s)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2eP-Fa-9ww">
+                                                    <rect key="frame" x="8" y="8" width="445" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1041,12 +1044,13 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2eP-Fa-9ww" secondAttribute="bottom" id="8XO-of-BQc"/>
                                                 <constraint firstItem="XWA-IG-5XD" firstAttribute="leading" secondItem="AoW-LT-tzM" secondAttribute="trailing" constant="8" symbolic="YES" id="9Ad-tE-66E"/>
+                                                <constraint firstItem="2eP-Fa-9ww" firstAttribute="top" secondItem="8WZ-j4-8bM" secondAttribute="topMargin" id="HcI-vY-dvt"/>
                                                 <constraint firstAttribute="centerY" secondItem="XWA-IG-5XD" secondAttribute="centerY" id="TiO-h9-qAQ"/>
                                                 <constraint firstItem="AoW-LT-tzM" firstAttribute="leading" secondItem="2eP-Fa-9ww" secondAttribute="trailing" constant="8" symbolic="YES" id="Tpo-0p-WjF"/>
                                                 <constraint firstItem="XWA-IG-5XD" firstAttribute="trailing" secondItem="8WZ-j4-8bM" secondAttribute="trailingMargin" id="aoc-1C-5Mp"/>
                                                 <constraint firstAttribute="centerY" secondItem="AoW-LT-tzM" secondAttribute="centerY" id="d0X-0y-S0i"/>
-                                                <constraint firstAttribute="centerY" secondItem="2eP-Fa-9ww" secondAttribute="centerY" id="nLV-7U-nmH"/>
                                                 <constraint firstItem="2eP-Fa-9ww" firstAttribute="leading" secondItem="8WZ-j4-8bM" secondAttribute="leadingMargin" id="yQB-g1-0aR"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1060,8 +1064,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CeH-Fy-W1l" id="6Nu-sq-UEi">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Add &quot;.part&quot; to unfinished files" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HDh-66-iu2">
-                                                    <rect key="frame" x="8" y="13" width="527" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Add &quot;.part&quot; to unfinished files" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HDh-66-iu2">
+                                                    <rect key="frame" x="8" y="8" width="527" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1071,7 +1075,8 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="HDh-66-iu2" secondAttribute="centerY" id="5hk-Tc-owt"/>
+                                                <constraint firstItem="HDh-66-iu2" firstAttribute="top" secondItem="6Nu-sq-UEi" secondAttribute="topMargin" id="3Mu-1B-87j"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HDh-66-iu2" secondAttribute="bottom" id="8dj-Fd-4ly"/>
                                                 <constraint firstItem="ES4-nH-JxS" firstAttribute="trailing" secondItem="6Nu-sq-UEi" secondAttribute="trailingMargin" id="PmD-AO-WhR"/>
                                                 <constraint firstAttribute="centerY" secondItem="ES4-nH-JxS" secondAttribute="centerY" id="fz3-58-2Ge"/>
                                                 <constraint firstItem="HDh-66-iu2" firstAttribute="leading" secondItem="6Nu-sq-UEi" secondAttribute="leadingMargin" id="kdy-ix-M6e"/>
@@ -1084,8 +1089,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cXf-Qu-Nl1" id="7hc-IY-a7f">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Start download after add" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WzS-rd-gA2">
-                                                    <rect key="frame" x="8" y="13" width="527" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Start download after add" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WzS-rd-gA2">
+                                                    <rect key="frame" x="8" y="8" width="527" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1097,9 +1102,10 @@
                                             <constraints>
                                                 <constraint firstItem="syh-dH-5We" firstAttribute="leading" secondItem="WzS-rd-gA2" secondAttribute="trailing" constant="8" symbolic="YES" id="04h-Gf-ZOs"/>
                                                 <constraint firstItem="syh-dH-5We" firstAttribute="trailing" secondItem="7hc-IY-a7f" secondAttribute="trailingMargin" id="2Sc-ko-MB4"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="WzS-rd-gA2" secondAttribute="bottom" id="MO2-cf-4Jz"/>
                                                 <constraint firstItem="WzS-rd-gA2" firstAttribute="leading" secondItem="7hc-IY-a7f" secondAttribute="leadingMargin" id="ahA-q1-wVl"/>
                                                 <constraint firstAttribute="centerY" secondItem="syh-dH-5We" secondAttribute="centerY" id="fXz-BP-rBQ"/>
-                                                <constraint firstAttribute="centerY" secondItem="WzS-rd-gA2" secondAttribute="centerY" id="zii-iO-jOI"/>
+                                                <constraint firstItem="WzS-rd-gA2" firstAttribute="top" secondItem="7hc-IY-a7f" secondAttribute="topMargin" id="kSz-Ib-e8F"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1112,8 +1118,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Z7-ZI-eUC" id="sri-1x-EsQ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Stop seeding if ratio more than" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bH3-2W-RoQ">
-                                                    <rect key="frame" x="8" y="13" width="469" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Stop seeding if ratio more than" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bH3-2W-RoQ">
+                                                    <rect key="frame" x="8" y="8" width="469" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1134,10 +1140,11 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="bH3-2W-RoQ" secondAttribute="bottom" id="1KK-20-pC9"/>
                                                 <constraint firstAttribute="centerY" secondItem="AWf-Yf-DAl" secondAttribute="centerY" id="4Yq-fz-Bcb"/>
                                                 <constraint firstItem="bH3-2W-RoQ" firstAttribute="leading" secondItem="sri-1x-EsQ" secondAttribute="leadingMargin" id="DUt-12-Iog"/>
                                                 <constraint firstItem="AWf-Yf-DAl" firstAttribute="leading" secondItem="gEz-0h-Lfs" secondAttribute="trailing" constant="8" symbolic="YES" id="UrF-w7-yek"/>
-                                                <constraint firstAttribute="centerY" secondItem="bH3-2W-RoQ" secondAttribute="centerY" id="aG5-Zs-hzY"/>
+                                                <constraint firstItem="bH3-2W-RoQ" firstAttribute="top" secondItem="sri-1x-EsQ" secondAttribute="topMargin" id="aPI-o4-jPg"/>
                                                 <constraint firstItem="AWf-Yf-DAl" firstAttribute="trailing" secondItem="sri-1x-EsQ" secondAttribute="trailingMargin" id="kp6-65-eRW"/>
                                                 <constraint firstItem="gEz-0h-Lfs" firstAttribute="leading" secondItem="bH3-2W-RoQ" secondAttribute="trailing" constant="8" symbolic="YES" id="qpF-h7-VFX"/>
                                                 <constraint firstAttribute="centerY" secondItem="gEz-0h-Lfs" secondAttribute="centerY" id="xLl-zg-kyv"/>
@@ -1149,8 +1156,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y5J-Q4-5sy" id="PM0-tm-1rl">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Stop seeding if torrent idle more than(min)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Aj1-0q-21X">
-                                                    <rect key="frame" x="8" y="13" width="469" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Stop seeding if torrent idle more than(min)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Aj1-0q-21X">
+                                                    <rect key="frame" x="8" y="8" width="469" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1171,12 +1178,13 @@
                                                 </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Aj1-0q-21X" firstAttribute="top" secondItem="PM0-tm-1rl" secondAttribute="topMargin" id="Hhg-Jb-W5U"/>
                                                 <constraint firstItem="UOG-Zv-kEX" firstAttribute="trailing" secondItem="PM0-tm-1rl" secondAttribute="trailingMargin" id="Sr5-yy-CWI"/>
-                                                <constraint firstAttribute="centerY" secondItem="Aj1-0q-21X" secondAttribute="centerY" id="WKl-z4-8op"/>
                                                 <constraint firstItem="Jyj-0e-xdY" firstAttribute="leading" secondItem="Aj1-0q-21X" secondAttribute="trailing" constant="8" symbolic="YES" id="Ycl-cC-igY"/>
                                                 <constraint firstItem="UOG-Zv-kEX" firstAttribute="leading" secondItem="Jyj-0e-xdY" secondAttribute="trailing" constant="8" symbolic="YES" id="dcI-Xq-z2e"/>
                                                 <constraint firstAttribute="centerY" secondItem="UOG-Zv-kEX" secondAttribute="centerY" id="mQ1-I9-YcE"/>
                                                 <constraint firstItem="Aj1-0q-21X" firstAttribute="leading" secondItem="PM0-tm-1rl" secondAttribute="leadingMargin" id="qlg-J6-oag"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Aj1-0q-21X" secondAttribute="bottom" id="sZ4-F5-fjK"/>
                                                 <constraint firstAttribute="centerY" secondItem="Jyj-0e-xdY" secondAttribute="centerY" id="tcT-QJ-UNM"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1190,7 +1198,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Vc-3s-MwA" id="46P-G9-6X2">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total maximum peers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0JR-EM-310">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total maximum peers" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0JR-EM-310">
                                                     <rect key="frame" x="8" y="13" width="526" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1219,7 +1227,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pkb-Xi-o3l" id="OOW-Bf-ax2">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max peers per one torrent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Yg5-aF-OXv">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max peers per one torrent" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Yg5-aF-OXv">
                                                     <rect key="frame" x="8" y="13" width="526" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1252,7 +1260,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IyB-mK-8Eh" id="znK-hP-Odw">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Encryption" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="THE-kA-8rE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Encryption" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="THE-kA-8rE">
                                                     <rect key="frame" x="8" y="13" width="346" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1261,7 +1269,7 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yEn-nb-ZFk">
                                                     <rect key="frame" x="362" y="8" width="230" height="29"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="230" id="Qxj-0y-tkp"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="230" id="Qxj-0y-tkp"/>
                                                     </constraints>
                                                     <segments>
                                                         <segment title="required"/>
@@ -1284,7 +1292,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xRp-ED-Rap" id="7fL-OH-tCa">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable DHT (Distibuted Hash Table)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HOp-Lq-jYU">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable DHT (Distibuted Hash Table)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HOp-Lq-jYU">
                                                     <rect key="frame" x="8" y="13" width="527" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1311,7 +1319,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yvL-2y-TlT">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable PEX (Peer Exchange)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Wqc-cN-4bi">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable PEX (Peer Exchange)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Wqc-cN-4bi">
                                                     <rect key="frame" x="8" y="13" width="527" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1332,7 +1340,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3fz-C8-pVx" id="VbF-bZ-Xfd">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable LPD (Local Peer Descovery)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ueC-fy-EGJ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable LPD (Local Peer Descovery)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ueC-fy-EGJ">
                                                     <rect key="frame" x="8" y="13" width="527" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1356,7 +1364,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kxg-NC-ylA" id="VVh-vN-TeV">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Enable Micro Transport Protocol (μTP)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sCw-SS-b8B">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Enable Micro Transport Protocol (μTP)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sCw-SS-b8B">
                                                     <rect key="frame" x="8" y="13" width="527" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1384,7 +1392,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Hs-G9-k71" id="AfW-3T-nSi">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Use random port on start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qb3-Gn-Puo">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Use random port on start" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qb3-Gn-Puo">
                                                     <rect key="frame" x="8" y="13" width="527" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1411,7 +1419,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g29-r3-WNt" id="Fcb-Am-seQ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Enable automatic port forwarding" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4hU-yU-Sph">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Enable automatic port forwarding" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4hU-yU-Sph">
                                                     <rect key="frame" x="8" y="13" width="527" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

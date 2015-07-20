@@ -74,8 +74,9 @@
     {
         UINavigationController *nc = self.splitViewController.viewControllers[1];
         TorrentListController *tlc = nc.viewControllers[0];
+        
         tlc.items = nil;
-
+        tlc.infoMessage = NSLocalizedString( @"There is no selected server.", @"" );
         tlc.popoverButtonTitle = SERVERLIST_CONTROLLER_TITLE;
         
         [nc popToRootViewControllerAnimated:YES];

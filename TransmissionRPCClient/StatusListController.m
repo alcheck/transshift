@@ -223,7 +223,7 @@
     float factor = 1.2;
     if( self.splitViewController )
     {
-        factor = 2.3;
+        factor = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation) ? 1.8 : 2.3;
         v = self.splitViewController.view;
     }
     
@@ -238,7 +238,7 @@
     float factor = 1.2;
     if( self.splitViewController )
     {
-        factor = 2.3;
+        factor = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation) ? 1.8 : 2.3;
         v = self.splitViewController.view;
     }
     

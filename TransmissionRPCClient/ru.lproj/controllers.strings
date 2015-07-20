@@ -120,7 +120,7 @@
 "KMw-Eh-ead.placeholder" = "Кб/с";
 
 /* Class = "UILabel"; text = "↓DL rate"; ObjectID = "Kxc-Le-bIt"; */
-"Kxc-Le-bIt.text" = "↓ЗГ скорость";
+"Kxc-Le-bIt.text" = "↓DL";
 
 /* Class = "UILabel"; text = "Upload rate limit (KB/s)"; ObjectID = "LD8-gw-42B"; */
 "LD8-gw-42B.text" = "Ограничение скорости отдачи (Кб/с)";
@@ -129,7 +129,7 @@
 "MYH-Nq-x7V.text" = "-";
 
 /* Class = "UILabel"; text = "Hash"; ObjectID = "Ntj-cE-m1a"; */
-"Ntj-cE-m1a.text" = "Хешь";
+"Ntj-cE-m1a.text" = "Хэш";
 
 /* Class = "UILabel"; text = "http://192.168.0.1:8090/transmission/rpc"; ObjectID = "OAv-EQ-tHa"; */
 "OAv-EQ-tHa.text" = "http://192.168.0.1:8090/transmission/rpc";
@@ -267,7 +267,7 @@
 "exP-qX-7he.headerTitle" = "Ограничения раздачи";
 
 /* Class = "UILabel"; text = "Added"; ObjectID = "eyn-GO-hIq"; */
-"eyn-GO-hIq.text" = "Добавлено";
+"eyn-GO-hIq.text" = "Добавлен";
 
 /* Class = "UILabel"; text = "234.0 Kb of 5.6 GB"; ObjectID = "fpS-ju-QSU"; */
 "fpS-ju-QSU.text" = "234.0 Kb of 5.6 GB";
@@ -366,10 +366,10 @@
 "ugc-JD-qEY.text" = "Приоритет трафика";
 
 /* Class = "UILabel"; text = "↑UP rate"; ObjectID = "wWp-FG-rqG"; */
-"wWp-FG-rqG.text" = "↑UP rate";
+"wWp-FG-rqG.text" = "↑UP";
 
 /* Class = "UILabel"; text = "Completed"; ObjectID = "xOI-dc-Zt9"; */
-"xOI-dc-Zt9.text" = "Завершено";
+"xOI-dc-Zt9.text" = "Завершен";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "xgI-5a-q7Q"; */
 "xgI-5a-q7Q.text" = "Label";

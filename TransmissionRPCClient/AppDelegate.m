@@ -14,8 +14,8 @@
 #import "ChooseServerToAddTorrentController.h"
 #import "TorrentListController.h"
 #import "InfoMessage.h"
-
 #import "FSDirectory.h"
+#import "Bencoding.h"
 
 @interface AppDelegate() <RPCConnectorDelegate>
 
@@ -92,9 +92,42 @@
         _torrentFileDataToAdd = nil;
         _magnetURLString = nil;
         
+        NSString *trName = nil;
+        NSString *trSize = nil;
+        FSDirectory *fs = nil;
+        
         if( ![url.scheme isEqualToString:@"magnet"] )
         {
             _torrentFileDataToAdd = [NSData dataWithContentsOfURL:url];
+            
+            //NSString *sizeStr = formatByteCount(_torrentFileDataToAdd.length);
+            
+            NSDictionary *trData = decodeObjectFromBencodedData(_torrentFileDataToAdd);
+            
+            if (trData)
+            {
+                fs = [FSDirectory directory];
+                // get name
+                trName = trData[@"info"][@"name"];
+                
+                long long c = 0;
+                int idx = 0;
+                
+                for( NSDictionary *fileDesc in trData[@"info"][@"files"] )
+                {
+                    c += [fileDesc[@"length"] longLongValue];
+                    
+                    NSMutableString *fileFullPath = [NSMutableString string];
+                    
+                    for( NSString *path in fileDesc[@"path"] )
+                        [fileFullPath appendString:path];
+                    
+                    [fs addFilePath:fileFullPath withIndex:idx];
+                    idx++;
+                }
+                
+                trSize = formatByteCount(c);
+            }
         }
         else
         {
@@ -107,12 +140,9 @@
             // presenting view controller to choose from several remote servers
             ChooseServerToAddTorrentController *chooseServerController = instantiateController( CONTROLLER_ID_CHOOSESERVER );
             
-            NSByteCountFormatter *byteFormatter = [[NSByteCountFormatter alloc] init];
-            byteFormatter.allowsNonnumericFormatting = NO;
-            
             chooseServerController.headerInfoMessage = _magnetURLString ?
                 [NSString stringWithFormat: NSLocalizedString(@"Add torrent with magnet link:\n%@", @""), _magnetURLString] :
-                [NSString stringWithFormat: NSLocalizedString(@"Add torrent with file size: %@", @""), [byteFormatter stringFromByteCount:_torrentFileDataToAdd.length]];
+                [NSString stringWithFormat: NSLocalizedString(@"Add torrent with file size: %@", @""), trName, trSize ];
             
             UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                            style:UIBarButtonItemStylePlain
