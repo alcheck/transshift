@@ -85,7 +85,7 @@
 @property(nonatomic) int           seedIdleMode;
 @property(nonatomic) int           seedIdleLimit;
 @property(nonatomic) int           seedRatioMode;
-@property(nonatomic) int           seedRatioLimit;
+@property(nonatomic) float         seedRatioLimit;
 @property(nonatomic) int           queuePosition;
 
 @end

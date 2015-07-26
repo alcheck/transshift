@@ -118,7 +118,7 @@
     }
     
     info.seedRatioMode = _switchRatioLimit.on ? 1 : 0;
-    info.seedRatioLimit = [_textSeedRatioLimit.text intValue];
+    info.seedRatioLimit = [_textSeedRatioLimit.text floatValue];
     if( info.seedRatioMode > 0 && info.seedRatioLimit <= 0 )
     {
         self.errorMessage = NSLocalizedString(@"Seed ratio limit must be greater then zero", @"");
@@ -363,7 +363,7 @@
         _textUploadLimit.text = [NSString stringWithFormat:@"%i", trInfo.uploadLimit];
         _textDownloadLimit.text = [NSString stringWithFormat:@"%i", trInfo.downloadLimit];
         _textSeedIdleLimit.text = [NSString stringWithFormat:@"%i", trInfo.seedIdleLimit];
-        _textSeedRatioLimit.text = [NSString stringWithFormat:@"%i", trInfo.seedRatioLimit];
+        _textSeedRatioLimit.text = [NSString stringWithFormat:@"%.2f", trInfo.seedRatioLimit];
         
         //_applyButton.enabled = YES;
         self.enableControls = YES;
@@ -431,5 +431,13 @@
     _textSeedIdleLimit.enabled = sender.on;
     _applyButton.enabled = YES;
 }
+- (IBAction)bandwidthPriorityChanged:(UISegmentedControl *)sender
+{
+    _applyButton.enabled = YES;
+}
 
+- (IBAction)textFieldChanged:(id)sender
+{
+    _applyButton.enabled = YES;
+}
 @end

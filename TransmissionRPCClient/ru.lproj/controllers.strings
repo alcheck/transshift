@@ -26,6 +26,9 @@
 /* Class = "UILabel"; text = "Время раздачи"; ObjectID = "6Ct-WB-aTy"; */
 "6Ct-WB-aTy.text" = "Время раздачи";
 
+/* Class = "UILabel"; text = "Bandwidth priority"; ObjectID = "6m4-u2-43E"; */
+"6m4-u2-43E.text" = "Приоритет трафика";
+
 /* Class = "UILabel"; text = "Ограничение скорости загрузки (Кб/с)"; ObjectID = "6qR-bg-gbB"; */
 "6qR-bg-gbB.text" = "Ограничение скорости загрузки (Кб/с)";
 
@@ -59,11 +62,23 @@
 /* Class = "UILabel"; text = "Giga"; ObjectID = "Bws-TG-qbq"; */
 "Bws-TG-qbq.text" = "Giga";
 
+/* Class = "UITextField"; text = "30"; ObjectID = "E3d-h7-z4B"; */
+"E3d-h7-z4B.text" = "30";
+
 /* Class = "UILabel"; text = "Флаги"; ObjectID = "Esm-x4-mUM"; */
 "Esm-x4-mUM.text" = "Флаги";
 
 /* Class = "UILabel"; text = "Указать файлы/папки для загрузки"; ObjectID = "F3g-l8-p6g"; */
 "F3g-l8-p6g.text" = "Указать файлы/папки для загрузки";
+
+/* Class = "UISegmentedControl"; FDU-hn-Dfw.segmentTitles[0] = "Low"; ObjectID = "FDU-hn-Dfw"; */
+"FDU-hn-Dfw.segmentTitles[0]" = "Низ.";
+
+/* Class = "UISegmentedControl"; FDU-hn-Dfw.segmentTitles[1] = "Normal"; ObjectID = "FDU-hn-Dfw"; */
+"FDU-hn-Dfw.segmentTitles[1]" = "Норм.";
+
+/* Class = "UISegmentedControl"; FDU-hn-Dfw.segmentTitles[2] = "High"; ObjectID = "FDU-hn-Dfw"; */
+"FDU-hn-Dfw.segmentTitles[2]" = "Выс.";
 
 /* Class = "UITextField"; placeholder = "8090"; ObjectID = "FPd-0s-og7"; */
 "FPd-0s-og7.placeholder" = "8090";
@@ -82,6 +97,9 @@
 
 /* Class = "UILabel"; text = "Адрес"; ObjectID = "GvZ-l6-cHd"; */
 "GvZ-l6-cHd.text" = "Адрес";
+
+/* Class = "UITextField"; text = "200"; ObjectID = "Gz6-qM-ZPF"; */
+"Gz6-qM-ZPF.text" = "200";
 
 /* Class = "UILabel"; text = "Загрузка с 5 из 10 пиров"; ObjectID = "HAT-qH-kcb"; */
 "HAT-qH-kcb.text" = "Загрузка с 5 из 10 пиров";
@@ -122,6 +140,9 @@
 /* Class = "UITextField"; placeholder = "Кб/с"; ObjectID = "KMw-Eh-ead"; */
 "KMw-Eh-ead.placeholder" = "Кб/с";
 
+/* Class = "UITableViewSection"; headerTitle = "Individual settings"; ObjectID = "Kun-nG-5NI"; */
+"Kun-nG-5NI.headerTitle" = "Персональные настройки";
+
 /* Class = "UILabel"; text = "↓DL"; ObjectID = "Kxc-Le-bIt"; */
 "Kxc-Le-bIt.text" = "↓DL";
 
@@ -138,7 +159,7 @@
 "OAv-EQ-tHa.text" = "http://192.168.0.1:8090/transmission/rpc";
 
 /* Class = "UILabel"; text = "Leechers"; ObjectID = "OJf-Fy-Yc2"; */
-"OJf-Fy-Yc2.text" = "Leechers";
+"OJf-Fy-Yc2.text" = "Личеры";
 
 /* Class = "UILabel"; text = "999"; ObjectID = "OPD-ix-MD5"; */
 "OPD-ix-MD5.text" = "999";
@@ -161,14 +182,26 @@
 /* Class = "UILabel"; text = "Обновление (с)"; ObjectID = "Rw9-Gs-O5C"; */
 "Rw9-Gs-O5C.text" = "Обновление (с)";
 
+/* Class = "UILabel"; text = "Download limit (Kb/s)"; ObjectID = "S5e-OZ-1he"; */
+"S5e-OZ-1he.text" = "Лимит загрузки (Кб/с)";
+
+/* Class = "UILabel"; text = "Seed ratio limit"; ObjectID = "SdZ-ov-LUD"; */
+"SdZ-ov-LUD.text" = "Лимит рейтинга";
+
 /* Class = "UITextField"; placeholder = "ваше имя"; ObjectID = "Sm9-YI-oby"; */
 "Sm9-YI-oby.placeholder" = "ваше имя";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "T2X-Jo-QJA"; */
 "T2X-Jo-QJA.text" = "-";
 
+/* Class = "UILabel"; text = "Queue positon"; ObjectID = "T4C-mC-ash"; */
+"T4C-mC-ash.text" = "Позиция в очереди";
+
 /* Class = "UILabel"; text = "Шифрование"; ObjectID = "THE-kA-8rE"; */
 "THE-kA-8rE.text" = "Шифрование";
+
+/* Class = "UILabel"; text = "Upload limit (Kb/s)"; ObjectID = "TI2-y7-vZ7"; */
+"TI2-y7-vZ7.text" = "Лимит отдачи (Кб/с)";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "TVp-YQ-Qnb"; */
 "TVp-YQ-Qnb.text" = "-";
@@ -191,7 +224,7 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "Uo0-AC-D7C"; */
 "Uo0-AC-D7C.text" = "-";
 
-/* Class = "UILabel"; text = "Show trackers"; ObjectID = "V6S-dk-axY"; */
+/* Class = "UILabel"; text = "Просмотр списка трекеров"; ObjectID = "V6S-dk-axY"; */
 "V6S-dk-axY.text" = "Просмотр списка трекеров";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "Vp5-2R-l87"; */
@@ -202,6 +235,9 @@
 
 /* Class = "UILabel"; text = "Запрос (с)"; ObjectID = "WCI-Nz-rrA"; */
 "WCI-Nz-rrA.text" = "Запрос (с)";
+
+/* Class = "UITextField"; text = "1.5"; ObjectID = "WlW-K3-8QX"; */
+"WlW-K3-8QX.text" = "1.5";
 
 /* Class = "UILabel"; text = "Разрешить PEX"; ObjectID = "Wqc-cN-4bi"; */
 "Wqc-cN-4bi.text" = "Разрешить PEX";
@@ -231,7 +267,7 @@
 "a5E-hR-nP1.headerTitle" = "Детали";
 
 /* Class = "UILabel"; text = "Tracker host"; ObjectID = "a80-Sw-DBf"; */
-"a80-Sw-DBf.text" = "Tracker host";
+"a80-Sw-DBf.text" = "Хост трекера";
 
 /* Class = "UILabel"; text = "Имя торрента"; ObjectID = "b02-ZR-iDV"; */
 "b02-ZR-iDV.text" = "Имя торрента";
@@ -255,7 +291,7 @@
 "c6j-2D-Zuw.text" = "Просмотр списка пиров";
 
 /* Class = "UILabel"; text = "Tracker Host"; ObjectID = "cNx-Tz-4s1"; */
-"cNx-Tz-4s1.text" = "Tracker Host";
+"cNx-Tz-4s1.text" = "Хост трекера";
 
 /* Class = "UITableViewSection"; headerTitle = "Альтернативные ограничения скоростей"; ObjectID = "cOh-W3-4Fc"; */
 "cOh-W3-4Fc.headerTitle" = "Альтернативные ограничения скоростей";
@@ -302,11 +338,17 @@
 /* Class = "UITableViewSection"; headerTitle = "Коментарий"; ObjectID = "hEX-eC-vB8"; */
 "hEX-eC-vB8.headerTitle" = "Коментарий";
 
+/* Class = "UILabel"; text = "Seed idle limit (min)"; ObjectID = "hNE-ff-j0p"; */
+"hNE-ff-j0p.text" = "Лимит простоя (мин)";
+
 /* Class = "UILabel"; text = "Порт"; ObjectID = "hzH-73-gue"; */
 "hzH-73-gue.text" = "Порт";
 
 /* Class = "UILabel"; text = "Next scrape announce time"; ObjectID = "i2i-86-fbl"; */
 "i2i-86-fbl.text" = "Next scrape announce time";
+
+/* Class = "UITextField"; text = "200"; ObjectID = "iUk-mi-jCD"; */
+"iUk-mi-jCD.text" = "200";
 
 /* Class = "UILabel"; text = "Downloads"; ObjectID = "iuw-QH-sPc"; */
 "iuw-QH-sPc.text" = "Downloads";
@@ -379,6 +421,9 @@
 
 /* Class = "UITableViewSection"; headerTitle = "Соединения"; ObjectID = "sNG-b2-8sg"; */
 "sNG-b2-8sg.headerTitle" = "Соединения";
+
+/* Class = "UILabel"; text = "14"; ObjectID = "sba-ol-8ba"; */
+"sba-ol-8ba.text" = "14";
 
 /* Class = "UILabel"; text = "Имя сервера"; ObjectID = "sdY-X2-3mK"; */
 "sdY-X2-3mK.text" = "Имя сервера";

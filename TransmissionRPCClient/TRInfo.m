@@ -23,7 +23,10 @@
 // close default initializer
 - (instancetype)init
 {
-    @throw [NSException exceptionWithName:@"TRInfo" reason:@"TRInfo object should be initialized from class method +infoFromJSON:" userInfo:nil];
+    self = [super init];
+    
+    return self;
+    //@throw [NSException exceptionWithName:@"TRInfo" reason:@"TRInfo object should be initialized from class method +infoFromJSON:" userInfo:nil];
 }
 
 - (instancetype)initFromJSON:(NSDictionary*)dict
@@ -245,7 +248,7 @@
         if( dict[TR_ARG_FIELDS_SEEDRATIOMODE] )
         {
             _seedRatioMode = [dict[TR_ARG_FIELDS_SEEDRATIOMODE] intValue];
-            _seedRatioLimit = [dict[TR_ARG_FIELDS_SEEDRATIOLIMIT] intValue];
+            _seedRatioLimit = [dict[TR_ARG_FIELDS_SEEDRATIOLIMIT] floatValue];
         }
         
      }

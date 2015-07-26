@@ -1748,6 +1748,24 @@
             </objects>
             <point key="canvasLocation" x="3098" y="-84"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Qox-VT-fiK">
+            <objects>
+                <viewController id="44h-qu-OkN" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A4E-1z-Ayg"/>
+                        <viewControllerLayoutGuide type="bottom" id="7Hg-7i-xPp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gWk-QK-LEz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mub-pY-fXm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3098" y="569"/>
+        </scene>
         <!--Server List Controller-->
         <scene sceneID="1ZD-za-5lK">
             <objects>
@@ -2388,6 +2406,9 @@
                                                         <segment title="Normal"/>
                                                         <segment title="High"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="bandwidthPriorityChanged:" destination="tX2-Nb-0uX" eventType="valueChanged" id="Rl0-IX-ars"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
@@ -2426,6 +2447,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textFieldChanged:" destination="tX2-Nb-0uX" eventType="editingDidEnd" id="ecs-jv-ydT"/>
+                                                    </connections>
                                                 </textField>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bx4-9f-C64">
                                                     <rect key="frame" x="474" y="6" width="51" height="31"/>
@@ -2472,6 +2496,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textFieldChanged:" destination="tX2-Nb-0uX" eventType="editingDidEnd" id="UTa-Kr-EFm"/>
+                                                    </connections>
                                                 </textField>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bzZ-Z2-WEo">
                                                     <rect key="frame" x="474" y="6" width="51" height="31"/>
@@ -2518,6 +2545,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textFieldChanged:" destination="tX2-Nb-0uX" eventType="editingDidEnd" id="K6K-9p-4Qr"/>
+                                                    </connections>
                                                 </textField>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fp0-3Y-Do2">
                                                     <rect key="frame" x="474" y="6" width="51" height="31"/>
@@ -2570,6 +2600,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textFieldChanged:" destination="tX2-Nb-0uX" eventType="editingDidEnd" id="1Y3-Ay-PkR"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
