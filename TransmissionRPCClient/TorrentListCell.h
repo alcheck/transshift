@@ -23,5 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonStopResume;
 
 @property (nonatomic) int torrentId;
+@property (weak, nonatomic) IBOutlet UIImageView *iconRateLimit;
+@property (weak, nonatomic) IBOutlet UIImageView *iconRatioLimit;
+@property (weak, nonatomic) IBOutlet UIImageView *iconIdleLimit;
 
 @end

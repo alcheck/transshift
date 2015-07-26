@@ -47,7 +47,11 @@
                         TR_ARG_FIELDS_UPLOADRATIO,
                         TR_ARG_FIELDS_RECHECKPROGRESS,
                         TR_ARG_FIELDS_DOWNLOADEDEVER,
-                        TR_ARG_FIELDS_ETA
+                        TR_ARG_FIELDS_ETA,
+                        TR_ARG_FIELDS_SEEDRATIOMODE,
+                        TR_ARG_FIELDS_SEEDIDLEMODE,
+                        TR_ARG_FIELDS_UPLOADLIMITED,
+                        TR_ARG_FIELDS_DOWNLOADLIMITED
                     ]
         }
     };

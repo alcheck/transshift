@@ -360,6 +360,15 @@
     cell.statusIcon.tintColor = progressBarColor;
     cell.buttonStopResume.imageView.image = btnImg;
     cell.buttonStopResume.tintColor = btnTintColor;
+    
+    // set icons of limits
+    cell.iconRateLimit.hidden = !(info.downloadLimitEnabled || info.uploadLimitEnabled);
+    cell.iconRatioLimit.hidden = !(info.seedRatioMode > 0);
+    cell.iconIdleLimit.hidden = !(info.seedIdleMode > 0);
+    
+    cell.iconRateLimit.image = [cell.iconRateLimit.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    cell.iconIdleLimit.image = [cell.iconIdleLimit.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    cell.iconRatioLimit.image = [cell.iconRatioLimit.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 - (void)playPauseButtonPressed:(UIButton*)sender
