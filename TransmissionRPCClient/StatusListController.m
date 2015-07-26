@@ -298,15 +298,19 @@
     [_connector getAllTorrents];
    
     UINavigationController *nav = _torrentController.navigationController;
+    UIViewController *top = nav.topViewController;
     
-    if( nav.topViewController == _torrentInfoController )
+    if( top == _torrentInfoController )
         [_connector getDetailedInfoForTorrentWithId:_torrentInfoController.torrentId];
     
-    else if( nav.topViewController == _peerListController)
+    else if( top == _peerListController)
         [_connector getAllPeersForTorrentWithId:_peerListController.torrentId];
     
-    else if( nav.topViewController == _fileListController )
+    else if( top == _fileListController )
         [_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
+    
+    else if( top == _trackerListController )
+        [_connector getAllTrackersForTorrentWithId:_trackerListController.torrentId];
     
     //if( _sessionInfo )
         // update free space
@@ -383,9 +387,6 @@
 {
     [self.refreshControl endRefreshing];
     [_torrentController.refreshControl endRefreshing];
-  
-    // clear error message    
-    //self.headerTitleString = @"Request OK";
 }
 
 // got all torrents, refresh statues
@@ -1014,6 +1015,23 @@
 {
     [self showInfoPopup:NSLocalizedString(@"Tracker has been removed", @"")];
     [_connector getAllTrackersForTorrentWithId:torrentId];
+}
+
+- (void)applyTorrentSettings:(TRInfo *)info forTorrentWithId:(int)torrentId
+{
+    if( _torrentInfoController )
+    {
+        UINavigationController *nav = _torrentInfoController.navigationController;
+        [nav popViewControllerAnimated:YES];
+
+        //NSLog(@"Setting torrent individual settings ... ");
+        [_connector setSettings:info forTorrentWithId:torrentId];
+    }
+}
+
+- (void)gotSetSettingsForTorrentWithId:(int)torrentId
+{
+    [self showInfoPopup:NSLocalizedString(@"Torrent settings has been applied", @"")];
 }
 
 #pragma mark - TableView delegate

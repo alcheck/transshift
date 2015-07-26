@@ -143,6 +143,7 @@
 		2CF72FFE1B651180007D5354 /* TrackerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackerListController.m; sourceTree = "<group>"; };
 		2CF730001B6514E5007D5354 /* TrackerInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackerInfoCell.h; sourceTree = "<group>"; };
 		2CF730011B6514E5007D5354 /* TrackerInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackerInfoCell.m; sourceTree = "<group>"; };
+		2CF730041B652DE8007D5354 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/controllers.strings; sourceTree = "<group>"; };
 		2CF7D5121B42E78C006D01FD /* PeerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListController.h; sourceTree = "<group>"; };
 		2CF7D5131B42E78C006D01FD /* PeerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListController.m; sourceTree = "<group>"; };
 		2CF8C7631B4302F7005A7DD6 /* PeerListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListCell.h; sourceTree = "<group>"; };
@@ -172,7 +173,6 @@
 		2CFAB9131B49B7FD00BE71D9 /* TRSessionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSessionInfo.h; sourceTree = "<group>"; };
 		2CFAB9141B49B7FD00BE71D9 /* TRSessionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRSessionInfo.m; sourceTree = "<group>"; };
 		2CFB92CE1B56D25400C83354 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/controllers.storyboard; sourceTree = "<group>"; };
-		2CFB92D01B56D26E00C83354 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/controllers.strings; sourceTree = "<group>"; };
 		2CFB9BA71B56FA1300D4A51C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2CFB9BA91B56FA1F00D4A51C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2CFBA7961B4FA9D600202281 /* TransmissionRPCClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TransmissionRPCClient.entitlements; sourceTree = "<group>"; };
@@ -725,7 +725,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2CFB92CE1B56D25400C83354 /* Base */,
-				2CFB92D01B56D26E00C83354 /* ru */,
+				2CF730041B652DE8007D5354 /* ru */,
 			);
 			name = controllers.storyboard;
 			sourceTree = "<group>";

@@ -26,6 +26,20 @@
 @property (weak, nonatomic) IBOutlet UILabel *uploadingTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *downloadingTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hashLabel;
+@property (weak, nonatomic) IBOutlet UIStepper *stepperQueuePosition;
+@property (weak, nonatomic) IBOutlet UILabel *queuePositionLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentBandwidthPriority;
+@property (weak, nonatomic) IBOutlet UISwitch *switchUploadLimit;
+@property (weak, nonatomic) IBOutlet UITextField *textUploadLimit;
+@property (weak, nonatomic) IBOutlet UISwitch *switchDownloadLimit;
+@property (weak, nonatomic) IBOutlet UITextField *textDownloadLimit;
+@property (weak, nonatomic) IBOutlet UISwitch *switchRatioLimit;
+@property (weak, nonatomic) IBOutlet UITextField *textSeedRatioLimit;
+@property (weak, nonatomic) IBOutlet UISwitch *switchSeedIdleLimit;
+@property (weak, nonatomic) IBOutlet UITextField *textSeedIdleLimit;
+
+@property(nonatomic) BOOL enableControls;
+
 
 @end
 
@@ -38,13 +52,17 @@
     UIBarButtonItem *_playButton;
     UIBarButtonItem *_spacerButton;
     UIBarButtonItem *_checkButton;
+    UIBarButtonItem *_applyButton;
     
     NSURL   *_commentURL;
     
     TRInfo *_torrentInfo;
+    
+    BOOL _bFirstTime;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.clearsSelectionOnViewWillAppear = YES;
@@ -60,11 +78,82 @@
     _playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(startTorrent)];
     _spacerButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     _checkButton = [[UIBarButtonItem alloc] initWithTitle:@"Verify" style:UIBarButtonItemStylePlain target:self action:@selector(verifyTorrent)];
+    _applyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Apply", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(applyIndividualTorrentSettings)];
+    
+    _applyButton.enabled = NO;
+    
+    self.navigationItem.rightBarButtonItem = _applyButton;
     
     // configure pull to refresh
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl = refreshControl;
     [refreshControl addTarget:self action:@selector(sendRequestForUpdateInfo) forControlEvents:UIControlEventValueChanged];
+    
+    self.enableControls = NO;
+    
+    _bFirstTime = YES;
+}
+
+- (void)applyIndividualTorrentSettings
+{
+    TRInfo *info = [[TRInfo alloc] init];
+    
+    info.bandwidthPriority = _segmentBandwidthPriority.selectedSegmentIndex - 1;
+    info.queuePosition = (int)_stepperQueuePosition.value;
+    
+    info.uploadLimitEnabled = _switchUploadLimit.on;
+    info.uploadLimit = [_textUploadLimit.text intValue];
+    if( info.uploadLimitEnabled && info.uploadLimit <= 0 )
+    {
+        self.errorMessage = NSLocalizedString(@"Upload limit must be greater then zero", @"");
+        return;
+    }
+    
+    info.downloadLimitEnabled = _switchDownloadLimit.on;
+    info.downloadLimit = [_textDownloadLimit.text intValue];
+    if( info.downloadLimitEnabled && info.downloadLimit <= 0 )
+    {
+        self.errorMessage = NSLocalizedString(@"Download limit must be greater then zero", @"");
+        return;
+    }
+    
+    info.seedRatioMode = _switchRatioLimit.on ? 1 : 0;
+    info.seedRatioLimit = [_textSeedRatioLimit.text intValue];
+    if( info.seedRatioMode > 0 && info.seedRatioLimit <= 0 )
+    {
+        self.errorMessage = NSLocalizedString(@"Seed ratio limit must be greater then zero", @"");
+        return;
+    }
+    
+    info.seedIdleMode = _switchSeedIdleLimit.on ? 1 : 0;
+    info.seedIdleLimit = [_textSeedIdleLimit.text intValue];
+    if( info.seedIdleMode && info.seedIdleLimit <= 0 )
+    {
+        self.errorMessage = NSLocalizedString(@"Seed idle limit must be greater then zero", @"");
+        return;
+    }
+    
+    self.errorMessage = nil;
+    if( _delegate && [_delegate respondsToSelector:@selector(applyTorrentSettings:forTorrentWithId:)])
+    {
+        [_delegate applyTorrentSettings:info forTorrentWithId:_torrentId];
+    }
+}
+
+- (void)setEnableControls:(BOOL)enableControls
+{
+    _enableControls = enableControls;
+    
+    NSArray *controls = @[ _stepperQueuePosition,
+                                  _segmentBandwidthPriority,
+                                  _switchDownloadLimit,
+                                  _switchRatioLimit,
+                                  _switchSeedIdleLimit,
+                                  _switchUploadLimit
+                        ];
+    
+    for( UIControl *control in controls )
+        control.enabled = enableControls;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -257,6 +346,29 @@
         NSString *errMessage = [NSString stringWithFormat:@"[%i] %@", trInfo.errorNumber, trInfo.errorString];
         [self showErrorMessage:errMessage];
     }
+    
+    if( _bFirstTime )
+    {
+        // set changable values
+        _stepperQueuePosition.value = trInfo.queuePosition;
+        _queuePositionLabel.text = [NSString stringWithFormat:@"%i", trInfo.queuePosition];
+        
+        _segmentBandwidthPriority.selectedSegmentIndex = trInfo.bandwidthPriority + 1;
+        
+        _switchUploadLimit.on = trInfo.uploadLimitEnabled;
+        _switchDownloadLimit.on = trInfo.downloadLimitEnabled;
+        _switchRatioLimit.on = trInfo.seedRatioMode > 0;
+        _switchSeedIdleLimit.on = trInfo.seedIdleMode > 0;
+        
+        _textUploadLimit.text = [NSString stringWithFormat:@"%i", trInfo.uploadLimit];
+        _textDownloadLimit.text = [NSString stringWithFormat:@"%i", trInfo.downloadLimit];
+        _textSeedIdleLimit.text = [NSString stringWithFormat:@"%i", trInfo.seedIdleLimit];
+        _textSeedRatioLimit.text = [NSString stringWithFormat:@"%i", trInfo.seedRatioLimit];
+        
+        //_applyButton.enabled = YES;
+        self.enableControls = YES;
+        _bFirstTime = NO;
+    }
 }
 
 #pragma mark - ActionSheeDelegate methods
@@ -288,6 +400,36 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     _deleteButton.enabled = YES;
+}
+
+- (IBAction)queuePositionChanged:(UIStepper *)sender
+{
+    _queuePositionLabel.text = [NSString stringWithFormat:@"%i", (int)sender.value];
+    _applyButton.enabled = YES;
+}
+
+- (IBAction)uploadLimitChanged:(UISwitch *)sender
+{
+    _textUploadLimit.enabled = sender.on;
+    _applyButton.enabled = YES;
+}
+
+- (IBAction)downloadLimitChanged:(UISwitch *)sender
+{
+    _textDownloadLimit.enabled = sender.on;
+    _applyButton.enabled = YES;
+}
+
+- (IBAction)seedRatioLimitChanged:(UISwitch *)sender
+{
+    _textSeedRatioLimit.enabled = sender.on;
+    _applyButton.enabled = YES;
+}
+
+- (IBAction)seedIdleLimitChanged:(UISwitch *)sender
+{
+    _textSeedIdleLimit.enabled = sender.on;
+    _applyButton.enabled = YES;
 }
 
 @end

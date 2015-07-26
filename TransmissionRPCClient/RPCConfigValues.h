@@ -102,6 +102,17 @@
 #define TR_ARG_FIELDS_RECHECKPROGRESS               @"recheckProgress"
 #define TR_ARG_FIELDS_DOWNLOADEDEVER                @"downloadedEver"
 #define TR_ARG_FIELDS_TRACKERREMOVE                 @"trackerRemove"
+#define TR_ARG_FIELDS_HONORSSESSIONLIMITS           @"honorsSessionLimits"
+#define TR_ARG_FIELDS_BANDWIDTHPRIORITY             @"bandwidthPriority"
+#define TR_ARG_FIELDS_QUEUEPOSITION                 @"queuePosition"
+#define TR_ARG_FIELDS_SEEDIDLEMODE                  @"seedIdleMode"
+#define TR_ARG_FIELDS_SEEDIDLELIMIT                 @"seedIdleLimit"
+#define TR_ARG_FIELDS_SEEDRATIOMODE                 @"seedRatioMode"
+#define TR_ARG_FIELDS_SEEDRATIOLIMIT                @"seedRatioLimit"
+#define TR_ARG_FIELDS_UPLOADLIMITED                 @"uploadLimited"
+#define TR_ARG_FIELDS_UPLOADLIMIT                   @"uploadLimit"
+#define TR_ARG_FIELDS_DOWNLOADLIMITED               @"downloadLimited"
+#define TR_ARG_FIELDS_DOWNLOADLIMIT                 @"downloadLimit"
 
 // FileInfo values
 #define TR_ARG_FIELDS_FILES                         @"files"
@@ -148,14 +159,13 @@
 #define TR_ARG_TRACKER_TIER                         @"tier"
 #define TR_ARG_TRACKER_ID                           @"id"
 
-
 // session params
 #define TR_ARG_SESSION_ALTLIMIDOWNRATE          @"alt-speed-down"                 // number     | max global download speed (KBps)
 #define TR_ARG_SESSION_ALTLIMITRATEENABLED      @"alt-speed-enabled"              // boolean    | true means use the alt speeds
-//#define TR_ARG_SESSION_@"alt-speed-time-begin"           // number     | when to turn on alt speeds (units: minutes after midnight)
-//#define TR_ARG_SESSION_@"alt-speed-time-enabled"         // boolean    | true means the scheduled on/off times are used
-//#define TR_ARG_SESSION_@"alt-speed-time-end"             // number     | when to turn off alt speeds (units: same)
-//#define TR_ARG_SESSION_@"alt-speed-time-day"             // number     | what day(s) to turn on alt speeds (look at tr_sched_day)
+#define TR_ARG_SESSION_ALTLIMITTIMEBEGIN        @"alt-speed-time-begin"           // number     | when to turn on alt speeds (units: minutes after midnight)
+#define TR_ARG_SESSION_ALTLIMITTIMEENABLED      @"alt-speed-time-enabled"         // boolean    | true means the scheduled on/off times are used
+#define TR_ARG_SESSION_ALTLIMITTIMEEND          @"alt-speed-time-end"             // number     | when to turn off alt speeds (units: same)
+#define TR_ARG_SESSION_ALTLIMITTIMEDAY          @"alt-speed-time-day"             // number     | what day(s) to turn on alt speeds (look at tr_sched_day)
 #define TR_ARG_SESSION_ALTLIMITUPRATE           @"alt-speed-up"                   // number     | max global upload speed (KBps)
 #define TR_ARG_SESSION_DOWNLOADDIR              @"download-dir"                   // string     | default path to download torrents
 #define TR_ARG_SESSION_DHTENABLED               @"dht-enabled"                    // boolean    | true means allow dht in public torrents

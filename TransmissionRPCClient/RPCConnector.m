@@ -103,7 +103,17 @@
                                                   TR_ARG_FIELDS_RECHECKPROGRESS,
                                                   TR_ARG_FIELDS_DOWNLOADEDEVER,
                                                   TR_ARG_FIELDS_ETA,
-                                                  TR_ARG_BANDWIDTHPRIORITY
+                                                  TR_ARG_FIELDS_BANDWIDTHPRIORITY,
+                                                  TR_ARG_FIELDS_QUEUEPOSITION,
+                                                  TR_ARG_FIELDS_HONORSSESSIONLIMITS,
+                                                  TR_ARG_FIELDS_SEEDIDLELIMIT,
+                                                  TR_ARG_FIELDS_SEEDIDLEMODE,
+                                                  TR_ARG_FIELDS_SEEDRATIOLIMIT,
+                                                  TR_ARG_FIELDS_SEEDRATIOMODE,
+                                                  TR_ARG_FIELDS_UPLOADLIMIT,
+                                                  TR_ARG_FIELDS_UPLOADLIMITED,
+                                                  TR_ARG_FIELDS_DOWNLOADLIMIT,
+                                                  TR_ARG_FIELDS_DOWNLOADLIMITED
                                                   ],
                                           TR_ARG_IDS : @[@(torrentId)]
                                           }
@@ -240,6 +250,33 @@
      }];
 }
 
+- (void)setSettings:(TRInfo *)info forTorrentWithId:(int)torrentId
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTSET,
+                                  TR_METHOD_ARGS : @{
+                                          TR_ARG_FIELDS_QUEUEPOSITION : @(info.queuePosition),
+                                          TR_ARG_FIELDS_BANDWIDTHPRIORITY : @(info.bandwidthPriority),
+                                          TR_ARG_FIELDS_UPLOADLIMITED : @(info.uploadLimitEnabled),
+                                          TR_ARG_FIELDS_UPLOADLIMIT : @(info.uploadLimit),
+                                          TR_ARG_FIELDS_DOWNLOADLIMITED : @(info.downloadLimitEnabled),
+                                          TR_ARG_FIELDS_DOWNLOADLIMIT : @(info.downloadLimit),
+                                          TR_ARG_FIELDS_SEEDIDLEMODE : @(info.seedIdleMode),
+                                          TR_ARG_FIELDS_SEEDIDLELIMIT : @(info.seedIdleLimit),
+                                          TR_ARG_FIELDS_SEEDRATIOMODE : @(info.seedRatioMode),
+                                          TR_ARG_FIELDS_SEEDRATIOLIMIT : @(info.seedRatioLimit),
+                                          TR_ARG_IDS : @[@(torrentId)]
+                                          }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSET andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotSetSettingsForTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotSetSettingsForTorrentWithId:torrentId];
+             });
+     }];
+}
 
 - (void)stopTorrent:(int)torrentId
 {

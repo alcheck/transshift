@@ -35,6 +35,7 @@
 @optional - (void)gotPortTestedWithSuccess:(BOOL)portIsOpen;
 @optional - (void)gotAllTrackers:(NSArray*)trackerStats forTorrentWithId:(int)torrentId;
 @optional - (void)gotTrackerRemoved:(int)trackerId forTorrentWithId:(int)torrentId;
+@optional - (void)gotSetSettingsForTorrentWithId:(int)torrentId;
 
 @end
 
@@ -70,6 +71,7 @@
 - (void)stopDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 - (void)resumeDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 - (void)setPriority:(int)priority forFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
+- (void)setSettings:(TRInfo*)setttnigs forTorrentWithId:(int)torrentId;
 
 - (void)getSessionInfo;
 - (void)setSessionWithSessionInfo:(TRSessionInfo*)info;

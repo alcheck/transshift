@@ -212,12 +212,42 @@
             _etaTimeString = (seconds > 0) ? formatHoursMinutes(seconds) :   NSLocalizedString(@"unknown", @"ETA time string");
         }
         
-        if( dict[TR_ARG_BANDWIDTHPRIORITY] )
+        if( dict[TR_ARG_FIELDS_BANDWIDTHPRIORITY] )
         {
             _bandwidthPriority = [dict[TR_ARG_BANDWIDTHPRIORITY] intValue];
             _bandwidthPriorityString = (_bandwidthPriority == 0 ) ? @"normal" : ( _bandwidthPriority == -1 ? @"low" : @"high" );
         }
+        
+        if( dict[TR_ARG_FIELDS_HONORSSESSIONLIMITS] )
+            _honorsSessionLimits = [dict[TR_ARG_FIELDS_HONORSSESSIONLIMITS] boolValue];
 
+        if( dict[TR_ARG_FIELDS_QUEUEPOSITION] )
+            _queuePosition = [dict[TR_ARG_FIELDS_QUEUEPOSITION] intValue];
+        
+        if( dict[TR_ARG_FIELDS_UPLOADLIMITED] )
+        {
+            _uploadLimitEnabled = [dict[TR_ARG_FIELDS_UPLOADLIMITED] boolValue];
+            _uploadLimit = [dict[TR_ARG_FIELDS_UPLOADLIMIT] intValue];
+        }
+        
+        if( dict[TR_ARG_FIELDS_DOWNLOADLIMITED] )
+        {
+            _downloadLimitEnabled = [dict[TR_ARG_FIELDS_DOWNLOADLIMITED] boolValue];
+            _downloadLimit = [dict[TR_ARG_FIELDS_DOWNLOADLIMIT] intValue];
+        }
+        
+        if( dict[TR_ARG_FIELDS_SEEDIDLEMODE] )
+        {
+            _seedIdleMode = [dict[TR_ARG_FIELDS_SEEDIDLEMODE] intValue];
+            _seedIdleLimit = [dict[TR_ARG_FIELDS_SEEDIDLELIMIT] intValue];
+        }
+        
+        if( dict[TR_ARG_FIELDS_SEEDRATIOMODE] )
+        {
+            _seedRatioMode = [dict[TR_ARG_FIELDS_SEEDRATIOMODE] intValue];
+            _seedRatioLimit = [dict[TR_ARG_FIELDS_SEEDRATIOLIMIT] intValue];
+        }
+        
      }
     
     return self;

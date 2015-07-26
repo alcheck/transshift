@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TRInfo.h"
+#import "CommonTableController.h"
 
 #define CONTROLLER_ID_TORRENTINFO   @"torrentInfoController"
 #define CELL_ID_SHOWPEERS           @"showPeersId"
@@ -26,10 +27,11 @@
 @optional - (void)showPeersForTorrentWithId:(int)torrentId;
 @optional - (void)showFilesForTorrentWithId:(int)torrentId;
 @optional - (void)showTrackersForTorrentWithId:(int)torrentId;
+@optional - (void)applyTorrentSettings:(TRInfo*)info forTorrentWithId:(int)torrentId;
 
 @end
 
-@interface TorrentInfoController : UITableViewController
+@interface TorrentInfoController : CommonTableController
 
 // holds torrent id
 @property(nonatomic) int torrentId;
