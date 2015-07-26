@@ -66,6 +66,9 @@
 #define TR_ARG_FIELDS_PEERSGETTINGFROMUS            @"peersGettingFromUs"
 #define TR_ARG_FIELDS_PEERSSENDINGTOUS              @"peersSendingToUs"
 
+// tracker stats
+#define TR_ARG_FIELDS_TRACKERSTATS                  @"trackerStats"
+
 // peers object fields
 #define TR_ARG_FIELDS_PEERS                         @"peers"
 #define TR_ARG_FIELDS_PEER_ADDRESS                  @"address"
@@ -98,6 +101,7 @@
 #define TR_ARG_FIELDS_HAVEUNCHECKED                 @"haveUnchecked"
 #define TR_ARG_FIELDS_RECHECKPROGRESS               @"recheckProgress"
 #define TR_ARG_FIELDS_DOWNLOADEDEVER                @"downloadedEver"
+#define TR_ARG_FIELDS_TRACKERREMOVE                 @"trackerRemove"
 
 // FileInfo values
 #define TR_ARG_FIELDS_FILES                         @"files"
@@ -116,6 +120,34 @@
 #define TR_ARG_FIELDS_FILES_PRIORITY_HIGH            @"priority-high"       /* 1  */
 #define TR_ARG_FIELDS_FILES_PRIORITY_LOW             @"priority-low"        /* -1 */
 #define TR_ARG_FIELDS_FILES_PRIORITY_NORMAL          @"priority-normal"     /* 0  */
+
+// tracker stats params
+#define TR_ARG_TRACKER_ANNOUNCE                     @"announce"
+#define TR_ARG_TRACKER_ANNOUNCESTATE                @"announceState"
+#define TR_ARG_TRACKER_DOWNLOADCOUNT                @"downloadCount"
+#define TR_ARG_TRACKER_HASANNOUNCED                 @"hasAnnounced"
+#define TR_ARG_TRACKER_HASSCRAPED                   @"hasScraped"
+#define TR_ARG_TRACKER_HOST                         @"host"
+#define TR_ARG_TRACKER_LASTANNOUNCEPEERCOUNT        @"lastAnnouncePeerCount"
+#define TR_ARG_TRACKER_LASTANNOUNCERESULT           @"lastAnnounceResult"
+#define TR_ARG_TRACKER_LASTANNOUNCESTARTTIME        @"lastAnnounceStartTime"
+#define TR_ARG_TRACKER_LASTANNOUNCESUCCEEDED        @"lastAnnounceSucceeded"
+#define TR_ARG_TRACKER_LASTANNOUNCETIME             @"lastAnnounceTime"
+#define TR_ARG_TRACKER_LASTANNOUNCETIMEOUT          @"lastAnnounceTimedOut"
+#define TR_ARG_TRACKER_LASTSCRAPERESULT             @"lastScrapeResult"
+#define TR_ARG_TRACKER_LASTSCRAPESTARTTIME          @"lastScrapeStartTime"
+#define TR_ARG_TRACKER_LASTSCRAPESUCCEEDED          @"lastScrapeSucceeded"
+#define TR_ARG_TRACKER_LASTSCRAPETIME               @"lastScrapeTime"
+#define TR_ARG_TRACKER_LASTSCRAPETIMEOUT            @"lastScrapeTimedOut"
+#define TR_ARG_TRACKER_LEECHERCOUNT                 @"leecherCount"
+#define TR_ARG_TRACKER_NEXTANNOUNCETIME             @"nextAnnounceTime"
+#define TR_ARG_TRACKER_NEXTSCRAPETIME               @"nextScrapeTime"
+#define TR_ARG_TRACKER_SCRAPE                       @"scrape"
+#define TR_ARG_TRACKER_SCRAPESTATE                  @"scrapeState"
+#define TR_ARG_TRACKER_SEEDERCOUNT                  @"seederCount"
+#define TR_ARG_TRACKER_TIER                         @"tier"
+#define TR_ARG_TRACKER_ID                           @"id"
+
 
 // session params
 #define TR_ARG_SESSION_ALTLIMIDOWNRATE          @"alt-speed-down"                 // number     | max global download speed (KBps)

@@ -269,11 +269,15 @@
             tapRecognizer.dataObject = item;
             [cell.leftLabel addGestureRecognizer:tapRecognizer];
             
-            if( !item.info.wanted )
+            if( !item.info.wanted || _isSelectOnly )
             {
                 cell.prioritySegment.hidden = YES;
+                
+                if( !item.info.wanted )
+                {
                 cell.iconImg.tintColor = [UIColor grayColor];
                 cell.nameLabel.textColor = [UIColor grayColor];
+                }
             }
             else
             {

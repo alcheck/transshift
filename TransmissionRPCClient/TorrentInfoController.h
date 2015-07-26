@@ -12,6 +12,7 @@
 #define CONTROLLER_ID_TORRENTINFO   @"torrentInfoController"
 #define CELL_ID_SHOWPEERS           @"showPeersId"
 #define CELL_ID_SHOWFILES           @"showFilesId"
+#define CELL_ID_SHOWTRACKERS        @"showTrackersId"
 
 @protocol TorrentInfoControllerDelegate <NSObject>
 
@@ -21,8 +22,10 @@
 @optional - (void)reannounceTorrentWithId:(int)torrentId;
 @optional - (void)verifyTorrentWithId:(int)torrentId;
 @optional - (void)updateTorrentInfoWithId:(int)torrentId;
+
 @optional - (void)showPeersForTorrentWithId:(int)torrentId;
 @optional - (void)showFilesForTorrentWithId:(int)torrentId;
+@optional - (void)showTrackersForTorrentWithId:(int)torrentId;
 
 @end
 

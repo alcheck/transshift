@@ -13,14 +13,16 @@
 
 #define CONTROLLER_ID_CHOOSESERVER  @"chooseServerToAddController"
 #define CELL_ID_FILESTODOWNLOAD     @"filesToDownloadCell"
+#define CELL_ID_TRACKERLIST         @"trackerListCell"
 
 @class RPCServerConfig;
 
 @interface ChooseServerToAddTorrentController : CommonTableController
 
 @property(nonatomic,readonly) RPCServerConfig *rpcConfig;   // using only for returning config
-@property(nonatomic) int bandwidthPriority;
-@property(nonatomic) BOOL startImmidiately;
-@property(nonatomic) FSDirectory *files;
+@property(nonatomic) int                      bandwidthPriority;
+@property(nonatomic) BOOL                     startImmidiately;
+@property(nonatomic) FSDirectory              *files;
+@property(nonatomic) NSArray                  *announceList;
 
 @end

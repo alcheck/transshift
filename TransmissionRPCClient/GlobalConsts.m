@@ -137,6 +137,8 @@ NSString* formatByteCount(long long byteCount)
         formatter = [[NSByteCountFormatter alloc] init];
         formatter.allowsNonnumericFormatting = NO;
         formatter.countStyle = NSByteCountFormatterCountStyleBinary;
+        //formatter.allowedUnits = (  NSByteCountFormatterUseMB | NSByteCountFormatterUseGB | NSByteCountFormatterUseTB );
+        //formatter.adaptive = YES;
     }
     
     if( byteCount == 0 )
@@ -170,6 +172,27 @@ NSString* formatDateFrom1970(NSTimeInterval seconds)
     NSDate *dt = [NSDate dateWithTimeIntervalSince1970:seconds];
     return [formatter stringFromDate:dt];
 }
+
+NSString* formatDateFrom1970Short(NSTimeInterval seconds)
+{
+    static NSDateFormatter *formatter = nil;
+    
+    if( seconds == 0 )
+        return @"-";
+    
+    if( !formatter )
+    {
+        NSLocale *locale = [NSLocale currentLocale];
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.locale = locale;
+        formatter.timeStyle = NSDateFormatterShortStyle;
+        formatter.dateStyle = NSDateFormatterShortStyle;
+    }
+    
+    NSDate *dt = [NSDate dateWithTimeIntervalSince1970:seconds];
+    return [formatter stringFromDate:dt];
+}
+
 
 NSString* formatHoursMinutes(NSTimeInterval seconds)
 {

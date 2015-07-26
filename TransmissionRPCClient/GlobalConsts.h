@@ -46,6 +46,8 @@ NSString* formatByteRate(long long bytesPerSeconds);
 
 /// Returns formatted localized date string
 NSString* formatDateFrom1970(NSTimeInterval intevalSince1970);
+/// Returns formatted localized date/time string - short mode
+NSString* formatDateFrom1970Short(NSTimeInterval seconds);
 
 /// Returns formatted localized string of hours and minutes
 /// from time interval since 1970

@@ -240,7 +240,7 @@
 "c6j-2D-Zuw.text" = "Просмотр списка пиров";
 
 /* Class = "UITableViewSection"; headerTitle = "Alternate rate limits"; ObjectID = "cOh-W3-4Fc"; */
-"cOh-W3-4Fc.headerTitle" = "Альтернативные орграничения скоростей";
+"cOh-W3-4Fc.headerTitle" = "Альтернативные ограничения скоростей";
 
 /* Class = "UILabel"; text = "Show files"; ObjectID = "cYw-wS-J79"; */
 "cYw-wS-J79.text" = "Просмотр списка файлов";
@@ -403,3 +403,7 @@
 
 /* Class = "UILabel"; text = "999 bytes/s"; ObjectID = "zaE-aW-G13"; */
 "zaE-aW-G13.text" = "999 bytes/s";
+
+/* Class = "UILabel"; text = "Select files to download"; ObjectID = "F3g-l8-p6g"; */
+"F3g-l8-p6g.text" = "Указать файлы/папки для загрузки";
+

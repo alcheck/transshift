@@ -58,11 +58,7 @@ long long decodeInt()
 {
     p0 = p;
     
-    // FIX: process negative and strict positive numbers
-    if( *p == '-' || *p == '+' )
-        p++;
-        
-    while ( ISDIGIT(*p) ) p++;
+    while ( *p != 'e' && *p != ':' ) p++;
     
     *p++ = '\0';
     
@@ -71,9 +67,11 @@ long long decodeInt()
 
 id  decodeData()
 {
+    // get data length
     int count = (int)decodeInt();
     
-    if( isUTF8(p, (int)count) )
+    // test data if it's a string
+    if( isUTF8(p, count) )
     {
         p0 = p;
         p += count;

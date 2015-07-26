@@ -93,7 +93,7 @@
         // FIX: when user tryes to load file serveral times in a row
         if( _chooseNav )
         {
-            [_chooseNav dismissViewControllerAnimated:YES completion:nil];
+            [_chooseNav dismissViewControllerAnimated:NO completion:nil];
         }
         
          //NSLog(@"URL Scheme: %@, desc:%@", url.scheme, url );
@@ -103,6 +103,7 @@
         NSString *trName = nil;
         NSString *trSize = nil;
         FSDirectory *fs = nil;
+        NSMutableArray *announceList = nil;
         
         if( ![url.scheme isEqualToString:@"magnet"] )
         {
@@ -114,39 +115,57 @@
             
             if (trData)
             {
-                fs = [FSDirectory directory];
-                
                 // get name
                 trName = trData[@"info"][@"name"];
                 
                 long long c = 0;
                 int idx = 0;
                 
-                for( NSDictionary *fileDesc in trData[@"info"][@"files"] )
+                if( trData[@"info"][@"length"] )
                 {
-                    long long fileLength = [fileDesc[@"length"] longLongValue];
-                    c += fileLength;
-                    
-                    NSMutableString *fileFullPath = [NSMutableString string];
-                    
-                    for( NSString *path in fileDesc[@"path"] )
-                        [fileFullPath appendFormat:@"/%@", path];
-                    
-                    FSItem *item = [fs addFilePath:fileFullPath withIndex:idx];
-                    TRFileInfo *info = [[TRFileInfo alloc] init];
-                    info.length = fileLength;
-                    info.lengthString = formatByteCount(fileLength);
-                    info.wanted = YES;
-                    info.downloadProgress = 0.1;
-                    info.downloadProgressString = @"";
-                    item.info = info;
-                    
-                    idx++;
+                    c = [trData[@"info"][@"length"] longLongValue];
                 }
-                
-                [fs sort];
-                
+                else
+                {
+                    fs = [FSDirectory directory];
+
+                    for( NSDictionary *fileDesc in trData[@"info"][@"files"] )
+                    {
+                        long long fileLength = [fileDesc[@"length"] longLongValue];
+                        c += fileLength;
+                        
+                        NSMutableString *fileFullPath = [NSMutableString string];
+                        
+                        for( NSString *path in fileDesc[@"path"] )
+                            [fileFullPath appendFormat:@"/%@", path];
+                        
+                        FSItem *item = [fs addFilePath:fileFullPath withIndex:idx];
+                        TRFileInfo *info = [[TRFileInfo alloc] init];
+                        info.length = fileLength;
+                        info.lengthString = formatByteCount(fileLength);
+                        info.wanted = YES;
+                        info.downloadProgress = 0.1;
+                        info.downloadProgressString = @"";
+                        item.info = info;
+                        
+                        idx++;
+                    }
+                    
+                    [fs sort];
+                }
                 trSize = formatByteCount(c);
+                
+                // get the announce list
+                if( trData[@"announce-list"] )
+                {
+                    announceList = [NSMutableArray array];
+                    for( NSArray *arr in trData[@"announce-list"] )
+                    {
+                        NSURL *url = [NSURL URLWithString:arr[0]];
+                        if (url)
+                            [announceList addObject:url.host];
+                    }
+                }
             }
         }
         else
@@ -162,6 +181,9 @@
             
             if( fs )
                 chooseServerController.files = fs;
+            
+            if( announceList && announceList.count > 0 )
+                chooseServerController.announceList = announceList;
             
             chooseServerController.headerInfoMessage = _magnetURLString ?
                 [NSString stringWithFormat: NSLocalizedString(@"Add torrent with magnet link:\n%@", @""), _magnetURLString] :
@@ -218,7 +240,9 @@
             [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow];
     }
     else if( _magnetURLString )
+    {
         [connector addTorrentWithMagnet:_magnetURLString priority:priority startImmidiately:startNow];
+    }
 }
 
 - (void)gotTorrentAdded
@@ -251,6 +275,8 @@
 - (void)addTorrentToSelectedServer
 {
     ChooseServerToAddTorrentController *csc = (ChooseServerToAddTorrentController*)_chooseNav.viewControllers[0];
+    
+    _unwantedFilesIdx = nil;
     
     if( csc.files )
     {
@@ -372,15 +398,7 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    
-//    // just for test
-//    UILocalNotification *notification = [[UILocalNotification alloc] init];
-//    notification.soundName = UILocalNotificationDefaultSoundName;
-//    notification.alertBody = @"Background fetch!";
-//    [application presentLocalNotificationNow:notification];
-//    
-    
-    // peform fetch in background
+     // peform fetch in background
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *plist = [defaults dictionaryForKey: USERDEFAULTS_BGFETCH_KEY_RPCCONFG];
     

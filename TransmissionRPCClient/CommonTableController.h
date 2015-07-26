@@ -10,9 +10,16 @@
 
 @interface CommonTableController : UITableViewController
 
+/// Table Header info message (UILabel text)
 @property(nonatomic) NSString* errorMessage;
+
+/// Table background view message (UILabel text)
 @property(nonatomic) NSString* infoMessage;
+
+/// Table footer info message
 @property(nonatomic) NSString* footerInfoMessage;
+
+/// Table header info message
 @property(nonatomic) NSString* headerInfoMessage;
 
 @end

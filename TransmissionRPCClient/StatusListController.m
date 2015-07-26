@@ -11,6 +11,7 @@
 #import "TorrentInfoController.h"
 #import "PeerListController.h"
 #import "FileListController.h"
+#import "TrackerListController.h"
 #import "SessionConfigController.h"
 #import "SpeedLimitController.h"
 #import "RPCConnector.h"
@@ -20,7 +21,7 @@
 #import "RateLimitTable.h"
 #import "StatusCategories.h"
 
-#define POPOVER_LIMITSPEEDCONTROLLER_SIZE   CGSizeMake(190,400)
+#define POPOVER_LIMITSPEEDCONTROLLER_SIZE   CGSizeMake(220,400)
 
 
 @interface StatusListController () <RPCConnectorDelegate,
@@ -28,6 +29,7 @@
                                     TorrentInfoControllerDelegate,
                                     PeerListControllerDelegate,
                                     FileListControllerDelegate,
+                                    TrackerListControllerDelegate,
                                     SpeedLimitControllerDelegate,
                                     UIAlertViewDelegate,
                                     UIPopoverControllerDelegate,
@@ -71,6 +73,8 @@
     TorrentInfoController   *_torrentInfoController;      // holds torrent info controller (when torrent is selected from torrent list)
     PeerListController      *_peerListController;         // holds controller for showing peers
     FileListController      *_fileListController;         // holds controller for showing files
+    TrackerListController   *_trackerListController;      // holds controller for showing trackers
+    
     SessionConfigController *_sessionConfigController;    // holds session config controller
     SpeedLimitController    *_speedLimitController;       // holds speed limit controller
     UIPopoverController     *_speedPopOver;               // holds popover for speed controller
@@ -221,6 +225,7 @@
     UIView *v = self.parentViewController.view;
 
     float factor = 1.2;
+    
     if( self.splitViewController )
     {
         factor = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation) ? 1.8 : 2.3;
@@ -475,7 +480,7 @@
                 if( st.trId == dt.trId )
                 {
                     // we have found finished torrent need to
-                    [sInfo appendString:[NSString stringWithFormat:@"Torrent: %@\n has finished downloading\n", st.name]];
+                    [sInfo appendString:[NSString stringWithFormat:NSLocalizedString( @"Torrent: %@\n has finished downloading\n", @""), st.name]];
                 }
             }
         }
@@ -974,6 +979,41 @@
 - (void)fileListControllerSetPriority:(int)priority forFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
 {
     [_connector setPriority:priority forFilesWithIndexes:indexes forTorrentWithId:torrentId];
+}
+
+- (void)showTrackersForTorrentWithId:(int)torrentId
+{
+    _trackerListController = instantiateController(CONTROLLER_ID_TRACKERLIST);
+    _trackerListController.delegate = self;
+    _trackerListController.torrentId = torrentId;
+    _trackerListController.title = NSLocalizedString(@"Trackers", @"");
+    
+    UINavigationController *nav = _torrentController.navigationController;
+    [nav pushViewController:_trackerListController animated:YES];
+    
+    [_connector getAllTrackersForTorrentWithId:torrentId];
+}
+
+- (void)gotAllTrackers:(NSArray *)trackerStats forTorrentWithId:(int)torrentId
+{
+    if( _trackerListController )
+        _trackerListController.trackers = trackerStats;
+}
+
+- (void)trackerListNeedUpdateDataForTorrentWithId:(int)torrentId
+{
+    [_connector getAllTrackersForTorrentWithId:torrentId];
+}
+
+- (void)trackerListRemoveTracker:(int)trackerId forTorrent:(int)torrentId
+{
+    [_connector removeTracker:trackerId forTorrent:torrentId];
+}
+
+- (void)gotTrackerRemoved:(int)trackerId forTorrentWithId:(int)torrentId
+{
+    [self showInfoPopup:NSLocalizedString(@"Tracker has been removed", @"")];
+    [_connector getAllTrackersForTorrentWithId:torrentId];
 }
 
 #pragma mark - TableView delegate

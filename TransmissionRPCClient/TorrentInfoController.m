@@ -165,16 +165,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if( !_delegate )
+        return;
+    
+    // get the selected cell
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([cell.reuseIdentifier isEqualToString:CELL_ID_SHOWPEERS] )
+    
+    // track cell id - call appropriate method
+    if ( [cell.reuseIdentifier isEqualToString:CELL_ID_SHOWPEERS] )
     {
-        if (_delegate && [_delegate respondsToSelector:@selector(showPeersForTorrentWithId:)])
+        if ([_delegate respondsToSelector:@selector(showPeersForTorrentWithId:)])
             [_delegate showPeersForTorrentWithId:_torrentId];
     }
     else if( [cell.reuseIdentifier isEqualToString:CELL_ID_SHOWFILES] )
     {
-        if( _delegate && [_delegate respondsToSelector:@selector(showFilesForTorrentWithId:)])
+        if( [_delegate respondsToSelector:@selector(showFilesForTorrentWithId:)])
             [_delegate showFilesForTorrentWithId:_torrentId];
+    }
+    else if( [cell.reuseIdentifier isEqualToString:CELL_ID_SHOWTRACKERS] )
+    {
+        if( [_delegate respondsToSelector:@selector((showTrackersForTorrentWithId:))] )
+            [_delegate showTrackersForTorrentWithId:_torrentId];
     }
 }
 

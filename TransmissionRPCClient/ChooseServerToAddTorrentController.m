@@ -11,6 +11,7 @@
 #import "ChooseServerCell.h"
 #import "BandwidthPriorityCell.h"
 #import "StartImmidiatelyCell.h"
+#import "TrackerListCell.h"
 #import "FileListController.h"
 #import "GlobalConsts.h"
 
@@ -31,7 +32,8 @@
     self.title = NSLocalizedString(@"Add torrent", @"Choose server controller title");
     
     _sectionTitles = @[  NSLocalizedString(@"Choose server to add torrent", @"Section title"),
-                         NSLocalizedString(@"Additional parameters", @"Section title")  ];
+                         NSLocalizedString(@"Additional parameters", @"Section title"),
+                         NSLocalizedString(@"Tracker list", @"")];
     _selectedRow = 0;
     
     _bandwidthPriority = 1;
@@ -58,7 +60,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _sectionTitles.count;
+    return _announceList ? _sectionTitles.count : _sectionTitles.count - 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -71,7 +73,10 @@
     if( section == 0 )
         return [RPCServerConfigDB sharedDB].db.count;
 
-    return _files ? 3 : 2;
+    if( section == 1 )
+        return _files ? 3 : 2;
+    
+    return _announceList.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -142,6 +147,14 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FILESTODOWNLOAD forIndexPath:indexPath];
             return cell;
         }
+    }
+    
+    
+    if( indexPath.section == 2 )
+    {
+        TrackerListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_TRACKERLIST forIndexPath:indexPath];
+        cell.trackeHostLabel.text = _announceList[indexPath.row];
+        return cell;
     }
     
     return nil;

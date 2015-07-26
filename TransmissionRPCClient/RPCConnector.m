@@ -190,6 +190,57 @@
      }];    
 }
 
+
+- (void)getAllTrackersForTorrentWithId:(int)torrentId
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTGET,
+                                  TR_METHOD_ARGS : @{
+                                          TR_ARG_FIELDS : @[ TR_ARG_FIELDS_TRACKERSTATS ],
+                                          TR_ARG_IDS : @[@(torrentId)]
+                                          }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTGET andHandler:^(NSDictionary *json)
+     {
+         // save torrents and call delegate
+         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
+         
+         NSArray* trackerStats = [torrentsJsonDesc firstObject][TR_ARG_FIELDS_TRACKERSTATS];
+         
+         NSMutableArray *res = [NSMutableArray array];
+         
+         for( NSDictionary *dict in trackerStats )
+             [res addObject:[TrackerStat initFromJSON:dict]];
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotAllTrackers:forTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotAllTrackers:res forTorrentWithId:torrentId];
+             });
+     }];
+}
+
+
+- (void)removeTracker:(int)trackerId forTorrent:(int)torrentId
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTSET,
+                                  TR_METHOD_ARGS : @{
+                                          TR_ARG_FIELDS_TRACKERREMOVE : @[ @(trackerId) ],
+                                          TR_ARG_IDS : @[@(torrentId)]
+                                          }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSET andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTrackerRemoved:forTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTrackerRemoved:trackerId forTorrentWithId:torrentId];
+             });
+     }];
+}
+
+
 - (void)stopTorrent:(int)torrentId
 {
     NSDictionary *requestVals = @{

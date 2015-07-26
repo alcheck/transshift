@@ -11,6 +11,7 @@
 #import "TRPeerInfo.h"
 #import "TRFileInfo.h"
 #import "TRSessionInfo.h"
+#import "TrackerStat.h"
 
 @class RPCConnector;
 
@@ -32,6 +33,8 @@
 @optional - (void)gotSessionSetWithInfo:(TRSessionInfo*)info;
 @optional - (void)gotFreeSpaceString:(NSString*)freeSpace;
 @optional - (void)gotPortTestedWithSuccess:(BOOL)portIsOpen;
+@optional - (void)gotAllTrackers:(NSArray*)trackerStats forTorrentWithId:(int)torrentId;
+@optional - (void)gotTrackerRemoved:(int)trackerId forTorrentWithId:(int)torrentId;
 
 @end
 
@@ -60,6 +63,9 @@
 
 - (void)getAllPeersForTorrentWithId:(int)torrentId;
 - (void)getAllFilesForTorrentWithId:(int)torrentId;
+
+- (void)getAllTrackersForTorrentWithId:(int)torrentId;
+- (void)removeTracker:(int)trackerId forTorrent:(int)torrentId;
 
 - (void)stopDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 - (void)resumeDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
