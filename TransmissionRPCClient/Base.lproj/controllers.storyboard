@@ -2187,7 +2187,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Peers &amp; Files" footerTitle="Tap to show files or peers " id="GU2-sf-eoY">
+                            <tableViewSection headerTitle="Peers &amp; Files &amp; Trackers" footerTitle="Tap to show files or peers " id="GU2-sf-eoY">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="showPeersId" id="l1N-QZ-0oB">
                                         <autoresizingMask key="autoresizingMask"/>

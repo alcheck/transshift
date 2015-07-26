@@ -75,7 +75,7 @@
 "GU2-sf-eoY.footerTitle" = "Нажмите для просмотра списка файлов или пиров";
 
 /* Class = "UITableViewSection"; headerTitle = "Peers & Files"; ObjectID = "GU2-sf-eoY"; */
-"GU2-sf-eoY.headerTitle" = "Файлы и Пиры";
+"GU2-sf-eoY.headerTitle" = "Файлы/Пиры/Трекеры";
 
 /* Class = "UILabel"; text = "Address"; ObjectID = "GvZ-l6-cHd"; */
 "GvZ-l6-cHd.text" = "Адрес";
