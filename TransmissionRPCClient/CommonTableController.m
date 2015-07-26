@@ -27,7 +27,7 @@
     if( !_errorLabel )
     {
         _errorLabel = [[UILabel  alloc] initWithFrame:CGRectZero];
-        _errorLabel.backgroundColor = [UIColor redColor];
+        _errorLabel.backgroundColor = [UIColor errorColor];
         _errorLabel.textColor = [UIColor whiteColor];
         _errorLabel.numberOfLines = 0;
         _errorLabel.font = [UIFont systemFontOfSize:TABLEHEADER_ERRORLABEL_FONTSIZE];
@@ -45,6 +45,7 @@
         _errorLabel.bounds = r;
         
         self.tableView.tableHeaderView = _errorLabel;
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }
     else
     {

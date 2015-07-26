@@ -144,12 +144,16 @@
 {
     _enableControls = enableControls;
     
-    NSArray *controls = @[ _stepperQueuePosition,
+    NSArray *controls = @[        _stepperQueuePosition,
                                   _segmentBandwidthPriority,
                                   _switchDownloadLimit,
                                   _switchRatioLimit,
                                   _switchSeedIdleLimit,
-                                  _switchUploadLimit
+                                  _switchUploadLimit,
+                                  _textDownloadLimit,
+                                  _textSeedIdleLimit,
+                                  _textSeedRatioLimit,
+                                  _textUploadLimit
                         ];
     
     for( UIControl *control in controls )
@@ -349,6 +353,8 @@
     
     if( _bFirstTime )
     {
+        self.enableControls = YES;
+
         // set changable values
         _stepperQueuePosition.value = trInfo.queuePosition;
         _queuePositionLabel.text = [NSString stringWithFormat:@"%i", trInfo.queuePosition];
@@ -360,13 +366,17 @@
         _switchRatioLimit.on = trInfo.seedRatioMode > 0;
         _switchSeedIdleLimit.on = trInfo.seedIdleMode > 0;
         
+        [self uploadLimitChanged:_switchUploadLimit];
+        [self downloadLimitChanged:_switchDownloadLimit];
+        [self seedRatioLimitChanged:_switchRatioLimit];
+        [self seedIdleLimitChanged:_switchSeedIdleLimit];
+        
         _textUploadLimit.text = [NSString stringWithFormat:@"%i", trInfo.uploadLimit];
         _textDownloadLimit.text = [NSString stringWithFormat:@"%i", trInfo.downloadLimit];
         _textSeedIdleLimit.text = [NSString stringWithFormat:@"%i", trInfo.seedIdleLimit];
         _textSeedRatioLimit.text = [NSString stringWithFormat:@"%.2f", trInfo.seedRatioLimit];
         
         //_applyButton.enabled = YES;
-        self.enableControls = YES;
         _bFirstTime = NO;
     }
 }

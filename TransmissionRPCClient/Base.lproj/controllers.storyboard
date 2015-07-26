@@ -959,6 +959,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
+                            <tableViewSection headerTitle="Download directory" id="APQ-rv-5wD">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="LhM-ld-Cwr">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LhM-ld-Cwr" id="kZJ-Nj-6w4">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vFB-vu-KI3">
+                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vFB-vu-KI3" firstAttribute="leading" secondItem="kZJ-Nj-6w4" secondAttribute="leadingMargin" id="LSS-y2-ouz"/>
+                                                <constraint firstAttribute="centerY" secondItem="vFB-vu-KI3" secondAttribute="centerY" id="R9C-Ot-F92"/>
+                                                <constraint firstItem="vFB-vu-KI3" firstAttribute="trailing" secondItem="kZJ-Nj-6w4" secondAttribute="trailingMargin" id="ywC-at-jmo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Global rate limits" id="9Lv-ET-toW">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="PeD-6m-iZn">
@@ -1570,6 +1592,7 @@
                         <outlet property="switchUploadRateEnabled" destination="RDl-va-FuC" id="SDx-pp-VEE"/>
                         <outlet property="textAltDownloadRateNumber" destination="r2F-Jq-fHv" id="Adu-nD-Sfp"/>
                         <outlet property="textAltUploadRateNumber" destination="XWA-IG-5XD" id="RwS-oP-97B"/>
+                        <outlet property="textDownloadDir" destination="vFB-vu-KI3" id="BVZ-GH-aGl"/>
                         <outlet property="textDownloadRateNumber" destination="o1I-Jq-xnz" id="AcM-ql-mQW"/>
                         <outlet property="textIdleSeedNumber" destination="UOG-Zv-kEX" id="JLW-Tt-knC"/>
                         <outlet property="textPeersPerTorrentNumber" destination="mot-QD-2eT" id="ZwX-Hm-7tP"/>

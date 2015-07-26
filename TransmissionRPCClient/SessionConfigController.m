@@ -46,6 +46,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelPort;
 
 @property(nonatomic) BOOL enableControls;
+@property (weak, nonatomic) IBOutlet UITextField *textDownloadDir;
 
 @end
 
@@ -77,6 +78,16 @@
 {
     _sessionInfo.downLimitEnabled = _switchDownloadRateEnabled.on;
     _sessionInfo.upLimitEnabled = _switchUploadRateEnabled.on;
+
+    NSString *downloadDir = [_textDownloadDir.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if( downloadDir.length < 1 )
+    {
+        self.errorMessage = NSLocalizedString(@"You shoud set download directory", @"");
+        return NO;
+    }
+    
+    _sessionInfo.downloadDir = downloadDir;
     
     if( _sessionInfo.downLimitEnabled )
     {
@@ -227,6 +238,9 @@
         _textPortNumber.text = [NSString stringWithFormat:@"%i", _sessionInfo.port];
         _switchPortForwardingEnabled.on = _sessionInfo.portForfardingEnabled;
         
+        _textDownloadDir.enabled = YES;
+        _textDownloadDir.text = _sessionInfo.downloadDir;
+        
         self.headerInfoMessage = [NSString stringWithFormat:@"Transmission %@", _sessionInfo.transmissionVersion];
         self.footerInfoMessage = [NSString stringWithFormat:NSLocalizedString(@"RPC Version: %@", @""), _sessionInfo.rpcVersion ];
     }
@@ -249,7 +263,8 @@
                            _switchPEXEnabled, _switchPortForwardingEnabled, _switchRandomPortEnabled, _switchSeedRatioLimitEnabled,
                            _switchStartDownloadImmidiately, _switchUploadRateEnabled, _switchUTPEnabled, _textAltDownloadRateNumber,
                            _textAltUploadRateNumber, _textDownloadRateNumber, _textIdleSeedNumber, _textPeersPerTorrentNumber, _textPortNumber,
-                           _textSeedRatioLimitNumber, _textSeedRatioLimitNumber, _textTotalPeersCountNumber, _textUploadRateNumber, _segmentEncryption
+                           _textSeedRatioLimitNumber, _textSeedRatioLimitNumber, _textTotalPeersCountNumber, _textUploadRateNumber, _segmentEncryption,
+                           _textDownloadDir
                           ];
     }
     

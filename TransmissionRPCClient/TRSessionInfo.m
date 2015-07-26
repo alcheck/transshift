@@ -122,6 +122,8 @@
         dict[TR_ARG_SESSION_ALTLIMIDOWNRATE] = @(_altDownloadRateLimit);
         dict[TR_ARG_SESSION_ALTLIMITUPRATE] = @(_altUploadRateLimit);
     }
+    
+    dict[TR_ARG_SESSION_DOWNLOADDIR] = _downloadDir;
    
     return dict;
 }
