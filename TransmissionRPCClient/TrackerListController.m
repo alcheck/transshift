@@ -42,7 +42,7 @@
 
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return NSLocalizedString(@"Tracker List", @"");
+    return NSLocalizedString( @"Tracker List", @"" );
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -50,7 +50,7 @@
     if( _trackers && _trackers.count > 0 )
         return 1;
     
-    self.infoMessage = NSLocalizedString(@"There are no trackers to show", @"");
+    self.infoMessage = NSLocalizedString( @"There are no trackers to show", @"");
     return 0;
 }
 
@@ -95,7 +95,7 @@
     if( actionSheet.destructiveButtonIndex == buttonIndex )
     {
         if( _delegate && [_delegate respondsToSelector:@selector(trackerListRemoveTracker:forTorrent:)] )
-            [_delegate trackerListRemoveTracker:[actionSheet.dataObject integerValue] forTorrent:_torrentId];
+            [_delegate trackerListRemoveTracker:(int)[actionSheet.dataObject integerValue] forTorrent:_torrentId];
     }
 }
 
@@ -106,14 +106,23 @@
     TrackerInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_TRACKERINFO forIndexPath:indexPath];
     
     cell.trackerHostLabel.text = info.host;
-    cell.lastAnnounceTimeLabel.text = [NSString stringWithFormat:@"Last announce time: %@ %@", info.lastAnnounceTimeString, info.lastAnnounceResult];
-    cell.nextAnnounceTimeLabel.text = [NSString stringWithFormat:@"Next announce time: %@", info.nextAnnounceTimeString];
-    cell.lastScrapeTimeLabel.text = [NSString stringWithFormat:@"Last scrape-announce time: %@ %@", info.lastScrapeTimeString, info.lastScrapeResult];
-    cell.nextScrapeTimeLabel.text = [NSString stringWithFormat:@"Next scrape-announce time: %@", info.nextScrapeTimeString];
-    cell.seedersLabel.text = [NSString stringWithFormat:@"Seeders: %i", info.seederCount];
-    cell.leechersLabel.text = [NSString stringWithFormat:@"Leechers: %i", info.leecherCount];
-    cell.downloadsLabel.text = [NSString stringWithFormat:@"Downloads: %i", info.downloadCount];
-    cell.peersLabel.text = [NSString stringWithFormat:@"Peers: %i", info.lastAnnouncePeerCount];
+    
+    cell.lastAnnounceTimeLabel.text = [NSString stringWithFormat: NSLocalizedString( @"Last announce time: %@ %@", @"" ),
+                                       info.lastAnnounceTimeString, info.lastAnnounceResult];
+    
+    cell.nextAnnounceTimeLabel.text = [NSString stringWithFormat: NSLocalizedString( @"Next announce time: %@", @"" ),
+                                       info.nextAnnounceTimeString];
+    
+    cell.lastScrapeTimeLabel.text = [NSString stringWithFormat: NSLocalizedString( @"Last scrape-announce time: %@ %@", @"" ),
+                                     info.lastScrapeTimeString, info.lastScrapeResult];
+    
+    cell.nextScrapeTimeLabel.text = [NSString stringWithFormat: NSLocalizedString( @"Next scrape-announce time: %@", @"" ),
+                                     info.nextScrapeTimeString];
+    
+    cell.seedersLabel.text = [NSString stringWithFormat: NSLocalizedString( @"Seeders: %i", @"" ), info.seederCount];
+    cell.leechersLabel.text = [NSString stringWithFormat: NSLocalizedString( @"Leechers: %i", @"" ), info.leecherCount];
+    cell.downloadsLabel.text = [NSString stringWithFormat: NSLocalizedString( @"Downloads: %i", @"" ), info.downloadCount];
+    cell.peersLabel.text = [NSString stringWithFormat: NSLocalizedString( @"Peers: %i", @"" ), info.lastAnnouncePeerCount];
     
     return cell;
 }

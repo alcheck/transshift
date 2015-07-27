@@ -98,7 +98,7 @@
 {
     TRInfo *info = [[TRInfo alloc] init];
     
-    info.bandwidthPriority = _segmentBandwidthPriority.selectedSegmentIndex - 1;
+    info.bandwidthPriority = (int)_segmentBandwidthPriority.selectedSegmentIndex - 1;
     info.queuePosition = (int)_stepperQueuePosition.value;
     
     info.uploadLimitEnabled = _switchUploadLimit.on;

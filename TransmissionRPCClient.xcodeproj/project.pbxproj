@@ -90,6 +90,7 @@
 		2C0E34A41B400134004303AB /* TRInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRInfo.m; sourceTree = "<group>"; };
 		2C0E34A61B4006EB004303AB /* TRInfos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRInfos.h; sourceTree = "<group>"; };
 		2C0E34A71B4006EB004303AB /* TRInfos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRInfos.m; sourceTree = "<group>"; };
+		2C126B4C1B6673F700628406 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/controllers.strings; sourceTree = "<group>"; };
 		2C4673131B3D91BA00CBD6B1 /* RPCConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCConnector.h; sourceTree = "<group>"; };
 		2C4673141B3D91BA00CBD6B1 /* RPCConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCConnector.m; sourceTree = "<group>"; };
 		2C5810D61B39A5E50069020D /* TransmissionRPCClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransmissionRPCClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,7 +145,6 @@
 		2CF72FFE1B651180007D5354 /* TrackerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackerListController.m; sourceTree = "<group>"; };
 		2CF730001B6514E5007D5354 /* TrackerInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackerInfoCell.h; sourceTree = "<group>"; };
 		2CF730011B6514E5007D5354 /* TrackerInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackerInfoCell.m; sourceTree = "<group>"; };
-		2CF730061B656293007D5354 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/controllers.strings; sourceTree = "<group>"; };
 		2CF730071B657D25007D5354 /* ScheduleAltLimitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleAltLimitsController.h; sourceTree = "<group>"; };
 		2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleAltLimitsController.m; sourceTree = "<group>"; };
 		2CF7D5121B42E78C006D01FD /* PeerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListController.h; sourceTree = "<group>"; };
@@ -739,7 +739,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2CFB92CE1B56D25400C83354 /* Base */,
-				2CF730061B656293007D5354 /* ru */,
+				2C126B4C1B6673F700628406 /* ru */,
 			);
 			name = controllers.storyboard;
 			sourceTree = "<group>";

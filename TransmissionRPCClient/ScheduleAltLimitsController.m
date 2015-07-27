@@ -95,7 +95,7 @@
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *c = [cal components:(NSCalendarUnitHour|NSCalendarUnitMinute) fromDate:dt];
     
-    return c.hour * 60 + c.minute;
+    return (int)(c.hour * 60 + c.minute);
 }
 
 - (void)setTimeEnd:(int)timeEnd
@@ -115,7 +115,7 @@
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *c = [cal components:(NSCalendarUnitHour|NSCalendarUnitMinute) fromDate:dt];
     
-    return c.hour * 60 + c.minute;
+    return (int)(c.hour * 60 + c.minute);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
