@@ -42,6 +42,7 @@
 		2CF690A21B4BE74A00B2F830 /* HeaderViewDURates.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF690A11B4BE74A00B2F830 /* HeaderViewDURates.m */; };
 		2CF72FFF1B651180007D5354 /* TrackerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF72FFE1B651180007D5354 /* TrackerListController.m */; };
 		2CF730021B6514E5007D5354 /* TrackerInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF730011B6514E5007D5354 /* TrackerInfoCell.m */; };
+		2CF730091B657D25007D5354 /* ScheduleAltLimitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */; };
 		2CF7D5141B42E78C006D01FD /* PeerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7D5131B42E78C006D01FD /* PeerListController.m */; };
 		2CF8C7651B4302F7005A7DD6 /* PeerListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8C7641B4302F7005A7DD6 /* PeerListCell.m */; };
 		2CF8EF781B61736100EB8D5D /* TrackerListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8EF771B61736100EB8D5D /* TrackerListCell.m */; };
@@ -144,6 +145,8 @@
 		2CF730001B6514E5007D5354 /* TrackerInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackerInfoCell.h; sourceTree = "<group>"; };
 		2CF730011B6514E5007D5354 /* TrackerInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackerInfoCell.m; sourceTree = "<group>"; };
 		2CF730061B656293007D5354 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/controllers.strings; sourceTree = "<group>"; };
+		2CF730071B657D25007D5354 /* ScheduleAltLimitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleAltLimitsController.h; sourceTree = "<group>"; };
+		2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleAltLimitsController.m; sourceTree = "<group>"; };
 		2CF7D5121B42E78C006D01FD /* PeerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListController.h; sourceTree = "<group>"; };
 		2CF7D5131B42E78C006D01FD /* PeerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListController.m; sourceTree = "<group>"; };
 		2CF8C7631B4302F7005A7DD6 /* PeerListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListCell.h; sourceTree = "<group>"; };
@@ -268,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				2CFB92CF1B56D25400C83354 /* controllers.storyboard */,
+				2CF7300A1B657D2D007D5354 /* Schedule DayTime Controller */,
 				2CF72FFC1B65114A007D5354 /* Trackers Controller */,
 				2CF690981B4BE0B400B2F830 /* Title Views */,
 				2CAD1E431B4AC117005BBDBE /* Speed limit Controller */,
@@ -388,6 +392,15 @@
 				2CF730011B6514E5007D5354 /* TrackerInfoCell.m */,
 			);
 			name = "Trackers Controller";
+			sourceTree = "<group>";
+		};
+		2CF7300A1B657D2D007D5354 /* Schedule DayTime Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CF730071B657D25007D5354 /* ScheduleAltLimitsController.h */,
+				2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */,
+			);
+			name = "Schedule DayTime Controller";
 			sourceTree = "<group>";
 		};
 		2CF7D5111B42E768006D01FD /* Peers Controller */ = {
@@ -664,6 +677,7 @@
 				2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
 				2C6668341B5BB1D3004B6FA4 /* Bencoding.m in Sources */,
+				2CF730091B657D25007D5354 /* ScheduleAltLimitsController.m in Sources */,
 				2C0E34A81B4006EB004303AB /* TRInfos.m in Sources */,
 				2CF8EF7B1B6179AE00EB8D5D /* TrackerStat.m in Sources */,
 				2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */,

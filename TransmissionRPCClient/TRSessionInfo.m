@@ -71,6 +71,11 @@
     _altDownloadRateLimit = [dict[TR_ARG_SESSION_ALTLIMIDOWNRATE] intValue];
     _altUploadRateLimit = [dict[TR_ARG_SESSION_ALTLIMITUPRATE] intValue];
     
+    _altLimitTimeEnabled = [dict[TR_ARG_SESSION_ALTLIMITTIMEENABLED] boolValue];
+    _altLimitTimeBegin = [dict[TR_ARG_SESSION_ALTLIMITTIMEBEGIN] intValue];
+    _altLimitTimeEnd = [dict[TR_ARG_SESSION_ALTLIMITTIMEEND] intValue];
+    _altLimitDay = [dict[TR_ARG_SESSION_ALTLIMITTIMEDAY] intValue];
+    
     _addPartToUnfinishedFilesEnabled = [dict[TR_ARG_SESSION_RENAMEPARTIAL] boolValue];
     
     return self;
@@ -124,6 +129,11 @@
     }
     
     dict[TR_ARG_SESSION_DOWNLOADDIR] = _downloadDir;
+    
+    dict[TR_ARG_SESSION_ALTLIMITTIMEENABLED] = @(_altLimitTimeEnabled);
+    dict[TR_ARG_SESSION_ALTLIMITTIMEBEGIN] = @(_altLimitTimeBegin);
+    dict[TR_ARG_SESSION_ALTLIMITTIMEEND] = @(_altLimitTimeEnd);
+    dict[TR_ARG_SESSION_ALTLIMITTIMEDAY] = @(_altLimitDay);
    
     return dict;
 }

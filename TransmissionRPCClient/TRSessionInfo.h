@@ -49,6 +49,10 @@
 @property(nonatomic) BOOL          altLimitEnabled;
 @property(nonatomic) int           altDownloadRateLimit;
 @property(nonatomic) int           altUploadRateLimit;
+@property(nonatomic) BOOL          altLimitTimeEnabled;
+@property(nonatomic) int           altLimitTimeBegin;
+@property(nonatomic) int           altLimitTimeEnd;
+@property(nonatomic) int           altLimitDay;
 
 @property(nonatomic) BOOL          addPartToUnfinishedFilesEnabled;
 

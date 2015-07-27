@@ -7,8 +7,9 @@
 //
 
 #import "SessionConfigController.h"
+#import "ScheduleAltLimitsController.h"
 
-@interface SessionConfigController ()
+@interface SessionConfigController () <UIPopoverControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISwitch *switchDownloadRateEnabled;
 @property (weak, nonatomic) IBOutlet UITextField *textDownloadRateNumber;
@@ -47,6 +48,9 @@
 
 @property(nonatomic) BOOL enableControls;
 @property (weak, nonatomic) IBOutlet UITextField *textDownloadDir;
+@property (weak, nonatomic) IBOutlet UISwitch *switchScheduleAltLimits;
+
+@property (weak, nonatomic) IBOutlet UIButton *buttonShowScheduler;
 
 @end
 
@@ -54,6 +58,8 @@
 
 {
     NSArray *_controls;
+    UIPopoverController *_popOver;
+    ScheduleAltLimitsController *_scheduleController;
 }
 
 - (void)viewDidLoad
@@ -187,6 +193,14 @@
         }
     }
     
+    _sessionInfo.altLimitTimeEnabled = _switchScheduleAltLimits.on;
+    if( _switchScheduleAltLimits.on )
+    {
+        _sessionInfo.altLimitDay = _scheduleController.daysMask;
+        _sessionInfo.altLimitTimeBegin = _scheduleController.timeBegin;
+        _sessionInfo.altLimitTimeEnd = _scheduleController.timeEnd;
+    }
+    
     self.errorMessage = nil;
     return YES;
 }
@@ -241,6 +255,10 @@
         _textDownloadDir.enabled = YES;
         _textDownloadDir.text = _sessionInfo.downloadDir;
         
+        _switchScheduleAltLimits.enabled = YES;
+        _switchScheduleAltLimits.on = _sessionInfo.altLimitTimeEnabled;
+        _buttonShowScheduler.enabled = _switchScheduleAltLimits.on;
+        
         self.headerInfoMessage = [NSString stringWithFormat:@"Transmission %@", _sessionInfo.transmissionVersion];
         self.footerInfoMessage = [NSString stringWithFormat:NSLocalizedString(@"RPC Version: %@", @""), _sessionInfo.rpcVersion ];
     }
@@ -264,7 +282,7 @@
                            _switchStartDownloadImmidiately, _switchUploadRateEnabled, _switchUTPEnabled, _textAltDownloadRateNumber,
                            _textAltUploadRateNumber, _textDownloadRateNumber, _textIdleSeedNumber, _textPeersPerTorrentNumber, _textPortNumber,
                            _textSeedRatioLimitNumber, _textSeedRatioLimitNumber, _textTotalPeersCountNumber, _textUploadRateNumber, _segmentEncryption,
-                           _textDownloadDir
+                           _textDownloadDir, _buttonShowScheduler
                           ];
     }
     
@@ -305,4 +323,34 @@
 {
     _textPortNumber.enabled = sender.on;
 }
+
+- (IBAction)showScheduler:(UIButton *)sender
+{
+    if( _switchScheduleAltLimits.on )
+    {
+        _scheduleController = instantiateController(CONTROLLER_ID_SCHEDULETIMEDATE);
+        _scheduleController.title = NSLocalizedString(@"Schedule time", @"");
+        
+        if( self.splitViewController )
+        {
+            _popOver = [[UIPopoverController alloc] initWithContentViewController:_scheduleController];
+            _popOver.delegate = self;
+            [_popOver presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+        else
+        {
+            [self.navigationController pushViewController:_scheduleController animated:YES];
+        }
+
+        _scheduleController.daysMask = _sessionInfo.altLimitDay;
+        _scheduleController.timeBegin = _sessionInfo.altLimitTimeBegin;
+        _scheduleController.timeEnd = _sessionInfo.altLimitTimeEnd;
+    }
+}
+
+- (IBAction)scheduleOnOff:(UISwitch *)sender
+{
+    _buttonShowScheduler.enabled = sender.on;
+}
+
 @end

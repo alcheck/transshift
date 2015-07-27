@@ -160,37 +160,39 @@
 #define TR_ARG_TRACKER_ID                           @"id"
 
 // session params
-#define TR_ARG_SESSION_ALTLIMIDOWNRATE          @"alt-speed-down"                 // number     | max global download speed (KBps)
-#define TR_ARG_SESSION_ALTLIMITRATEENABLED      @"alt-speed-enabled"              // boolean    | true means use the alt speeds
-#define TR_ARG_SESSION_ALTLIMITTIMEBEGIN        @"alt-speed-time-begin"           // number     | when to turn on alt speeds (units: minutes after midnight)
-#define TR_ARG_SESSION_ALTLIMITTIMEENABLED      @"alt-speed-time-enabled"         // boolean    | true means the scheduled on/off times are used
-#define TR_ARG_SESSION_ALTLIMITTIMEEND          @"alt-speed-time-end"             // number     | when to turn off alt speeds (units: same)
-#define TR_ARG_SESSION_ALTLIMITTIMEDAY          @"alt-speed-time-day"             // number     | what day(s) to turn on alt speeds (look at tr_sched_day)
-#define TR_ARG_SESSION_ALTLIMITUPRATE           @"alt-speed-up"                   // number     | max global upload speed (KBps)
-#define TR_ARG_SESSION_DOWNLOADDIR              @"download-dir"                   // string     | default path to download torrents
-#define TR_ARG_SESSION_DHTENABLED               @"dht-enabled"                    // boolean    | true means allow dht in public torrents
-#define TR_ARG_SESSION_ENRYPTION                @"encryption"                     // string     | "required", "preferred", "tolerated"
-#define TR_ARG_SESSION_IDLESEEDLIMIT            @"idle-seeding-limit"             // number     | torrents we're seeding will be stopped if they're idle for this long
-#define TR_ARG_SESSION_IDLELIMITENABLED         @"idle-seeding-limit-enabled"     // boolean    | true if the seeding inactivity limit is honored by default
-#define TR_ARG_SESSION_LPDENABLED               @"lpd-enabled"                    // boolean    | true means allow Local Peer Discovery in public torrents
-#define TR_ARG_SESSION_PEERLIMITTOTAL           @"peer-limit-global"              // number     | maximum global number of peers
-#define TR_ARG_SESSION_PEERLIMITPERTORRENT      @"peer-limit-per-torrent"         // number     | maximum global number of peers
-#define TR_ARG_SESSION_PEXENABLED               @"pex-enabled"                    // boolean    | true means allow pex in public torrents
-#define TR_ARG_SESSION_PORT                     @"peer-port"                      // number     | port number
-#define TR_ARG_SESSION_PORTRANDOMONSTART        @"peer-port-random-on-start"      // boolean    | true means pick a random peer port on launch
-#define TR_ARG_SESSION_PORTFORWARDENABLED       @"port-forwarding-enabled"        // boolean    | true means enabled
-#define TR_ARG_SESSION_RENAMEPARTIAL            @"rename-partial-files"           // boolean    | true means append ".part" to incomplete files
-#define TR_ARG_SESSION_RPCVER                   @"rpc-version"                    // number     | the current RPC API version
-#define TR_ARG_SESSION_RPCVERMIN                @"rpc-version-minimum"            // number     | the minimum RPC API version supported
-#define TR_ARG_SESSION_SEEDRATIOLIMIT           @"seedRatioLimit"                 // double     | the default seed ratio for torrents to use
-#define TR_ARG_SESSION_SEEDRATIOLIMITENABLED    @"seedRatioLimited"               // boolean    | true if seedRatioLimit is honored by default
-#define TR_ARG_SESSION_LIMITDOWNRATE            @"speed-limit-down"               // number     | max global download speed (KBps)
-#define TR_ARG_SESSION_LIMITDOWNRATEENABLED     @"speed-limit-down-enabled"       // boolean    | true means enabled
-#define TR_ARG_SESSION_LIMITUPRATE              @"speed-limit-up"                 // number     | max global upload speed (KBps)
-#define TR_ARG_SESSION_LIMITUPRATEENABLED       @"speed-limit-up-enabled"         // boolean    | true means enabled
-#define TR_ARG_SESSION_STARTONADD               @"start-added-torrents"           // boolean    | true means added torrents will be started right away
-#define TR_ARG_SESSION_TRASHFILES               @"trash-original-torrent-files"   // boolean    | true means the .torrent file of added torrents will be deleted
-#define TR_ARG_SESSION_UTPENABLED               @"utp-enabled"                    // boolean    | true means allow utp
-#define TR_ARG_SESSION_VERSION                  @"version"                        // string     | long v
+#define TR_ARG_SESSION_ALTLIMIDOWNRATE          @"alt-speed-down"                 // number  | max global download speed (KBps)
+#define TR_ARG_SESSION_ALTLIMITUPRATE           @"alt-speed-up"                   // number  | max global upload speed (KBps)
+#define TR_ARG_SESSION_ALTLIMITRATEENABLED      @"alt-speed-enabled"              // boolean | true means use the alt speeds
+
+#define TR_ARG_SESSION_ALTLIMITTIMEENABLED      @"alt-speed-time-enabled"         // boolean | true means the scheduled on/off times are used
+#define TR_ARG_SESSION_ALTLIMITTIMEBEGIN        @"alt-speed-time-begin"           // number  | when to turn on alt speeds (units: minutes after midnight)
+#define TR_ARG_SESSION_ALTLIMITTIMEEND          @"alt-speed-time-end"             // number  | when to turn off alt speeds (units: same)
+#define TR_ARG_SESSION_ALTLIMITTIMEDAY          @"alt-speed-time-day"             // number  | what day(s) to turn on alt speeds (look at tr_sched_day)
+
+#define TR_ARG_SESSION_DOWNLOADDIR              @"download-dir"                   // string  | default path to download torrents
+#define TR_ARG_SESSION_DHTENABLED               @"dht-enabled"                    // boolean | true means allow dht in public torrents
+#define TR_ARG_SESSION_ENRYPTION                @"encryption"                     // string  | "required", "preferred", "tolerated"
+#define TR_ARG_SESSION_IDLESEEDLIMIT            @"idle-seeding-limit"             // number  | torrents we're seeding will be stopped if they're idle for this long
+#define TR_ARG_SESSION_IDLELIMITENABLED         @"idle-seeding-limit-enabled"     // boolean | true if the seeding inactivity limit is honored by default
+#define TR_ARG_SESSION_LPDENABLED               @"lpd-enabled"                    // boolean | true means allow Local Peer Discovery in public torrents
+#define TR_ARG_SESSION_PEERLIMITTOTAL           @"peer-limit-global"              // number  | maximum global number of peers
+#define TR_ARG_SESSION_PEERLIMITPERTORRENT      @"peer-limit-per-torrent"         // number  | maximum global number of peers
+#define TR_ARG_SESSION_PEXENABLED               @"pex-enabled"                    // boolean | true means allow pex in public torrents
+#define TR_ARG_SESSION_PORT                     @"peer-port"                      // number  | port number
+#define TR_ARG_SESSION_PORTRANDOMONSTART        @"peer-port-random-on-start"      // boolean | true means pick a random peer port on launch
+#define TR_ARG_SESSION_PORTFORWARDENABLED       @"port-forwarding-enabled"        // boolean | true means enabled
+#define TR_ARG_SESSION_RENAMEPARTIAL            @"rename-partial-files"           // boolean | true means append ".part" to incomplete files
+#define TR_ARG_SESSION_RPCVER                   @"rpc-version"                    // number  | the current RPC API version
+#define TR_ARG_SESSION_RPCVERMIN                @"rpc-version-minimum"            // number  | the minimum RPC API version supported
+#define TR_ARG_SESSION_SEEDRATIOLIMIT           @"seedRatioLimit"                 // double  | the default seed ratio for torrents to use
+#define TR_ARG_SESSION_SEEDRATIOLIMITENABLED    @"seedRatioLimited"               // boolean | true if seedRatioLimit is honored by default
+#define TR_ARG_SESSION_LIMITDOWNRATE            @"speed-limit-down"               // number  | max global download speed (KBps)
+#define TR_ARG_SESSION_LIMITDOWNRATEENABLED     @"speed-limit-down-enabled"       // boolean | true means enabled
+#define TR_ARG_SESSION_LIMITUPRATE              @"speed-limit-up"                 // number  | max global upload speed (KBps)
+#define TR_ARG_SESSION_LIMITUPRATEENABLED       @"speed-limit-up-enabled"         // boolean | true means enabled
+#define TR_ARG_SESSION_STARTONADD               @"start-added-torrents"           // boolean | true means added torrents will be started right away
+#define TR_ARG_SESSION_TRASHFILES               @"trash-original-torrent-files"   // boolean | true means the .torrent file of added torrents will be deleted
+#define TR_ARG_SESSION_UTPENABLED               @"utp-enabled"                    // boolean | true means allow utp
+#define TR_ARG_SESSION_VERSION                  @"version"                        // string  | long v
 
 #endif
