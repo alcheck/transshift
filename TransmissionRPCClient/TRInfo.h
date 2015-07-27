@@ -74,18 +74,18 @@
 @property(nonatomic,readonly) float         recheckProgress;
 @property(nonatomic,readonly) NSString*     recheckProgressString;
 
-@property(nonatomic) int           bandwidthPriority;
+@property(nonatomic) int                    bandwidthPriority;
 @property(nonatomic,readonly) NSString*     bandwidthPriorityString;
 
-@property(nonatomic) BOOL          honorsSessionLimits;
-@property(nonatomic) BOOL          uploadLimitEnabled;
-@property(nonatomic) int           uploadLimit;
-@property(nonatomic) BOOL          downloadLimitEnabled;
-@property(nonatomic) BOOL          downloadLimit;
-@property(nonatomic) int           seedIdleMode;
-@property(nonatomic) int           seedIdleLimit;
-@property(nonatomic) int           seedRatioMode;
-@property(nonatomic) float         seedRatioLimit;
-@property(nonatomic) int           queuePosition;
+@property(nonatomic) BOOL                   honorsSessionLimits;
+@property(nonatomic) BOOL                   uploadLimitEnabled;
+@property(nonatomic) int                    uploadLimit;
+@property(nonatomic) BOOL                   downloadLimitEnabled;
+@property(nonatomic) int                    downloadLimit;
+@property(nonatomic) int                    seedIdleMode;
+@property(nonatomic) int                    seedIdleLimit;
+@property(nonatomic) int                    seedRatioMode;
+@property(nonatomic) float                  seedRatioLimit;
+@property(nonatomic) int                    queuePosition;
 
 @end
