@@ -9,8 +9,10 @@
 
 #define HTTP_RESPONSE_OK                    200
 #define HTTP_RESPONSE_UNAUTHORIZED          401
+#define HTTP_RESPONSE_NEED_X_TRANS_ID       409
 #define HTTP_REQUEST_METHOD                 @"POST"
 #define HTTP_AUTH_HEADER                    @"Authorization"
+#define HTTP_XTRANSID_HEADER                @"X-Transmission-Session-Id"
 
 @implementation RPCConnector
 
@@ -51,7 +53,8 @@
                         TR_ARG_FIELDS_SEEDRATIOMODE,
                         TR_ARG_FIELDS_SEEDIDLEMODE,
                         TR_ARG_FIELDS_UPLOADLIMITED,
-                        TR_ARG_FIELDS_DOWNLOADLIMITED
+                        TR_ARG_FIELDS_DOWNLOADLIMITED,
+                        TR_ARG_FIELDS_HAVEVALID
                     ]
         }
     };
@@ -298,6 +301,19 @@
      }];
 }
 
+- (void)stopAllTorrents
+{
+    NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_TORRENTSTOP };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSTOP andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotAllTorrentsStopped)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotAllTorrentsStopped];
+             });
+     }];    
+}
+
 - (void)resumeTorrent:(int)torrentId
 {
     NSDictionary *requestVals = @{
@@ -310,6 +326,19 @@
          if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentResumedWithId:)])
              dispatch_async(dispatch_get_main_queue(), ^{
                  [_delegate gotTorrentResumedWithId:torrentId];
+             });
+     }];
+}
+
+- (void)resumeAllTorrents
+{
+    NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_TORRENTRESUME };
+      
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTRESUME andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotAlltorrentsResumed)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotAlltorrentsResumed];
              });
      }];
 }
@@ -595,6 +624,9 @@
     if( _authString )
         [req addValue:_authString forHTTPHeaderField: HTTP_AUTH_HEADER];
     
+    if( _config.xTransSessionId )
+        [req addValue: _config.xTransSessionId forHTTPHeaderField:HTTP_XTRANSID_HEADER];
+    
     // JSON request
     //req.HTTPBody = [httpBody dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -627,6 +659,12 @@
                     _lastErrorMessage = [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode];
                     if( statusCode == HTTP_RESPONSE_UNAUTHORIZED )
                         _lastErrorMessage = NSLocalizedString(@"You are unauthorized to access server", @"");
+                    else if( statusCode == HTTP_RESPONSE_NEED_X_TRANS_ID )
+                    {
+                        _config.xTransSessionId = httpResponse.allHeaderFields[HTTP_XTRANSID_HEADER];
+                        [self makeRequest:requestDict withName:requestName andHandler:dataHandler];
+                        return;
+                    }
                     
                     [self sendErrorMessage:[NSString stringWithFormat:@"%li %@", (long)statusCode, _lastErrorMessage]
                           toDelegateWithRequestMethodName:requestName];

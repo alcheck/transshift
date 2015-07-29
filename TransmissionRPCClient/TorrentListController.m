@@ -10,7 +10,10 @@
 #import "TorrentListCell.h"
 #import "NSObject+DataObject.h"
 
-@interface TorrentListController () <UIActionSheetDelegate>
+#define STOP_ALL_TORRENTS_TAG   0
+#define START_ALL_TORRENTS_TAG  1
+
+@interface TorrentListController () <UIActionSheetDelegate, UIAlertViewDelegate>
 
 @end
 
@@ -19,6 +22,9 @@
 {
     TorrentListCell *_editCell;
     NSMutableArray  *_catitems;  // array of StatusCategoryItem objects
+    
+    UIBarButtonItem *_stopAllButton;
+    UIBarButtonItem *_startAllButton;
 }
 
 - (void)viewDidLoad
@@ -26,12 +32,59 @@
     [super viewDidLoad];
     
     _catitems = [NSMutableArray array];
+    
+    _stopAllButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconStopAll22x22"] style:UIBarButtonItemStyleBordered target:self action:@selector(stopAllTorrentsButtonPressed)];
+    
+    _startAllButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconStartAll22x22"] style:UIBarButtonItemStyleBordered target:self action:@selector(startAllTorrentsButtonPressed)];
+    
+    self.navigationItem.rightBarButtonItems = nil;
 }
 
+
+- (void)stopAllTorrentsButtonPressed
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Stop all torrents", @"")
+                                                    message:NSLocalizedString(@"Do you want to stop all torrents?", @"")
+                                                   delegate:self cancelButtonTitle: NSLocalizedString(@"Cancel", @"") otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+    alert.dataObject = @(STOP_ALL_TORRENTS_TAG);
+    [alert show];
+}
+
+- (void)startAllTorrentsButtonPressed
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Start all torrents", @"")
+                                                    message:NSLocalizedString(@"Do you want to start all torrents?", @"")
+                                                   delegate:self cancelButtonTitle: NSLocalizedString(@"Cancel", @"") otherButtonTitles:NSLocalizedString(@"OK", @""), nil];
+    alert.dataObject = @(START_ALL_TORRENTS_TAG);
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    int ACTION_TAG = [alertView.dataObject intValue];
+    
+    if( buttonIndex != alertView.cancelButtonIndex && _delegate )
+    {
+        if( ACTION_TAG == STOP_ALL_TORRENTS_TAG &&
+           [_delegate respondsToSelector:@selector(torrentListStopAllTorrents)] )
+            [_delegate torrentListStopAllTorrents];
+        
+        else if( ACTION_TAG == START_ALL_TORRENTS_TAG &&
+                [_delegate respondsToSelector:@selector(torrentListStartAllTorrents)] )
+            [_delegate torrentListStartAllTorrents];
+    }
+}
 
 // update model to the new state from @items
 - (void)setItems:(StatusCategory *)items
 {
+    if( !items && !_catitems )
+    {
+        self.errorMessage = nil;
+        [self.tableView reloadData];
+        return;
+    }
+    
     // get mutable copy of non empty CategoryItems (sections of the table)
     NSMutableArray *newCats = [items mutableCopyOfNonEmptyItems];
     
@@ -142,6 +195,7 @@
     }
         
     
+    self.navigationItem.rightBarButtonItems =  ( _catitems && _catitems.count > 0 ) ?  @[ _stopAllButton, _startAllButton ] : nil;
     //NSLog(@"Sections[RELOAD:%i, ADD:%i, REMOVE:%i, UPDATE:%i]",
     //      idxSectionToReload.count, idxSectionToAdd.count, idxSectionToRemove.count, idxSectionToUpdate.count);
 
@@ -306,7 +360,21 @@
         detailInfo = [NSString stringWithFormat: NSLocalizedString(@"Seeding to %i of %i peers",@""),
                       info.peersGettingFromUs, info.peersConnected ];
         cell.downloadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↑UL: %@", @""), info.uploadRateString];
-        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@, uploaded %@ (Ratio %0.2f)", @""), info.downloadedSizeString, info.uploadedEverString, info.uploadRatio];
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@, uploaded %@ (Ratio %0.2f)", @""),
+                          info.downloadedSizeString,
+                          info.uploadedEverString,
+                          info.uploadRatio];
+        
+        // fix: Show actual downloaded size
+        if( ![info.haveValidString isEqual:info.downloadedSizeString] )
+        {
+            cell.size.text = [NSString stringWithFormat: NSLocalizedString( @"%@ of %@, uploaded %@ (Ratio %0.2f)", @"" ),
+                              info.haveValidString,
+                              info.totalSizeString,
+                              info.uploadedEverString,
+                              info.uploadRatio];
+        }
+        
         cell.statusIcon.image = [UIImage iconUpload];
         btnImg = [UIImage iconPause];
         btnTintColor = [UIColor stopColor];
@@ -328,7 +396,7 @@
         detailInfo =  NSLocalizedString(@"Paused", @"TorrentListController torrent info");
         progressBarColor = [UIColor stopColor];
         cell.downloadRate.text = NSLocalizedString(@"no activity", @"");
-        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, uploaded %@ (Ratio %0.2f)", @""), info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, uploaded %@ (Ratio %0.2f)", @""), info.haveValidString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
         cell.statusIcon.image = [UIImage iconStop];
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
         btnImg = [UIImage iconPlay];

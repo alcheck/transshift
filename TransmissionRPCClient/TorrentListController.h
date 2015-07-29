@@ -24,6 +24,8 @@
 
 @optional - (void)torrentListStopTorrentWithId:(int)torrentId;
 @optional - (void)torrentListResumeTorrentWithId:(int)torrentId;
+@optional - (void)torrentListStartAllTorrents;
+@optional - (void)torrentListStopAllTorrents;
 
 @end
 

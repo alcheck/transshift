@@ -742,6 +742,16 @@
         [self showErrorPopup:errorMessage];
         return;
     }
+    else if ( [requestName isEqualToString:TR_METHODNAME_TESTPORT] )
+    {
+        [self showErrorPopup: [NSString stringWithFormat: NSLocalizedString(@"Can not test port, %@", @""), errorMessage] ];
+        return;
+    }
+    else if( [requestName isEqualToString:TR_METHODNAME_FREESPACE] )
+    {
+        [self showErrorPopup: [NSString stringWithFormat: NSLocalizedString(@"Can not get free space, %@", @""), errorMessage] ];
+        return;
+    }
     
     
     // show error to background
@@ -889,6 +899,28 @@
 - (void)torrentListStopTorrentWithId:(int)torrentId
 {
     [_connector stopTorrent:torrentId];
+}
+
+- (void)torrentListStopAllTorrents
+{
+    [_connector stopAllTorrents];
+    [self showInfoPopup:NSLocalizedString(@"Stopping all torrents ...", @"") ];
+}
+
+- (void)gotAllTorrentsStopped
+{
+    [_connector getAllTorrents];
+}
+
+- (void)torrentListStartAllTorrents
+{
+    [_connector resumeAllTorrents];
+    [self showInfoPopup:NSLocalizedString(@"Starting all torrents ...", @"") ];
+}
+
+- (void)gotAlltorrentsResumed
+{
+    [_connector getAllTorrents];
 }
 
 - (void)torrentListResumeTorrentWithId:(int)torrentId

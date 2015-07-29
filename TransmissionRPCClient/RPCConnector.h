@@ -36,6 +36,8 @@
 @optional - (void)gotAllTrackers:(NSArray*)trackerStats forTorrentWithId:(int)torrentId;
 @optional - (void)gotTrackerRemoved:(int)trackerId forTorrentWithId:(int)torrentId;
 @optional - (void)gotSetSettingsForTorrentWithId:(int)torrentId;
+@optional - (void)gotAllTorrentsStopped;
+@optional - (void)gotAlltorrentsResumed;
 
 @end
 
@@ -52,7 +54,9 @@
 - (void)stopRequests;
 
 - (void)stopTorrent:(int)torrentId;
+- (void)stopAllTorrents;
 - (void)resumeTorrent:(int)torrentId;
+- (void)resumeAllTorrents;
 - (void)verifyTorrent:(int)torrentId;
 - (void)reannounceTorrent:(int)torrentId;
 - (void)deleteTorrentWithId:(int)torrentId deleteWithData:(BOOL)deleteWithData;
