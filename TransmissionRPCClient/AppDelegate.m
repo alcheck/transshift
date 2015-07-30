@@ -166,6 +166,13 @@
                             [announceList addObject:url.host];
                     }
                 }
+                // some fix: if threre is only one tracker
+                else if( trData[@"announce"] )
+                {
+                    announceList = [NSMutableArray array];
+                    NSURL *url = [NSURL URLWithString:trData[@"announce"]];
+                    [announceList addObject:url.host];
+                }
             }
         }
         else

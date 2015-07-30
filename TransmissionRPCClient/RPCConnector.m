@@ -579,6 +579,21 @@
     }];
 }
 
+/// toggle alternative limits mode
+- (void)toggleAltLimitMode:(BOOL)altLimitsEnabled
+{
+    NSDictionary *requestVals = @{ TR_METHOD : TR_METHODNAME_SESSIONSET,
+                                   TR_METHOD_ARGS : @{ TR_ARG_SESSION_ALTLIMITRATEENABLED : @(altLimitsEnabled) } };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_SESSIONSET andHandler:^(NSDictionary *json)
+    {
+        if( _delegate && [_delegate respondsToSelector:@selector(gotToggledAltLimitMode:)] )
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_delegate gotToggledAltLimitMode:altLimitsEnabled];
+            });
+    }];
+}
+
 - (void)getFreeSpaceWithDownloadDir:(NSString *)downloadDir
 {
     NSDictionary *requestVals = @{TR_METHOD : TR_METHODNAME_FREESPACE,

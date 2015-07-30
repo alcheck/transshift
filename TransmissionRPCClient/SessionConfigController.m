@@ -252,6 +252,8 @@
         _textPortNumber.text = [NSString stringWithFormat:@"%i", _sessionInfo.port];
         _switchPortForwardingEnabled.on = _sessionInfo.portForfardingEnabled;
         
+        _labelPort.text = NSLocalizedString(@"testing ...", @"");
+        
         _textDownloadDir.enabled = YES;
         _textDownloadDir.text = _sessionInfo.downloadDir;
         

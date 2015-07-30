@@ -1092,7 +1092,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Alternate rate limits" id="cOh-W3-4Fc">
+                            <tableViewSection headerTitle="Alternative rate limits" footerTitle="Alternative limits override global rate limits" id="cOh-W3-4Fc">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="uAp-lJ-vdA">
                                         <autoresizingMask key="autoresizingMask"/>

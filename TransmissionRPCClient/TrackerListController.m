@@ -42,7 +42,7 @@
 
 - (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return NSLocalizedString( @"Tracker List", @"" );
+    return NSLocalizedString( @"Tracker list", @"" );
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

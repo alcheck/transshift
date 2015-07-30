@@ -35,7 +35,7 @@
 /* Class = "UILabel"; text = "Имя файла"; ObjectID = "7Y3-f0-bDc"; */
 "7Y3-f0-bDc.text" = "Имя файла";
 
-/* Class = "UILabel"; text = "Time to:"; ObjectID = "86Q-Gq-aqd"; */
+/* Class = "UILabel"; text = "До:"; ObjectID = "86Q-Gq-aqd"; */
 "86Q-Gq-aqd.text" = "До:";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "8JU-52-6C1"; */
@@ -56,7 +56,7 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "9od-9U-qM5"; */
 "9od-9U-qM5.text" = "-";
 
-/* Class = "UITableViewSection"; headerTitle = "Download directory"; ObjectID = "APQ-rv-5wD"; */
+/* Class = "UITableViewSection"; headerTitle = "Директория загрузки"; ObjectID = "APQ-rv-5wD"; */
 "APQ-rv-5wD.headerTitle" = "Директория загрузки";
 
 /* Class = "UITextField"; placeholder = "1.5"; ObjectID = "AWf-Yf-DAl"; */
@@ -236,7 +236,7 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "Vp5-2R-l87"; */
 "Vp5-2R-l87.text" = "-";
 
-/* Class = "UILabel"; text = "Title"; ObjectID = "VqE-5J-tAS"; */
+/* Class = "UILabel"; text = "Заголовок"; ObjectID = "VqE-5J-tAS"; */
 "VqE-5J-tAS.text" = "Заголовок";
 
 /* Class = "UITextField"; placeholder = "5136"; ObjectID = "VsL-r5-dCY"; */
@@ -302,6 +302,9 @@
 /* Class = "UILabel"; text = "Хост трекера"; ObjectID = "cNx-Tz-4s1"; */
 "cNx-Tz-4s1.text" = "Хост трекера";
 
+/* Class = "UITableViewSection"; footerTitle = "Альтернативные ограничения скоростей перекрывают глобальные ограничения"; ObjectID = "cOh-W3-4Fc"; */
+"cOh-W3-4Fc.footerTitle" = "Альтернативные ограничения скоростей перекрывают глобальные ограничения";
+
 /* Class = "UITableViewSection"; headerTitle = "Альтернативные ограничения скоростей"; ObjectID = "cOh-W3-4Fc"; */
 "cOh-W3-4Fc.headerTitle" = "Альтернативные ограничения скоростей";
 
@@ -344,7 +347,7 @@
 /* Class = "UILabel"; text = "%"; ObjectID = "gdb-6a-49Z"; */
 "gdb-6a-49Z.text" = "%";
 
-/* Class = "UILabel"; text = "Schedule time/day"; ObjectID = "h8y-nY-MgU"; */
+/* Class = "UILabel"; text = "По расписанию"; ObjectID = "h8y-nY-MgU"; */
 "h8y-nY-MgU.text" = "По расписанию";
 
 /* Class = "UITableViewSection"; headerTitle = "Коментарий"; ObjectID = "hEX-eC-vB8"; */
@@ -362,13 +365,13 @@
 /* Class = "UITextField"; text = "200"; ObjectID = "iUk-mi-jCD"; */
 "iUk-mi-jCD.text" = "200";
 
-/* Class = "UILabel"; text = "Downloads"; ObjectID = "iuw-QH-sPc"; */
+/* Class = "UILabel"; text = "Загрузки"; ObjectID = "iuw-QH-sPc"; */
 "iuw-QH-sPc.text" = "Загрузки";
 
-/* Class = "UILabel"; text = "Last announce time"; ObjectID = "j1j-be-GYG"; */
+/* Class = "UILabel"; text = "Прошлое время анонса"; ObjectID = "j1j-be-GYG"; */
 "j1j-be-GYG.text" = "Прошлое время анонса";
 
-/* Class = "UILabel"; text = "Peers"; ObjectID = "j27-Lf-lP6"; */
+/* Class = "UILabel"; text = "Пиры"; ObjectID = "j27-Lf-lP6"; */
 "j27-Lf-lP6.text" = "Пиры";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "kJA-N0-zJw"; */
@@ -401,7 +404,7 @@
 /* Class = "UILabel"; text = "Адрес"; ObjectID = "mwO-Hy-UAi"; */
 "mwO-Hy-UAi.text" = "Адрес";
 
-/* Class = "UILabel"; text = "Time from:"; ObjectID = "nSy-Hk-W2H"; */
+/* Class = "UILabel"; text = "С:"; ObjectID = "nSy-Hk-W2H"; */
 "nSy-Hk-W2H.text" = "С:";
 
 /* Class = "UITextField"; placeholder = "Кб/с"; ObjectID = "o1I-Jq-xnz"; */
@@ -419,7 +422,7 @@
 /* Class = "UILabel"; text = "999 bytes/s"; ObjectID = "qpK-et-HXA"; */
 "qpK-et-HXA.text" = "999 bytes/s";
 
-/* Class = "UILabel"; text = "Seeders"; ObjectID = "qri-pg-jR1"; */
+/* Class = "UILabel"; text = "Сидеры"; ObjectID = "qri-pg-jR1"; */
 "qri-pg-jR1.text" = "Сидеры";
 
 /* Class = "UILabel"; text = "UL: 3 Mb/s"; ObjectID = "r0e-Lm-a6J"; */
@@ -431,7 +434,7 @@
 /* Class = "UILabel"; text = "Имя пользователя"; ObjectID = "riC-Pu-uit"; */
 "riC-Pu-uit.text" = "Имя пользователя";
 
-/* Class = "UILabel"; text = "Разрешить Micro Transport Protocol(μTP)"; ObjectID = "sCw-SS-b8B"; */
+/* Class = "UILabel"; text = "Разрешить Micro Transport Protocol (μTP)"; ObjectID = "sCw-SS-b8B"; */
 "sCw-SS-b8B.text" = "Разрешить Micro Transport Protocol (μTP)";
 
 /* Class = "UITableViewSection"; headerTitle = "Соединения"; ObjectID = "sNG-b2-8sg"; */
@@ -464,7 +467,7 @@
 /* Class = "UILabel"; text = "↑UP"; ObjectID = "wWp-FG-rqG"; */
 "wWp-FG-rqG.text" = "↑UP";
 
-/* Class = "UIButton"; normalTitle = "More..."; ObjectID = "x61-7D-qyB"; */
+/* Class = "UIButton"; normalTitle = "Еще..."; ObjectID = "x61-7D-qyB"; */
 "x61-7D-qyB.normalTitle" = "Еще...";
 
 /* Class = "UILabel"; text = "Завершен"; ObjectID = "xOI-dc-Zt9"; */

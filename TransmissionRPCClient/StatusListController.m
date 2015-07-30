@@ -63,6 +63,7 @@
     
     // toolbar buttons
     UIBarButtonItem         *_btnRefresh;
+    UIBarButtonItem         *_btnToggleAltLimits;
     UIBarButtonItem         *_btnLimitDownSpeed;
     UIBarButtonItem         *_btnLimitUpSpeed;
     UIBarButtonItem         *_btnSessionConfig;
@@ -159,6 +160,10 @@
                                                    style:UIBarButtonItemStylePlain target:self
                                                   action:@selector(autorefreshTimerUpdateHandler)];
     
+    _btnToggleAltLimits = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconTurtleBlack22x22"]
+                                                           style:UIBarButtonItemStylePlain target:self
+                                                          action:@selector(toggleAltLimits)];
+    
     _btnLimitUpSpeed = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconTurtleUpload20x20"]
                                                         style:UIBarButtonItemStylePlain
                                                        target:self
@@ -180,9 +185,10 @@
     
     _btnLimitDownSpeed.enabled =  NO;
     _btnLimitUpSpeed.enabled = NO;
+    _btnToggleAltLimits.enabled = NO;
     _btnSessionConfig.enabled = NO;
     
-    self.toolbarItems = @[ _btnRefresh, _btnSpacer, _btnLimitUpSpeed, _btnSpacer, _btnLimitDownSpeed, _btnSpacer, _btnSessionConfig];
+    self.toolbarItems = @[ _btnRefresh, _btnSpacer, _btnLimitUpSpeed, _btnSpacer, _btnLimitDownSpeed, _btnSpacer, _btnToggleAltLimits, _btnSpacer, _btnSessionConfig];
     
        // configure "add torrent by url" right nav button
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconLinkAdd20x20"]
@@ -462,6 +468,27 @@
         [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
 }
 
+- (void)toggleAltLimits
+{
+    if( _sessionInfo )
+    {
+        BOOL toogleMode = !_sessionInfo.altLimitEnabled;
+        [_connector toggleAltLimitMode:toogleMode];
+    }
+}
+
+-(void)gotToggledAltLimitMode:(BOOL)altLimitEnabled
+{
+    _sessionInfo.altLimitEnabled = altLimitEnabled;
+    
+     _btnToggleAltLimits.image = altLimitEnabled ? [UIImage imageNamed:@"iconTurtleBlackCrossed22x22"] : [UIImage imageNamed:@"iconTurtleBlack22x22"];
+    
+    [self showInfoPopup: altLimitEnabled ?  NSLocalizedString(@"Alternative limits is on", @"") :
+     NSLocalizedString(@"Alternative limits is off", @"") ];
+    
+    [_connector getSessionInfo];
+}
+
 - (void)showFinishedTorrentsWithInfo:(TRInfos*)torrents
 {
     // show torrents in list controller (update)
@@ -691,6 +718,9 @@
     _btnSessionConfig.enabled = YES;
     _btnLimitDownSpeed.enabled = YES;
     _btnLimitUpSpeed.enabled = YES;
+    _btnToggleAltLimits.enabled = YES;
+    
+    _btnToggleAltLimits.image = info.altLimitEnabled ? [UIImage imageNamed:@"iconTurtleBlackCrossed22x22"] : [UIImage imageNamed:@"iconTurtleBlack22x22"];
     
     // show/hide limit icon
     _headerViewDURates.upLimitIsOn =  info.upLimitEnabled || info.altLimitEnabled;

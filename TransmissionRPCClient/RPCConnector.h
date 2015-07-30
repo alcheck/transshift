@@ -38,6 +38,7 @@
 @optional - (void)gotSetSettingsForTorrentWithId:(int)torrentId;
 @optional - (void)gotAllTorrentsStopped;
 @optional - (void)gotAlltorrentsResumed;
+@optional - (void)gotToggledAltLimitMode:(BOOL)altLimitEnabled;
 
 @end
 
@@ -52,6 +53,7 @@
 - (void)getAllTorrents;
 - (void)getDetailedInfoForTorrentWithId:(int)torrentId;
 - (void)stopRequests;
+- (void)toggleAltLimitMode:(BOOL)altLimitsEnabled;
 
 - (void)stopTorrent:(int)torrentId;
 - (void)stopAllTorrents;
