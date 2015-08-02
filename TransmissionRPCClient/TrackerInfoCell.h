@@ -11,6 +11,9 @@
 #define CELL_ID_TRACKERINFO @"trackerInfoCell"
 
 @interface TrackerInfoCell : UITableViewCell
+
+@property (nonatomic) int trackerId;
+
 @property (weak, nonatomic) IBOutlet UILabel *trackerHostLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastAnnounceTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nextAnnounceTimeLabel;

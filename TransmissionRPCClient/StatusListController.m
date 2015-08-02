@@ -391,8 +391,13 @@
 // occured upon rpc request
 - (void)requestToServerSucceeded
 {
+    CommonTableController *topVC = (CommonTableController*)_torrentController.navigationController.topViewController;
+
     [self.refreshControl endRefreshing];
-    [_torrentController.refreshControl endRefreshing];
+    [topVC.refreshControl endRefreshing];
+   
+    // hide any error messages
+    topVC.errorMessage = nil;
 }
 
 // got all torrents, refresh statues
@@ -759,13 +764,18 @@
 
 #pragma mark - RPCConnector error hangling
 
-// RPCConnector signals error
+/// RPCConnector signals error
 - (void)connector:(RPCConnector *)cn complitedRequestName:(NSString *)requestName withError:(NSString *)errorMessage
 {
     // end of refreshing (if it is)
     [self.refreshControl endRefreshing];
-    [_torrentController.refreshControl endRefreshing];
     
+    CommonTableController *topVC = (CommonTableController*)_torrentController.navigationController.topViewController;
+    
+    //[_torrentController.refreshControl endRefreshing];
+    [topVC.refreshControl endRefreshing];
+    
+    // for some errors we show popup message
     if( [requestName isEqualToString:TR_METHODNAME_TORRENTADD] ||
         [requestName isEqualToString:TR_METHODNAME_TORRENTADDURL] )
     {
@@ -774,28 +784,20 @@
     }
     else if ( [requestName isEqualToString:TR_METHODNAME_TESTPORT] )
     {
-        [self showErrorPopup: [NSString stringWithFormat: NSLocalizedString(@"Can not test port, %@", @""), errorMessage] ];
+        [self showErrorPopup:
+         [NSString stringWithFormat: NSLocalizedString(@"Can not test port, %@", @""), errorMessage] ];
         return;
     }
     else if( [requestName isEqualToString:TR_METHODNAME_FREESPACE] )
     {
-        [self showErrorPopup: [NSString stringWithFormat: NSLocalizedString(@"Can not get free space, %@", @""), errorMessage] ];
+        [self showErrorPopup:
+         [NSString stringWithFormat: NSLocalizedString(@"Can not get free space, %@", @""), errorMessage] ];
         return;
     }
     
-    
-    // show error to background
-    //_torrentController.infoMessage = errorMessage;
-    //_torrentController.torrents = nil;
     _torrentController.items = nil;
-    _torrentController.errorMessage = errorMessage;
+    topVC.errorMessage = errorMessage;
     self.errorMessage = errorMessage;
-    
-    UINavigationController *nav = _torrentController.navigationController;
-    if( _torrentInfoController && nav.visibleViewController == _torrentInfoController )
-    {
-        [_torrentInfoController showErrorMessage:errorMessage];
-    }
 }
 
 #pragma mark - TorrentInfoController delegate methods

@@ -18,7 +18,7 @@
     UILabel*    _headerLabel;
 }
 
-// set nil or @"" string to hide error message from top
+/// set nil string to hide error message from top
 - (void)setErrorMessage:(NSString *)errorMessage
 {
     _errorMessage = errorMessage;
@@ -33,7 +33,7 @@
         _errorLabel.font = [UIFont systemFontOfSize:TABLEHEADER_ERRORLABEL_FONTSIZE];
         _errorLabel.textAlignment = NSTextAlignmentCenter;
     }
-    
+
     if( errorMessage )
     {
         _errorLabel.text = errorMessage;
@@ -47,7 +47,7 @@
         self.tableView.tableHeaderView = _errorLabel;
         [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     }
-    else
+    else if( self.tableView.tableHeaderView == _errorLabel )
     {
         self.tableView.tableHeaderView = nil;
     }

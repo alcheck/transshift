@@ -172,31 +172,6 @@
     if( _delegate && [_delegate respondsToSelector:@selector(updateTorrentInfoWithId:)])
         [_delegate updateTorrentInfoWithId:_torrentId];
 }
-
-- (void)showErrorMessage: (NSString *)msg
-{
-    [self.refreshControl endRefreshing];
-    
-    // tableview header
-    UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectZero];
-    headerView.text = msg;
-    headerView.backgroundColor = [UIColor redColor];
-    headerView.textColor = [UIColor whiteColor];
-    headerView.numberOfLines = 0;
-    headerView.font = [UIFont systemFontOfSize:15];
-    headerView.textAlignment = NSTextAlignmentCenter;
-    [headerView sizeToFit];
-    
-    CGRect r = self.tableView.bounds;
-    r.size.height = headerView.bounds.size.height + 40;
-    
-    headerView.bounds = r;
-    
-    [self.tableView beginUpdates];
-    self.tableView.tableHeaderView = headerView;
-    [self.tableView endUpdates];
-}
-
 - (void)stopTorrent
 {
     if( _delegate && [_delegate respondsToSelector:@selector(stopTorrentWithId:)])

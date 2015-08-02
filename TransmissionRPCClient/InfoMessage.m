@@ -7,11 +7,16 @@
 //
 
 #import "InfoMessage.h"
+#import "GlobalConsts.h"
 
 #define INFO_MESSAGE_TOPMARGIN          20
 #define INFO_MESSAGE_CORNERRADIUS       3
 
 #define INFO_MESSAGE_DEFAULTHIDETIMEOUT 2
+
+#define INFO_MESSAGE_ICONCHECK          @"iconCheck20x20"
+#define INFO_MESSAGE_ICONEXCLAMATION    @"iconExclamation20x20"
+#define INFO_MESSAGE_BUNDLENAME         @"InfoMessage"
 
 @interface InfoMessage()
 
@@ -36,14 +41,14 @@
     
     if( !iconCheck )
     {
-        iconCheck = [[UIImage imageNamed:@"iconCheck20x20"]
+        iconCheck = [[UIImage imageNamed:INFO_MESSAGE_ICONCHECK]
                      imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
-        iconExclamation = [[UIImage imageNamed:@"iconExclamation20x20"]
+        iconExclamation = [[UIImage imageNamed:INFO_MESSAGE_ICONEXCLAMATION]
                            imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
  
-    InfoMessage *msg = [[[NSBundle mainBundle] loadNibNamed:@"InfoMessage" owner:self options:nil] firstObject];
+    InfoMessage *msg = [[[NSBundle mainBundle] loadNibNamed:INFO_MESSAGE_BUNDLENAME owner:self options:nil] firstObject];
     msg.frame = CGRectMake(0, 0, sz.width, sz.height);
     
     msg.iconInfo = iconCheck;
@@ -79,7 +84,7 @@
     
     self.label.textColor = [UIColor whiteColor];
     self.icon.image = _iconError;
-    self.backgroundColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:1];
+    self.backgroundColor = [UIColor errorColor];
     self.icon.tintColor = [UIColor whiteColor];
     
     [self showFromView:parentView];
