@@ -8,22 +8,19 @@
 
 #import "PeerListController.h"
 #import "PeerListCell.h"
-
-@interface PeerListController ()
-
-@property(nonatomic) NSString *backgroundTitle;
-
-@end
+#import "PeerStatCell.h"
 
 @implementation PeerListController
 
 {
-    UILabel *_backgroundLabel;
+    NSArray *_sectionTitles;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _sectionTitles = @[ NSLocalizedString(@"Peers", @""), NSLocalizedString(@"Peers stats", @"") ];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl = refreshControl;
@@ -51,73 +48,96 @@
     [self.tableView reloadData];
 }
 
-- (void)setBackgroundTitle:(NSString *)backgroundTitle
-{
-    if( !backgroundTitle )
-        self.tableView.backgroundView = nil;
-    
-    if( !_backgroundLabel )
-    {
-        UILabel *label = [[UILabel alloc] initWithFrame:self.tableView.bounds];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor darkGrayColor];
-        label.font = [UIFont systemFontOfSize:19];
-        label.numberOfLines = 0;
-        _backgroundLabel = label;
-    }
-    
-    _backgroundLabel.text = backgroundTitle;
-    self.tableView.backgroundView = _backgroundLabel;
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if( _peers && _peers.count > 0 )
-    {
-        self.backgroundTitle = nil;
-        return 1;
-    }
+     // Return the number of sections.
+    self.infoMessage =  _peers.count > 0 ? nil : NSLocalizedString(@"There are no peers avalable.", @"");
     
-    // Return the number of sections.
-    self.backgroundTitle =  NSLocalizedString(@"There are no peers avalable.", @"PeerList background message");
-    return 0;
+    return _peers.count > 0 ? 2 : 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {    
-    return  NSLocalizedString(@"Peers", @"");
+    return  _sectionTitles[section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return _peers.count + 1;
+    // Return the number of rows in the section + 1 for header row
+    if( section ==  0 )
+        return _peers.count + 1;
+    
+    return  1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if( indexPath.section == 1 )
+        return 174;
+    
+    if( indexPath.section == 0 )
+    {
+        if( indexPath.row == 0 )
+            return 44;
+        
+        return 30;
+    }
+    
+    return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if( indexPath.row == 0 )
+    // return header row
+    if( indexPath.section == 0 && indexPath.row == 0 )
     {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_PEERLISTHEADERCELL forIndexPath:indexPath];
         return cell;
     }
     
-    PeerListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_PEERLISTCELL forIndexPath:indexPath];
+    if( indexPath.section == 0 )
+    {
+        
+        PeerListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_PEERLISTCELL forIndexPath:indexPath];
+        
+        TRPeerInfo *info = self.peers[indexPath.row - 1];
+        
+        cell.clientLabel.text = info.clientName;
+        cell.addressLabel.text = info.ipAddress;
+        cell.progressLabel.text = info.progressString;
+        cell.flagLabel.text = info.flagString;
+        cell.downloadLabel.text = info.rateToClient > 0 ? info.rateToClientString : @"-";
+        cell.uploadLabel.text = info.rateToPeer > 0 ?  info.rateToPeerString : @"-";
+        cell.isSecure = info.isEncrypted;
+        cell.isUTPEnabled = info.isUTP;
+        
+        return cell;
+    }
     
-    TRPeerInfo *info = self.peers[indexPath.row - 1];
+    if( indexPath.section == 1 )
+    {
+        PeerStatCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_PEERSTAT forIndexPath:indexPath];
+        
+        cell.labelFromCache.text = [NSString stringWithFormat:
+                                    NSLocalizedString( @"From cache: %@", @""), _peerStat.fromChache];
+        cell.labelFromDht.text = [NSString stringWithFormat:
+                                  NSLocalizedString( @"From DHT: %@", @""), _peerStat.fromDht];
+        
+        cell.labelFromLpd.text = [NSString stringWithFormat:
+                                  NSLocalizedString( @"From LPD: %@", @""), _peerStat.fromLpd];
+        
+        cell.labelFromPex.text = [NSString stringWithFormat:
+                                  NSLocalizedString( @"From PEX: %@", @""), _peerStat.fromPex];
+        
+        cell.labelFromTracker.text = [NSString stringWithFormat:
+                                      NSLocalizedString( @"From tracker: %@", @""), _peerStat.fromTracker];
+        
+        return cell;
+    }
     
-    cell.clientLabel.text = info.clientName;
-    cell.addressLabel.text = info.ipAddress;
-    cell.progressLabel.text = info.progressString;
-    cell.flagLabel.text = info.flagString;
-    cell.downloadLabel.text = info.rateToClient > 0 ? info.rateToClientString : @"-";
-    cell.uploadLabel.text = info.rateToPeer > 0 ?  info.rateToPeerString : @"-";
-    cell.isSecure = info.isEncrypted;
-    cell.isUTPEnabled = info.isUTP;
-    
-    return cell;
+    return nil;
 }
 
 

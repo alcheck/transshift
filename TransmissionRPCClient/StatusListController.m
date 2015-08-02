@@ -994,11 +994,12 @@
     [_connector getAllPeersForTorrentWithId:torrentId];
 }
 
-- (void)gotAllPeers:(NSArray *)peerInfos forTorrentWithId:(int)torrentId
+- (void)gotAllPeers:(NSArray *)peerInfos withPeerStat:(TRPeerStat *)stat forTorrentWithId:(int)torrentId
 {
     if( _peerListController )
     {
         _peerListController.peers = peerInfos;
+        _peerListController.peerStat = stat;
     }
 }
 

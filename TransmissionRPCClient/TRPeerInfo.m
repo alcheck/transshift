@@ -9,6 +9,32 @@
 #import "TRPeerInfo.h"
 #import "GlobalConsts.h"
 
+@implementation TRPeerStat
+
++ (TRPeerStat *)peerStatWithJSONData:(NSDictionary *)dict
+{
+    return [[TRPeerStat alloc] initWithJSONData:dict];
+}
+
+- (instancetype)initWithJSONData:(NSDictionary*)dict
+{
+    self = [super init];
+    
+    if( !self )
+        return self;
+    
+    _fromChache = [NSString stringWithFormat:@"%i", [dict[TR_ARG_PEERSFROM_CHACHE] intValue] ];
+    _fromDht = [NSString stringWithFormat:@"%i", [dict[TR_ARG_PEERSFROM_DHT] intValue] ];
+    _fromLpd = [NSString stringWithFormat:@"%i", [dict[TR_ARG_PEERSFROM_LPD] intValue] ];
+    _fromPex = [NSString stringWithFormat:@"%i", [dict[TR_ARG_PEERSFROM_PEX] intValue] ];
+    _fromTracker = [NSString stringWithFormat:@"%i", [dict[TR_ARG_PEERSFROM_TRACKER] intValue] ];
+    _fromIncoming = [NSString stringWithFormat:@"%i", [dict[TR_ARG_PEERSFROM_INCOMING] intValue] ];
+    
+    return  self;
+}
+
+@end
+
 @implementation TRPeerInfo
 
 + (TRPeerInfo *)peerInfoWithJSONData:(NSDictionary *)dict

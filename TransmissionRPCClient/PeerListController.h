@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonTableController.h"
 #import "TRPeerInfo.h"
 
 #define CONTROLLER_ID_PEERLIST     @"peerListController"
@@ -17,10 +18,12 @@
 
 @end
 
-@interface PeerListController : UITableViewController
+@interface PeerListController : CommonTableController
 
 @property(weak) id<PeerListControllerDelegate> delegate;
-@property(nonatomic) NSArray*   peers;
-@property(nonatomic) int        torrentId;
+
+@property(nonatomic) NSArray*       peers;
+@property(nonatomic) TRPeerStat*    peerStat;
+@property(nonatomic) int            torrentId;
 
 @end

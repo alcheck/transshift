@@ -65,6 +65,15 @@
 #define TR_ARG_FIELDS_PEERSCONNECTED                @"peersConnected"
 #define TR_ARG_FIELDS_PEERSGETTINGFROMUS            @"peersGettingFromUs"
 #define TR_ARG_FIELDS_PEERSSENDINGTOUS              @"peersSendingToUs"
+#define TR_ARG_FIELDS_PEERSFROM                     @"peersFrom"
+
+#define TR_ARG_PEERSFROM_CHACHE                     @"fromCache"
+#define TR_ARG_PEERSFROM_DHT                        @"fromDht"
+#define TR_ARG_PEERSFROM_INCOMING                   @"fromIncoming"
+#define TR_ARG_PEERSFROM_LPD                        @"fromLpd"
+#define TR_ARG_PEERSFROM_LTEP                       @"fromLtep"
+#define TR_ARG_PEERSFROM_PEX                        @"fromPex"
+#define TR_ARG_PEERSFROM_TRACKER                    @"fromTracker"
 
 // tracker stats
 #define TR_ARG_FIELDS_TRACKERSTATS                  @"trackerStats"

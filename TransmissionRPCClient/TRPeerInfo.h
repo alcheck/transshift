@@ -9,6 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "RPCConfigValues.h"
 
+@interface TRPeerStat : NSObject
+
+@property(nonatomic,readonly) NSString *fromChache;
+@property(nonatomic,readonly) NSString *fromDht;
+@property(nonatomic,readonly) NSString *fromIncoming;
+@property(nonatomic,readonly) NSString *fromLpd;
+@property(nonatomic,readonly) NSString *fromPex;
+@property(nonatomic,readonly) NSString *fromTracker;
+
++ (TRPeerStat *)peerStatWithJSONData:(NSDictionary*)dict;
+
+@end
+
 @interface TRPeerInfo : NSObject
 
 @property(nonatomic,readonly) NSString* ipAddress;
@@ -24,6 +37,6 @@
 @property(nonatomic,readonly) BOOL      isEncrypted;
 @property(nonatomic,readonly) BOOL      isUTP;
 
-+ (TRPeerInfo*)peerInfoWithJSONData:(NSDictionary*)dict;
++ (TRPeerInfo *)peerInfoWithJSONData:(NSDictionary*)dict;
 
 @end

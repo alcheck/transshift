@@ -145,7 +145,7 @@
     NSDictionary *requestVals = @{
                                   TR_METHOD : TR_METHODNAME_TORRENTGET,
                                   TR_METHOD_ARGS : @{
-                                          TR_ARG_FIELDS : @[ TR_ARG_FIELDS_PEERS ],
+                                          TR_ARG_FIELDS : @[ TR_ARG_FIELDS_PEERS, TR_ARG_FIELDS_PEERSFROM ],
                                           TR_ARG_IDS : @[@(torrentId)]
                                           }
                                   };
@@ -160,9 +160,11 @@
          for( NSDictionary* peerJsonDict in [torrentsJsonDesc firstObject][TR_ARG_FIELDS_PEERS] )
              [peerInfos addObject:[TRPeerInfo peerInfoWithJSONData:peerJsonDict]];
          
-         if( _delegate && [_delegate respondsToSelector:@selector(gotAllPeers:forTorrentWithId:)])
+         TRPeerStat *peerStat = [TRPeerStat peerStatWithJSONData:[torrentsJsonDesc firstObject][TR_ARG_FIELDS_PEERSFROM]];
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotAllPeers:withPeerStat:forTorrentWithId:)])
              dispatch_async(dispatch_get_main_queue(), ^{
-                 [_delegate gotAllPeers:peerInfos forTorrentWithId:torrentId];
+                 [_delegate gotAllPeers:peerInfos withPeerStat:peerStat forTorrentWithId:torrentId];
              });
      }];
 }

@@ -3294,6 +3294,66 @@
                                     <outlet property="uploadLabel" destination="qpK-et-HXA" id="1eH-Sg-5Od"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="peerStatCell" rowHeight="174" id="CsH-Aq-TOI" customClass="PeerStatCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CsH-Aq-TOI" id="yp5-Jn-i7M">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peers from:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGI-P8-v4P">
+                                            <rect key="frame" x="8" y="8" width="584" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From cache:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSZ-cC-cfe">
+                                            <rect key="frame" x="8" y="34" width="584" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From DHT:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTx-HF-3CI">
+                                            <rect key="frame" x="8" y="60" width="584" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From PEX:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vBH-2X-I2P">
+                                            <rect key="frame" x="8" y="86" width="584" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From LPD:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-U5-lbm">
+                                            <rect key="frame" x="8" y="112" width="584" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From tracker:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vXe-Ks-hvi">
+                                            <rect key="frame" x="8" y="138" width="584" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="eGI-P8-v4P" firstAttribute="top" secondItem="yp5-Jn-i7M" secondAttribute="topMargin" id="E0e-W4-bQu"/>
+                                        <constraint firstItem="TSZ-cC-cfe" firstAttribute="trailing" secondItem="yp5-Jn-i7M" secondAttribute="trailingMargin" id="THm-sv-lW1"/>
+                                        <constraint firstItem="eGI-P8-v4P" firstAttribute="leading" secondItem="yp5-Jn-i7M" secondAttribute="leadingMargin" id="YDH-af-Iqa"/>
+                                        <constraint firstItem="TSZ-cC-cfe" firstAttribute="leading" secondItem="yp5-Jn-i7M" secondAttribute="leadingMargin" id="m5A-Jm-b6j"/>
+                                        <constraint firstItem="TSZ-cC-cfe" firstAttribute="top" secondItem="eGI-P8-v4P" secondAttribute="bottom" constant="8" symbolic="YES" id="mMK-fO-cUo"/>
+                                        <constraint firstItem="eGI-P8-v4P" firstAttribute="trailing" secondItem="yp5-Jn-i7M" secondAttribute="trailingMargin" id="tAU-oT-hs2"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="labelFromCache" destination="TSZ-cC-cfe" id="BIY-Ov-5dz"/>
+                                    <outlet property="labelFromDht" destination="cTx-HF-3CI" id="gEQ-wp-AQR"/>
+                                    <outlet property="labelFromLpd" destination="YdA-U5-lbm" id="ZA5-Co-lPp"/>
+                                    <outlet property="labelFromPex" destination="vBH-2X-I2P" id="XUH-5x-bYb"/>
+                                    <outlet property="labelFromTracker" destination="vXe-Ks-hvi" id="DMt-ka-q11"/>
+                                    <outlet property="labelTotal" destination="eGI-P8-v4P" id="x4A-nK-9qN"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="kwx-cH-a5O" id="hv2-IS-Uje"/>

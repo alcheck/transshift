@@ -27,7 +27,7 @@
 @optional - (void)gotTorrentReannouncedWithId:(int)torrentId;
 @optional - (void)gotTorrentAdded;
 @optional - (void)gotTorrentAddedWithMagnet:(NSString*)magnet;
-@optional - (void)gotAllPeers:(NSArray*)peerInfos forTorrentWithId:(int)torrentId;
+@optional - (void)gotAllPeers:(NSArray*)peerInfos withPeerStat:(TRPeerStat*)stat forTorrentWithId:(int)torrentId;
 @optional - (void)gotAllFiles:(NSArray*)fileInfos forTorrentWithId:(int)torrentId;
 @optional - (void)gotSessionWithInfo:(TRSessionInfo*)info;
 @optional - (void)gotSessionSetWithInfo:(TRSessionInfo*)info;

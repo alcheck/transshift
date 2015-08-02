@@ -209,6 +209,9 @@
 /* Class = "UILabel"; text = "Лимит отдачи (Кб/с)"; ObjectID = "TI2-y7-vZ7"; */
 "TI2-y7-vZ7.text" = "Лимит отдачи (Кб/с)";
 
+/* Class = "UILabel"; text = "From cache:"; ObjectID = "TSZ-cC-cfe"; */
+"TSZ-cC-cfe.text" = "From cache:";
+
 /* Class = "UILabel"; text = "-"; ObjectID = "TVp-YQ-Qnb"; */
 "TVp-YQ-Qnb.text" = "-";
 
@@ -269,6 +272,9 @@
 /* Class = "UILabel"; text = "Рейтинг"; ObjectID = "YN7-rU-OIN"; */
 "YN7-rU-OIN.text" = "Рейтинг";
 
+/* Class = "UILabel"; text = "From LPD:"; ObjectID = "YdA-U5-lbm"; */
+"YdA-U5-lbm.text" = "From LPD:";
+
 /* Class = "UILabel"; text = "Максимальное число пиров на торрент"; ObjectID = "Yg5-aF-OXv"; */
 "Yg5-aF-OXv.text" = "Максимальное число пиров на торрент";
 
@@ -308,6 +314,9 @@
 /* Class = "UITableViewSection"; headerTitle = "Альтернативные ограничения скоростей"; ObjectID = "cOh-W3-4Fc"; */
 "cOh-W3-4Fc.headerTitle" = "Альтернативные ограничения скоростей";
 
+/* Class = "UILabel"; text = "From DHT:"; ObjectID = "cTx-HF-3CI"; */
+"cTx-HF-3CI.text" = "From DHT:";
+
 /* Class = "UILabel"; text = "Просмотр списка файлов"; ObjectID = "cYw-wS-J79"; */
 "cYw-wS-J79.text" = "Просмотр списка файлов";
 
@@ -328,6 +337,9 @@
 
 /* Class = "UILabel"; text = "Клиент"; ObjectID = "djO-Ue-eFG"; */
 "djO-Ue-eFG.text" = "Клиент";
+
+/* Class = "UILabel"; text = "Peers from:"; ObjectID = "eGI-P8-v4P"; */
+"eGI-P8-v4P.text" = "Получено пиров:";
 
 /* Class = "UITableViewSection"; headerTitle = "Ограничения раздачи"; ObjectID = "exP-qX-7he"; */
 "exP-qX-7he.headerTitle" = "Ограничения раздачи";
@@ -463,6 +475,12 @@
 
 /* Class = "UILabel"; text = "Приоритет трафика"; ObjectID = "ugc-JD-qEY"; */
 "ugc-JD-qEY.text" = "Приоритет трафика";
+
+/* Class = "UILabel"; text = "From PEX:"; ObjectID = "vBH-2X-I2P"; */
+"vBH-2X-I2P.text" = "From PEX:";
+
+/* Class = "UILabel"; text = "From tracker:"; ObjectID = "vXe-Ks-hvi"; */
+"vXe-Ks-hvi.text" = "From tracker:";
 
 /* Class = "UILabel"; text = "↑UP"; ObjectID = "wWp-FG-rqG"; */
 "wWp-FG-rqG.text" = "↑UP";

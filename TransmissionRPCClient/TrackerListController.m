@@ -26,7 +26,7 @@
 {
     [self.refreshControl endRefreshing];
     
-    // this is the first data
+    // this is the first data - add section
     if( trackers.count > 0 && !_trackers )
     {
         _trackers = trackers;
