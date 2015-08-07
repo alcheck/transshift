@@ -151,7 +151,7 @@
 		2CF7D5131B42E78C006D01FD /* PeerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListController.m; sourceTree = "<group>"; };
 		2CF7F31F1B6EBF2B007EEBF6 /* PeerStatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerStatCell.h; sourceTree = "<group>"; };
 		2CF7F3201B6EBF2B007EEBF6 /* PeerStatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerStatCell.m; sourceTree = "<group>"; };
-		2CF7F3231B6EC1F6007EEBF6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/controllers.strings; sourceTree = "<group>"; };
+		2CF8BC7C1B7519FD00A15795 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/controllers.strings; sourceTree = "<group>"; };
 		2CF8C7631B4302F7005A7DD6 /* PeerListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListCell.h; sourceTree = "<group>"; };
 		2CF8C7641B4302F7005A7DD6 /* PeerListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListCell.m; sourceTree = "<group>"; };
 		2CF8EF761B61736100EB8D5D /* TrackerListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackerListCell.h; sourceTree = "<group>"; };
@@ -745,7 +745,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2CFB92CE1B56D25400C83354 /* Base */,
-				2CF7F3231B6EC1F6007EEBF6 /* ru */,
+				2CF8BC7C1B7519FD00A15795 /* ru */,
 			);
 			name = controllers.storyboard;
 			sourceTree = "<group>";

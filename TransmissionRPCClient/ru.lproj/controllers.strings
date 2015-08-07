@@ -1,9 +1,9 @@
 
-/* Class = "UILabel"; text = "Максимальное число пиров"; ObjectID = "0JR-EM-310"; */
-"0JR-EM-310.text" = "Максимальное число пиров";
+/* Class = "UILabel"; text = "Общее количество пиров"; ObjectID = "0JR-EM-310"; */
+"0JR-EM-310.text" = "Общее количество пиров";
 
-/* Class = "UILabel"; text = "Ограничение скорости загрузки (Кб/с)"; ObjectID = "0vZ-Sc-tn9"; */
-"0vZ-Sc-tn9.text" = "Ограничение скорости загрузки (Кб/с)";
+/* Class = "UILabel"; text = "Лимит загрузки (Кб/с)"; ObjectID = "0vZ-Sc-tn9"; */
+"0vZ-Sc-tn9.text" = "Лимит загрузки (Кб/с)";
 
 /* Class = "UILabel"; text = "Ограничение скорости отдачи (Кб/с)"; ObjectID = "2eP-Fa-9ww"; */
 "2eP-Fa-9ww.text" = "Ограничение скорости отдачи (Кб/с)";
@@ -17,8 +17,8 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "4ak-eh-UpQ"; */
 "4ak-eh-UpQ.text" = "-";
 
-/* Class = "UILabel"; text = "Автоматический проброс порта"; ObjectID = "4hU-yU-Sph"; */
-"4hU-yU-Sph.text" = "Автоматический проброс порта";
+/* Class = "UILabel"; text = "Разрешить автоматический проброс порта"; ObjectID = "4hU-yU-Sph"; */
+"4hU-yU-Sph.text" = "Разрешить автоматический проброс порта";
 
 /* Class = "UILabel"; text = "Показывать свободное место"; ObjectID = "56X-ZI-KZz"; */
 "56X-ZI-KZz.text" = "Показывать свободное место";
@@ -35,8 +35,8 @@
 /* Class = "UILabel"; text = "Имя файла"; ObjectID = "7Y3-f0-bDc"; */
 "7Y3-f0-bDc.text" = "Имя файла";
 
-/* Class = "UILabel"; text = "До:"; ObjectID = "86Q-Gq-aqd"; */
-"86Q-Gq-aqd.text" = "До:";
+/* Class = "UILabel"; text = "Конечное время:"; ObjectID = "86Q-Gq-aqd"; */
+"86Q-Gq-aqd.text" = "Конечное время:";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "8JU-52-6C1"; */
 "8JU-52-6C1.text" = "-";
@@ -44,8 +44,8 @@
 /* Class = "UILabel"; text = "100 байт из 100 байт"; ObjectID = "94Q-La-4Kc"; */
 "94Q-La-4Kc.text" = "100 байт из 100 байт";
 
-/* Class = "UITableViewSection"; headerTitle = "Ограничение скоростей"; ObjectID = "9Lv-ET-toW"; */
-"9Lv-ET-toW.headerTitle" = "Ограничение скоростей";
+/* Class = "UITableViewSection"; headerTitle = "Общие ограничения скоростей"; ObjectID = "9Lv-ET-toW"; */
+"9Lv-ET-toW.headerTitle" = "Общие ограничения скоростей";
 
 /* Class = "UILabel"; text = "Использовать SSL"; ObjectID = "9ZY-hm-ITB"; */
 "9ZY-hm-ITB.text" = "Использовать SSL";
@@ -64,6 +64,9 @@
 
 /* Class = "UILabel"; text = "Остановить раздачу если торрент неактивен более чем(мин)"; ObjectID = "Aj1-0q-21X"; */
 "Aj1-0q-21X.text" = "Остановить раздачу если торрент неактивен более чем(мин)";
+
+/* Class = "UILabel"; text = "PEX пиры"; ObjectID = "BZM-Ku-n0z"; */
+"BZM-Ku-n0z.text" = "PEX пиры";
 
 /* Class = "UILabel"; text = "Giga"; ObjectID = "Bws-TG-qbq"; */
 "Bws-TG-qbq.text" = "Giga";
@@ -128,14 +131,14 @@
 /* Class = "UISegmentedControl"; HOm-ho-BFw.segmentTitles[2] = "↑"; ObjectID = "HOm-ho-BFw"; */
 "HOm-ho-BFw.segmentTitles[2]" = "↑";
 
-/* Class = "UILabel"; text = "Разрешить DHT"; ObjectID = "HOp-Lq-jYU"; */
-"HOp-Lq-jYU.text" = "Разрешить DHT";
+/* Class = "UILabel"; text = "Разрешить DHT (Distibuted Hash Table)"; ObjectID = "HOp-Lq-jYU"; */
+"HOp-Lq-jYU.text" = "Разрешить DHT (Distibuted Hash Table)";
 
 /* Class = "UILabel"; text = "Заголовок"; ObjectID = "HeM-pZ-YWE"; */
 "HeM-pZ-YWE.text" = "Заголовок";
 
-/* Class = "UILabel"; text = "Клиент"; ObjectID = "HnM-Pw-eoe"; */
-"HnM-Pw-eoe.text" = "Клиент";
+/* Class = "UILabel"; text = "Client"; ObjectID = "HnM-Pw-eoe"; */
+"HnM-Pw-eoe.text" = "Client";
 
 /* Class = "UILabel"; text = "Создатель"; ObjectID = "I7e-jC-m1Q"; */
 "I7e-jC-m1Q.text" = "Создатель";
@@ -146,17 +149,20 @@
 /* Class = "UITextField"; placeholder = "Кб/с"; ObjectID = "KMw-Eh-ead"; */
 "KMw-Eh-ead.placeholder" = "Кб/с";
 
-/* Class = "UITableViewSection"; headerTitle = "Персональные настройки"; ObjectID = "Kun-nG-5NI"; */
-"Kun-nG-5NI.headerTitle" = "Персональные настройки";
+/* Class = "UITableViewSection"; headerTitle = "Настройки торрента"; ObjectID = "Kun-nG-5NI"; */
+"Kun-nG-5NI.headerTitle" = "Настройки торрента";
 
-/* Class = "UILabel"; text = "↓DL"; ObjectID = "Kxc-Le-bIt"; */
-"Kxc-Le-bIt.text" = "↓DL";
+/* Class = "UILabel"; text = "↓"; ObjectID = "Kxc-Le-bIt"; */
+"Kxc-Le-bIt.text" = "↓";
 
-/* Class = "UILabel"; text = "Ограничение скорости отдачи (Кб/с)"; ObjectID = "LD8-gw-42B"; */
-"LD8-gw-42B.text" = "Ограничение скорости отдачи (Кб/с)";
+/* Class = "UILabel"; text = "Лимит отдачи (Кб/с)"; ObjectID = "LD8-gw-42B"; */
+"LD8-gw-42B.text" = "Лимит отдачи (Кб/с)";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "MYH-Nq-x7V"; */
 "MYH-Nq-x7V.text" = "-";
+
+/* Class = "UILabel"; text = "LPD пиры"; ObjectID = "NJb-QY-Gfg"; */
+"NJb-QY-Gfg.text" = "LPD пиры";
 
 /* Class = "UILabel"; text = "Хэш"; ObjectID = "Ntj-cE-m1a"; */
 "Ntj-cE-m1a.text" = "Хэш";
@@ -185,17 +191,20 @@
 /* Class = "UILabel"; text = "☑︎"; ObjectID = "RmB-WG-Zu7"; */
 "RmB-WG-Zu7.text" = "☑︎";
 
-/* Class = "UILabel"; text = "Обновление (с)"; ObjectID = "Rw9-Gs-O5C"; */
-"Rw9-Gs-O5C.text" = "Обновление (с)";
+/* Class = "UILabel"; text = "Обновление (сек)"; ObjectID = "Rw9-Gs-O5C"; */
+"Rw9-Gs-O5C.text" = "Обновление (сек)";
 
 /* Class = "UILabel"; text = "Лимит загрузки (Кб/с)"; ObjectID = "S5e-OZ-1he"; */
 "S5e-OZ-1he.text" = "Лимит загрузки (Кб/с)";
 
+/* Class = "UILabel"; text = "999"; ObjectID = "San-Ec-hir"; */
+"San-Ec-hir.text" = "999";
+
 /* Class = "UILabel"; text = "Лимит рейтинга"; ObjectID = "SdZ-ov-LUD"; */
 "SdZ-ov-LUD.text" = "Лимит рейтинга";
 
-/* Class = "UITextField"; placeholder = "ваше имя"; ObjectID = "Sm9-YI-oby"; */
-"Sm9-YI-oby.placeholder" = "ваше имя";
+/* Class = "UITextField"; placeholder = "ваш логин"; ObjectID = "Sm9-YI-oby"; */
+"Sm9-YI-oby.placeholder" = "ваш логин";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "T2X-Jo-QJA"; */
 "T2X-Jo-QJA.text" = "-";
@@ -209,9 +218,6 @@
 /* Class = "UILabel"; text = "Лимит отдачи (Кб/с)"; ObjectID = "TI2-y7-vZ7"; */
 "TI2-y7-vZ7.text" = "Лимит отдачи (Кб/с)";
 
-/* Class = "UILabel"; text = "From cache:"; ObjectID = "TSZ-cC-cfe"; */
-"TSZ-cC-cfe.text" = "From cache:";
-
 /* Class = "UILabel"; text = "-"; ObjectID = "TVp-YQ-Qnb"; */
 "TVp-YQ-Qnb.text" = "-";
 
@@ -221,17 +227,20 @@
 /* Class = "UITextField"; placeholder = "60"; ObjectID = "UOG-Zv-kEX"; */
 "UOG-Zv-kEX.placeholder" = "60";
 
-/* Class = "UITableViewSection"; headerTitle = "Настройки"; ObjectID = "UOr-bV-L94"; */
-"UOr-bV-L94.headerTitle" = "Настройки";
+/* Class = "UITableViewSection"; headerTitle = "Дополнительные настройки"; ObjectID = "UOr-bV-L94"; */
+"UOr-bV-L94.headerTitle" = "Дополнительные настройки";
 
-/* Class = "UILabel"; text = "05"; ObjectID = "UR2-d4-Jvy"; */
-"UR2-d4-Jvy.text" = "05";
+/* Class = "UILabel"; text = "ВЫКЛ."; ObjectID = "UR2-d4-Jvy"; */
+"UR2-d4-Jvy.text" = "ВЫКЛ.";
 
-/* Class = "UILabel"; text = "Last scrape announce time"; ObjectID = "Umw-Rs-JGV"; */
-"Umw-Rs-JGV.text" = "Last scrape announce time";
+/* Class = "UILabel"; text = "Прошлое время scrape-анонса:"; ObjectID = "Umw-Rs-JGV"; */
+"Umw-Rs-JGV.text" = "Прошлое время scrape-анонса:";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "Uo0-AC-D7C"; */
 "Uo0-AC-D7C.text" = "-";
+
+/* Class = "UILabel"; text = "Пиры трекера"; ObjectID = "V4f-Nr-Z9X"; */
+"V4f-Nr-Z9X.text" = "Пиры трекера";
 
 /* Class = "UILabel"; text = "Просмотр списка трекеров"; ObjectID = "V6S-dk-axY"; */
 "V6S-dk-axY.text" = "Просмотр списка трекеров";
@@ -239,26 +248,29 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "Vp5-2R-l87"; */
 "Vp5-2R-l87.text" = "-";
 
-/* Class = "UILabel"; text = "Заголовок"; ObjectID = "VqE-5J-tAS"; */
-"VqE-5J-tAS.text" = "Заголовок";
+/* Class = "UILabel"; text = "Title"; ObjectID = "VqE-5J-tAS"; */
+"VqE-5J-tAS.text" = "Title";
 
 /* Class = "UITextField"; placeholder = "5136"; ObjectID = "VsL-r5-dCY"; */
 "VsL-r5-dCY.placeholder" = "5136";
 
-/* Class = "UILabel"; text = "Запрос (с)"; ObjectID = "WCI-Nz-rrA"; */
-"WCI-Nz-rrA.text" = "Запрос (с)";
+/* Class = "UILabel"; text = "Запрос (сек)"; ObjectID = "WCI-Nz-rrA"; */
+"WCI-Nz-rrA.text" = "Запрос (сек)";
+
+/* Class = "UILabel"; text = "999"; ObjectID = "WTT-4J-lL7"; */
+"WTT-4J-lL7.text" = "999";
 
 /* Class = "UITextField"; text = "1.5"; ObjectID = "WlW-K3-8QX"; */
 "WlW-K3-8QX.text" = "1.5";
 
-/* Class = "UILabel"; text = "Разрешить PEX"; ObjectID = "Wqc-cN-4bi"; */
-"Wqc-cN-4bi.text" = "Разрешить PEX";
+/* Class = "UILabel"; text = "Разрешить PEX (Peer Exchange)"; ObjectID = "Wqc-cN-4bi"; */
+"Wqc-cN-4bi.text" = "Разрешить PEX (Peer Exchange)";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "WvN-VN-bPs"; */
 "WvN-VN-bPs.text" = "-";
 
-/* Class = "UILabel"; text = "Начать загрузку после добавления"; ObjectID = "WzS-rd-gA2"; */
-"WzS-rd-gA2.text" = "Начать загрузку после добавления";
+/* Class = "UILabel"; text = "Начать загрузку после добавления торрента"; ObjectID = "WzS-rd-gA2"; */
+"WzS-rd-gA2.text" = "Начать загрузку после добавления торрента";
 
 /* Class = "UITableViewSection"; headerTitle = "Общие настройки"; ObjectID = "X8T-ES-bp7"; */
 "X8T-ES-bp7.headerTitle" = "Общие настройки";
@@ -272,11 +284,8 @@
 /* Class = "UILabel"; text = "Рейтинг"; ObjectID = "YN7-rU-OIN"; */
 "YN7-rU-OIN.text" = "Рейтинг";
 
-/* Class = "UILabel"; text = "From LPD:"; ObjectID = "YdA-U5-lbm"; */
-"YdA-U5-lbm.text" = "From LPD:";
-
-/* Class = "UILabel"; text = "Максимальное число пиров на торрент"; ObjectID = "Yg5-aF-OXv"; */
-"Yg5-aF-OXv.text" = "Максимальное число пиров на торрент";
+/* Class = "UILabel"; text = "Лимит пиров на торрент"; ObjectID = "Yg5-aF-OXv"; */
+"Yg5-aF-OXv.text" = "Лимит пиров на торрент";
 
 /* Class = "UITableViewSection"; headerTitle = "Детали"; ObjectID = "a5E-hR-nP1"; */
 "a5E-hR-nP1.headerTitle" = "Детали";
@@ -290,14 +299,17 @@
 /* Class = "UILabel"; text = "Порт"; ObjectID = "b7B-p7-Ui2"; */
 "b7B-p7-Ui2.text" = "Порт";
 
+/* Class = "UILabel"; text = "999"; ObjectID = "bBQ-r0-mbu"; */
+"bBQ-r0-mbu.text" = "999";
+
 /* Class = "UILabel"; text = "Время загрузки"; ObjectID = "bG8-Eo-ElU"; */
 "bG8-Eo-ElU.text" = "Время загрузки";
 
 /* Class = "UILabel"; text = "Остановить раздачу если рейтинг выше"; ObjectID = "bH3-2W-RoQ"; */
 "bH3-2W-RoQ.text" = "Остановить раздачу если рейтинг выше";
 
-/* Class = "UITableViewSection"; headerTitle = "Активность"; ObjectID = "bbe-iG-gF8"; */
-"bbe-iG-gF8.headerTitle" = "Активность";
+/* Class = "UITableViewSection"; headerTitle = "Activity"; ObjectID = "bbe-iG-gF8"; */
+"bbe-iG-gF8.headerTitle" = "Activity";
 
 /* Class = "UILabel"; text = "Статус"; ObjectID = "c2b-hl-pB6"; */
 "c2b-hl-pB6.text" = "Статус";
@@ -308,38 +320,35 @@
 /* Class = "UILabel"; text = "Хост трекера"; ObjectID = "cNx-Tz-4s1"; */
 "cNx-Tz-4s1.text" = "Хост трекера";
 
-/* Class = "UITableViewSection"; footerTitle = "Альтернативные ограничения скоростей перекрывают глобальные ограничения"; ObjectID = "cOh-W3-4Fc"; */
-"cOh-W3-4Fc.footerTitle" = "Альтернативные ограничения скоростей перекрывают глобальные ограничения";
+/* Class = "UITableViewSection"; footerTitle = "Альтернативные ограничения скоростей перекрывают общие ограничения"; ObjectID = "cOh-W3-4Fc"; */
+"cOh-W3-4Fc.footerTitle" = "Альтернативные ограничения скоростей перекрывают общие ограничения";
 
-/* Class = "UITableViewSection"; headerTitle = "Альтернативные ограничения скоростей"; ObjectID = "cOh-W3-4Fc"; */
-"cOh-W3-4Fc.headerTitle" = "Альтернативные ограничения скоростей";
+/* Class = "UITableViewSection"; headerTitle = "Альтернативные ограничения"; ObjectID = "cOh-W3-4Fc"; */
+"cOh-W3-4Fc.headerTitle" = "Альтернативные ограничения";
 
-/* Class = "UILabel"; text = "From DHT:"; ObjectID = "cTx-HF-3CI"; */
-"cTx-HF-3CI.text" = "From DHT:";
+/* Class = "UILabel"; text = "Просмотр файлов/папок"; ObjectID = "cYw-wS-J79"; */
+"cYw-wS-J79.text" = "Просмотр файлов/папок";
 
-/* Class = "UILabel"; text = "Просмотр списка файлов"; ObjectID = "cYw-wS-J79"; */
-"cYw-wS-J79.text" = "Просмотр списка файлов";
+/* Class = "UILabel"; text = "Пиры из кэша"; ObjectID = "ce2-aM-fhl"; */
+"ce2-aM-fhl.text" = "Пиры из кэша";
 
 /* Class = "UILabel"; text = "Отдано"; ObjectID = "dPK-Na-V6a"; */
 "dPK-Na-V6a.text" = "Отдано";
 
-/* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[0] = "Низ."; ObjectID = "dUN-ex-Fmm"; */
-"dUN-ex-Fmm.segmentTitles[0]" = "Низ.";
+/* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[0] = "Low"; ObjectID = "dUN-ex-Fmm"; */
+"dUN-ex-Fmm.segmentTitles[0]" = "Low";
 
-/* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[1] = "Норм."; ObjectID = "dUN-ex-Fmm"; */
-"dUN-ex-Fmm.segmentTitles[1]" = "Норм.";
+/* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[1] = "Normal"; ObjectID = "dUN-ex-Fmm"; */
+"dUN-ex-Fmm.segmentTitles[1]" = "Normal";
 
-/* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[2] = "Выс."; ObjectID = "dUN-ex-Fmm"; */
-"dUN-ex-Fmm.segmentTitles[2]" = "Выс.";
+/* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[2] = "High"; ObjectID = "dUN-ex-Fmm"; */
+"dUN-ex-Fmm.segmentTitles[2]" = "High";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "diM-bd-pyU"; */
 "diM-bd-pyU.text" = "-";
 
 /* Class = "UILabel"; text = "Клиент"; ObjectID = "djO-Ue-eFG"; */
 "djO-Ue-eFG.text" = "Клиент";
-
-/* Class = "UILabel"; text = "Peers from:"; ObjectID = "eGI-P8-v4P"; */
-"eGI-P8-v4P.text" = "Получено пиров:";
 
 /* Class = "UITableViewSection"; headerTitle = "Ограничения раздачи"; ObjectID = "exP-qX-7he"; */
 "exP-qX-7he.headerTitle" = "Ограничения раздачи";
@@ -359,11 +368,14 @@
 /* Class = "UILabel"; text = "%"; ObjectID = "gdb-6a-49Z"; */
 "gdb-6a-49Z.text" = "%";
 
+/* Class = "UILabel"; text = "999"; ObjectID = "gxt-H7-aW5"; */
+"gxt-H7-aW5.text" = "999";
+
 /* Class = "UILabel"; text = "По расписанию"; ObjectID = "h8y-nY-MgU"; */
 "h8y-nY-MgU.text" = "По расписанию";
 
-/* Class = "UITableViewSection"; headerTitle = "Коментарий"; ObjectID = "hEX-eC-vB8"; */
-"hEX-eC-vB8.headerTitle" = "Коментарий";
+/* Class = "UITableViewSection"; headerTitle = "Комментарий"; ObjectID = "hEX-eC-vB8"; */
+"hEX-eC-vB8.headerTitle" = "Комментарий";
 
 /* Class = "UILabel"; text = "Лимит простоя (мин)"; ObjectID = "hNE-ff-j0p"; */
 "hNE-ff-j0p.text" = "Лимит простоя (мин)";
@@ -371,17 +383,23 @@
 /* Class = "UILabel"; text = "Порт"; ObjectID = "hzH-73-gue"; */
 "hzH-73-gue.text" = "Порт";
 
-/* Class = "UILabel"; text = "Next scrape announce time"; ObjectID = "i2i-86-fbl"; */
-"i2i-86-fbl.text" = "Next scrape announce time";
+/* Class = "UILabel"; text = "Следующее время scrape-анонса"; ObjectID = "i2i-86-fbl"; */
+"i2i-86-fbl.text" = "Следующее время scrape-анонса";
+
+/* Class = "UILabel"; text = "999"; ObjectID = "iHW-2C-4nj"; */
+"iHW-2C-4nj.text" = "999";
 
 /* Class = "UITextField"; text = "200"; ObjectID = "iUk-mi-jCD"; */
 "iUk-mi-jCD.text" = "200";
 
+/* Class = "UILabel"; text = "999"; ObjectID = "ipR-Iw-Wcv"; */
+"ipR-Iw-Wcv.text" = "999";
+
 /* Class = "UILabel"; text = "Загрузки"; ObjectID = "iuw-QH-sPc"; */
 "iuw-QH-sPc.text" = "Загрузки";
 
-/* Class = "UILabel"; text = "Прошлое время анонса"; ObjectID = "j1j-be-GYG"; */
-"j1j-be-GYG.text" = "Прошлое время анонса";
+/* Class = "UILabel"; text = "Прошлое время анонса:"; ObjectID = "j1j-be-GYG"; */
+"j1j-be-GYG.text" = "Прошлое время анонса:";
 
 /* Class = "UILabel"; text = "Пиры"; ObjectID = "j27-Lf-lP6"; */
 "j27-Lf-lP6.text" = "Пиры";
@@ -398,8 +416,8 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "m1D-fS-JwU"; */
 "m1D-fS-JwU.text" = "Label";
 
-/* Class = "UILabel"; text = "Next announce time"; ObjectID = "mEd-Zk-846"; */
-"mEd-Zk-846.text" = "Next announce time";
+/* Class = "UILabel"; text = "Следующее время анонса:"; ObjectID = "mEd-Zk-846"; */
+"mEd-Zk-846.text" = "Следующее время анонса:";
 
 /* Class = "UILabel"; text = "100.0%"; ObjectID = "mJB-qz-MXe"; */
 "mJB-qz-MXe.text" = "100.0%";
@@ -416,8 +434,8 @@
 /* Class = "UILabel"; text = "Адрес"; ObjectID = "mwO-Hy-UAi"; */
 "mwO-Hy-UAi.text" = "Адрес";
 
-/* Class = "UILabel"; text = "С:"; ObjectID = "nSy-Hk-W2H"; */
-"nSy-Hk-W2H.text" = "С:";
+/* Class = "UILabel"; text = "Начальное время:"; ObjectID = "nSy-Hk-W2H"; */
+"nSy-Hk-W2H.text" = "Начальное время:";
 
 /* Class = "UITextField"; placeholder = "Кб/с"; ObjectID = "o1I-Jq-xnz"; */
 "o1I-Jq-xnz.placeholder" = "Кб/с";
@@ -427,6 +445,9 @@
 
 /* Class = "UITextField"; placeholder = "200"; ObjectID = "qDT-Vq-Ath"; */
 "qDT-Vq-Ath.placeholder" = "200";
+
+/* Class = "UILabel"; text = "Входящие пиры"; ObjectID = "qKI-KU-wCh"; */
+"qKI-KU-wCh.text" = "Входящие пиры";
 
 /* Class = "UILabel"; text = "Выбрать случайный порт"; ObjectID = "qb3-Gn-Puo"; */
 "qb3-Gn-Puo.text" = "Выбрать случайный порт";
@@ -446,8 +467,8 @@
 /* Class = "UILabel"; text = "Имя пользователя"; ObjectID = "riC-Pu-uit"; */
 "riC-Pu-uit.text" = "Имя пользователя";
 
-/* Class = "UILabel"; text = "Разрешить Micro Transport Protocol (μTP)"; ObjectID = "sCw-SS-b8B"; */
-"sCw-SS-b8B.text" = "Разрешить Micro Transport Protocol (μTP)";
+/* Class = "UILabel"; text = "Разрешить  μTP (Micro Transport Protocol)"; ObjectID = "sCw-SS-b8B"; */
+"sCw-SS-b8B.text" = "Разрешить  μTP (Micro Transport Protocol)";
 
 /* Class = "UITableViewSection"; headerTitle = "Соединения"; ObjectID = "sNG-b2-8sg"; */
 "sNG-b2-8sg.headerTitle" = "Соединения";
@@ -467,32 +488,29 @@
 /* Class = "UILabel"; text = "100.00%"; ObjectID = "tv9-Rh-5jP"; */
 "tv9-Rh-5jP.text" = "100.00%";
 
+/* Class = "UILabel"; text = "DHT пиры"; ObjectID = "uT6-jN-eEj"; */
+"uT6-jN-eEj.text" = "DHT пиры";
+
 /* Class = "UILabel"; text = "Прогресс"; ObjectID = "uUU-MZ-oe7"; */
 "uUU-MZ-oe7.text" = "Прогресс";
 
-/* Class = "UILabel"; text = "Разрешить LPD"; ObjectID = "ueC-fy-EGJ"; */
-"ueC-fy-EGJ.text" = "Разрешить LPD";
+/* Class = "UILabel"; text = "Разрешить LPD (Local Peer Descovery)"; ObjectID = "ueC-fy-EGJ"; */
+"ueC-fy-EGJ.text" = "Разрешить LPD (Local Peer Descovery)";
 
 /* Class = "UILabel"; text = "Приоритет трафика"; ObjectID = "ugc-JD-qEY"; */
 "ugc-JD-qEY.text" = "Приоритет трафика";
 
-/* Class = "UILabel"; text = "From PEX:"; ObjectID = "vBH-2X-I2P"; */
-"vBH-2X-I2P.text" = "From PEX:";
+/* Class = "UILabel"; text = "↑"; ObjectID = "wWp-FG-rqG"; */
+"wWp-FG-rqG.text" = "↑";
 
-/* Class = "UILabel"; text = "From tracker:"; ObjectID = "vXe-Ks-hvi"; */
-"vXe-Ks-hvi.text" = "From tracker:";
-
-/* Class = "UILabel"; text = "↑UP"; ObjectID = "wWp-FG-rqG"; */
-"wWp-FG-rqG.text" = "↑UP";
-
-/* Class = "UIButton"; normalTitle = "Еще..."; ObjectID = "x61-7D-qyB"; */
-"x61-7D-qyB.normalTitle" = "Еще...";
+/* Class = "UIButton"; normalTitle = "Еще ..."; ObjectID = "x61-7D-qyB"; */
+"x61-7D-qyB.normalTitle" = "Еще ...";
 
 /* Class = "UILabel"; text = "Завершен"; ObjectID = "xOI-dc-Zt9"; */
 "xOI-dc-Zt9.text" = "Завершен";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "xgI-5a-q7Q"; */
-"xgI-5a-q7Q.text" = "Label";
+/* Class = "UILabel"; text = "Название статуса"; ObjectID = "xgI-5a-q7Q"; */
+"xgI-5a-q7Q.text" = "Название статуса";
 
 /* Class = "UISegmentedControl"; yEn-nb-ZFk.segmentTitles[0] = "треб."; ObjectID = "yEn-nb-ZFk"; */
 "yEn-nb-ZFk.segmentTitles[0]" = "треб.";
@@ -500,8 +518,8 @@
 /* Class = "UISegmentedControl"; yEn-nb-ZFk.segmentTitles[1] = "желат."; ObjectID = "yEn-nb-ZFk"; */
 "yEn-nb-ZFk.segmentTitles[1]" = "желат.";
 
-/* Class = "UISegmentedControl"; yEn-nb-ZFk.segmentTitles[2] = "нет"; ObjectID = "yEn-nb-ZFk"; */
-"yEn-nb-ZFk.segmentTitles[2]" = "нет";
+/* Class = "UISegmentedControl"; yEn-nb-ZFk.segmentTitles[2] = "нет треб."; ObjectID = "yEn-nb-ZFk"; */
+"yEn-nb-ZFk.segmentTitles[2]" = "нет треб.";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "yTH-tm-9gG"; */
 "yTH-tm-9gG.text" = "Label";

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonTableController.h"
 
 #define CONTROLLER_ID_FILELIST  @"fileListController"
 
@@ -21,14 +22,13 @@
 
 @end
 
-@interface FileListController : UITableViewController
+@interface FileListController : CommonTableController
 
 @property(weak) id<FileListControllerDelegate> delegate;
 
-@property(nonatomic) NSArray*   fileInfos;
-@property(nonatomic) int        torrentId;
-
-@property(nonatomic) BOOL       torrentIsFinished;
-@property(nonatomic) FSDirectory *fsDir;
+@property(nonatomic) NSArray*       fileInfos;
+@property(nonatomic) int            torrentId;
+@property(nonatomic) BOOL           torrentIsFinished;
+@property(nonatomic) FSDirectory    *fsDir;
 
 @end

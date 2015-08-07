@@ -42,6 +42,5 @@
 // update data with given TRInfo
 // this method should be used outside (by delegate) on update cycle
 - (void)updateData:(TRInfo*)trInfo;
-- (void)showErrorMessage:(NSString*)errorMessage;
 
 @end

@@ -113,8 +113,6 @@
         
         [self.tableView endUpdates];
     }
-
-    //[self.tableView reloadData];
 }
 
 - (void)updateData:(UIRefreshControl*)sender

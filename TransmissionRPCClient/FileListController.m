@@ -72,11 +72,7 @@
 // update file infos
 - (void)setFileInfos:(NSArray *)fileInfos
 {
-    //_fileInfos = fileInfos;
-    // create new file system directory
-    // and add all items
-
-    BOOL needToSort = NO;
+     BOOL needToSort = NO;
     if( !_fsDir )
     {
         _fsDir = [FSDirectory directory];

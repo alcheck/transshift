@@ -10,6 +10,10 @@
 #import "PeerListCell.h"
 #import "PeerStatCell.h"
 
+#define ROWHIGHT_PEERINFOHEADER     44
+#define ROWHIGHT_PEERINFO           30
+#define ROWHIGHT_PEERSTAT           114
+
 @implementation PeerListController
 
 {
@@ -36,7 +40,7 @@
 
 - (void)askDelegateToUpdateData
 {
-    [self.refreshControl endRefreshing];
+    //[self.refreshControl endRefreshing];
     
     if( _delegate && [_delegate respondsToSelector:@selector(peerListNeedUpdatePeersForTorrentId:)])
         [_delegate peerListNeedUpdatePeersForTorrentId:_torrentId];
@@ -44,8 +48,98 @@
 
 - (void)setPeers:(NSArray *)peers
 {
+    //_peers = peers;
+    [self.refreshControl endRefreshing];
+    
+    // this is the first data - add section
+    if( peers.count > 0 && _peers.count == 0 )
+    {
+        _peers = peers;
+        [self.tableView beginUpdates];
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+        return;
+    }
+    
+    // there is no data - clear section
+    if( _peers.count > 0 &&  peers.count == 0 )
+    {
+        _peers = peers;
+        [self.tableView beginUpdates];
+        [self.tableView deleteSections: [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,2)] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView endUpdates];
+        return;
+    }
+    
+    NSUInteger count = MAX(_peers.count,peers.count);
+    
+    NSMutableArray *indexPathsToAdd = [NSMutableArray array];
+    NSMutableArray *indexPathsToRemove = [NSMutableArray array];
+    NSMutableArray *indexPathsToReload = [NSMutableArray array];
+    
+    BOOL needToUpdate = NO;
+    
+    for (NSUInteger i = 0; i < count; i++)
+    {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:(i + 1) inSection:0];
+        
+        TRPeerInfo *cur = i < _peers.count ? _peers[i] : nil;
+        TRPeerInfo *new = i <  peers.count ?  peers[i] : nil;
+        
+        // there is no current element
+        // this index is new and should be re
+        if( !cur )
+        {
+            [indexPathsToAdd addObject:path];
+            needToUpdate = YES;
+        }
+        // there is no element in new data
+        // this index is stale and should be removed
+        else if( !new )
+        {
+            [indexPathsToRemove addObject:path];
+            needToUpdate = YES;
+        }
+        else
+        {
+            // compare data
+            if( [cur.ipAddress isEqualToString: new.ipAddress] )
+            {
+                // update cell
+                PeerListCell *cell = (PeerListCell*)[self.tableView cellForRowAtIndexPath:path];
+                if( cell )
+                    [self updatePeerListCell:cell withInfo:cur];
+            }
+            // diffrent data, reload data in cell
+            else
+            {
+                [indexPathsToReload addObject:path];
+                needToUpdate = YES;
+            }
+        }
+    }
+    
     _peers = peers;
-    [self.tableView reloadData];
+    
+    if( needToUpdate )
+    {
+        [self.tableView beginUpdates];
+        
+        if( indexPathsToAdd.count > 0 )
+            [self.tableView insertRowsAtIndexPaths:indexPathsToAdd withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if( indexPathsToRemove.count > 0 )
+            [self.tableView deleteRowsAtIndexPaths:indexPathsToRemove withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        if( indexPathsToReload.count > 0 )
+            [self.tableView reloadRowsAtIndexPaths:indexPathsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self.tableView endUpdates];
+    }
+    
+    PeerStatCell *cell = (PeerStatCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    if( cell )
+        [self updatePeerStatCell:cell witInfo:_peerStat];
 }
 
 #pragma mark - Table view data source
@@ -55,7 +149,7 @@
      // Return the number of sections.
     self.infoMessage =  _peers.count > 0 ? nil : NSLocalizedString(@"There are no peers avalable.", @"");
     
-    return _peers.count > 0 ? 2 : 0;
+    return _peers.count > 0 ? _sectionTitles.count : 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -69,76 +163,72 @@
     if( section ==  0 )
         return _peers.count + 1;
     
+    // second section (PeerStats) has only one row
     return  1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if( indexPath.section == 1 )
-        return 174;
+        return ROWHIGHT_PEERSTAT;
     
-    if( indexPath.section == 0 )
-    {
-        if( indexPath.row == 0 )
-            return 44;
+    if( indexPath.row == 0 )
+            return ROWHIGHT_PEERINFOHEADER;
         
-        return 30;
-    }
-    
-    return 44;
+    return ROWHIGHT_PEERINFO;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // return header row
+    //  header row
     if( indexPath.section == 0 && indexPath.row == 0 )
     {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_PEERLISTHEADERCELL forIndexPath:indexPath];
         return cell;
     }
     
+    // peer info
     if( indexPath.section == 0 )
     {
         
         PeerListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_PEERLISTCELL forIndexPath:indexPath];
-        
         TRPeerInfo *info = self.peers[indexPath.row - 1];
-        
-        cell.clientLabel.text = info.clientName;
-        cell.addressLabel.text = info.ipAddress;
-        cell.progressLabel.text = info.progressString;
-        cell.flagLabel.text = info.flagString;
-        cell.downloadLabel.text = info.rateToClient > 0 ? info.rateToClientString : @"-";
-        cell.uploadLabel.text = info.rateToPeer > 0 ?  info.rateToPeerString : @"-";
-        cell.isSecure = info.isEncrypted;
-        cell.isUTPEnabled = info.isUTP;
+        [self updatePeerListCell:cell withInfo:info];
         
         return cell;
     }
     
+    // peer stat section
     if( indexPath.section == 1 )
     {
         PeerStatCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_PEERSTAT forIndexPath:indexPath];
-        
-        cell.labelFromCache.text = [NSString stringWithFormat:
-                                    NSLocalizedString( @"From cache: %@", @""), _peerStat.fromChache];
-        cell.labelFromDht.text = [NSString stringWithFormat:
-                                  NSLocalizedString( @"From DHT: %@", @""), _peerStat.fromDht];
-        
-        cell.labelFromLpd.text = [NSString stringWithFormat:
-                                  NSLocalizedString( @"From LPD: %@", @""), _peerStat.fromLpd];
-        
-        cell.labelFromPex.text = [NSString stringWithFormat:
-                                  NSLocalizedString( @"From PEX: %@", @""), _peerStat.fromPex];
-        
-        cell.labelFromTracker.text = [NSString stringWithFormat:
-                                      NSLocalizedString( @"From tracker: %@", @""), _peerStat.fromTracker];
-        
+        [self updatePeerStatCell:cell witInfo:_peerStat];
         return cell;
     }
     
     return nil;
 }
 
+- (void)updatePeerStatCell:(PeerStatCell *)cell witInfo:(TRPeerStat *)info
+{
+    cell.labelFromCache.text = info.fromChache;
+    cell.labelFromDht.text = info.fromDht;
+    cell.labelFromLpd.text = info.fromLpd;
+    cell.labelFromPex.text = info.fromPex;
+    cell.labelFromTracker.text = info.fromTracker;
+    cell.labelFromIncoming.text = info.fromIncoming;
+}
+
+- (void)updatePeerListCell:(PeerListCell *)cell withInfo:(TRPeerInfo*)info
+{
+    cell.clientLabel.text = info.clientName;
+    cell.addressLabel.text = info.ipAddress;
+    cell.progressLabel.text = info.progressString;
+    cell.flagLabel.text = info.flagString;
+    cell.downloadLabel.text = info.rateToClient > 0 ? info.rateToClientString : @"-";
+    cell.uploadLabel.text = info.rateToPeer > 0 ?  info.rateToPeerString : @"-";
+    cell.isSecure = info.isEncrypted;
+    cell.isUTPEnabled = info.isUTP;
+}
 
 @end

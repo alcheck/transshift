@@ -119,11 +119,12 @@
        
        self.stepperRefreshTimeout.value = self.config.refreshTimeout;
        self.stepperRequestTimeout.value = self.config.requestTimeout;
-       [self requestTimeoutValueChagned:self.stepperRequestTimeout];
-       [self refreshTimoutValueChanged:self.stepperRefreshTimeout];
        
        self.switchShowFreeSpace.on = self.config.showFreeSpace;
    }
+    
+    [_stepperRefreshTimeout sendActionsForControlEvents:UIControlEventValueChanged];
+    [_stepperRequestTimeout sendActionsForControlEvents:UIControlEventValueChanged];    
 }
 
 - (void) showRowError:(NSString*)errorMessage icon:(UIImageView*)iconImg label:(UILabel*)label textControl:(UITextField*)textControl

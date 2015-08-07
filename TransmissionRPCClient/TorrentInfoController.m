@@ -323,7 +323,7 @@
     if( trInfo.errorString && trInfo.errorString.length > 0 )
     {
         NSString *errMessage = [NSString stringWithFormat:@"[%i] %@", trInfo.errorNumber, trInfo.errorString];
-        [self showErrorMessage:errMessage];
+        self.errorMessage = errMessage;
     }
     
     if( _bFirstTime )

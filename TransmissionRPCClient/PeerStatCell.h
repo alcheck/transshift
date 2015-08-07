@@ -11,11 +11,12 @@
 #define CELL_ID_PEERSTAT    @"peerStatCell"
 
 @interface PeerStatCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *labelTotal;
+
 @property (weak, nonatomic) IBOutlet UILabel *labelFromCache;
 @property (weak, nonatomic) IBOutlet UILabel *labelFromDht;
 @property (weak, nonatomic) IBOutlet UILabel *labelFromPex;
 @property (weak, nonatomic) IBOutlet UILabel *labelFromLpd;
 @property (weak, nonatomic) IBOutlet UILabel *labelFromTracker;
+@property (weak, nonatomic) IBOutlet UILabel *labelFromIncoming;
 
 @end
