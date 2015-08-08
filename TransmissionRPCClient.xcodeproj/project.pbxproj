@@ -36,6 +36,8 @@
 		2CE400BE1B4992A300BA32C2 /* StartImmidiatelyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE400BD1B4992A300BA32C2 /* StartImmidiatelyCell.m */; };
 		2CE6B4601B49598000157841 /* CommonTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B45F1B49598000157841 /* CommonTableController.m */; };
 		2CE6B4641B495EC700157841 /* GlobalConsts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B4631B495EC700157841 /* GlobalConsts.m */; };
+		2CF2CB9F1B75FE9800C42477 /* FlagDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF2CB9E1B75FE9800C42477 /* FlagDescriptionView.m */; };
+		2CF2CBA01B7606A400C42477 /* flagsDescription.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF2CBA21B7606A400C42477 /* flagsDescription.xib */; };
 		2CF6909C1B4BE0D400B2F830 /* FooterViewFreeSpace.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF690991B4BE0D400B2F830 /* FooterViewFreeSpace.xib */; };
 		2CF6909D1B4BE0D400B2F830 /* FooterViewFreeSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF6909B1B4BE0D400B2F830 /* FooterViewFreeSpace.m */; };
 		2CF6909F1B4BE49600B2F830 /* HeaderViewDURates.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF6909E1B4BE49600B2F830 /* HeaderViewDURates.xib */; };
@@ -135,6 +137,10 @@
 		2CE6B45E1B49598000157841 /* CommonTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTableController.h; sourceTree = "<group>"; };
 		2CE6B45F1B49598000157841 /* CommonTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTableController.m; sourceTree = "<group>"; };
 		2CE6B4631B495EC700157841 /* GlobalConsts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalConsts.m; sourceTree = "<group>"; };
+		2CF2CB9D1B75FE9800C42477 /* FlagDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlagDescriptionView.h; sourceTree = "<group>"; };
+		2CF2CB9E1B75FE9800C42477 /* FlagDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlagDescriptionView.m; sourceTree = "<group>"; };
+		2CF2CBA11B7606A400C42477 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/flagsDescription.xib; sourceTree = "<group>"; };
+		2CF2CBA41B7606A800C42477 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/flagsDescription.strings; sourceTree = "<group>"; };
 		2CF690991B4BE0D400B2F830 /* FooterViewFreeSpace.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterViewFreeSpace.xib; sourceTree = "<group>"; };
 		2CF6909A1B4BE0D400B2F830 /* FooterViewFreeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterViewFreeSpace.h; sourceTree = "<group>"; };
 		2CF6909B1B4BE0D400B2F830 /* FooterViewFreeSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterViewFreeSpace.m; sourceTree = "<group>"; };
@@ -373,6 +379,16 @@
 			name = "Torrent list controller";
 			sourceTree = "<group>";
 		};
+		2CF2CB9A1B75FC5A00C42477 /* Flags description */ = {
+			isa = PBXGroup;
+			children = (
+				2CF2CBA21B7606A400C42477 /* flagsDescription.xib */,
+				2CF2CB9D1B75FE9800C42477 /* FlagDescriptionView.h */,
+				2CF2CB9E1B75FE9800C42477 /* FlagDescriptionView.m */,
+			);
+			name = "Flags description";
+			sourceTree = "<group>";
+		};
 		2CF690981B4BE0B400B2F830 /* Title Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +425,7 @@
 		2CF7D5111B42E768006D01FD /* Peers Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2CF2CB9A1B75FC5A00C42477 /* Flags description */,
 				2CF7D5121B42E78C006D01FD /* PeerListController.h */,
 				2CF7D5131B42E78C006D01FD /* PeerListController.m */,
 				2CF8C7631B4302F7005A7DD6 /* PeerListCell.h */,
@@ -630,6 +647,7 @@
 				2CF6909C1B4BE0D400B2F830 /* FooterViewFreeSpace.xib in Resources */,
 				2CF964EE1B4D5DB9006D8C7E /* docIcon_22x29.png in Resources */,
 				2CF964F01B4D5DB9006D8C7E /* docIcon_64x64.png in Resources */,
+				2CF2CBA01B7606A400C42477 /* flagsDescription.xib in Resources */,
 				2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */,
 				2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */,
 				2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */,
@@ -711,6 +729,7 @@
 				2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */,
 				2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */,
 				2C0E34A51B400134004303AB /* TRInfo.m in Sources */,
+				2CF2CB9F1B75FE9800C42477 /* FlagDescriptionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,6 +758,15 @@
 				2C5810E31B39A5E50069020D /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		2CF2CBA21B7606A400C42477 /* flagsDescription.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2CF2CBA11B7606A400C42477 /* Base */,
+				2CF2CBA41B7606A800C42477 /* ru */,
+			);
+			name = flagsDescription.xib;
 			sourceTree = "<group>";
 		};
 		2CFB92CF1B56D25400C83354 /* controllers.storyboard */ = {

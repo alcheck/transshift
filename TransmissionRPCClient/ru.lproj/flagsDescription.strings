@@ -1,0 +1,75 @@
+
+/* Class = "UILabel"; text = "d -"; ObjectID = "6y7-kP-D86"; */
+"6y7-kP-D86.text" = "d -";
+
+/* Class = "UILabel"; text = "Peer is connected via uTP"; ObjectID = "77Z-dK-6wx"; */
+"77Z-dK-6wx.text" = "Пир соединен по протоколу uTP";
+
+/* Class = "UILabel"; text = "? -"; ObjectID = "7lq-t8-wT9"; */
+"7lq-t8-wT9.text" = "? -";
+
+/* Class = "UILabel"; text = "X -"; ObjectID = "7rI-9l-5f3"; */
+"7rI-9l-5f3.text" = "X -";
+
+/* Class = "UILabel"; text = "K -"; ObjectID = "EI5-eV-KWZ"; */
+"EI5-eV-KWZ.text" = "K -";
+
+/* Class = "UILabel"; text = "Encrypted Connection"; ObjectID = "F1W-Y1-EnS"; */
+"F1W-Y1-EnS.text" = "Зашифрованное соединение";
+
+/* Class = "UILabel"; text = "We would download from this peer if they'd let us"; ObjectID = "HdJ-Pt-GgS"; */
+"HdJ-Pt-GgS.text" = "Готов начать скачивание с пира если он позволит";
+
+/* Class = "UILabel"; text = "D -"; ObjectID = "SL9-k0-1VU"; */
+"SL9-k0-1VU.text" = "D -";
+
+/* Class = "UILabel"; text = "Downloading from this peer"; ObjectID = "UtS-VD-ZYI"; */
+"UtS-VD-ZYI.text" = "Скачивается с этого пира";
+
+/* Class = "UILabel"; text = "O -"; ObjectID = "VlK-Cd-R3F"; */
+"VlK-Cd-R3F.text" = "O -";
+
+/* Class = "UILabel"; text = "Peer was discovered through Distributed Hash Table (DHT)"; ObjectID = "YOx-et-FLO"; */
+"YOx-et-FLO.text" = "Пир был обнаружен через DHT";
+
+/* Class = "UILabel"; text = "We unchoked this peer, but they're not interested"; ObjectID = "YbT-3f-rla"; */
+"YbT-3f-rla.text" = "Мы разгрузили данного пира, но он пока не готов";
+
+/* Class = "UILabel"; text = "U -"; ObjectID = "Z54-Kt-uOJ"; */
+"Z54-Kt-uOJ.text" = "U -";
+
+/* Class = "UILabel"; text = "I -"; ObjectID = "crr-hG-tfm"; */
+"crr-hG-tfm.text" = "I -";
+
+/* Class = "UILabel"; text = "T -"; ObjectID = "eBs-MA-PrB"; */
+"eBs-MA-PrB.text" = "T -";
+
+/* Class = "UILabel"; text = "Peer is an incoming connection"; ObjectID = "eH3-Yl-gu1"; */
+"eH3-Yl-gu1.text" = "Пир является входящим сединением";
+
+/* Class = "UILabel"; text = "Peer was discovered through Peer Exchange (PEX)"; ObjectID = "ePr-dM-Phg"; */
+"ePr-dM-Phg.text" = "Пир был обнаружен через PEX";
+
+/* Class = "UILabel"; text = "FLAGS DESCRIPTION:"; ObjectID = "f3w-tg-2XW"; */
+"f3w-tg-2XW.text" = "ОПИСАНИЕ ФЛАГОВ:";
+
+/* Class = "UILabel"; text = "E -"; ObjectID = "fgb-px-8e3"; */
+"fgb-px-8e3.text" = "E -";
+
+/* Class = "UILabel"; text = "Optimistic unchoke"; ObjectID = "gDg-w9-BVs"; */
+"gDg-w9-BVs.text" = "Оптимистичная разгрузка";
+
+/* Class = "UILabel"; text = "Peer has unchoked us, but we're not interested"; ObjectID = "hAR-7U-1s2"; */
+"hAR-7U-1s2.text" = "Пир разгрузил нас, но мы пока не готовы";
+
+/* Class = "UILabel"; text = "Uploading to peer"; ObjectID = "nDR-2n-DBb"; */
+"nDR-2n-DBb.text" = "Отдача данному пиру";
+
+/* Class = "UILabel"; text = "u -"; ObjectID = "pKi-eI-Su8"; */
+"pKi-eI-Su8.text" = "u -";
+
+/* Class = "UILabel"; text = "We would upload to this peer if they'd ask"; ObjectID = "pSD-kS-HFG"; */
+"pSD-kS-HFG.text" = "Готов начать раздачу данному пиру когда он будет готов";
+
+/* Class = "UILabel"; text = "H -"; ObjectID = "sYi-v7-jKT"; */
+"sYi-v7-jKT.text" = "H -";

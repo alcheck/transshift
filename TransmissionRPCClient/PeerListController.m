@@ -9,10 +9,13 @@
 #import "PeerListController.h"
 #import "PeerListCell.h"
 #import "PeerStatCell.h"
+#import "FlagDescriptionView.h"
 
 #define ROWHIGHT_PEERINFOHEADER     44
 #define ROWHIGHT_PEERINFO           30
 #define ROWHIGHT_PEERSTAT           114
+
+#define SECTIONFOOTER_HEIGHT        237
 
 @implementation PeerListController
 
@@ -176,6 +179,29 @@
             return ROWHIGHT_PEERINFOHEADER;
         
     return ROWHIGHT_PEERINFO;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    static UIView *flagsDescriptionView = nil;
+    
+    if( section == 0 )
+    {
+        if( !flagsDescriptionView )
+            flagsDescriptionView = [FlagDescriptionView flagDescriptionView];
+            
+        return flagsDescriptionView;
+    }
+    
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if( section == 0 )
+        return SECTIONFOOTER_HEIGHT;
+    
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
