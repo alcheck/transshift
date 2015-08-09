@@ -99,7 +99,7 @@
 "Fql-nw-zPa.text" = "-";
 
 /* Class = "UITableViewSection"; footerTitle = "Нажмите для просмотра списка файлов или пиров"; ObjectID = "GU2-sf-eoY"; */
-"GU2-sf-eoY.footerTitle" = "Нажмите для просмотра списка файлов или пиров";
+"GU2-sf-eoY.footerTitle" = "Нажмите для просмотра";
 
 /* Class = "UITableViewSection"; headerTitle = "Файлы/Пиры/Трекеры"; ObjectID = "GU2-sf-eoY"; */
 "GU2-sf-eoY.headerTitle" = "Файлы/Пиры/Трекеры";
@@ -309,7 +309,7 @@
 "bH3-2W-RoQ.text" = "Остановить раздачу если рейтинг выше";
 
 /* Class = "UITableViewSection"; headerTitle = "Activity"; ObjectID = "bbe-iG-gF8"; */
-"bbe-iG-gF8.headerTitle" = "Activity";
+"bbe-iG-gF8.headerTitle" = "Активность";
 
 /* Class = "UILabel"; text = "Статус"; ObjectID = "c2b-hl-pB6"; */
 "c2b-hl-pB6.text" = "Статус";
@@ -336,13 +336,13 @@
 "dPK-Na-V6a.text" = "Отдано";
 
 /* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[0] = "Low"; ObjectID = "dUN-ex-Fmm"; */
-"dUN-ex-Fmm.segmentTitles[0]" = "Low";
+"dUN-ex-Fmm.segmentTitles[0]" = "Низ.";
 
 /* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[1] = "Normal"; ObjectID = "dUN-ex-Fmm"; */
-"dUN-ex-Fmm.segmentTitles[1]" = "Normal";
+"dUN-ex-Fmm.segmentTitles[1]" = "Норм.";
 
 /* Class = "UISegmentedControl"; dUN-ex-Fmm.segmentTitles[2] = "High"; ObjectID = "dUN-ex-Fmm"; */
-"dUN-ex-Fmm.segmentTitles[2]" = "High";
+"dUN-ex-Fmm.segmentTitles[2]" = "Выс.";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "diM-bd-pyU"; */
 "diM-bd-pyU.text" = "-";
@@ -518,8 +518,8 @@
 /* Class = "UISegmentedControl"; yEn-nb-ZFk.segmentTitles[1] = "желат."; ObjectID = "yEn-nb-ZFk"; */
 "yEn-nb-ZFk.segmentTitles[1]" = "желат.";
 
-/* Class = "UISegmentedControl"; yEn-nb-ZFk.segmentTitles[2] = "нет треб."; ObjectID = "yEn-nb-ZFk"; */
-"yEn-nb-ZFk.segmentTitles[2]" = "нет треб.";
+/* Class = "UISegmentedControl"; yEn-nb-ZFk.segmentTitles[2] = "не треб."; ObjectID = "yEn-nb-ZFk"; */
+"yEn-nb-ZFk.segmentTitles[2]" = "нет";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "yTH-tm-9gG"; */
 "yTH-tm-9gG.text" = "Label";

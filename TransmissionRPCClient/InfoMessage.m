@@ -96,13 +96,13 @@
     [self layoutIfNeeded];
     
     CGSize sz = self.label.bounds.size;
-    if( self.bounds.size.height < sz.height )
+    if( self.bounds.size.height <= (sz.height - 16) )
     {
         // change window bounds
         CGRect r = self.bounds;
         r.size.height = sz.height + 16;
         self.bounds = r;
-        [self layoutIfNeeded];
+        [self setNeedsLayout];
     }
 }
 

@@ -22,5 +22,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameLabelTrailConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameLabelTrailToSegmentConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftIndentConstraint;
+@property (weak, nonatomic) IBOutlet UIView *touchView;
 
 @end

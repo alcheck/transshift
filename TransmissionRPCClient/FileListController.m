@@ -142,9 +142,7 @@
     //sender.enabled = NO;
     sender.view.userInteractionEnabled = NO;
     
-    //NSLog(@"Switch is toggled, %@", info.name);
-    if( _delegate && wanted &&
-       [_delegate respondsToSelector:@selector(fileListControllerResumeDownloadingFilesWithIndexes:forTorrentWithId:)])
+    if( _delegate && wanted && [_delegate respondsToSelector:@selector(fileListControllerResumeDownloadingFilesWithIndexes:forTorrentWithId:)])
     {
         [_delegate fileListControllerResumeDownloadingFilesWithIndexes:@[@(item.index)]
                                                       forTorrentWithId:_torrentId];
@@ -177,11 +175,42 @@
 - (void)folderTapped:(UITapGestureRecognizer*)sender
 {
     FSItem *item = sender.dataObject;
+    
+    NSArray *indexes = [_fsDir childIndexesForItem:item];
     item.collapsed = !item.collapsed;
     
-    //NSLog(@"Folder %@ has all files wanted: %@", item.name, item.isAllFilesWanted ? @"YES" : @"NO");
-    
-    [self.tableView reloadData];
+    if( indexes.count > 0 )
+    {
+        NSMutableArray *indexPaths = [NSMutableArray array];
+        
+        for( NSNumber *idx in indexes )
+        {
+            NSIndexPath *path = [NSIndexPath indexPathForRow:[idx intValue] inSection:0];
+            [indexPaths addObject:path];
+        }
+        
+        [self.tableView beginUpdates];
+        
+        if( item.collapsed )
+        {
+            [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationTop];
+        }
+        else
+        {
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationBottom];
+        }
+        
+        [self.tableView endUpdates];
+        
+        // update folder icon
+        NSUInteger itemIdx = [[indexes firstObject] intValue] - 1;
+        FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:itemIdx inSection:0]];
+        if( cell )
+        {
+            cell.iconImg.image = item.isCollapsed ? _iconImgFolderClosed : _iconImgFolderOpened;
+        }
+    }
+    //[self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -204,14 +233,11 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FileListFSCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FILELISTFSCELL forIndexPath:indexPath];
+    
     FSItem *item = [_fsDir itemAtIndex:(int)indexPath.row];
    
-    //cell.leftLabel.bounds = r;
     cell.nameLabel.text = item.name;
     cell.iconImg.image = item.isFile ? _iconImgFile : (  item.isCollapsed ? _iconImgFolderClosed : _iconImgFolderOpened );
-    
-    //NSArray *arr = cell.leftLabel.constraints;
-    //[cell.leftLabel removeConstraints:arr];
     
     // make indentation
     float leftIdent = FILELISTFSCELL_LEFTLABEL_WIDTH + ( (item.level - 1) * FILELISTFSCELL_LEFTLABEL_LEVEL_INDENTATION );
@@ -220,18 +246,16 @@
         leftIdent = ((item.level - 1) * FILELISTFSCELL_LEFTLABEL_LEVEL_INDENTATION);
     
     cell.leftIndentConstraint.constant = leftIdent;
-    //NSLayoutConstraint *widthConstraint = [arr firstObject];
-    //widthConstraint.constant = leftIdent;
-    //[cell.leftLabel addConstraints:arr];
     
-    cell.iconImg.userInteractionEnabled = NO;
     cell.iconImg.tintColor = cell.tintColor;            // default (blue) tintColor
-    cell.leftLabel.userInteractionEnabled = NO;
-    cell.prioritySegment.hidden = YES;
-    cell.nameLabel.textColor = [UIColor blackColor];
+    cell.prioritySegment.hidden = YES;                  // by default folders don't have priority segment
+    cell.nameLabel.textColor = [UIColor blackColor];    // by default file/folder names are black
     
     cell.nameLabelTrailConstraint.priority = 751;
     cell.nameLabelTrailToSegmentConstraint.priority = 750;
+    
+    cell.touchView.userInteractionEnabled = NO;
+    cell.leftLabel.userInteractionEnabled = NO;
     
     if( item.isFile )
     {
@@ -251,12 +275,12 @@
         {
             if( !_isSelectOnly )
             {
-            // configure priority segment control
-            [cell.prioritySegment addTarget:self action:@selector(prioritySegmentToggled:) forControlEvents:UIControlEventValueChanged];
-            cell.prioritySegment.dataObject = @(item.index);
-            cell.prioritySegment.selectedSegmentIndex = item.info.priority + 1;
-            cell.prioritySegment.enabled = YES;
-            cell.prioritySegment.hidden = NO;
+                // configure priority segment control
+                [cell.prioritySegment addTarget:self action:@selector(prioritySegmentToggled:) forControlEvents:UIControlEventValueChanged];
+                cell.prioritySegment.dataObject = @(item.index);
+                cell.prioritySegment.selectedSegmentIndex = item.info.priority + 1;
+                cell.prioritySegment.enabled = YES;
+                cell.prioritySegment.hidden = NO;
             }
 
             // configure left checkBox control
@@ -271,8 +295,8 @@
                 
                 if( !item.info.wanted )
                 {
-                cell.iconImg.tintColor = [UIColor grayColor];
-                cell.nameLabel.textColor = [UIColor grayColor];
+                    cell.iconImg.tintColor = [UIColor grayColor];
+                    cell.nameLabel.textColor = [UIColor grayColor];
                 }
             }
             else
@@ -285,7 +309,7 @@
         }
         else
         {
-            cell.leftLabel.text = @" ";
+            cell.leftLabel.text = @"";
         }
     }
     else // it is folder
@@ -324,23 +348,13 @@
             cell.leftLabel.text = @" ";
         }
         
+        // Add tap handeler for folder - open/close
+        [cell.touchView layoutIfNeeded];
+        UITapGestureRecognizer *tapFolderRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
+        tapFolderRec.dataObject = item;
         
-        // add handler to folder icon for collapsing/uncollapsing folder
-        cell.iconImg.userInteractionEnabled = YES;
-        cell.nameLabel.userInteractionEnabled = YES;
-        cell.detailLabel.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer *tapRecIcon = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
-        UITapGestureRecognizer *tapRecLabel = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
-        UITapGestureRecognizer *tapRecDetail = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
-        
-        tapRecDetail.dataObject = item;
-        tapRecIcon.dataObject = item;
-        tapRecLabel.dataObject = item;
-        
-        [cell.iconImg addGestureRecognizer:tapRecIcon];
-        [cell.nameLabel addGestureRecognizer:tapRecLabel];
-        [cell.detailLabel addGestureRecognizer:tapRecDetail];
+        cell.touchView.userInteractionEnabled = YES;
+        [cell.touchView addGestureRecognizer:tapFolderRec];
     }
     
     return cell;

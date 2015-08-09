@@ -385,7 +385,7 @@
                       info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
         cell.downloadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↓DL: %@", @""), info.downloadRateString];
         cell.uploadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↑UL: %@", @""), info.uploadRateString];
-        cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedSizeString, info.totalSizeString ];
+        cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedEverString, info.totalSizeString ];
         cell.statusIcon.image = [UIImage iconDownload];
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
         btnImg = [UIImage iconPause];

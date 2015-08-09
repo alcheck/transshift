@@ -285,7 +285,7 @@
 				2CF690981B4BE0B400B2F830 /* Title Views */,
 				2CAD1E431B4AC117005BBDBE /* Speed limit Controller */,
 				2CFAB90F1B49ACA100BE71D9 /* Session Config Controller */,
-				2CFA5E111B432AA400262C36 /* Files Controller */,
+				2CFA5E111B432AA400262C36 /* File List Controller */,
 				2CF7D5111B42E768006D01FD /* Peers Controller */,
 				2CF911931B41B5C2003D0753 /* Choose server Controller */,
 				2CFA61BA1B413C74002D89B7 /* Torrent Info Controller */,
@@ -518,7 +518,7 @@
 			name = docIcons;
 			sourceTree = "<group>";
 		};
-		2CFA5E111B432AA400262C36 /* Files Controller */ = {
+		2CFA5E111B432AA400262C36 /* File List Controller */ = {
 			isa = PBXGroup;
 			children = (
 				2CFA5E121B432ABF00262C36 /* FileListController.h */,
@@ -526,7 +526,7 @@
 				2C0A2AA11B469D5D0042CAA6 /* FileListFSCell.h */,
 				2C0A2AA21B469D5D0042CAA6 /* FileListFSCell.m */,
 			);
-			name = "Files Controller";
+			name = "File List Controller";
 			sourceTree = "<group>";
 		};
 		2CFA61BA1B413C74002D89B7 /* Torrent Info Controller */ = {

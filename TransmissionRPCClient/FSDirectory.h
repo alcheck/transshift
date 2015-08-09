@@ -19,12 +19,13 @@ typedef NS_ENUM(unichar, FSItemType)
 @interface FSItem: NSObject
 
 @property(nonatomic) FSItemType                     itemType;       // type of item Folde or File
+
 @property(nonatomic, getter=isCollapsed) BOOL       collapsed;      // if folder - if folder collapsed
 @property(nonatomic, readonly)BOOL                  isFolder;       // returns YES if this item is folder
 @property(nonatomic, readonly)BOOL                  isFile  ;       // returns YES if this item is folder
 @property(nonatomic) NSString*                      name;           // name of item (folder name or file name)
 @property(nonatomic) unsigned int                   index;          // used for latter use with RPC (index in returned array from RPC request)
-@property(nonatomic) NSMutableArray*                items;          // holds childrens of tupe FSItem
+@property(nonatomic) NSMutableArray*                items;          // holds children (FSItem)
 @property(nonatomic) TRFileInfo*                    info;           // holds TRFileInfo
 @property(nonatomic) int level;                                     // holds level of item
 
@@ -63,5 +64,7 @@ typedef NS_ENUM(unichar, FSItemType)
 - (void)sort;
 - (FSItem*)itemAtIndex:(int)index;
 - (void)setNeedToRecalcStats;
+
+- (NSArray *)childIndexesForItem:(FSItem *)item;
 
 @end

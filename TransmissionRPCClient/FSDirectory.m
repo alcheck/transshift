@@ -456,6 +456,53 @@
 }
 
 
+- (int)indexForItem:(FSItem*)item
+{
+    _curIndex = -1;
+    [self stepAndFindItem:item startFrom:_root];
+    return _curIndex;
+}
+
+- (void)stepAndFindItem:(FSItem *)item startFrom:(FSItem *)rootItem
+{
+    for( FSItem *i in rootItem.items )
+    {
+        _curIndex++;
+        
+        if( i == item )
+            return;
+        
+        if( !i.isCollapsed && i.items.count > 0 )
+            [self stepAndFindItem:item startFrom:i];
+    }
+}
+
+- (void)stepAndStoreIndexesForSubItemsOfItem:(FSItem *)item storeTo:(NSMutableArray *)indexes
+{
+    for( FSItem *i in item.items )
+    {
+        [indexes addObject:@(++_curIndex)];
+        if( !i.isCollapsed && i.items.count > 0 )
+            [self stepAndStoreIndexesForSubItemsOfItem:i storeTo:indexes];
+    }
+}
+
+/// Get this item children indexes
+- (NSArray *)childIndexesForItem:(FSItem *)item
+{
+    int idx = [self indexForItem:item];
+    if( idx >= 0 )
+    {
+        NSMutableArray *indexes = [NSMutableArray array];
+        _curIndex = idx;
+        [self stepAndStoreIndexesForSubItemsOfItem:item storeTo:indexes];
+        return indexes;
+    }
+    
+    return nil;
+}
+
+
 - (NSString *)description
 {
     return _root.description;

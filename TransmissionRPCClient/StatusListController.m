@@ -231,14 +231,15 @@
     UIView *v = self.parentViewController.view;
 
     float factor = 1.2;
+    float h = 50;
     
     if( self.splitViewController )
     {
         factor = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation) ? 1.8 : 2.3;
         v = self.splitViewController.view;
     }
-    
-    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(v.bounds.size.width/factor, 50)];
+
+    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(v.bounds.size.width/factor, h)];
     [msg showInfo:infoStr fromView:v];
 }
 
@@ -247,13 +248,15 @@
     UIView *v = self.parentViewController.view;
     
     float factor = 1.2;
+    float h = 50;
+    
     if( self.splitViewController )
     {
         factor = UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation) ? 1.8 : 2.3;
         v = self.splitViewController.view;
     }
     
-    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(v.bounds.size.width/factor, 50)];
+    InfoMessage *msg = [InfoMessage infoMessageWithSize:CGSizeMake(v.bounds.size.width/factor, h)];
     [msg showErrorInfo:errStr fromView:v];
 }
 
@@ -1018,13 +1021,17 @@
     UINavigationController *nav = _torrentController.navigationController;
     [nav pushViewController:_fileListController animated:YES];
     
+    _fileListController.infoMessage = NSLocalizedString(@"Getting files for torrent ...", @"");
     [_connector getAllFilesForTorrentWithId:torrentId];
 }
 
 - (void)gotAllFiles:(NSArray *)fileInfos forTorrentWithId:(int)torrentId
 {
     if( _fileListController )
+    {
+        _fileListController.infoMessage = nil;
         _fileListController.fileInfos = fileInfos;
+    }
 }
 
 - (void)fileListControllerNeedUpdateFilesForTorrentWithId:(int)torrentId

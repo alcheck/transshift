@@ -3,7 +3,7 @@
 "6y7-kP-D86.text" = "d -";
 
 /* Class = "UILabel"; text = "Peer is connected via uTP"; ObjectID = "77Z-dK-6wx"; */
-"77Z-dK-6wx.text" = "Пир соединен по протоколу uTP";
+"77Z-dK-6wx.text" = "Пир соединен по протоколу μTP";
 
 /* Class = "UILabel"; text = "? -"; ObjectID = "7lq-t8-wT9"; */
 "7lq-t8-wT9.text" = "? -";
@@ -18,13 +18,13 @@
 "F1W-Y1-EnS.text" = "Зашифрованное соединение";
 
 /* Class = "UILabel"; text = "We would download from this peer if they'd let us"; ObjectID = "HdJ-Pt-GgS"; */
-"HdJ-Pt-GgS.text" = "Готов начать скачивание с пира если он позволит";
+"HdJ-Pt-GgS.text" = "Готов начать скачивание с пира если он готов";
 
 /* Class = "UILabel"; text = "D -"; ObjectID = "SL9-k0-1VU"; */
 "SL9-k0-1VU.text" = "D -";
 
 /* Class = "UILabel"; text = "Downloading from this peer"; ObjectID = "UtS-VD-ZYI"; */
-"UtS-VD-ZYI.text" = "Скачивается с этого пира";
+"UtS-VD-ZYI.text" = "Скачивается с данного пира";
 
 /* Class = "UILabel"; text = "O -"; ObjectID = "VlK-Cd-R3F"; */
 "VlK-Cd-R3F.text" = "O -";
@@ -57,10 +57,10 @@
 "fgb-px-8e3.text" = "E -";
 
 /* Class = "UILabel"; text = "Optimistic unchoke"; ObjectID = "gDg-w9-BVs"; */
-"gDg-w9-BVs.text" = "Оптимистичная разгрузка";
+"gDg-w9-BVs.text" = "Оптимистичная \"разгрузка\"";
 
 /* Class = "UILabel"; text = "Peer has unchoked us, but we're not interested"; ObjectID = "hAR-7U-1s2"; */
-"hAR-7U-1s2.text" = "Пир разгрузил нас, но мы пока не готовы";
+"hAR-7U-1s2.text" = "Пир \"разгрузил\" нас, но мы пока не готовы";
 
 /* Class = "UILabel"; text = "Uploading to peer"; ObjectID = "nDR-2n-DBb"; */
 "nDR-2n-DBb.text" = "Отдача данному пиру";
