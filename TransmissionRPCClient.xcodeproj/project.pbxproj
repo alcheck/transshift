@@ -60,6 +60,8 @@
 		2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */; };
 		2CF964F01B4D5DB9006D8C7E /* docIcon_64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EC1B4D5DB9006D8C7E /* docIcon_64x64.png */; };
 		2CF964F11B4D5DB9006D8C7E /* docIcon_320x320.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964ED1B4D5DB9006D8C7E /* docIcon_320x320.png */; };
+		2CF971AB1B790379008EE25D /* GeoIpConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF971AA1B790379008EE25D /* GeoIpConnector.m */; };
+		2CF971AF1B790B23008EE25D /* IPGeoInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF971AE1B790B23008EE25D /* IPGeoInfoController.m */; };
 		2CFA5E101B43237400262C36 /* TRFileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA5E0F1B43237400262C36 /* TRFileInfo.m */; };
 		2CFA5E141B432ABF00262C36 /* FileListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA5E131B432ABF00262C36 /* FileListController.m */; };
 		2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA9DC01B42CE0D005629C2 /* TRPeerInfo.m */; };
@@ -180,6 +182,10 @@
 		2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_44x58.png; sourceTree = "<group>"; };
 		2CF964EC1B4D5DB9006D8C7E /* docIcon_64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_64x64.png; sourceTree = "<group>"; };
 		2CF964ED1B4D5DB9006D8C7E /* docIcon_320x320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_320x320.png; sourceTree = "<group>"; };
+		2CF971A91B790379008EE25D /* GeoIpConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoIpConnector.h; sourceTree = "<group>"; };
+		2CF971AA1B790379008EE25D /* GeoIpConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoIpConnector.m; sourceTree = "<group>"; };
+		2CF971AD1B790B23008EE25D /* IPGeoInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPGeoInfoController.h; sourceTree = "<group>"; };
+		2CF971AE1B790B23008EE25D /* IPGeoInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPGeoInfoController.m; sourceTree = "<group>"; };
 		2CFA5E0E1B43237400262C36 /* TRFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFileInfo.h; sourceTree = "<group>"; };
 		2CFA5E0F1B43237400262C36 /* TRFileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFileInfo.m; sourceTree = "<group>"; };
 		2CFA5E121B432ABF00262C36 /* FileListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListController.h; sourceTree = "<group>"; };
@@ -286,6 +292,7 @@
 		2C5810FC1B39BBB50069020D /* UI Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CF971AC1B790B02008EE25D /* GeoIP Controller */,
 				2CFB92CF1B56D25400C83354 /* controllers.storyboard */,
 				2CF7300A1B657D2D007D5354 /* Schedule DayTime Controller */,
 				2CF72FFC1B65114A007D5354 /* Tracker list Controller */,
@@ -500,6 +507,8 @@
 				2CFBA7981B5017DA00202281 /* RateLimitTable.m */,
 				2CF8EF791B6179AE00EB8D5D /* TrackerStat.h */,
 				2CF8EF7A1B6179AE00EB8D5D /* TrackerStat.m */,
+				2CF971A91B790379008EE25D /* GeoIpConnector.h */,
+				2CF971AA1B790379008EE25D /* GeoIpConnector.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -514,6 +523,15 @@
 				2CFC267D1B44580E0070CC1C /* StatusListCell.m */,
 			);
 			name = "Status list controller";
+			sourceTree = "<group>";
+		};
+		2CF971AC1B790B02008EE25D /* GeoIP Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CF971AD1B790B23008EE25D /* IPGeoInfoController.h */,
+				2CF971AE1B790B23008EE25D /* IPGeoInfoController.m */,
+			);
+			name = "GeoIP Controller";
 			sourceTree = "<group>";
 		};
 		2CF999D71B4C290500F4233C /* Common Table Controller */ = {
@@ -720,6 +738,7 @@
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
 				2CF8EF781B61736100EB8D5D /* TrackerListCell.m in Sources */,
 				2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */,
+				2CF971AF1B790B23008EE25D /* IPGeoInfoController.m in Sources */,
 				2CF7F3211B6EBF2B007EEBF6 /* PeerStatCell.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,
 				2C6668341B5BB1D3004B6FA4 /* Bencoding.m in Sources */,
@@ -731,6 +750,7 @@
 				2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */,
 				2CF8C7651B4302F7005A7DD6 /* PeerListCell.m in Sources */,
 				2CE400BB1B49928F00BA32C2 /* BandwidthPriorityCell.m in Sources */,
+				2CF971AB1B790379008EE25D /* GeoIpConnector.m in Sources */,
 				2CF6909D1B4BE0D400B2F830 /* FooterViewFreeSpace.m in Sources */,
 				2C0A2AA61B469EC00042CAA6 /* NSObject+DataObject.m in Sources */,
 				2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */,

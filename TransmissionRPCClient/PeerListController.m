@@ -10,6 +10,10 @@
 #import "PeerListCell.h"
 #import "PeerStatCell.h"
 #import "FlagDescriptionView.h"
+#import "IPGeoInfoController.h"
+#import "NSObject+DataObject.h"
+#import "GlobalConsts.h"
+#import "GeoIpConnector.h"
 
 #define ROWHIGHT_PEERINFOHEADER     44
 #define ROWHIGHT_PEERINFO           30
@@ -21,6 +25,8 @@
 
 {
     NSArray *_sectionTitles;
+    
+    UIPopoverController *_popOver;
 }
 
 - (void)viewDidLoad
@@ -255,6 +261,62 @@
     cell.uploadLabel.text = info.rateToPeer > 0 ?  info.rateToPeerString : @"-";
     cell.isSecure = info.isEncrypted;
     cell.isUTPEnabled = info.isUTP;
+    
+    if ( self.splitViewController )
+    {
+        cell.addressLabel.userInteractionEnabled = YES;
+        cell.addressLabel.textColor = self.tableView.tintColor;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showGeoIpController:)];
+        tap.dataObject = info;
+        info.dataObject = cell;
+        [cell.addressLabel addGestureRecognizer:tap];
+    }
+}
+
+- (void)showGeoIpController:(UIGestureRecognizer *)sender
+{
+    if( _popOver )
+    {
+        [_popOver dismissPopoverAnimated:NO];
+    }
+    
+    TRPeerInfo *info = sender.dataObject;
+
+    IPGeoInfoController *c = instantiateController( CONROLLER_ID_IPGEOINFO );
+    
+    [c.indicator startAnimating];
+    
+    c.title = [NSString stringWithFormat:@"IP %@:%i", info.ipAddress, info.port];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:c];
+    
+    PeerListCell *cell = info.dataObject;
+    
+    CGRect rect = cell.addressLabel.frame;
+    rect.size.width = 30;
+    
+    _popOver = [[UIPopoverController alloc] initWithContentViewController:nav];
+    [_popOver presentPopoverFromRect:rect inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
+    GeoIpConnector *geoConnector = [[GeoIpConnector alloc] init];
+    
+    [geoConnector getInfoForIp:info.ipAddress responseHandler:^(NSString *error, NSDictionary *dict)
+    {
+        [c.indicator stopAnimating];
+        //c.indicator.hidden = YES;
+        if( dict )
+        {
+            c.labelCountry.text = [dict[@"country_name"] isEqualToString:@""] ? @"-" : dict[@"country_name"];
+            c.labelCity.text = [dict[@"city"] isEqualToString:@""] ? @"-" : dict[@"city"];
+            c.labelRegion.text = [dict[@"region_name"] isEqualToString:@""] ? @"-": dict[@"region_name"];
+        }
+        else
+        {
+            c.labelCountry.text = error;
+            c.labelCity.text = @"-";
+            c.labelRegion.text = @"-";
+        }
+    }];
 }
 
 @end
