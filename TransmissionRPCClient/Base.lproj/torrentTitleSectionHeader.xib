@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -20,45 +19,34 @@
                         <constraint firstAttribute="width" constant="36" id="7qs-jh-fhN"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.60000000000000009" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="528" translatesAutoresizingMaskIntoConstraints="NO" id="Ixe-LF-PzB">
-                    <rect key="frame" x="52" y="20" width="528" height="21"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="528" translatesAutoresizingMaskIntoConstraints="NO" id="Ixe-LF-PzB">
+                    <rect key="frame" x="52" y="0.0" width="528" height="70"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Label">
+                            <attributes>
+                                <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" white="0.0" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
-                    <size key="shadowOffset" width="1" height="1"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Torrent size:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="254" translatesAutoresizingMaskIntoConstraints="NO" id="661-go-2kN">
-                    <rect key="frame" x="52" y="44" width="254" height="16"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 GB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="266" translatesAutoresizingMaskIntoConstraints="NO" id="YiC-wW-wDd">
-                    <rect key="frame" x="314" y="44" width="266" height="16"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
+                    <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Ixe-LF-PzB" secondAttribute="trailing" constant="20" symbolic="YES" id="74F-0W-cez"/>
-                <constraint firstItem="661-go-2kN" firstAttribute="top" secondItem="Ixe-LF-PzB" secondAttribute="bottom" constant="3" id="CaW-wc-gRK"/>
-                <constraint firstItem="Ixe-LF-PzB" firstAttribute="centerY" secondItem="Vka-KW-dfe" secondAttribute="centerY" constant="-5" id="JAz-kM-Gkw"/>
-                <constraint firstItem="Ixe-LF-PzB" firstAttribute="leading" secondItem="661-go-2kN" secondAttribute="leading" id="U9X-BN-ew7"/>
-                <constraint firstItem="661-go-2kN" firstAttribute="baseline" secondItem="YiC-wW-wDd" secondAttribute="baseline" id="eXs-8j-U7X"/>
-                <constraint firstAttribute="trailing" secondItem="YiC-wW-wDd" secondAttribute="trailing" constant="20" symbolic="YES" id="iLM-qJ-bnn"/>
-                <constraint firstItem="661-go-2kN" firstAttribute="width" secondItem="Ixe-LF-PzB" secondAttribute="width" multiplier="0.48" id="iY1-rx-HQG"/>
+                <constraint firstAttribute="bottom" secondItem="Ixe-LF-PzB" secondAttribute="bottom" id="Eai-my-Y89"/>
+                <constraint firstItem="Ixe-LF-PzB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aUI-aT-bd2"/>
                 <constraint firstAttribute="centerY" secondItem="Vka-KW-dfe" secondAttribute="centerY" id="oAM-XI-mJc"/>
                 <constraint firstItem="Vka-KW-dfe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="phC-2d-9B9"/>
                 <constraint firstItem="Ixe-LF-PzB" firstAttribute="leading" secondItem="Vka-KW-dfe" secondAttribute="trailing" constant="8" symbolic="YES" id="uQZ-xi-Bqa"/>
-                <constraint firstItem="YiC-wW-wDd" firstAttribute="leading" secondItem="661-go-2kN" secondAttribute="trailing" constant="8" symbolic="YES" id="uoy-km-e1v"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="icon" destination="Vka-KW-dfe" id="cei-wE-P6q"/>
-                <outlet property="labelSize" destination="YiC-wW-wDd" id="z1T-HZ-WOB"/>
-                <outlet property="labelTitle" destination="Ixe-LF-PzB" id="LZV-7t-tMl"/>
+                <outlet property="icon" destination="Vka-KW-dfe" id="CPv-uI-bAA"/>
+                <outlet property="labelTitle" destination="Ixe-LF-PzB" id="qW0-Sd-Pdl"/>
             </connections>
             <point key="canvasLocation" x="541" y="160.5"/>
         </view>

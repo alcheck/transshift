@@ -190,20 +190,10 @@
             if( announceList && announceList.count > 0 )
                 chooseServerController.announceList = announceList;
             
-            //chooseServerController.headerInfoMessage = _magnetURLString ?
-            //    [NSString stringWithFormat: NSLocalizedString(@"Add torrent with magnet link:\n%@", @""), _magnetURLString] :
-            //    [NSString stringWithFormat: NSLocalizedString(@"Add torrent with file size: %@", @""), trName, trSize ];
-            //chooseServerController.headerInfoMessage = NSLocalizedString( @"Add torrent", @"" );
             if( !_magnetURLString )
-            {
-                chooseServerController.torrentTitle = trName;
-                chooseServerController.torrentSize = trSize;
-            }
+                [chooseServerController setTorrentTitle:trName andTorrentSize:trSize];
             else
-            {
-                chooseServerController.torrentTitle = _magnetURLString;
-                chooseServerController.torrentSize = @"?";
-            }
+                [chooseServerController setTorrentTitle:_magnetURLString andTorrentSize:@"?"];
             
             UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                            style:UIBarButtonItemStylePlain

@@ -60,25 +60,33 @@
     return _bandwidthPriority - 1;
 }
 
-- (NSString *)torrentTitle
+/// set torrent title
+- (void)setTorrentTitle:(NSString *)titleStr andTorrentSize:(NSString *)sizeStr
 {
-    return _torrentTitleSectionView.labelTitle.text;
+    NSMutableParagraphStyle *alignStyle = [NSMutableParagraphStyle new];
+    alignStyle.alignment = NSTextAlignmentCenter;
+    
+    NSString *sizeRightStr = NSLocalizedString(@"Torrent size: ", @"");
+    
+    NSMutableAttributedString *s = [[NSMutableAttributedString alloc] initWithString:
+                             [NSString stringWithFormat:@"%@\n%@%@", titleStr, sizeRightStr, sizeStr]
+                              attributes:@{ NSParagraphStyleAttributeName : alignStyle }];
+    
+    NSRange titleRange = NSMakeRange(0, titleStr.length );
+    NSRange sizeRightRange = NSMakeRange( titleStr.length + 1, sizeRightStr.length );
+    NSRange sizeRange = NSMakeRange( titleStr.length + sizeRightStr.length + 1, sizeStr.length );
+    
+    [s addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14.0] range:titleRange ];
+    [s addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13.0] range:sizeRightRange ];
+    [s addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:13.0] range:sizeRange];
+    
+    [s addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:titleRange];
+    [s addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:sizeRightRange];
+    [s addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:sizeRange];
+    
+    self.torrentTitleSectionView.labelTitle.attributedText = s;
 }
 
-- (void)setTorrentTitle:(NSString *)torrentTitle
-{
-    self.torrentTitleSectionView.labelTitle.text = torrentTitle;
-}
-
-- (void)setTorrentSize:(NSString *)torrentSize
-{
-    self.torrentTitleSectionView.labelSize.text = torrentSize;
-}
-
-- (NSString *)torrentSize
-{
-    return _torrentTitleSectionView.labelSize.text;
-}
 
 - (TorrentTitleSectionHeaderView *)torrentTitleSectionView
 {

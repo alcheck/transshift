@@ -125,8 +125,7 @@
 		2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMessage.m; sourceTree = "<group>"; };
 		2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoMessage.xib; sourceTree = "<group>"; };
 		2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = InfoMessageIcons.xcassets; sourceTree = "<group>"; };
-		2C9DDA081B77CA78008F16BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/torrentTitleSectionHeader.xib; sourceTree = "<group>"; };
-		2C9DDA0B1B77CA7A008F16BF /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/torrentTitleSectionHeader.strings; sourceTree = "<group>"; };
+		2CA864FA1B78F5DF002D396C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/torrentTitleSectionHeader.xib; sourceTree = "<group>"; };
 		2CAD1E441B4AC131005BBDBE /* SpeedLimitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimitController.h; sourceTree = "<group>"; };
 		2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimitController.m; sourceTree = "<group>"; };
 		2CB651CD1B3DCCBE005C823C /* TorrentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListController.h; sourceTree = "<group>"; };
@@ -786,8 +785,7 @@
 		2C9DDA091B77CA78008F16BF /* torrentTitleSectionHeader.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2C9DDA081B77CA78008F16BF /* Base */,
-				2C9DDA0B1B77CA7A008F16BF /* ru */,
+				2CA864FA1B78F5DF002D396C /* Base */,
 			);
 			name = torrentTitleSectionHeader.xib;
 			sourceTree = "<group>";

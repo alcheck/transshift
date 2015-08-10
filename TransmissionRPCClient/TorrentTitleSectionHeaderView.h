@@ -11,7 +11,6 @@
 @interface TorrentTitleSectionHeaderView : UIView
 
 @property (weak, nonatomic) IBOutlet UILabel *labelTitle;
-@property (weak, nonatomic) IBOutlet UILabel *labelSize;
 @property (weak, nonatomic) IBOutlet UIImageView *icon;
 
 

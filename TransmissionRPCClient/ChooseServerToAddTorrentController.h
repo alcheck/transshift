@@ -25,7 +25,6 @@
 @property(nonatomic) FSDirectory              *files;
 @property(nonatomic) NSArray                  *announceList;
 
-@property(nonatomic) NSString                 *torrentTitle;
-@property(nonatomic) NSString                 *torrentSize;
+- (void)setTorrentTitle:(NSString *)title andTorrentSize:(NSString *)size;
 
 @end
