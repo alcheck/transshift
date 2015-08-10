@@ -348,7 +348,7 @@
 {
     if( _switchScheduleAltLimits.on )
     {
-        _scheduleController = instantiateController(CONTROLLER_ID_SCHEDULETIMEDATE);
+        _scheduleController = instantiateController( CONTROLLER_ID_SCHEDULETIMEDATE );
         _scheduleController.title = NSLocalizedString(@"Schedule time", @"");
         
         //NSLog(@"Setting values ...");
