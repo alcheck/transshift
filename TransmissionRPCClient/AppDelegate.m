@@ -90,7 +90,7 @@
     // handle url - it is a .torrent file or magnet url
     if( url )
     {
-        // FIX: when user tryes to load file serveral times in a row
+        // FIX: when user wants to load file serveral times in a row
         if( _chooseNav )
         {
             [_chooseNav dismissViewControllerAnimated:NO completion:nil];
@@ -109,9 +109,7 @@
         {
             _torrentFileDataToAdd = [NSData dataWithContentsOfURL:url];
             
-            //NSString *sizeStr = formatByteCount(_torrentFileDataToAdd.length);
-            
-            NSDictionary *trData = decodeObjectFromBencodedData(_torrentFileDataToAdd);
+            NSDictionary *trData = decodeObjectFromBencodedData( _torrentFileDataToAdd );
             
             if (trData)
             {
@@ -192,9 +190,20 @@
             if( announceList && announceList.count > 0 )
                 chooseServerController.announceList = announceList;
             
-            chooseServerController.headerInfoMessage = _magnetURLString ?
-                [NSString stringWithFormat: NSLocalizedString(@"Add torrent with magnet link:\n%@", @""), _magnetURLString] :
-                [NSString stringWithFormat: NSLocalizedString(@"Add torrent with file size: %@", @""), trName, trSize ];
+            //chooseServerController.headerInfoMessage = _magnetURLString ?
+            //    [NSString stringWithFormat: NSLocalizedString(@"Add torrent with magnet link:\n%@", @""), _magnetURLString] :
+            //    [NSString stringWithFormat: NSLocalizedString(@"Add torrent with file size: %@", @""), trName, trSize ];
+            //chooseServerController.headerInfoMessage = NSLocalizedString( @"Add torrent", @"" );
+            if( !_magnetURLString )
+            {
+                chooseServerController.torrentTitle = trName;
+                chooseServerController.torrentSize = trSize;
+            }
+            else
+            {
+                chooseServerController.torrentTitle = _magnetURLString;
+                chooseServerController.torrentSize = @"?";
+            }
             
             UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                            style:UIBarButtonItemStylePlain

@@ -1195,27 +1195,28 @@
                                                         <action selector="scheduleOnOff:" destination="OK2-AY-YGg" eventType="valueChanged" id="Nkb-wJ-8Re"/>
                                                     </connections>
                                                 </switch>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x61-7D-qyB">
-                                                    <rect key="frame" x="518" y="7" width="74" height="30"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Lmh-H4-Cm3">
+                                                    <rect key="frame" x="518" y="7" width="74" height="29"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="74" id="mlA-Jr-cS5"/>
+                                                        <constraint firstAttribute="width" constant="74" id="UiC-fl-fdb"/>
                                                     </constraints>
-                                                    <state key="normal" title="More...">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
+                                                    <segments>
+                                                        <segment title="More ..."/>
+                                                        <segment title="Second"/>
+                                                    </segments>
                                                     <connections>
-                                                        <action selector="showScheduler:" destination="OK2-AY-YGg" eventType="touchUpInside" id="rOe-Dd-emM"/>
+                                                        <action selector="btnShowScheduler:" destination="OK2-AY-YGg" eventType="valueChanged" id="HvM-vG-SAI"/>
                                                     </connections>
-                                                </button>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="h8y-nY-MgU" secondAttribute="centerY" id="ADw-Zh-shs"/>
-                                                <constraint firstAttribute="centerY" secondItem="x61-7D-qyB" secondAttribute="centerY" id="FXd-5N-0xp"/>
                                                 <constraint firstItem="sKh-I4-zfI" firstAttribute="leading" secondItem="h8y-nY-MgU" secondAttribute="trailing" constant="8" symbolic="YES" id="IZR-7S-GFZ"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="x61-7D-qyB" secondAttribute="trailing" id="O0u-dN-NBe"/>
-                                                <constraint firstItem="x61-7D-qyB" firstAttribute="leading" secondItem="sKh-I4-zfI" secondAttribute="trailing" constant="8" symbolic="YES" id="Ski-bn-M4v"/>
+                                                <constraint firstAttribute="centerY" secondItem="Lmh-H4-Cm3" secondAttribute="centerY" id="Mm7-jg-fga"/>
                                                 <constraint firstAttribute="centerY" secondItem="sKh-I4-zfI" secondAttribute="centerY" id="VYT-Ig-nqP"/>
                                                 <constraint firstItem="h8y-nY-MgU" firstAttribute="leading" secondItem="Lpi-0i-6ss" secondAttribute="leadingMargin" id="bPH-h0-EkV"/>
+                                                <constraint firstItem="Lmh-H4-Cm3" firstAttribute="leading" secondItem="sKh-I4-zfI" secondAttribute="trailing" constant="8" symbolic="YES" id="mPm-Ui-5UF"/>
+                                                <constraint firstItem="Lmh-H4-Cm3" firstAttribute="trailing" secondItem="Lpi-0i-6ss" secondAttribute="trailingMargin" id="vpX-5r-j5a"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1650,9 +1651,9 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="buttonShowScheduler" destination="x61-7D-qyB" id="WRL-CM-vFA"/>
                         <outlet property="labelPort" destination="pEI-cG-i4k" id="2lS-SB-LB8"/>
                         <outlet property="segmentEncryption" destination="yEn-nb-ZFk" id="wT4-qv-bwQ"/>
+                        <outlet property="segmentShowScheduler" destination="Lmh-H4-Cm3" id="0jd-eP-3CF"/>
                         <outlet property="switchAddPartToUnfinishedFiles" destination="ES4-nH-JxS" id="17p-dg-VIY"/>
                         <outlet property="switchAltDownloadRateEnabled" destination="fxM-rt-hEh" id="0z6-V0-uYd"/>
                         <outlet property="switchAltUploadRateEnabled" destination="AoW-LT-tzM" id="8Ae-be-VJm"/>

@@ -29,7 +29,7 @@
     _iconUp = [[UIImage imageNamed:@"iconSpeedUpLimit20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     _iconUnlim = [[UIImage imageNamed:@"iconSpeedUnlim20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
-    self.headerInfoMessage = _rates.tableTitle;
+    //self.headerInfoMessage = _rates.tableTitle;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

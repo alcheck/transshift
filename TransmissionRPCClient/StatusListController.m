@@ -595,7 +595,8 @@
         if( _speedPopOver && _speedPopOver.isPopoverVisible )
             [_speedPopOver dismissPopoverAnimated:YES];
         
-        _speedPopOver = [[UIPopoverController alloc] initWithContentViewController:_speedLimitController];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_speedLimitController];
+        _speedPopOver = [[UIPopoverController alloc] initWithContentViewController:nav];
         _speedPopOver.delegate = self;
 
         [_speedPopOver presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -620,7 +621,8 @@
         if( _speedPopOver && _speedPopOver.isPopoverVisible )
             [_speedPopOver dismissPopoverAnimated:YES];
         
-        _speedPopOver = [[UIPopoverController alloc] initWithContentViewController:_speedLimitController];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController: _speedLimitController];
+        _speedPopOver = [[UIPopoverController alloc] initWithContentViewController:nav];
         _speedPopOver.delegate = self;
         
         [_speedPopOver presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];

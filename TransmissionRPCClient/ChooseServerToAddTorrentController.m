@@ -7,6 +7,7 @@
 //
 
 #import "ChooseServerToAddTorrentController.h"
+#import "TorrentTitleSectionHeaderView.h"
 #import "RPCServerConfigDB.h"
 #import "ChooseServerCell.h"
 #import "BandwidthPriorityCell.h"
@@ -16,14 +17,17 @@
 #import "GlobalConsts.h"
 
 @interface ChooseServerToAddTorrentController ()
+
+@property(nonatomic) TorrentTitleSectionHeaderView *torrentTitleSectionView;
+
 @end
 
 @implementation ChooseServerToAddTorrentController
 
 {
-    NSArray            *_sectionTitles;
-    int                _selectedRow;
-    FileListController *_fileList;
+    NSArray                         *_sectionTitles;
+    int                             _selectedRow;
+    FileListController              *_fileList;
 }
 
 - (void)viewDidLoad
@@ -56,7 +60,53 @@
     return _bandwidthPriority - 1;
 }
 
+- (NSString *)torrentTitle
+{
+    return _torrentTitleSectionView.labelTitle.text;
+}
+
+- (void)setTorrentTitle:(NSString *)torrentTitle
+{
+    self.torrentTitleSectionView.labelTitle.text = torrentTitle;
+}
+
+- (void)setTorrentSize:(NSString *)torrentSize
+{
+    self.torrentTitleSectionView.labelSize.text = torrentSize;
+}
+
+- (NSString *)torrentSize
+{
+    return _torrentTitleSectionView.labelSize.text;
+}
+
+- (TorrentTitleSectionHeaderView *)torrentTitleSectionView
+{
+    if ( !_torrentTitleSectionView )
+    {
+        _torrentTitleSectionView = [TorrentTitleSectionHeaderView titleSection];
+    }
+    
+    return _torrentTitleSectionView;
+}
+
 #pragma mark - TableView Delegate methods
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if( section == 0 )
+        return self.torrentTitleSectionView;
+    
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if( section == 0 )
+        return self.torrentTitleSectionView.bounds.size.height;
+    
+    return UITableViewAutomaticDimension;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

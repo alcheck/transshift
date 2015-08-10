@@ -50,7 +50,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *textDownloadDir;
 @property (weak, nonatomic) IBOutlet UISwitch *switchScheduleAltLimits;
 
-@property (weak, nonatomic) IBOutlet UIButton *buttonShowScheduler;
+//@property (weak, nonatomic) IBOutlet UIButton *buttonShowScheduler;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentShowScheduler;
 
 @end
 
@@ -65,12 +66,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //NSLog(@"SessionConfigController: viewDidLoad");
-    
+   
     self.enableControls = NO;
     
     self.title =  NSLocalizedString(@"Settings", @"SessionConfigController title");
+    
+    [_segmentShowScheduler removeSegmentAtIndex:1 animated:NO];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self saveAltLimitsSchedulerSettings];
+}
+
+- (void)saveAltLimitsSchedulerSettings
+{
+    _segmentShowScheduler.selectedSegmentIndex = -1;
+    
+    if( _scheduleController )
+    {
+        _sessionInfo.altLimitDay = _scheduleController.daysMask;
+        _sessionInfo.altLimitTimeBegin = _scheduleController.timeBegin;
+        _sessionInfo.altLimitTimeEnd = _scheduleController.timeEnd;
+    }
 }
 
 - (void)setSessionInfo:(TRSessionInfo *)sessionInfo
@@ -194,12 +213,9 @@
     }
     
     _sessionInfo.altLimitTimeEnabled = _switchScheduleAltLimits.on;
+
     if( _switchScheduleAltLimits.on )
-    {
-        _sessionInfo.altLimitDay = _scheduleController.daysMask;
-        _sessionInfo.altLimitTimeBegin = _scheduleController.timeBegin;
-        _sessionInfo.altLimitTimeEnd = _scheduleController.timeEnd;
-    }
+        [self saveAltLimitsSchedulerSettings];
     
     self.errorMessage = nil;
     return YES;
@@ -259,7 +275,9 @@
         
         _switchScheduleAltLimits.enabled = YES;
         _switchScheduleAltLimits.on = _sessionInfo.altLimitTimeEnabled;
-        _buttonShowScheduler.enabled = _switchScheduleAltLimits.on;
+        //_buttonShowScheduler.enabled = _switchScheduleAltLimits.on;
+        _segmentShowScheduler.enabled = _switchScheduleAltLimits.on;
+        _segmentShowScheduler.selectedSegmentIndex = -1;
         
         self.headerInfoMessage = [NSString stringWithFormat:@"Transmission %@", _sessionInfo.transmissionVersion];
         self.footerInfoMessage = [NSString stringWithFormat:NSLocalizedString(@"RPC Version: %@", @""), _sessionInfo.rpcVersion ];
@@ -284,7 +302,7 @@
                            _switchStartDownloadImmidiately, _switchUploadRateEnabled, _switchUTPEnabled, _textAltDownloadRateNumber,
                            _textAltUploadRateNumber, _textDownloadRateNumber, _textIdleSeedNumber, _textPeersPerTorrentNumber, _textPortNumber,
                            _textSeedRatioLimitNumber, _textSeedRatioLimitNumber, _textTotalPeersCountNumber, _textUploadRateNumber, _segmentEncryption,
-                           _textDownloadDir, _buttonShowScheduler
+                           _textDownloadDir, _segmentShowScheduler
                           ];
     }
     
@@ -326,7 +344,7 @@
     _textPortNumber.enabled = sender.on;
 }
 
-- (IBAction)showScheduler:(UIButton *)sender
+- (IBAction)btnShowScheduler:(UISegmentedControl *)sender
 {
     if( _switchScheduleAltLimits.on )
     {
@@ -335,7 +353,9 @@
         
         if( self.splitViewController )
         {
-            _popOver = [[UIPopoverController alloc] initWithContentViewController:_scheduleController];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_scheduleController];
+            
+            _popOver = [[UIPopoverController alloc] initWithContentViewController:nav];
             _popOver.delegate = self;
             [_popOver presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
@@ -343,7 +363,7 @@
         {
             [self.navigationController pushViewController:_scheduleController animated:YES];
         }
-
+        
         _scheduleController.daysMask = _sessionInfo.altLimitDay;
         _scheduleController.timeBegin = _sessionInfo.altLimitTimeBegin;
         _scheduleController.timeEnd = _sessionInfo.altLimitTimeEnd;
@@ -352,7 +372,12 @@
 
 - (IBAction)scheduleOnOff:(UISwitch *)sender
 {
-    _buttonShowScheduler.enabled = sender.on;
+    _segmentShowScheduler.enabled = sender.on;
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    [self saveAltLimitsSchedulerSettings];
 }
 
 @end
