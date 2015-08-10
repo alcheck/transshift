@@ -544,3 +544,13 @@
 
 /* Class = "UILabel"; text = "999 bytes/s"; ObjectID = "zaE-aW-G13"; */
 "zaE-aW-G13.text" = "999 bytes/s";
+
+/* Class = "UILabel"; text = "Country:"; ObjectID = "tDc-xM-j2C"; */
+"tDc-xM-j2C.text" = "Страна:";
+
+/* Class = "UILabel"; text = "Region:"; ObjectID = "BNA-Yg-hVq"; */
+"BNA-Yg-hVq.text" = "Регион:";
+
+/* Class = "UILabel"; text = "City:"; ObjectID = "His-zb-PHp"; */
+"His-zb-PHp.text" = "Город:";
+
