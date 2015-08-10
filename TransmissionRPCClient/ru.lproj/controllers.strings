@@ -63,7 +63,7 @@
 "AWf-Yf-DAl.placeholder" = "1.5";
 
 /* Class = "UILabel"; text = "Остановить раздачу если торрент неактивен более чем(мин)"; ObjectID = "Aj1-0q-21X"; */
-"Aj1-0q-21X.text" = "Остановить раздачу если торрент неактивен более чем(мин)";
+"Aj1-0q-21X.text" = "Остановить раздачу если торрент неактивен более чем (мин)";
 
 /* Class = "UILabel"; text = "PEX пиры"; ObjectID = "BZM-Ku-n0z"; */
 "BZM-Ku-n0z.text" = "PEX пиры";
@@ -138,7 +138,7 @@
 "HeM-pZ-YWE.text" = "Заголовок";
 
 /* Class = "UILabel"; text = "Client"; ObjectID = "HnM-Pw-eoe"; */
-"HnM-Pw-eoe.text" = "Client";
+"HnM-Pw-eoe.text" = "Клиент";
 
 /* Class = "UILabel"; text = "Создатель"; ObjectID = "I7e-jC-m1Q"; */
 "I7e-jC-m1Q.text" = "Создатель";
@@ -160,6 +160,9 @@
 
 /* Class = "UILabel"; text = "-"; ObjectID = "MYH-Nq-x7V"; */
 "MYH-Nq-x7V.text" = "-";
+
+/* Class = "UISegmentedControl"; Lmh-H4-Cm3.segmentTitles[0] = "Еще ..."; ObjectID = "Lmh-H4-Cm3"; */
+"Lmh-H4-Cm3.segmentTitles[0]" = "Еще ...";
 
 /* Class = "UILabel"; text = "LPD пиры"; ObjectID = "NJb-QY-Gfg"; */
 "NJb-QY-Gfg.text" = "LPD пиры";
@@ -249,7 +252,7 @@
 "Vp5-2R-l87.text" = "-";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "VqE-5J-tAS"; */
-"VqE-5J-tAS.text" = "Title";
+"VqE-5J-tAS.text" = "Заголовок";
 
 /* Class = "UITextField"; placeholder = "5136"; ObjectID = "VsL-r5-dCY"; */
 "VsL-r5-dCY.placeholder" = "5136";
@@ -357,7 +360,7 @@
 "eyn-GO-hIq.text" = "Добавлен";
 
 /* Class = "UILabel"; text = "234.0 Kb of 5.6 GB"; ObjectID = "fpS-ju-QSU"; */
-"fpS-ju-QSU.text" = "234.0 Kb of 5.6 GB";
+"fpS-ju-QSU.text" = "234.0 Кб из 5.6 Гб";
 
 /* Class = "UILabel"; text = "Запуск торрента"; ObjectID = "gGR-5k-8BD"; */
 "gGR-5k-8BD.text" = "Запуск торрента";
@@ -414,7 +417,7 @@
 "llQ-9q-go1.text" = "DTX?";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "m1D-fS-JwU"; */
-"m1D-fS-JwU.text" = "Label";
+"m1D-fS-JwU.text" = "Лэйбл";
 
 /* Class = "UILabel"; text = "Следующее время анонса:"; ObjectID = "mEd-Zk-846"; */
 "mEd-Zk-846.text" = "Следующее время анонса:";
@@ -453,7 +456,7 @@
 "qb3-Gn-Puo.text" = "Выбрать случайный порт";
 
 /* Class = "UILabel"; text = "999 bytes/s"; ObjectID = "qpK-et-HXA"; */
-"qpK-et-HXA.text" = "999 bytes/s";
+"qpK-et-HXA.text" = "999 байт/с";
 
 /* Class = "UILabel"; text = "Сидеры"; ObjectID = "qri-pg-jR1"; */
 "qri-pg-jR1.text" = "Сидеры";
@@ -468,7 +471,7 @@
 "riC-Pu-uit.text" = "Имя пользователя";
 
 /* Class = "UILabel"; text = "Разрешить  μTP (Micro Transport Protocol)"; ObjectID = "sCw-SS-b8B"; */
-"sCw-SS-b8B.text" = "Разрешить  μTP (Micro Transport Protocol)";
+"sCw-SS-b8B.text" = "Разрешить μTP (Micro Transport Protocol)";
 
 /* Class = "UITableViewSection"; headerTitle = "Соединения"; ObjectID = "sNG-b2-8sg"; */
 "sNG-b2-8sg.headerTitle" = "Соединения";

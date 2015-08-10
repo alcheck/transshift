@@ -351,22 +351,24 @@
         _scheduleController = instantiateController(CONTROLLER_ID_SCHEDULETIMEDATE);
         _scheduleController.title = NSLocalizedString(@"Schedule time", @"");
         
+        //NSLog(@"Setting values ...");
+        _scheduleController.daysMask = _sessionInfo.altLimitDay;
+        _scheduleController.timeBegin = _sessionInfo.altLimitTimeBegin;
+        _scheduleController.timeEnd = _sessionInfo.altLimitTimeEnd;
+        
         if( self.splitViewController )
         {
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_scheduleController];
             
             _popOver = [[UIPopoverController alloc] initWithContentViewController:nav];
             _popOver.delegate = self;
+            
             [_popOver presentPopoverFromRect:sender.bounds inView:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
         else
         {
             [self.navigationController pushViewController:_scheduleController animated:YES];
         }
-        
-        _scheduleController.daysMask = _sessionInfo.altLimitDay;
-        _scheduleController.timeBegin = _sessionInfo.altLimitTimeBegin;
-        _scheduleController.timeEnd = _sessionInfo.altLimitTimeEnd;
     }
 }
 

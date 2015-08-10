@@ -16,20 +16,24 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *dateFrom;
 @property (weak, nonatomic) IBOutlet UITableView  *tableDays;
 
+@property (nonatomic) NSArray        *dayNums;
+@property (nonatomic) NSMutableArray *selectedDays;
+
 @end
 
 @implementation ScheduleAltLimitsController
 
 {
-    NSArray *_days;
-    NSArray *_dayNums;
-    NSMutableArray *_selectedDays;
+    NSArray             *_days;
+    //NSArray             *_dayNums;
+    //NSMutableArray      *_selectedDays;
+    
+    NSDate              *_dateBegin;
+    NSDate              *_dateEnd;
 }
 
 - (void)viewDidLoad
 {
-   // NSLog(@"%s", __PRETTY_FUNCTION__);
-    
     _tableDays.dataSource = self;
     _tableDays.delegate = self;
     
@@ -42,36 +46,57 @@
                NSLocalizedString( @"On Sundays", @"" )
               ];
     
-    _dayNums = @[ @(2), @(4), @(8), @(16), @(32), @(64), @(1) ];
-    
-    _selectedDays = [NSMutableArray arrayWithArray: @[ @(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO) ] ];
-    
-    //_dateFrom.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    //_dateTo.timeZone = [NSTimeZone localTimeZone];
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
+// lazy instntiation
+- (NSMutableArray *)selectedDays
+{
+    if( !_selectedDays )
+        //_dayNums = @[ @(2), @(4), @(8), @(16), @(32), @(64), @(1) ];
+        _selectedDays = [NSMutableArray arrayWithArray: @[ @(NO), @(NO), @(NO), @(NO), @(NO), @(NO), @(NO) ] ];
+    
+    return _selectedDays;
+}
+
+- (NSArray *)dayNums
+{
+    if ( !_dayNums )
+        _dayNums = @[ @(2), @(4), @(8), @(16), @(32), @(64), @(1) ];
+    
+    return _dayNums;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if( _dateBegin && _dateEnd )
+    {
+        _dateFrom.date = _dateBegin;
+        _dateTo.date = _dateEnd;
+        
+        [self.tableDays reloadData];
+    }
+}
 
 - (void)setDaysMask:(int)daysMask
 {
-    for( NSUInteger i = 0; i < _dayNums.count; i++ )
+    for( NSUInteger i = 0; i < self.dayNums.count; i++ )
     {
-        int n = [_dayNums[i] intValue];
+        int n = [self.dayNums[i] intValue];
     
-        _selectedDays[i] = ( daysMask & n ) ? @(YES) : @(NO);
+        self.selectedDays[i] = ( daysMask & n ) ? @(YES) : @(NO);
     }
-    
-    [self.tableDays reloadData];
 }
 
 - (int)daysMask
 {
     int mask = 0;
     
-    for( NSUInteger i = 0; i < _dayNums.count; i++ )
+    for( NSUInteger i = 0; i < self.dayNums.count; i++ )
     {
-        int n = [_dayNums[i] intValue];
+        int n = [self.dayNums[i] intValue];
         
-        if( [_selectedDays[i] boolValue] )
+        if( [self.selectedDays[i] boolValue] )
             mask |= n;
     }
     
@@ -85,7 +110,9 @@
     cp.hour = timeBegin / 60;
     cp.minute = timeBegin % 60;
     
-    [_dateFrom setDate:[c dateFromComponents:cp] animated:YES];
+    _dateBegin = [c dateFromComponents:cp];
+    
+    //[_dateFrom setDate:[c dateFromComponents:cp] animated:YES];
 }
 
 - (int)timeBegin
@@ -105,7 +132,8 @@
     cp.hour = timeEnd / 60;
     cp.minute = timeEnd % 60;
     
-    [_dateTo setDate:[c dateFromComponents:cp] animated:YES];
+    _dateEnd = [c dateFromComponents:cp];
+    //[_dateTo setDate:[c dateFromComponents:cp] animated:YES];
 }
 
 - (int)timeEnd
@@ -135,8 +163,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BOOL selected = [_selectedDays[indexPath.row] boolValue];
-    _selectedDays[indexPath.row] = @(!selected);
+    BOOL selected = [self.selectedDays[indexPath.row] boolValue];
+    self.selectedDays[indexPath.row] = @(!selected);
     
     [tableView reloadData];
 }
@@ -146,7 +174,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_DAY forIndexPath:indexPath];
     
     cell.textLabel.text = _days[indexPath.row];
-    cell.accessoryType = [_selectedDays[indexPath.row] boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.accessoryType = [self.selectedDays[indexPath.row] boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
