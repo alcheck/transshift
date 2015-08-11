@@ -408,7 +408,8 @@
         progressBarColor = [UIColor checkColor];
         cell.progressBar.progress = info.recheckProgress;
         cell.progressPercents.text = info.recheckProgressString;
-        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@", @""), info.downloadedSizeString, info.downloadedEverString];
+        // FIX: need to corect and test
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@", @""), info.haveValidString, info.haveUncheckedString];
         cell.statusIcon.image = [UIImage iconCheck];
         cell.buttonStopResume.hidden = YES;
     }

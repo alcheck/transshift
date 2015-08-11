@@ -1908,6 +1908,13 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="labelError" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="523-Zp-RvX">
+                                <rect key="frame" x="52" y="16" width="532" height="67"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <activityIndicatorView contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Dn6-VQ-WT5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1917,17 +1924,22 @@
                         <constraints>
                             <constraint firstItem="ogb-jo-ruj" firstAttribute="centerY" secondItem="His-zb-PHp" secondAttribute="centerY" id="1Zk-VR-unr"/>
                             <constraint firstAttribute="centerY" secondItem="Dn6-VQ-WT5" secondAttribute="centerY" id="2pH-ly-ANf"/>
+                            <constraint firstItem="523-Zp-RvX" firstAttribute="top" secondItem="tDc-xM-j2C" secondAttribute="top" id="58d-eA-qsV"/>
                             <constraint firstItem="Dn6-VQ-WT5" firstAttribute="height" secondItem="kao-GM-8JN" secondAttribute="height" id="7od-fY-HbR"/>
                             <constraint firstItem="9M5-ZA-Pkz" firstAttribute="baseline" secondItem="His-zb-PHp" secondAttribute="baseline" id="8Uk-8b-tBd"/>
                             <constraint firstItem="His-zb-PHp" firstAttribute="leading" secondItem="BNA-Yg-hVq" secondAttribute="leading" id="Aol-Cc-pcd"/>
+                            <constraint firstItem="523-Zp-RvX" firstAttribute="leading" secondItem="ogb-jo-ruj" secondAttribute="trailing" constant="8" symbolic="YES" id="BSb-yz-XLx"/>
                             <constraint firstItem="His-zb-PHp" firstAttribute="top" secondItem="tDc-xM-j2C" secondAttribute="bottom" constant="8" symbolic="YES" id="Fpq-9J-9o6"/>
                             <constraint firstItem="poe-FP-TOT" firstAttribute="trailing" secondItem="kao-GM-8JN" secondAttribute="trailingMargin" id="Gbz-LZ-Vys"/>
+                            <constraint firstItem="BNA-Yg-hVq" firstAttribute="bottom" secondItem="523-Zp-RvX" secondAttribute="bottom" id="GqB-k8-xLo"/>
                             <constraint firstItem="BNA-Yg-hVq" firstAttribute="baseline" secondItem="0CQ-1d-guY" secondAttribute="baseline" id="GwL-ai-XH0"/>
                             <constraint firstItem="9M5-ZA-Pkz" firstAttribute="leading" secondItem="His-zb-PHp" secondAttribute="trailing" constant="8" id="K03-Yn-PXz"/>
                             <constraint firstItem="9M5-ZA-Pkz" firstAttribute="trailing" secondItem="kao-GM-8JN" secondAttribute="trailingMargin" id="Nvx-fp-MBL"/>
                             <constraint firstItem="Dn6-VQ-WT5" firstAttribute="width" secondItem="kao-GM-8JN" secondAttribute="width" id="Pvd-dR-DlG"/>
+                            <constraint firstItem="Dn6-VQ-WT5" firstAttribute="leading" secondItem="ogb-jo-ruj" secondAttribute="trailing" constant="-44" id="VK2-qr-fJJ"/>
                             <constraint firstAttribute="centerX" secondItem="Dn6-VQ-WT5" secondAttribute="centerX" id="WkC-1O-EUL"/>
                             <constraint firstItem="ogb-jo-ruj" firstAttribute="leading" secondItem="kao-GM-8JN" secondAttribute="leading" constant="8" id="X2d-W4-LAc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="523-Zp-RvX" secondAttribute="trailing" id="ZEz-uP-DPt"/>
                             <constraint firstItem="0CQ-1d-guY" firstAttribute="leading" secondItem="BNA-Yg-hVq" secondAttribute="trailing" constant="8" id="ZHh-n4-1il"/>
                             <constraint firstItem="tDc-xM-j2C" firstAttribute="top" secondItem="tJ0-bF-kz5" secondAttribute="bottom" constant="16" id="ZmM-B4-trF"/>
                             <constraint firstItem="poe-FP-TOT" firstAttribute="leading" secondItem="tDc-xM-j2C" secondAttribute="trailing" constant="8" id="bg7-GV-EVP"/>
@@ -1940,14 +1952,16 @@
                             <constraint firstItem="His-zb-PHp" firstAttribute="width" secondItem="tDc-xM-j2C" secondAttribute="width" id="uoO-46-5FU"/>
                         </constraints>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="320" height="130"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="320" height="110"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
+                        <outlet property="icon" destination="ogb-jo-ruj" id="5LP-Fu-kXj"/>
                         <outlet property="indicator" destination="Dn6-VQ-WT5" id="1mT-Lb-zLx"/>
                         <outlet property="labelCity" destination="9M5-ZA-Pkz" id="oBh-wd-3rg"/>
                         <outlet property="labelCountry" destination="poe-FP-TOT" id="e5T-PC-TmH"/>
+                        <outlet property="labelError" destination="523-Zp-RvX" id="Bil-Ri-95H"/>
                         <outlet property="labelRegion" destination="0CQ-1d-guY" id="4n5-UN-5le"/>
                     </connections>
                 </viewController>

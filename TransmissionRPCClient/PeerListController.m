@@ -285,9 +285,9 @@
 
     IPGeoInfoController *c = instantiateController( CONROLLER_ID_IPGEOINFO );
     
-    [c.indicator startAnimating];
-    
+    c.ipAddress = info.ipAddress;
     c.title = [NSString stringWithFormat:@"IP %@:%i", info.ipAddress, info.port];
+    
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:c];
     
     PeerListCell *cell = info.dataObject;
@@ -297,26 +297,6 @@
     
     _popOver = [[UIPopoverController alloc] initWithContentViewController:nav];
     [_popOver presentPopoverFromRect:rect inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    
-    GeoIpConnector *geoConnector = [[GeoIpConnector alloc] init];
-    
-    [geoConnector getInfoForIp:info.ipAddress responseHandler:^(NSString *error, NSDictionary *dict)
-    {
-        [c.indicator stopAnimating];
-        //c.indicator.hidden = YES;
-        if( dict )
-        {
-            c.labelCountry.text = [dict[@"country_name"] isEqualToString:@""] ? @"-" : dict[@"country_name"];
-            c.labelCity.text = [dict[@"city"] isEqualToString:@""] ? @"-" : dict[@"city"];
-            c.labelRegion.text = [dict[@"region_name"] isEqualToString:@""] ? @"-": dict[@"region_name"];
-        }
-        else
-        {
-            c.labelCountry.text = error;
-            c.labelCity.text = @"-";
-            c.labelRegion.text = @"-";
-        }
-    }];
 }
 
 @end

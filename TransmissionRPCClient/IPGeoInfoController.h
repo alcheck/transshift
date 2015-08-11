@@ -15,5 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelCity;
 @property (weak, nonatomic) IBOutlet UILabel *labelRegion;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
+@property (weak, nonatomic) IBOutlet UIImageView *icon;
+@property (weak, nonatomic) IBOutlet UILabel *labelError;
+
+@property (nonatomic) NSString *ipAddress;
 
 @end

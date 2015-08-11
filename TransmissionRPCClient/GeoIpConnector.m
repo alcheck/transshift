@@ -8,7 +8,7 @@
 
 #import "GeoIpConnector.h"
 
-#define FREEGEOIP_HOST  @"http://freegeoip.net"
+#define FREEGEOIP_HOST  @"http://freegeoip.net/json/"
 #define GOOGLE_HOST     @"https://maps.googleaips.com/maps/api/geocode/json"
 #define GOOGLE_KEY      @"AIzaSyCif5kPXiTNQ-u259_Wumr-kT54RhS7LAk"
 
@@ -71,7 +71,18 @@
 
 - (void)getInfoForIp:(NSString *)ip responseHandler:(void (^) (NSString *error, NSDictionary *dict))handler
 {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/json/%@", FREEGEOIP_HOST, ip ];
+    static NSMutableDictionary *cache = nil;
+    if( !cache )
+        cache = [NSMutableDictionary dictionary];   
+   
+    // check this info in chache
+    if( cache[ip] )
+    {
+        handler( nil, cache[ip] );
+        return;
+    }
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", FREEGEOIP_HOST, ip ];
     
     NSURLRequest *r = [NSURLRequest requestWithURL:[NSURL URLWithString:urlStr] ];
     
@@ -79,9 +90,11 @@
     {
         if ( error )
         {
+            NSString *errDesc = [NSString stringWithFormat: NSLocalizedString(@"Can't get info for this ip\n%@", @""), error.localizedDescription];
+            
             // signal errors here
             dispatch_async(dispatch_get_main_queue(), ^{
-                handler( error.description, nil);
+                handler( errDesc, nil);
             });
         }
         else
@@ -106,6 +119,9 @@
 //                }
 //                else
                 {
+                    // store this object in cache
+                    cache[ip] = json;
+                    
                     dispatch_async(dispatch_get_main_queue(), ^{
                         handler( nil, json );
                     });
@@ -115,7 +131,10 @@
             {
                 // signal error here
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    handler( @"Can not get info", nil);
+                   
+                    NSString *errDesc = [NSString stringWithFormat:NSLocalizedString(@"Can't get info for this ip, server error: %i\n%@", @""), res.statusCode, [NSHTTPURLResponse localizedStringForStatusCode: res.statusCode] ];
+                    
+                    handler( errDesc, nil);
                 });
             }
         }

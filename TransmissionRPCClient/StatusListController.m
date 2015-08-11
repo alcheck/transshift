@@ -463,14 +463,14 @@
 
     [self showHeaderDLRate:torrents.totalDownloadRateString ULRate:torrents.totalUploadRateString];
     
-    if( !self.splitViewController )
-    {
-        NSString *str = [NSString stringWithFormat:NSLocalizedString(@"↑UL:%@ ↓DL:%@", @""),
-                         torrents.totalUploadRateString,
-                         torrents.totalDownloadRateString];
-
-        _torrentController.headerInfoMessage = str;
-    }
+//    if( !self.splitViewController )
+//    {
+//        NSString *str = [NSString stringWithFormat:NSLocalizedString(@"↑UL:%@ ↓DL:%@", @""),
+//                         torrents.totalUploadRateString,
+//                         torrents.totalDownloadRateString];
+//
+//        _torrentController.headerInfoMessage = str;
+//    }
     
     if( _config.showFreeSpace && _sessionInfo && self.navigationController.visibleViewController == self )
         [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
