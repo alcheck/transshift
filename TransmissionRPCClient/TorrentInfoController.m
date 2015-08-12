@@ -309,7 +309,7 @@
     if( match.resultType == NSTextCheckingTypeLink )
     {
         _commentURL = match.URL;
-        self.commentLabel.textColor = [UIColor blueColor];
+        self.commentLabel.textColor = self.view.tintColor;
         self.commentLabel.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentLinkTapped)];
         [self.commentLabel addGestureRecognizer:tapRecognizer];

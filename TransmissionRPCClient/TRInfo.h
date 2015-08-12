@@ -69,6 +69,7 @@
 @property(nonatomic,readonly) NSString*     etaTimeString;
 
 @property(nonatomic,readonly) NSString*     haveValidString;
+@property(nonatomic,readonly) long long     haveValid;
 @property(nonatomic,readonly) NSString*     haveUncheckedString;
 
 @property(nonatomic,readonly) float         recheckProgress;

@@ -9,6 +9,7 @@
 #import "TorrentListController.h"
 #import "TorrentListCell.h"
 #import "NSObject+DataObject.h"
+#import "GlobalConsts.h"
 
 #define STOP_ALL_TORRENTS_TAG   0
 #define START_ALL_TORRENTS_TAG  1
@@ -385,7 +386,7 @@
                       info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
         cell.downloadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↓DL: %@", @""), info.downloadRateString];
         cell.uploadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↑UL: %@", @""), info.uploadRateString];
-        cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedEverString, info.totalSizeString ];
+        cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedSizeString, info.totalSizeString ];
         cell.statusIcon.image = [UIImage iconDownload];
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
         btnImg = [UIImage iconPause];
@@ -408,8 +409,13 @@
         progressBarColor = [UIColor checkColor];
         cell.progressBar.progress = info.recheckProgress;
         cell.progressPercents.text = info.recheckProgressString;
+        
+        // NSString *totSize = formatByteCount( (long long)((double)info.haveValid / info.recheckProgress) );
+        
         // FIX: need to corect and test
-        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@", @""), info.haveValidString, info.haveUncheckedString];
+        //cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@", @""), info.haveValidString, totSize];
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@", @""), info.haveValidString, info.totalSizeString];
+
         cell.statusIcon.image = [UIImage iconCheck];
         cell.buttonStopResume.hidden = YES;
     }

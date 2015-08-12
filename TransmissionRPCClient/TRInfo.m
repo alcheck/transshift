@@ -111,8 +111,8 @@
         
         if( dict[TR_ARG_FIELDS_HAVEVALID] )
         {
-            long long haveValid = [dict[TR_ARG_FIELDS_HAVEVALID] longLongValue];
-            _haveValidString = formatByteCount(haveValid);
+            _haveValid = [dict[TR_ARG_FIELDS_HAVEVALID] longLongValue];
+            _haveValidString = formatByteCount(_haveValid);
         }
         
         if( dict[TR_ARG_FIELDS_HAVEUNCHECKED] )
