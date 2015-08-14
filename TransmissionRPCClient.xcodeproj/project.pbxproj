@@ -46,6 +46,7 @@
 		2CF72FFF1B651180007D5354 /* TrackerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF72FFE1B651180007D5354 /* TrackerListController.m */; };
 		2CF730021B6514E5007D5354 /* TrackerInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF730011B6514E5007D5354 /* TrackerInfoCell.m */; };
 		2CF730091B657D25007D5354 /* ScheduleAltLimitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */; };
+		2CF743DA1B7E05BC009D975D /* CheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF743D91B7E05BC009D975D /* CheckBox.m */; };
 		2CF7D5141B42E78C006D01FD /* PeerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7D5131B42E78C006D01FD /* PeerListController.m */; };
 		2CF7F3211B6EBF2B007EEBF6 /* PeerStatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7F3201B6EBF2B007EEBF6 /* PeerStatCell.m */; };
 		2CF861441B77BD0D00E47F53 /* TorrentTitleSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF861431B77BD0D00E47F53 /* TorrentTitleSectionHeaderView.m */; };
@@ -160,6 +161,8 @@
 		2CF730011B6514E5007D5354 /* TrackerInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackerInfoCell.m; sourceTree = "<group>"; };
 		2CF730071B657D25007D5354 /* ScheduleAltLimitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleAltLimitsController.h; sourceTree = "<group>"; };
 		2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleAltLimitsController.m; sourceTree = "<group>"; };
+		2CF743D81B7E05BC009D975D /* CheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckBox.h; sourceTree = "<group>"; };
+		2CF743D91B7E05BC009D975D /* CheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckBox.m; sourceTree = "<group>"; };
 		2CF7D5121B42E78C006D01FD /* PeerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListController.h; sourceTree = "<group>"; };
 		2CF7D5131B42E78C006D01FD /* PeerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListController.m; sourceTree = "<group>"; };
 		2CF7F31F1B6EBF2B007EEBF6 /* PeerStatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerStatCell.h; sourceTree = "<group>"; };
@@ -357,6 +360,7 @@
 		2C80AEA71B4EBA4F00377E11 /* UI addons */ = {
 			isa = PBXGroup;
 			children = (
+				2CF743D71B7E05A9009D975D /* CheckBox Control */,
 				2C80AEA81B4EBA5A00377E11 /* Info Message */,
 			);
 			name = "UI addons";
@@ -434,6 +438,15 @@
 				2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */,
 			);
 			name = "Schedule DayTime Controller";
+			sourceTree = "<group>";
+		};
+		2CF743D71B7E05A9009D975D /* CheckBox Control */ = {
+			isa = PBXGroup;
+			children = (
+				2CF743D81B7E05BC009D975D /* CheckBox.h */,
+				2CF743D91B7E05BC009D975D /* CheckBox.m */,
+			);
+			name = "CheckBox Control";
 			sourceTree = "<group>";
 		};
 		2CF7D5111B42E768006D01FD /* Peers Controller */ = {
@@ -751,6 +764,7 @@
 				2CF8C7651B4302F7005A7DD6 /* PeerListCell.m in Sources */,
 				2CE400BB1B49928F00BA32C2 /* BandwidthPriorityCell.m in Sources */,
 				2CF971AB1B790379008EE25D /* GeoIpConnector.m in Sources */,
+				2CF743DA1B7E05BC009D975D /* CheckBox.m in Sources */,
 				2CF6909D1B4BE0D400B2F830 /* FooterViewFreeSpace.m in Sources */,
 				2C0A2AA61B469EC00042CAA6 /* NSObject+DataObject.m in Sources */,
 				2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */,

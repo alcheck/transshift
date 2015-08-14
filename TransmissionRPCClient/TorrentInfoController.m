@@ -59,6 +59,10 @@
     TRInfo *_torrentInfo;
     
     BOOL _bFirstTime;
+    
+    BOOL _bWaitingStatusChange;
+    int  _oldStatus;
+    
 }
 
 - (void)viewDidLoad
@@ -92,6 +96,7 @@
     self.enableControls = NO;
     
     _bFirstTime = YES;
+    _bWaitingStatusChange = NO;
 }
 
 - (void)applyIndividualTorrentSettings
@@ -177,6 +182,11 @@
     if( _delegate && [_delegate respondsToSelector:@selector(stopTorrentWithId:)])
     {
         _pauseButton.enabled = NO;
+        
+        _bWaitingStatusChange = YES;
+        _oldStatus = _torrentInfo.status;
+        _stateLabel.text = NSLocalizedString(@"Updating ...", @"");
+        
         [_delegate stopTorrentWithId:_torrentId];
     }
 }
@@ -186,6 +196,11 @@
     if( _delegate && [_delegate respondsToSelector:@selector(resumeTorrentWithId:)] )
     {
         _playButton.enabled = NO;
+        
+        _bWaitingStatusChange = YES;
+        _oldStatus = _torrentInfo.status;
+        _stateLabel.text = NSLocalizedString(@"Updating ...", @"");
+        
         [_delegate resumeTorrentWithId:_torrentId];
     }
 }
@@ -262,25 +277,38 @@
 // update information
 - (void)updateData:(TRInfo *)trInfo
 {
-    _torrentInfo = trInfo;
-    
     [self.refreshControl endRefreshing];
+
+    _torrentInfo = trInfo;
     
     _playButton.enabled = YES;
     _pauseButton.enabled = YES;
     _refreshButton.enabled = YES;
-
     
     UIBarButtonItem *stopResumeButton = trInfo.isStopped ? _playButton : _pauseButton;
     
     stopResumeButton.enabled = !trInfo.isChecking;
     self.toolbarItems = @[stopResumeButton, _spacerButton, _refreshButton, _spacerButton, _deleteButton];
     
-    //self.title = trInfo.name;
     self.title =  NSLocalizedString(@"Torrent details", @"TorrentInfoController title");
     
     self.torrentNameLabel.text = trInfo.name;
-    self.stateLabel.text = trInfo.statusString;
+    
+    if( !_bWaitingStatusChange )
+    {
+        self.stateLabel.text = trInfo.statusString;
+    }
+    else if( _oldStatus != trInfo.status )
+    {
+        stopResumeButton.enabled = YES;
+        self.stateLabel.text = trInfo.statusString;
+        _bWaitingStatusChange = NO;
+    }
+    else
+    {
+        stopResumeButton.enabled = NO;
+        self.stateLabel.text = NSLocalizedString( @"Updating ...", @"" );
+    }
     
     self.progressLabel.text =  trInfo.isChecking ? trInfo.recheckProgressString : trInfo.percentsDoneString;
     
@@ -288,7 +316,7 @@
     self.downloadedLabel.text = trInfo.downloadedEverString;
     self.uploadedLabel.text = trInfo.uploadedEverString;
     self.ratioLabel.text = [NSString stringWithFormat:@"%02.2f",trInfo.uploadRatio];
-    //self.commentLabel.text = trInfo.comment;
+    
     self.dateAddedLabel.text = trInfo.dateAddedString;
     self.dateCompletedLabel.text = trInfo.dateDoneString;
     self.dateCreatedLabel.text = trInfo.dateCreatedString;
@@ -341,17 +369,17 @@
         _switchRatioLimit.on = trInfo.seedRatioMode > 0;
         _switchSeedIdleLimit.on = trInfo.seedIdleMode > 0;
         
-        [self uploadLimitChanged:_switchUploadLimit];
-        [self downloadLimitChanged:_switchDownloadLimit];
-        [self seedRatioLimitChanged:_switchRatioLimit];
-        [self seedIdleLimitChanged:_switchSeedIdleLimit];
+        [_switchUploadLimit     sendActionsForControlEvents:UIControlEventValueChanged];
+        [_switchDownloadLimit   sendActionsForControlEvents:UIControlEventValueChanged];
+        [_switchRatioLimit      sendActionsForControlEvents:UIControlEventValueChanged];
+        [_switchSeedIdleLimit   sendActionsForControlEvents:UIControlEventValueChanged];
         
         _textUploadLimit.text = [NSString stringWithFormat:@"%i", trInfo.uploadLimit];
         _textDownloadLimit.text = [NSString stringWithFormat:@"%i", trInfo.downloadLimit];
         _textSeedIdleLimit.text = [NSString stringWithFormat:@"%i", trInfo.seedIdleLimit];
         _textSeedRatioLimit.text = [NSString stringWithFormat:@"%.2f", trInfo.seedRatioLimit];
         
-        //_applyButton.enabled = YES;
+        _applyButton.enabled = NO;
         _bFirstTime = NO;
     }
 }
