@@ -80,3 +80,35 @@
 }
 
 @end
+
+@implementation TRFileStat
+
++ (instancetype)fileStatFromJSON:(NSDictionary *)dict
+{
+    return [[TRFileStat alloc] initFromJSON: dict];
+}
+
+- (instancetype)initFromJSON:(NSDictionary *)dict
+{
+    self = [super init];
+    
+    if( !self )
+        return self;
+    
+    if( dict[TR_ARG_FILEINFO_BYTESCOMPLETED] )
+    {
+        _bytesComplited = [dict[TR_ARG_FILEINFO_BYTESCOMPLETED] longLongValue];
+        _bytesComplitedString = formatByteCount(_bytesComplited);
+    }
+    
+    if( dict[TR_ARG_FILEINFO_WANTED] )
+        _wanted = [dict[TR_ARG_FILEINFO_WANTED] boolValue];
+    
+    if( dict[TR_ARG_FILEINFO_PRIORITY] )
+        _priority = [dict[TR_ARG_FILEINFO_PRIORITY] intValue];
+    
+    return self;
+}
+
+@end
+

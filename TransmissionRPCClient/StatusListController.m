@@ -316,14 +316,14 @@
         [_connector getAllPeersForTorrentWithId:_peerListController.torrentId];
     
     else if( top == _fileListController )
-        [_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
+    {
+        if( !_fileListController.isFullyLoaded )
+            [_connector getAllFileStatsForTorrentWithId:_fileListController.torrentId];
+        //[_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
+    }
     
     else if( top == _trackerListController )
         [_connector getAllTrackersForTorrentWithId:_trackerListController.torrentId];
-    
-    //if( _sessionInfo )
-        // update free space
-    //    [_connector getFreeSpaceWithDownloadDir:_sessionInfo.downloadDir];
 }
 
 - (void)gotFreeSpaceString:(NSString *)freeSpace
@@ -1024,21 +1024,31 @@
     [nav pushViewController:_fileListController animated:YES];
     
     _fileListController.infoMessage = NSLocalizedString(@"Getting files for torrent ...", @"");
+    
+    // make first request to ge all file infos for torrent
     [_connector getAllFilesForTorrentWithId:torrentId];
 }
 
-- (void)gotAllFiles:(NSArray *)fileInfos forTorrentWithId:(int)torrentId
+- (void)gotAllFiles:(FSDirectory *)fsDir forTorrentWithId:(int)torrentId
 {
     if( _fileListController )
     {
         _fileListController.infoMessage = nil;
-        _fileListController.fileInfos = fileInfos;
+        _fileListController.fsDir = fsDir;
+    }
+}
+
+- (void)gotAllFileStats:(NSArray *)fileStats forTorrentWithId:(int)torrentId
+{
+    if( _fileListController )
+    {
+        _fileListController.fileStats =fileStats;
     }
 }
 
 - (void)fileListControllerNeedUpdateFilesForTorrentWithId:(int)torrentId
 {
-    [_connector getAllFilesForTorrentWithId:torrentId];
+    [_connector getAllFileStatsForTorrentWithId:torrentId];
 }
 
 - (void)fileListControllerResumeDownloadingFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
@@ -1046,9 +1056,25 @@
     [_connector resumeDownloadingFilesWithIndexes:indexes forTorrentWithId:torrentId];
 }
 
+- (void)gotFilesResumedToDownload:(NSArray *)filesIndexes forTorrentWithId:(int)torrentId
+{
+    if( _fileListController )
+    {
+        [_fileListController resumedToDownloadFilesWithIndexes:filesIndexes];
+    }
+}
+
 - (void)fileListControllerStopDownloadingFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId
 {
     [_connector stopDownloadingFilesWithIndexes:indexes forTorrentWithId:torrentId];
+}
+
+- (void)gotFilesStoppedToDownload:(NSArray *)filesIndexes forTorrentWithId:(int)torrentId
+{
+    if( _fileListController )
+    {
+        [_fileListController stoppedToDownloadFilesWithIndexes:filesIndexes];
+    }
 }
 
 - (void)fileListControllerSetPriority:(int)priority forFilesWithIndexes:(NSArray *)indexes forTorrentWithId:(int)torrentId

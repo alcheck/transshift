@@ -702,10 +702,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbi-MP-j6F" userLabel="TouchableView">
-                                            <rect key="frame" x="44" y="0.0" width="460" height="52"/>
+                                            <rect key="frame" x="45" y="0.0" width="459" height="52"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="247" text="File name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Y3-f0-bDc">
-                                            <rect key="frame" x="88" y="11" width="416" height="17"/>
+                                            <rect key="frame" x="89" y="11" width="415" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -722,23 +722,22 @@
                                             </segments>
                                         </segmentedControl>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="248" text="100 bytes of 100 bytes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94Q-La-4Kc">
-                                            <rect key="frame" x="88" y="29" width="416" height="14"/>
+                                            <rect key="frame" x="89" y="29" width="415" height="14"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconFolderClosed" translatesAutoresizingMaskIntoConstraints="NO" id="ZKm-DS-on5">
-                                            <rect key="frame" x="44" y="8" width="36" height="36"/>
+                                            <rect key="frame" x="45" y="8" width="36" height="36"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="☑︎" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmB-WG-Zu7">
-                                            <rect key="frame" x="8" y="9" width="28" height="35"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYm-4s-14n" customClass="CheckBox">
+                                            <rect key="frame" x="8" y="12" width="29" height="29"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="28" id="U4C-Fq-Xv2"/>
+                                                <constraint firstAttribute="height" constant="29" id="jWa-Jl-QRa"/>
+                                                <constraint firstAttribute="width" constant="29" id="mfX-ag-K9X"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="7Y3-f0-bDc" firstAttribute="width" secondItem="94Q-La-4Kc" secondAttribute="width" id="12E-AJ-Z63"/>
@@ -747,24 +746,25 @@
                                         <constraint firstItem="7Y3-f0-bDc" firstAttribute="top" secondItem="H3T-YV-acq" secondAttribute="topMargin" constant="3" id="I2J-5g-JQo"/>
                                         <constraint firstAttribute="bottom" secondItem="mbi-MP-j6F" secondAttribute="bottom" id="NTc-dj-UTF"/>
                                         <constraint firstAttribute="centerY" secondItem="HOm-ho-BFw" secondAttribute="centerY" id="Nv3-KE-GeN"/>
-                                        <constraint firstItem="RmB-WG-Zu7" firstAttribute="leading" secondItem="H3T-YV-acq" secondAttribute="leadingMargin" id="OJT-Nf-pae"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="94Q-La-4Kc" secondAttribute="bottom" constant="1" id="SAD-bA-XAz"/>
                                         <constraint firstItem="HOm-ho-BFw" firstAttribute="trailing" secondItem="H3T-YV-acq" secondAttribute="trailingMargin" id="UOL-2J-Ixp"/>
                                         <constraint firstItem="94Q-La-4Kc" firstAttribute="leading" secondItem="ZKm-DS-on5" secondAttribute="trailing" constant="8" symbolic="YES" id="WBA-Hc-pej"/>
-                                        <constraint firstAttribute="centerY" secondItem="RmB-WG-Zu7" secondAttribute="centerY" id="X5l-E2-96F"/>
+                                        <constraint firstItem="pYm-4s-14n" firstAttribute="leading" secondItem="H3T-YV-acq" secondAttribute="leadingMargin" id="ZCJ-Qe-48k"/>
                                         <constraint firstItem="mbi-MP-j6F" firstAttribute="top" secondItem="H3T-YV-acq" secondAttribute="top" id="gJa-5g-SXY"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="7Y3-f0-bDc" secondAttribute="trailing" priority="750" id="gUw-Vd-oR7"/>
-                                        <constraint firstItem="ZKm-DS-on5" firstAttribute="leading" secondItem="RmB-WG-Zu7" secondAttribute="trailing" priority="750" constant="8" symbolic="YES" id="lQM-qQ-hnY"/>
+                                        <constraint firstItem="ZKm-DS-on5" firstAttribute="leading" secondItem="pYm-4s-14n" secondAttribute="trailing" constant="8" symbolic="YES" id="k0X-no-BxG"/>
                                         <constraint firstItem="mbi-MP-j6F" firstAttribute="trailing" secondItem="7Y3-f0-bDc" secondAttribute="trailing" id="plx-0B-exz"/>
+                                        <constraint firstAttribute="centerY" secondItem="pYm-4s-14n" secondAttribute="centerY" id="rST-rJ-MiP"/>
                                         <constraint firstItem="HOm-ho-BFw" firstAttribute="leading" secondItem="7Y3-f0-bDc" secondAttribute="trailing" priority="751" constant="8" symbolic="YES" id="sTq-Ap-qPi"/>
                                         <constraint firstItem="7Y3-f0-bDc" firstAttribute="leading" secondItem="ZKm-DS-on5" secondAttribute="trailing" constant="8" symbolic="YES" id="ywT-TR-EZq"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="checkBox" destination="pYm-4s-14n" id="hIS-Iw-ECM"/>
+                                    <outlet property="checkBoxLeadConstraint" destination="ZCJ-Qe-48k" id="SDo-Cs-SKc"/>
+                                    <outlet property="checkBoxWidthConstraint" destination="mfX-ag-K9X" id="1Jb-TT-aRX"/>
                                     <outlet property="detailLabel" destination="94Q-La-4Kc" id="pcX-Gb-aOh"/>
                                     <outlet property="iconImg" destination="ZKm-DS-on5" id="FIV-Ds-xGY"/>
-                                    <outlet property="leftIndentConstraint" destination="U4C-Fq-Xv2" id="XVY-vR-VM7"/>
-                                    <outlet property="leftLabel" destination="RmB-WG-Zu7" id="jOh-WY-edo"/>
                                     <outlet property="nameLabel" destination="7Y3-f0-bDc" id="tLs-oN-4fd"/>
                                     <outlet property="nameLabelTrailConstraint" destination="gUw-Vd-oR7" id="AYp-80-Fl3"/>
                                     <outlet property="nameLabelTrailToSegmentConstraint" destination="sTq-Ap-qPi" id="Xty-pI-Nkb"/>

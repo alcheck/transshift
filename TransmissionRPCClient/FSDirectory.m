@@ -7,7 +7,9 @@
 //  using for representation on UITableView
 
 #import "FSDirectory.h"
+#import "RPCConfigValues.h"
 #import "TRFileInfo.h"
+#import "GlobalConsts.h"
 
 #define PATH_SPLITTER_STRING        @"/"
 
@@ -20,20 +22,21 @@
 @implementation FSItem
 
 {
-    int _filesCount;
-    long long _filesSize;
-    long long _filesDownloadedSize;
-    
-    BOOL _allFilesWanted;               // flag indicates that all files withing this folder is wanted
-    
-    BOOL _needToCalcStats;
+    int         _filesCount;
+    long long   _filesLength;
+    long long   _filesBytesComplited;
+    BOOL        _allFilesWanted;               // flag indicates that all files withing this folder is wanted
+    BOOL        _needToCalcStats;
+    BOOL        _wanted;
+    long long   _length;
+    long long   _bytesComplited;
 }
 
-+ (FSItem *)itemWithName:(NSString *)name andType:(FSItemType)itemType
++ (FSItem *)itemWithName:(NSString *)name isFolder:(BOOL)isFolder
 {
     FSItem *item = [[FSItem alloc] init];
     
-    item.itemType = itemType;
+    item.isFolder = isFolder;
     item.name = name;
     
     return item;
@@ -52,57 +55,110 @@
     return self;
 }
 
-- (void)setInfo:(TRFileInfo *)info
-{
-    _info = info;
-    _needToCalcStats = YES;
-}
-
-- (NSString *)folderSizeString
-{
-    NSByteCountFormatter *formatter = [[NSByteCountFormatter alloc] init];
-    formatter.allowsNonnumericFormatting = NO;
-    return [formatter stringFromByteCount:self.folderSize];
-}
-
-- (NSString *)folderDownloadedString
-{
-    NSByteCountFormatter *formatter = [[NSByteCountFormatter alloc] init];
-    formatter.allowsNonnumericFormatting = NO;
-    return [formatter stringFromByteCount:self.folderDownloadedSize];
-}
-
-- (float)folderDownloadProgress
-{
-    [self calcStats];
-    
-    if( _filesSize == 0 )
-        @throw [NSException exceptionWithName:@"FSItem" reason:@"folderDownloadProgress: _fileSize == 0, devide by ZERO" userInfo:nil];
-    
-    return (float)((double)_filesDownloadedSize/(double)_filesSize);
-}
-
-- (NSString *)folderDownloadProgressString
-{
-    return [NSString stringWithFormat:@"%03.2f%%",  self.folderDownloadProgress * 100.0f ];
-}
-
 - (int)filesCount
 {
+    if( !_isFolder )
+        return 0;
+    
     [self calcStats];
     return _filesCount;
 }
 
-- (long long)folderSize
+- (long long)length
 {
+    if( !_isFolder )
+        return _length;
+    
     [self calcStats];
-    return _filesSize;
+    return _filesLength;
 }
 
-- (long long)folderDownloadedSize
+- (void)setLength:(long long)length
 {
+    _length = length;
+    _lengthString = formatByteCount(length);
+}
+
+- (NSString *)lengthString
+{
+    if( !_isFolder )
+        return _lengthString;
+
+    return formatByteCount(self.length);
+}
+
+- (long long)bytesComplited
+{
+    if( !_isFolder )
+        return _bytesComplited;
+    
     [self calcStats];
-    return _filesDownloadedSize;
+    return _filesBytesComplited;
+}
+
+- (void)setBytesComplited:(long long)bytesComplited
+{
+    _bytesComplited = bytesComplited;
+    _bytesComplitedString = formatByteCount(bytesComplited);
+    
+    _downloadProgress = 0.0f;
+    if( _length > 0 )
+        _downloadProgress = (float)( (double)_bytesComplited/(double)_length );
+    
+    _downloadProgressString = [NSString stringWithFormat:@"%0.2f%%", _downloadProgress * 100.0f];
+}
+
+- (NSString *)bytesComplitedString
+{
+    if( !_isFolder )
+        return _bytesComplitedString;
+    
+    return formatByteCount(self.bytesComplited);
+}
+
+- (BOOL)wanted
+{
+    if( !_isFolder )
+        return _wanted;
+    
+    [self calcStats];
+    return _allFilesWanted;
+}
+
+- (void)setWanted:(BOOL)wanted
+{
+    if( !_isFolder )
+    {
+        _wanted = wanted;
+    }
+    else
+    {
+        _allFilesWanted = wanted;
+        for( FSItem *i in _items )
+            i.wanted = wanted;
+    }
+}
+
+- (float)downloadProgress
+{
+    if( !_isFolder )
+        return _downloadProgress;
+    
+    [self calcStats];
+    
+    double progress = 0;
+    if( _filesLength > 0 )
+        progress = (double)_filesBytesComplited / (double)_filesLength;
+    
+    return (float)progress;
+}
+
+- (NSString *)downloadProgressString
+{
+    if( !_isFolder )
+        return _downloadProgressString;
+    
+    return [NSString stringWithFormat:@"%03.2f%%", self.downloadProgress * 100.0f];
 }
 
 - (void)calcStats
@@ -110,10 +166,10 @@
     if( _needToCalcStats )
     {
         _filesCount = 0;
-        _filesSize = 0;
-        _filesDownloadedSize = 0;
-        _subfoldersCount = 0;
+        _filesLength = 0;
+        _filesBytesComplited = 0;
         _allFilesWanted = YES;
+        _subfoldersCount = 0;
         _needToCalcStats = NO;
         
         [self traverseAndCount:self];
@@ -124,29 +180,25 @@
 {
     _needToCalcStats = YES;
     
-    if( _items )
+    if( _isFolder )
         for( FSItem *i in _items )
             [i setNeedToRecalcStats];
 }
 
 - (void)traverseAndCount:(FSItem*)item
 {
-    if( item.items )
+    if( item.isFolder )
     {
         for( FSItem *i in item.items )
         {
             if( i.isFile )
             {
                 _filesCount++;
-                
-                if( i.info )
-                {
-                    _filesSize += i.info.length;
-                    _filesDownloadedSize += i.info.bytesComplited;
+                _filesLength += i.length;
+                _filesBytesComplited += i.bytesComplited;
                     
-                    if( !i.info.wanted )
-                        _allFilesWanted = NO;
-                }
+                if( !i.wanted )
+                    _allFilesWanted = NO;
             }
             else
             {
@@ -157,48 +209,22 @@
     }
 }
 
-- (void)setIsAllFilesWanted:(BOOL)isAllFilesWanted
+- (NSArray*)rpcFileIndexesUnwanted
 {
-    [self setNeedToRecalcStats];
-    [self traverse:self setWanted:isAllFilesWanted];
-}
-
-- (void)traverse:(FSItem*)item setWanted:(BOOL)wanted
-{
-    if( item.items )
-    {
-        for( FSItem *i in item.items )
-        {
-            if( i.isFile )
-            {
-                if( i.info )
-                {
-                    i.info.wanted = wanted;
-                }
-            }
-            else
-            {
-                [self traverse:i setWanted:wanted];
-            }
-        }
-    }
-}
-
-- (NSArray*)fileIndexesUnwanted
-{
-    NSMutableArray *indexes = [NSMutableArray array];
+    NSMutableArray *indexes = nil;
     
-    if (_items)
+    if ( _isFolder )
     {
+        indexes = [NSMutableArray array];
         for( FSItem *i in _items )
         {
-            if( i.isFile && !i.info.wanted )
+            if( i.isFile && !i.wanted )
             {
-                [indexes addObject:@(i.index)];
+                [indexes addObject:@(i.rpcIndex)];
             }
             else
             {
-                [indexes addObjectsFromArray:i.fileIndexesUnwanted];
+                [indexes addObjectsFromArray:i.rpcFileIndexesUnwanted];
             }
         }
     }
@@ -206,22 +232,22 @@
     return indexes;
 }
 
-
-- (NSArray*)fileIndexesWanted
+- (NSArray*)rpcFileIndexesWanted
 {
-    NSMutableArray *indexes = [NSMutableArray array];
+    NSMutableArray *indexes = nil;
     
-    if (_items)
+    if ( _isFolder )
     {
+        indexes = [NSMutableArray array];
         for( FSItem *i in _items )
         {
-            if( i.isFile && i.info.wanted )
+            if( i.isFile && i.wanted )
             {
-                [indexes addObject:@(i.index)];
+                [indexes addObject:@(i.rpcIndex)];
             }
             else
             {
-                [indexes addObjectsFromArray:i.fileIndexesWanted];
+                [indexes addObjectsFromArray:i.rpcFileIndexesWanted];
             }
         }
     }
@@ -229,49 +255,37 @@
     return indexes;
 }
 
-- (NSArray *)fileIndexes
+- (NSArray *)rpcFileIndexes
 {
-    NSMutableArray *indexes = [NSMutableArray array];
+    NSMutableArray *indexes = nil;
     
-    if (_items)
+    if ( _isFolder )
     {
+        indexes =  [NSMutableArray array];
         for( FSItem *i in _items )
         {
             if( i.isFile )
             {
-                [indexes addObject:@(i.index)];
+                [indexes addObject:@(i.rpcIndex)];
             }
             else
             {
-                [indexes addObjectsFromArray:i.fileIndexes];
+                [indexes addObjectsFromArray:i.rpcFileIndexes];
             }
         }
     }
     
     return indexes;
-}
-
-- (BOOL)isFolder
-{
-    return _itemType == FSItemTypeFolder;
 }
 
 - (BOOL)isFile
 {
-    return _itemType == FSItemTypeFile;
+    return !_isFolder;
 }
-
-- (BOOL)isAllFilesWanted
-{
-    [self calcStats];
-    return _allFilesWanted;
-}
-
 
 // add item to children, if it is already exists
 // return existing item
-
-- (FSItem *)addItemWithName:(NSString *)name ofType:(FSItemType)itemType
+- (FSItem *)addItemWithName:(NSString *)name isFolder:(BOOL)isFolder
 {
     // lazy instanciating
     if( !_items )
@@ -282,7 +296,7 @@
     // finding item
     for( FSItem* item in _items )
     {
-        if (item.itemType == itemType && [item.name isEqualToString:name])
+        if (item.isFolder == isFolder && [item.name isEqualToString:name])
         {
             resItem = item;
             break;
@@ -292,7 +306,7 @@
     // item not found add it to the children
     if( !resItem )
     {
-        resItem = [FSItem itemWithName:name andType:itemType];
+        resItem = [FSItem itemWithName:name isFolder:isFolder];
         resItem.level = _level + 1;
         [_items addObject:resItem];
         _needToCalcStats = YES;
@@ -307,7 +321,7 @@
     for (int i = 0; i < _level; i++)
         [spaces appendString:@"  "];
     
-    if( _itemType == FSItemTypeFile )
+    if( !_isFolder )
         return [NSString stringWithFormat:@"%@%@!\n",spaces, _name];
     
     NSMutableString *s = [NSMutableString stringWithFormat:@"%@/%@\n",spaces, _name];
@@ -321,22 +335,22 @@
 
 - (void)sort
 {
-    if( _items )
+    if( _isFolder )
     {
         [_items sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
          {
              FSItem *item1 = (FSItem*)obj1;
              FSItem *item2 = (FSItem*)obj2;
              
-             // if bouth item are folder return comparison result
-             if( item1.itemType == FSItemTypeFolder && item2.itemType == FSItemTypeFolder )
+             // if bouth item are folders return comparison result
+             if( item1.isFolder && item2.isFolder )
                  return [item1.name compare:item2.name];
              
              // folders first
-             if ( item1.itemType == FSItemTypeFolder && item2.itemType == FSItemTypeFile )
+             if ( item1.isFolder && item2.isFile )
                  return NSOrderedAscending;
              
-             if( item1.itemType == FSItemTypeFile && item2.itemType == FSItemTypeFolder )
+             if( item1.isFile && item2.isFolder )
                  return NSOrderedDescending;
              
              // both items if files
@@ -353,10 +367,15 @@
 @implementation FSDirectory
 
 {
-    FSItem* _root;
-    int     _curIndex;
-    int     _findIndex;
-    FSItem* _foundItemAtIndex;
+    FSItem      *_root;
+    FSItem      *_foundItemAtIndex;
+    
+    int         _curIndex;
+    int         _findIndex;
+    
+    NSInteger   _curSection;
+    
+    BOOL        _itemFound;
 }
 
 + (FSDirectory *)directory
@@ -370,7 +389,7 @@
     
     if( self )
     {
-        _root = [FSItem itemWithName:@"" andType:FSItemTypeFolder];      // init root element (always folder)
+        _root = [FSItem itemWithName:@"" isFolder:YES];      // init root element (always folder)
     }
     
     return self;
@@ -381,39 +400,64 @@
     return _root;
 }
 
+- (FSItem *)nextItem
+{
+    return nil;
+}
+
 // add file to tree
 // file is a path with format /root/subfolder/.../filename it
 // should be from root
-- (FSItem*)addFilePath:(NSString*)path withIndex:(int)index
+- (FSItem*)addFilePath:(NSString*)path andRpcIndex:(int)rpcIndex
 {
-    // trim path
-    path = [path stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:PATH_SPLITTER_STRING]];
-    
     // split the path string
-    NSArray *arr = [path componentsSeparatedByString:PATH_SPLITTER_STRING];
+    NSArray *pathComponents = [path componentsSeparatedByString:PATH_SPLITTER_STRING];
     
-    if( !arr )
-        @throw [NSException exceptionWithName:@"FSDirectory - addFilePath"
-                                       reason:@"can not split filePath - nil array retrieved"
-                                     userInfo:nil];
-    
+    return [self addPathComonents:pathComponents andRpcIndex:rpcIndex];
+}
+
+- (FSItem *)addPathComonents:(NSArray *)pathComponents andRpcIndex:(int)rpcIndex
+{
     // add all components to the tree (from root)
     FSItem* levelItem = _root;
     
-    for( int level = 0; level < arr.count; level++ )
-    {        
-        NSString *itemName = arr[level];
+    NSUInteger c = pathComponents.count;
+    for( int level = 0; level < c; level++ )
+    {
+        NSString *itemName = pathComponents[level];
         
         // last item in array is file, the others - folders
-        FSItemType itemType = (level == (arr.count -1) ? FSItemTypeFile : FSItemTypeFolder);
+        BOOL isFolder = (level != (c -1));
         
-        levelItem = [levelItem addItemWithName:itemName ofType:itemType];
+        levelItem = [levelItem addItemWithName:itemName isFolder:isFolder];
         
-        if( itemType == FSItemTypeFile )
-            levelItem.index = index;
+        if( !isFolder )
+            levelItem.rpcIndex = rpcIndex;
     }
     
     return levelItem;
+}
+
+// add file from JSON
+- (FSItem *)addItemWithJSONFileInfo:(NSDictionary *)fileInfo JSONFileStatInfo:(NSDictionary *)fileStatInfo rpcIndex:(int)rpcIndex
+{
+    NSString *fullName = fileInfo[TR_ARG_FILEINFO_NAME];
+    
+    FSItem *curItem = [self addFilePath:fullName andRpcIndex:rpcIndex];
+
+    curItem.rpcIndex = rpcIndex;
+    curItem.fullName = fullName;
+    
+    long long bytesComplited = [fileInfo[TR_ARG_FILEINFO_BYTESCOMPLETED] longLongValue];
+    long long length = [fileInfo[TR_ARG_FILEINFO_LENGTH] longLongValue];
+    
+    curItem.length = length;
+    curItem.bytesComplited = bytesComplited;
+    
+    curItem.wanted = [fileStatInfo[TR_ARG_FILEINFO_WANTED] boolValue];
+    curItem.priority = [fileStatInfo[TR_ARG_FILEINFO_PRIORITY] intValue];
+    
+    return curItem;
 }
 
 - (FSItem*)itemAtIndex:(int)index
@@ -427,24 +471,6 @@
     return _foundItemAtIndex;
 }
 
-- (void)stepAndInrementFromItem:(FSItem*)item
-{
-    if( _foundItemAtIndex )
-        return;
-    
-    for( FSItem *i in item.items )
-    {
-        if( ++_curIndex == _findIndex )
-        {
-            _foundItemAtIndex = i;
-            return;
-        }
-        
-        if( i.items && !i.collapsed )
-            [self stepAndInrementFromItem:i];
-    }
-}
-
 - (int)count
 {
     _curIndex = 0;
@@ -455,51 +481,76 @@
     return _curIndex;
 }
 
-
-- (int)indexForItem:(FSItem*)item
+- (void)stepAndInrementFromItem:(FSItem*)item
 {
-    _curIndex = -1;
-    [self stepAndFindItem:item startFrom:_root];
-    return _curIndex;
-}
-
-- (void)stepAndFindItem:(FSItem *)item startFrom:(FSItem *)rootItem
-{
-    for( FSItem *i in rootItem.items )
+    for( FSItem *i in item.items )
     {
         _curIndex++;
+        if( _curIndex == _findIndex )
+        {
+            _foundItemAtIndex = i;
+            return;
+        }
         
-        if( i == item )
+        if( i.isFolder && !i.isCollapsed )
+            [self stepAndInrementFromItem:i];
+    }
+}
+
+- (int)indexForItem:(FSItem *)item
+{
+    if( item == _root )
+        return FSITEM_INDEXNOTFOUND;
+    
+    _curIndex = FSITEM_INDEXNOTFOUND;
+    _foundItemAtIndex = item;
+    _itemFound = NO;
+    
+    [self stepAndFindIndexFromItem:_root];
+    
+    return _itemFound ? _curIndex :FSITEM_INDEXNOTFOUND;
+}
+
+- (void)stepAndFindIndexFromItem:(FSItem *)item
+{
+    for( FSItem *i in item.items )
+    {
+        if( _itemFound )
             return;
         
-        if( !i.isCollapsed && i.items.count > 0 )
-            [self stepAndFindItem:item startFrom:i];
+        _curIndex++;
+        if( i == _foundItemAtIndex )
+        {
+            _itemFound = YES;
+            return;
+        }
+        
+        if( i.isFolder && !i.isCollapsed )
+            [self stepAndFindIndexFromItem:i];
     }
+}
+
+- (NSArray *)childIndexesForItem:(FSItem *)item startRow:(NSInteger)startRow section:(NSInteger)section
+{
+    _curIndex = (int)startRow;
+    _curSection = section;
+    
+    NSMutableArray *indexes = [NSMutableArray array];
+    [self stepAndStoreIndexesForSubItemsOfItem:item storeTo:indexes];
+    return indexes;
 }
 
 - (void)stepAndStoreIndexesForSubItemsOfItem:(FSItem *)item storeTo:(NSMutableArray *)indexes
 {
     for( FSItem *i in item.items )
     {
-        [indexes addObject:@(++_curIndex)];
-        if( !i.isCollapsed && i.items.count > 0 )
+        _curIndex++;
+        
+        [indexes addObject:[NSIndexPath indexPathForRow:_curIndex inSection:_curSection]];
+        
+        if( i.isFolder && !i.isCollapsed )
             [self stepAndStoreIndexesForSubItemsOfItem:i storeTo:indexes];
     }
-}
-
-/// Get this item children indexes
-- (NSArray *)childIndexesForItem:(FSItem *)item
-{
-    int idx = [self indexForItem:item];
-    if( idx >= 0 )
-    {
-        NSMutableArray *indexes = [NSMutableArray array];
-        _curIndex = idx;
-        [self stepAndStoreIndexesForSubItemsOfItem:item storeTo:indexes];
-        return indexes;
-    }
-    
-    return nil;
 }
 
 

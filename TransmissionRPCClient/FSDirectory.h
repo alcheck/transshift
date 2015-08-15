@@ -6,65 +6,96 @@
 //  Copyright (c) 2015 Alexey Chechetkin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-typedef NS_ENUM(unichar, FSItemType)
-{
-    FSItemTypeFolder,
-    FSItemTypeFile
-};
+#define FSITEM_INDEXNOTFOUND    -1
 
 @class TRFileInfo;
 
 @interface FSItem: NSObject
 
-@property(nonatomic) FSItemType                     itemType;       // type of item Folde or File
+/// Returns YES if this is a folder
+@property(nonatomic) BOOL                           isFolder;
+/// Returns YES if folder is collapsed
+@property(nonatomic, getter=isCollapsed) BOOL       collapsed;
+/// Returns YES if this is a file
+@property(nonatomic, readonly)BOOL                  isFile;
+/// File path with
+@property(nonatomic) NSString                       *fullName;
+/// File name or folder name (w/o starting paths)
+@property(nonatomic) NSString                       *name;
+/// Bytes downloaded
+@property(nonatomic) long long                      bytesComplited;
+/// Bytes downloaded - string representation
+@property(nonatomic) NSString*                      bytesComplitedString;
+/// Total length of file/folder
+@property(nonatomic) long long                      length;
+/// Total length of file/folder - string representation
+@property(nonatomic) NSString                       *lengthString;
+/// Returns YES if this file/folder Wanted
+@property(nonatomic) BOOL                           wanted;
+/// Priority of this file/folder
+@property(nonatomic) int                            priority;
+/// Download progress for file/folder (0 ... 1)
+@property(nonatomic) float                          downloadProgress;
+/// Download progress - string representation (0 .. 100%)
+@property(nonatomic) NSString                       *downloadProgressString;
+/// File index in RPC results (valid only for files)
+@property(nonatomic) int                            rpcIndex;
+/// Holds subfolders/files - if this is a Folder
+@property(nonatomic) NSMutableArray*                items;
+/// Holds level of this file/folder
+@property(nonatomic) int                            level;
+/// Get count of files in this folder
+@property(nonatomic,readonly) int                   filesCount;
+/// Get count of subfolders in this folder
+@property(nonatomic,readonly) int                   subfoldersCount;
+/// Returns RPC file indexes
+@property(nonatomic,readonly) NSArray*              rpcFileIndexes;
+/// Returns RPC wanted file indexes
+@property(nonatomic,readonly) NSArray*              rpcFileIndexesWanted;
+/// Returns RPC unwanted file indexes
+@property(nonatomic,readonly) NSArray*              rpcFileIndexesUnwanted;
 
-@property(nonatomic, getter=isCollapsed) BOOL       collapsed;      // if folder - if folder collapsed
-@property(nonatomic, readonly)BOOL                  isFolder;       // returns YES if this item is folder
-@property(nonatomic, readonly)BOOL                  isFile  ;       // returns YES if this item is folder
-@property(nonatomic) NSString*                      name;           // name of item (folder name or file name)
-@property(nonatomic) unsigned int                   index;          // used for latter use with RPC (index in returned array from RPC request)
-@property(nonatomic) NSMutableArray*                items;          // holds children (FSItem)
-@property(nonatomic) TRFileInfo*                    info;           // holds TRFileInfo
-@property(nonatomic) int level;                                     // holds level of item
-
-@property(nonatomic,readonly) int                   filesCount;          // returns number of files
-@property(nonatomic,readonly) int                   subfoldersCount;     // returns number of subfolders
-
-@property(nonatomic,readonly) long long             folderSize;           // returns total size of files
-@property(nonatomic,readonly) NSString*             folderSizeString;
-
-@property(nonatomic,readonly) long long             folderDownloadedSize;    // downloaded files size
-@property(nonatomic,readonly) NSString*             folderDownloadedString;
-
-@property(nonatomic,readonly) float                 folderDownloadProgress;
-@property(nonatomic,readonly) NSString*             folderDownloadProgressString;
-
-@property(nonatomic)          BOOL                  isAllFilesWanted;
-@property(nonatomic,readonly) NSArray*              fileIndexes;
-@property(nonatomic,readonly) NSArray*              fileIndexesWanted;
-@property(nonatomic,readonly) NSArray*              fileIndexesUnwanted;
-
-+ (FSItem*)itemWithName:(NSString*)name andType:(FSItemType)itemType;
-- (FSItem*)addItemWithName:(NSString*)name ofType:(FSItemType)itemType;
-
-
++ (FSItem *)itemWithName:(NSString*)name isFolder:(BOOL)isFolder;
+- (FSItem *)addItemWithName:(NSString*)name isFolder:(BOOL)isFolder;
 
 @end
 
 
 @interface FSDirectory : NSObject
 
+/// Create empty directory
++ (FSDirectory *)directory;
+
+/// Get count of items in directory
 @property(nonatomic,readonly) int     count;    // count of elements
+
+/// Get root FSItem
 @property(nonatomic,readonly) FSItem *rootItem;
 
-+ (FSDirectory*)directory;
-- (FSItem*)addFilePath:(NSString*)path withIndex:(int)index;
+/// add new item to directory with file path
+- (FSItem *)addFilePath:(NSString*)path andRpcIndex:(int)rpcIndex;
+
+/// add new item to directory with separated file path
+- (FSItem *)addPathComonents:(NSArray *)pathComponents andRpcIndex:(int)rpcIndex;
+
+/// add new item to directory with file/filsetats infos from JSON rpc answer
+- (FSItem *)addItemWithJSONFileInfo:(NSDictionary *)fileInfo JSONFileStatInfo:(NSDictionary *)fileStatInfo rpcIndex:(int)rpcIndex;
+
+/// Sort all elements in directory
 - (void)sort;
-- (FSItem*)itemAtIndex:(int)index;
+
+/// Get directory item at given row index
+/// skip collapsed folder items
+- (FSItem *)itemAtIndex:(int)index;
+
+/// Get row index for searching item
+- (int)indexForItem:(FSItem *)item;
+
+/// Set recalculation statistics flag
 - (void)setNeedToRecalcStats;
 
-- (NSArray *)childIndexesForItem:(FSItem *)item;
+- (NSArray *)childIndexesForItem:(FSItem *)item startRow:(NSInteger)startRow section:(NSInteger)section;
 
 @end

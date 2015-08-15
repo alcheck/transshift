@@ -12,6 +12,7 @@
 #import "TRFileInfo.h"
 #import "TRSessionInfo.h"
 #import "TrackerStat.h"
+#import "FSDirectory.h"
 
 @class RPCConnector;
 
@@ -28,7 +29,8 @@
 @optional - (void)gotTorrentAdded;
 @optional - (void)gotTorrentAddedWithMagnet:(NSString*)magnet;
 @optional - (void)gotAllPeers:(NSArray*)peerInfos withPeerStat:(TRPeerStat*)stat forTorrentWithId:(int)torrentId;
-@optional - (void)gotAllFiles:(NSArray*)fileInfos forTorrentWithId:(int)torrentId;
+@optional - (void)gotAllFiles:(FSDirectory *)directory forTorrentWithId:(int)torrentId;
+@optional - (void)gotAllFileStats:(NSArray*)fileStats forTorrentWithId:(int)torrentId;
 @optional - (void)gotSessionWithInfo:(TRSessionInfo*)info;
 @optional - (void)gotSessionSetWithInfo:(TRSessionInfo*)info;
 @optional - (void)gotFreeSpaceString:(NSString*)freeSpace;
@@ -39,6 +41,8 @@
 @optional - (void)gotAllTorrentsStopped;
 @optional - (void)gotAlltorrentsResumed;
 @optional - (void)gotToggledAltLimitMode:(BOOL)altLimitEnabled;
+@optional - (void)gotFilesStoppedToDownload:(NSArray *)filesIndexes forTorrentWithId:(int)torrentId;
+@optional - (void)gotFilesResumedToDownload:(NSArray *)filesIndexes forTorrentWithId:(int)torrentId;
 
 @end
 
@@ -70,6 +74,7 @@
 
 - (void)getAllPeersForTorrentWithId:(int)torrentId;
 - (void)getAllFilesForTorrentWithId:(int)torrentId;
+- (void)getAllFileStatsForTorrentWithId:(int)torrentId;
 
 - (void)getAllTrackersForTorrentWithId:(int)torrentId;
 - (void)removeTracker:(int)trackerId forTorrent:(int)torrentId;

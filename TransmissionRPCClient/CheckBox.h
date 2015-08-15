@@ -14,4 +14,6 @@
 @property( nonatomic ) BOOL on;
 @property (nonatomic ) UIColor *color;
 
+- (void)setOn:(BOOL)on  animated:(BOOL)animated;
+
 @end

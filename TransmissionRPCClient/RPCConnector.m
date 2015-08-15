@@ -184,31 +184,50 @@
          // save torrents and call delegate
          NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
          
-         NSMutableArray *fileInfos = [NSMutableArray array];
-         
          NSArray* files = [torrentsJsonDesc firstObject][TR_ARG_FIELDS_FILES];
          NSArray* fileStats = [torrentsJsonDesc firstObject][TR_ARG_FIELDS_FILESTATS];
          
+         FSDirectory *fsDir = [FSDirectory directory];
+         
          for( int i = 0; i < files.count; i++ )
-         {
-             NSMutableDictionary* file = [NSMutableDictionary dictionaryWithDictionary: files[i]];
-             NSDictionary* fileStat = fileStats[i];
-             
-             if( fileStat[TR_ARG_FILEINFO_PRIORITY] )
-                 file[TR_ARG_FILEINFO_PRIORITY] = fileStat[TR_ARG_FILEINFO_PRIORITY];
-             if( fileStat[TR_ARG_FILEINFO_WANTED] )
-                 file[TR_ARG_FILEINFO_WANTED] = fileStat[TR_ARG_FILEINFO_WANTED];
-             
-             [fileInfos addObject:[TRFileInfo fileInfoFromJSON:file]];
-         }
+             [fsDir addItemWithJSONFileInfo:files[i] JSONFileStatInfo:fileStats[i] rpcIndex:i];
+         
+         [fsDir sort];
          
          if( _delegate && [_delegate respondsToSelector:@selector(gotAllFiles:forTorrentWithId:)])
              dispatch_async(dispatch_get_main_queue(), ^{
-                 [_delegate gotAllFiles:fileInfos forTorrentWithId:torrentId];
+                 [_delegate gotAllFiles:fsDir forTorrentWithId:torrentId];
              });
      }];    
 }
 
+- (void)getAllFileStatsForTorrentWithId:(int)torrentId
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTGET,
+                                  TR_METHOD_ARGS : @{ TR_ARG_FIELDS : @[ TR_ARG_FIELDS_FILESTATS], TR_ARG_IDS : @[@(torrentId)] }
+                                 };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTGET andHandler:^(NSDictionary *json)
+     {
+         // save torrents and call delegate
+         NSArray *torrents = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
+         NSArray* fileStats = [torrents firstObject][TR_ARG_FIELDS_FILESTATS];
+         
+         NSMutableArray *res = [NSMutableArray array];
+         
+         for( NSDictionary *fileStatJSON in fileStats )
+         {
+             TRFileStat *fileStat = [TRFileStat fileStatFromJSON:fileStatJSON];
+             [res addObject:fileStat];
+         }
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotAllFileStats:forTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotAllFileStats:res forTorrentWithId:torrentId];
+             });
+     }];
+}
 
 - (void)getAllTrackersForTorrentWithId:(int)torrentId
 {
@@ -474,10 +493,10 @@
     
     [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSET andHandler:^(NSDictionary *json)
      {
-//         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentDeletedWithId:)])
-//             dispatch_async(dispatch_get_main_queue(), ^{
-//                 [_delegate gotTorrentDeletedWithId:torrentId];
-//             });
+         if( _delegate && [_delegate respondsToSelector:@selector(gotFilesStoppedToDownload:forTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotFilesStoppedToDownload:indexes forTorrentWithId:torrentId];
+             });
      }];
 }
 
@@ -488,10 +507,10 @@
     
     [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSET andHandler:^(NSDictionary *json)
      {
-         //         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentDeletedWithId:)])
-         //             dispatch_async(dispatch_get_main_queue(), ^{
-         //                 [_delegate gotTorrentDeletedWithId:torrentId];
-         //             });
+                  if( _delegate && [_delegate respondsToSelector:@selector(gotFilesResumedToDownload:forTorrentWithId:)])
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          [_delegate gotFilesResumedToDownload:indexes forTorrentWithId:torrentId];
+                      });
      }];
 }
 

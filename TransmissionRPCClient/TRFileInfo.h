@@ -17,7 +17,9 @@
 
 + (TRFileInfo*)fileInfoFromJSON:(NSDictionary*)dict;
 
+/// Full path of file 
 @property(nonatomic,readonly) NSString*  name;
+/// File name - (w/o paths)
 @property(nonatomic,readonly) NSString*  fileName;
 
 @property(nonatomic)          long long  bytesComplited;
@@ -36,5 +38,17 @@
 
 @property(nonatomic,readonly) int        folderLevel;
 @property(nonatomic,readonly) NSString*  parentFolderName;
+
+@end
+
+@interface TRFileStat : NSObject
+
++ (instancetype)fileStatFromJSON:(NSDictionary *)dict;
+
+@property(nonatomic, readonly) long long        bytesComplited;
+@property(nonatomic, readonly) NSString         *bytesComplitedString;
+@property(nonatomic, readonly) BOOL             wanted;
+@property(nonatomic, readonly) int              priority;
+
 
 @end

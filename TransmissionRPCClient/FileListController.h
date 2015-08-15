@@ -26,9 +26,16 @@
 
 @property(weak) id<FileListControllerDelegate> delegate;
 
-@property(nonatomic) NSArray*       fileInfos;
 @property(nonatomic) int            torrentId;
-@property(nonatomic) BOOL           torrentIsFinished;
 @property(nonatomic) FSDirectory    *fsDir;
+
+/// Update current FSDicectroy with array of TRFileStats
+@property(nonatomic) NSArray        *fileStats;
+
+/// Flag indicates if this torrent if fully loaded and not needed be updated more
+@property(nonatomic, readonly) BOOL isFullyLoaded;
+
+- (void)stoppedToDownloadFilesWithIndexes:(NSArray *)indexes;
+- (void)resumedToDownloadFilesWithIndexes:(NSArray *)indexes;
 
 @end

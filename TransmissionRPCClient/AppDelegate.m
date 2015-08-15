@@ -132,19 +132,13 @@
                         long long fileLength = [fileDesc[@"length"] longLongValue];
                         c += fileLength;
                         
-                        NSMutableString *fileFullPath = [NSMutableString string];
+                        FSItem *item = [fs addPathComonents:fileDesc[@"path"] andRpcIndex:idx];
                         
-                        for( NSString *path in fileDesc[@"path"] )
-                            [fileFullPath appendFormat:@"/%@", path];
-                        
-                        FSItem *item = [fs addFilePath:fileFullPath withIndex:idx];
-                        TRFileInfo *info = [[TRFileInfo alloc] init];
-                        info.length = fileLength;
-                        info.lengthString = formatByteCount(fileLength);
-                        info.wanted = YES;
-                        info.downloadProgress = 0.1;
-                        info.downloadProgressString = @"";
-                        item.info = info;
+                        item.length = fileLength;
+                        item.lengthString = formatByteCount(fileLength);
+                        item.wanted = YES;
+                        item.downloadProgress = 0.1;
+                        item.downloadProgressString = @"";
                         
                         idx++;
                     }
@@ -286,7 +280,7 @@
     
     if( csc.files )
     {
-        NSArray *tmp = csc.files.rootItem.fileIndexesUnwanted;
+        NSArray *tmp = csc.files.rootItem.rpcFileIndexesUnwanted;
         _unwantedFilesIdx = ( tmp && tmp.count > 0 ) ? tmp : nil;
     }
     

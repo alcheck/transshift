@@ -11,7 +11,7 @@
 #define CHECKBOX_FILLALPHA          0.03
 #define ANIMATION_SCALEFACTOR       1.3
 #define DISABLED_COLOR              [UIColor grayColor]
-
+#define LAYER_FRAME                 CGRectMake( 0, 0, 29, 29 )
 
 @implementation CheckBox
 
@@ -35,32 +35,31 @@
     //_layerBox.fillColor = [UIColor clearColor].CGColor;
     _layerBox.fillColor = _fillColor.CGColor;
     _layerBox.lineCap = kCALineCapRound;
-    _layerBox.lineWidth = 2.0;
+    _layerBox.lineWidth = 1.0;
     _layerBox.contentsScale = [UIScreen mainScreen].scale;
-    _layerBox.frame = CGRectMake(0, 0, 31.5, 34.5);
+    _layerBox.frame = LAYER_FRAME;
     
-    UIBezierPath* rectPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1.5, 4.5, 30, 30) cornerRadius: 7];
+    UIBezierPath* rectPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(1.5, 1.5, 26, 26) cornerRadius: 5];
     
     _layerBox.path = rectPath.CGPath;
-    
     
     _layerCheck = [CAShapeLayer layer];
     _layerCheck.strokeColor = _color.CGColor;
     _layerCheck.fillColor = [UIColor clearColor].CGColor;
     _layerCheck.lineCap = kCALineCapRound;
     _layerCheck.lineJoin = kCALineJoinRound;
-    _layerCheck.lineWidth = 4.5;
+    _layerCheck.lineWidth = 3.5;
     _layerCheck.contentsScale = [UIScreen mainScreen].scale;
     _layerCheck.shadowColor = [UIColor blackColor].CGColor;
     _layerCheck.shadowOpacity = 0.3;
     _layerCheck.shadowOffset = CGSizeMake(1.1, 1.1);
     _layerCheck.shadowRadius = 1.0;
-    _layerCheck.frame = CGRectMake(0, 0, 31.5, 34.5);
+    _layerCheck.frame = LAYER_FRAME;
     
     UIBezierPath* checkPath = UIBezierPath.bezierPath;
-    [checkPath moveToPoint: CGPointMake(8.5, 17.5)];
-    [checkPath addLineToPoint: CGPointMake(16.5, 26.5)];
-    [checkPath addLineToPoint: CGPointMake(29.5, 2.5)];
+    [checkPath moveToPoint: CGPointMake(7, 16)];
+    [checkPath addLineToPoint: CGPointMake(14.5, 21.5)];
+    [checkPath addLineToPoint: CGPointMake(24, 2)];
     
     _layerCheck.path = checkPath.CGPath;
     
@@ -78,9 +77,9 @@
     
     _tapRecognizer.enabled = self.enabled;
     
-    _layerCheck.strokeColor = self.enabled ? _color.CGColor : DISABLED_COLOR.CGColor;
-    _layerBox.strokeColor = self.enabled ? _color.CGColor : DISABLED_COLOR.CGColor;
-    _layerBox.fillColor = self.enabled ? _fillColor.CGColor : [DISABLED_COLOR colorWithAlphaComponent:CHECKBOX_FILLALPHA].CGColor;
+    _layerCheck.strokeColor = self.enabled ? _color.CGColor : [_color colorWithAlphaComponent:0.5].CGColor ;//DISABLED_COLOR.CGColor;
+    _layerBox.strokeColor = self.enabled ? _color.CGColor : [_color colorWithAlphaComponent:0.5].CGColor ;//DISABLED_COLOR.CGColor;
+    _layerBox.fillColor = self.enabled ? _fillColor.CGColor : [_color colorWithAlphaComponent:CHECKBOX_FILLALPHA].CGColor;
 }
 
 - (void)setOn:(BOOL)on
@@ -142,6 +141,13 @@
     });
 }
 
+- (void)setOn:(BOOL)on animated:(BOOL)animated
+{
+    _animationEnabled = animated;
+    self.on = on;
+    _animationEnabled = NO;
+}
+
 - (void)setColor:(UIColor *)color
 {
     _color = color;
@@ -153,7 +159,10 @@
 
 - (void)toggleCheckbox
 {
+    _animationEnabled = YES;
     self.on = !_on;
+    _animationEnabled = NO;
+    
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
@@ -169,7 +178,7 @@
     _animationEnabled = NO;
     self.on = _on;
     //self.enabled = _enabled;
-    _animationEnabled = YES;
+    //_animationEnabled = YES;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -183,7 +192,7 @@
     _animationEnabled = NO;
     self.on = _on;
     //self.enabled = _enabled;
-    _animationEnabled = YES;
+    //_animationEnabled = YES;
     
     return self;
 }
