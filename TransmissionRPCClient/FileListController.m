@@ -32,6 +32,8 @@
     FSItem  *_curItem;
     
     BOOL     _needUpdateFolders;
+    
+    UIBarButtonItem *_btnCheckAll;
 }
 
 - (void)viewDidLoad
@@ -48,13 +50,59 @@
     self.refreshControl = refreshControl;
     
     [self.refreshControl addTarget:self action:@selector(askDelegateForDataUpdate) forControlEvents:UIControlEventValueChanged];
+    
+    _btnCheckAll = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconCheckAll22x22"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDownloadAllItems)];
+    
+    _btnCheckAll.enabled = _fsDir != nil;
+    
+    UIBarButtonItem *btnSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    self.toolbarItems = @[ _btnCheckAll, btnSpacer ];
  }
+
+- (void)toggleDownloadAllItems
+{
+    FSItem *item = _fsDir.rootItem;
+
+    BOOL wanted = !item.wanted;
+    item.wanted = wanted;
+    
+    if( !_selectOnly )
+    {
+        if( _delegate && wanted &&
+           [_delegate respondsToSelector:@selector(fileListControllerResumeDownloadingFilesWithIndexes:forTorrentWithId:)])
+        {
+            
+            NSArray *fileIndexes = item.rpcFileIndexes;
+            [_delegate fileListControllerResumeDownloadingFilesWithIndexes:fileIndexes
+                                                          forTorrentWithId:_torrentId];
+        }
+        else if( _delegate && !wanted &&
+                [_delegate respondsToSelector:@selector(fileListControllerStopDownloadingFilesWithIndexes:forTorrentWithId:)])
+        {
+            
+            NSArray *fileIndexes = item.rpcFileIndexes;
+            [_delegate fileListControllerStopDownloadingFilesWithIndexes:fileIndexes
+                                                        forTorrentWithId:_torrentId];
+        }
+        
+        _btnCheckAll.enabled = NO;
+    }
+    
+    [self.tableView reloadData];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
     self.navigationItem.leftBarButtonItem.title =  NSLocalizedString(@"Info", @"FileListController nav left button title");
+    self.navigationController.toolbarHidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.navigationController.toolbarHidden = YES;
 }
 
 - (void)askDelegateForDataUpdate
@@ -67,11 +115,15 @@
 
 - (void)stoppedToDownloadFilesWithIndexes:(NSArray *)indexes
 {
+    _btnCheckAll.enabled = YES;
+        
     [self askDelegateForDataUpdate];
 }
 
 - (void)resumedToDownloadFilesWithIndexes:(NSArray *)indexes
 {
+    _btnCheckAll.enabled = YES;
+    
     [self askDelegateForDataUpdate];
 }
 
@@ -80,9 +132,8 @@
     _fsDir = fsDir;
     _isFullyLoaded = fsDir.rootItem.downloadProgress >= 1.0f;
     
+    _btnCheckAll.enabled = YES;
     [self.tableView reloadData];
-    
-    
 }
 
 - (void)updateFiles:(NSArray *)fileStats

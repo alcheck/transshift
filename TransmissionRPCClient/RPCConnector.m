@@ -188,7 +188,7 @@
          NSArray* fileStats = [torrentsJsonDesc firstObject][TR_ARG_FIELDS_FILESTATS];
          
          // ** Benchmarking **
-         CFTimeInterval tmStart = CACurrentMediaTime();
+         //CFTimeInterval tmStart = CACurrentMediaTime();
          // --------------------------------------------
          FSDirectory *fsDir = [FSDirectory directory];
          
@@ -196,8 +196,8 @@
              [fsDir addItemWithJSONFileInfo:files[i] JSONFileStatInfo:fileStats[i] rpcIndex:i];
          
          // --------------------------------------------
-         CFTimeInterval tmEnd = CACurrentMediaTime();
-         NSLog( @"%s, run time: %g s", __PRETTY_FUNCTION__,  tmEnd - tmStart );
+         //CFTimeInterval tmEnd = CACurrentMediaTime();
+         //NSLog( @"%s, run time: %g s", __PRETTY_FUNCTION__,  tmEnd - tmStart );
          
          
          [fsDir sort];
