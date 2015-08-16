@@ -50,10 +50,10 @@
     _layerCheck.lineJoin = kCALineJoinRound;
     _layerCheck.lineWidth = 3.5;
     _layerCheck.contentsScale = [UIScreen mainScreen].scale;
-    _layerCheck.shadowColor = [UIColor blackColor].CGColor;
-    _layerCheck.shadowOpacity = 0.3;
-    _layerCheck.shadowOffset = CGSizeMake(1.1, 1.1);
-    _layerCheck.shadowRadius = 1.0;
+//    _layerCheck.shadowColor = [UIColor blackColor].CGColor;
+//    _layerCheck.shadowOpacity = 0.3;
+//    _layerCheck.shadowOffset = CGSizeMake(1.1, 1.1);
+//    _layerCheck.shadowRadius = 1.0;
     _layerCheck.frame = LAYER_FRAME;
     
     UIBezierPath* checkPath = UIBezierPath.bezierPath;
@@ -84,6 +84,9 @@
 
 - (void)setOn:(BOOL)on
 {
+    //if( on == _on )
+    //    return;
+    
     _on = on;
  
     if( !_animationEnabled )
@@ -96,8 +99,7 @@
         
         [CATransaction commit];
         return;
-    }
-    
+    }    
     
     if ( on )
     {
@@ -177,8 +179,6 @@
     
     _animationEnabled = NO;
     self.on = _on;
-    //self.enabled = _enabled;
-    //_animationEnabled = YES;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -191,9 +191,6 @@
     
     _animationEnabled = NO;
     self.on = _on;
-    //self.enabled = _enabled;
-    //_animationEnabled = YES;
-    
     return self;
 }
 

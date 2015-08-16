@@ -78,10 +78,11 @@
 - (void)setFsDir:(FSDirectory *)fsDir
 {
     _fsDir = fsDir;
-    //_isSelectOnly = YES;
     _isFullyLoaded = fsDir.rootItem.downloadProgress >= 1.0f;
     
     [self.tableView reloadData];
+    
+    
 }
 
 - (void)updateFiles:(NSArray *)fileStats
@@ -101,11 +102,16 @@
             if( _curItem.downloadProgress >= 1.0f )
                 justDownloaded = YES;
         }
-        if ( fileStat.wanted != _curItem.wanted )
+        
+        if ( _curItem.waitingForWantedUpdate &&  fileStat.wanted == _curItem.wanted )
         {
             needUpdateCell = YES;
-            _curItem.wanted = fileStat.wanted;
         }
+        else if( fileStat.wanted != _curItem.wanted )
+        {
+            needUpdateCell = YES;
+        }
+        
         if( fileStat.priority != _curItem.priority )
         {
             needUpdateCell = YES;
@@ -124,24 +130,24 @@
                 FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
                 if( cell )
                 {
-                    [self updateFileCell:cell withFSItem:_curItem];
-                    
-                    if( !cell.checkBox.enabled && cell.checkBox.on == fileStat.wanted )
+                    if( _curItem.waitingForWantedUpdate && _curItem.wanted == fileStat.wanted )
                     {
+                        [self updateFileCell:cell withFSItem:_curItem updateWanted:NO];
                         cell.checkBox.enabled = YES;
+                        _curItem.waitingForWantedUpdate = NO;
                     }
+                    else
+                        [self updateFileCell:cell withFSItem:_curItem updateWanted:YES];
                     
                     if( !cell.prioritySegment.enabled && cell.prioritySegment.selectedSegmentIndex == (fileStat.priority + 1) )
-                    {
                         cell.prioritySegment.enabled = YES;
-                    }
                     
                     if( justDownloaded )
                     {
-                        [UIView animateWithDuration:0.6 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
+                        [UIView animateWithDuration:0.8 animations:^{
                             cell.iconImg.transform = CGAffineTransformMakeScale(1.2, 1.2);
                         } completion:^(BOOL finished) {
-                            [UIView animateWithDuration:0.1 animations:^{
+                            [UIView animateWithDuration:0.3 animations:^{
                                 cell.iconImg.transform = CGAffineTransformIdentity;
                             }];
                         }];
@@ -171,7 +177,7 @@
             FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
             if( cell )
             {
-                [self updateFolderCell:cell withFSItem:_curItem];
+                [self updateFolderCell:cell withFSItem:_curItem updateWanted:NO];
                 
                 if( !cell.checkBox.enabled && cell.checkBox.on == _curItem.wanted )
                     cell.checkBox.enabled = YES;
@@ -209,68 +215,70 @@
 
 - (void)toggleFolderDownloading:(CheckBox *)sender
 {
-    //sender.view.userInteractionEnabled = NO;
-        
     FSItem *item = sender.dataObject;
-    NSArray *fileIndexes = item.rpcFileIndexes;
     
     BOOL wanted = !item.wanted;
-    
-    if( _isSelectOnly )
-    {
-        item.wanted = wanted;
-        [self.tableView reloadData];
-        return;
-    }
-    
-    //item.wanted = wanted;
+    item.wanted = wanted;
     NSUInteger idx = [_fsDir indexForItem:item];
+    
+    item.waitingForWantedUpdate = YES;
+
     if( idx != FSITEM_INDEXNOTFOUND )
     {
         FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
         if( cell )
         {
-            [cell.checkBox setOn:wanted animated:YES];
-            cell.checkBox.enabled = NO;
+            [self updateFolderCell:cell withFSItem:item updateWanted:NO];
+            //[cell.checkBox setOn:wanted animated:YES];
+            //cell.checkBox.enabled = _selectOnly;
         }
     }
     
     [self updateFilesForFolderItem:item wanted:wanted];
     
     [_fsDir setNeedToRecalcStats];
-    _curItem = _fsDir.rootItem;
-    [self updateFolders];
-    
+    [self updateParentFolderForItem:item];
     
     if( _delegate && wanted &&
        [_delegate respondsToSelector:@selector(fileListControllerResumeDownloadingFilesWithIndexes:forTorrentWithId:)])
     {
+        
+        NSArray *fileIndexes = item.rpcFileIndexes;
         [_delegate fileListControllerResumeDownloadingFilesWithIndexes:fileIndexes
                                                       forTorrentWithId:_torrentId];
     }
     else if( _delegate && !wanted &&
             [_delegate respondsToSelector:@selector(fileListControllerStopDownloadingFilesWithIndexes:forTorrentWithId:)])
     {
+        
+        NSArray *fileIndexes = item.rpcFileIndexes;
         [_delegate fileListControllerStopDownloadingFilesWithIndexes:fileIndexes
                                                     forTorrentWithId:_torrentId];
     }
-    //[self askDelegateForDataUpdate];
 }
 
 - (void)updateFilesForFolderItem:(FSItem *)item wanted:(BOOL)wanted
 {
     for( FSItem *i in item.items )
     {
+        i.waitingForWantedUpdate = YES;
+        
         NSUInteger idx = [_fsDir indexForItem:i];
         if( idx != FSITEM_INDEXNOTFOUND )
         {
             FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
             if( cell )
             {
+                if( i.isFile )
+                    [self updateFileCell:cell withFSItem:i updateWanted:NO];
+                else
+                    [self updateFolderCell:cell withFSItem:i updateWanted:NO];
+                
                 [cell.checkBox setOn:wanted animated:YES];
-                cell.checkBox.enabled = NO;
+                cell.checkBox.enabled = _selectOnly;
             }
         }
+        
         if( i.isFolder )
         {
             [self updateFilesForFolderItem:i wanted:wanted];
@@ -282,59 +290,79 @@
 {
     FSItem* item = sender.dataObject;
     BOOL wanted = !item.wanted;
+    item.wanted = wanted;
     
-    //item.wanted = wanted;
+    item.waitingForWantedUpdate = YES;
     
-    if( _isSelectOnly )
+    NSIndexPath *idxPath = [NSIndexPath indexPathForRow: [_fsDir indexForItem:item] inSection:0];
+    FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:idxPath];
+    if( cell )
     {
-        item.wanted = wanted;
-        [self.tableView reloadData];
-        return;
-    }
-    
-    NSUInteger idx = [_fsDir indexForItem:item];
-    if( idx != FSITEM_INDEXNOTFOUND )
-    {
-        FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
-        if( cell )
-        {
-            [cell.checkBox setOn:wanted animated:YES];
-            cell.checkBox.enabled = NO;
-        }
+        [self updateFileCell:cell withFSItem:item updateWanted:NO];
+        //[cell.checkBox setOn:wanted animated:YES];
+        cell.checkBox.enabled = _selectOnly;
     }
     
     [_fsDir setNeedToRecalcStats];
-    _curItem = _fsDir.rootItem;
-    [self updateFolders];
-    
+    [self updateParentFolderForItem:item];
   
-    if( _delegate && wanted && [_delegate respondsToSelector:@selector(fileListControllerResumeDownloadingFilesWithIndexes:forTorrentWithId:)])
+    // update server settings for this torrent
+    if( _delegate &&
+         wanted   &&
+         [_delegate respondsToSelector:@selector(fileListControllerResumeDownloadingFilesWithIndexes:forTorrentWithId:)] )
     {
-        [_delegate fileListControllerResumeDownloadingFilesWithIndexes:@[@(item.rpcIndex)]
-                                                      forTorrentWithId:_torrentId];
+        
+        [_delegate fileListControllerResumeDownloadingFilesWithIndexes:@[@(item.rpcIndex)] forTorrentWithId:_torrentId];
     }
-    else if( _delegate && !wanted &&
-            [_delegate respondsToSelector:@selector(fileListControllerStopDownloadingFilesWithIndexes:forTorrentWithId:)])
+    else if( _delegate &&
+             !wanted   &&
+             [_delegate respondsToSelector:@selector(fileListControllerStopDownloadingFilesWithIndexes:forTorrentWithId:)] )
     {
-        [_delegate fileListControllerStopDownloadingFilesWithIndexes:@[@(item.rpcIndex)]
-                                                    forTorrentWithId:_torrentId];
+        [_delegate fileListControllerStopDownloadingFilesWithIndexes:@[@(item.rpcIndex)] forTorrentWithId:_torrentId];
     }
-    
-    //[self askDelegateForDataUpdate];
 }
+
+- (void)updateParentFolderForItem:(FSItem *)item
+{
+    if( item.parent )
+    {
+        item = item.parent;
+        
+        NSIndexPath *idxPath = [NSIndexPath indexPathForRow: [_fsDir indexForItem:item] inSection:0];
+        
+        FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:idxPath];
+        
+        if( cell )
+        {
+            if(  cell.checkBox.on != item.wanted )
+            {
+                [self updateFolderCell:cell withFSItem:item updateWanted:NO];
+                [cell.checkBox setOn:item.wanted animated:YES];
+            }
+        }
+        
+        // update parent of current item
+        [self updateParentFolderForItem:item];
+    }
+}
+
 
 - (void)prioritySegmentToggled:(UISegmentedControl*)sender
 {
-    sender.enabled = NO;
-    
     int priority = (int)sender.selectedSegmentIndex - 1;
+    
+    if( _selectOnly )
+    {
+        return;
+    }
+    
+    sender.enabled = NO;
     
     if( _delegate && [_delegate respondsToSelector:@selector(fileListControllerSetPriority:forFilesWithIndexes:forTorrentWithId:)])
     {
         [_delegate fileListControllerSetPriority:priority forFilesWithIndexes:@[sender.dataObject] forTorrentWithId:_torrentId];
     }
-    //[self askDelegateForDataUpdate];
-}
+ }
 
 // toggle collapse flag
 - (void)folderTapped:(UITapGestureRecognizer*)sender
@@ -383,18 +411,24 @@
     FileListFSCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FILELISTFSCELL forIndexPath:indexPath];
     
     FSItem *item = [_fsDir itemAtIndex:(int)indexPath.row];
+    
+    cell.nameLabel.text = item.name;//[NSString stringWithFormat:@"%@, row-%lu, %i", item.name, indexPath.row, [_fsDir indexForItem:item] ];
 
     if( item.isFolder )
-        [self updateFolderCell:cell withFSItem:item];
+        [self updateFolderCell:cell withFSItem:item updateWanted:YES];
     else
-        [self updateFileCell:cell withFSItem:item];
+        [self updateFileCell:cell withFSItem:item updateWanted:YES];
     
     return cell;
 }
 
-- (void)updateFileCell:(FileListFSCell *)cell withFSItem:(FSItem *)item
+- (void)updateFileCell:(FileListFSCell *)cell withFSItem:(FSItem *)item updateWanted:(BOOL)updateWanted
 {
-    cell.nameLabel.text = item.name;
+    // remove all old targets
+    [cell.checkBox removeTarget:self action:@selector(toggleFileDownloading:) forControlEvents:UIControlEventValueChanged];
+    [cell.checkBox removeTarget:self action:@selector(toggleFolderDownloading:) forControlEvents:UIControlEventValueChanged];
+    
+    //cell.nameLabel.text = item.name;
     cell.iconImg.image =  _iconImgFile;
     
     // make indentation
@@ -420,8 +454,9 @@
     cell.nameLabelTrailToSegmentConstraint.priority = 750;
     cell.touchView.userInteractionEnabled = NO;
     cell.prioritySegment.dataObject = item;
+    cell.checkBox.dataObject = item;
     
-    if (_isSelectOnly)
+    if (_selectOnly)
     {
         cell.detailLabel.text = item.lengthString;
     }
@@ -447,9 +482,8 @@
             
             // configure left checkBox control
             [cell.checkBox addTarget:self action:@selector(toggleFileDownloading:) forControlEvents:UIControlEventValueChanged];
-            cell.checkBox.dataObject = item;
-            
-            if( !item.wanted || _isSelectOnly )
+        
+            if( !item.wanted || _selectOnly )
             {
                 cell.prioritySegment.hidden = YES;
                 
@@ -465,9 +499,11 @@
                 cell.nameLabelTrailConstraint.priority = 750;
                 cell.nameLabelTrailToSegmentConstraint.priority = 751;
             }
-            
-            cell.checkBox.on = item.wanted;
-            cell.checkBox.color = cell.checkBox.on ? cell.tintColor : [UIColor grayColor];
+        
+            if( updateWanted )
+                cell.checkBox.on = item.wanted;
+        
+            cell.checkBox.color = item.wanted ? cell.tintColor : [UIColor grayColor];
     }
     else
     {
@@ -475,9 +511,13 @@
     }
 }
 
-- (void)updateFolderCell:(FileListFSCell *)cell withFSItem:(FSItem *)item
+- (void)updateFolderCell:(FileListFSCell *)cell withFSItem:(FSItem *)item   updateWanted:(BOOL)updateWanted
 {
-    cell.nameLabel.text = item.name;
+    // remove all old targets
+    [cell.checkBox removeTarget:self action:@selector(toggleFileDownloading:) forControlEvents:UIControlEventValueChanged];
+    [cell.checkBox removeTarget:self action:@selector(toggleFolderDownloading:) forControlEvents:UIControlEventValueChanged];
+
+    //cell.nameLabel.text = item.name;
     cell.iconImg.image =  item.isCollapsed ? _iconImgFolderClosed : _iconImgFolderOpened;
     
     // make indentation
@@ -504,7 +544,7 @@
     
     cell.touchView.userInteractionEnabled = NO;
     
-    if (_isSelectOnly)
+    if (_selectOnly)
     {
           cell.detailLabel.text = [NSString stringWithFormat:NSLocalizedString(  @"%i files, %@", @"" ), item.filesCount, item.lengthString];
     }
@@ -521,7 +561,9 @@
     {
             BOOL isAllWanted = item.wanted;
             // get info for files within folder
-            cell.checkBox.on = isAllWanted;
+            if( updateWanted )
+                cell.checkBox.on = isAllWanted;
+        
             cell.checkBox.color = isAllWanted ? cell.tintColor : [UIColor grayColor];
             cell.nameLabel.textColor = isAllWanted ? [UIColor blackColor] : [UIColor grayColor];
             cell.iconImg.tintColor = isAllWanted ? cell.tintColor : [UIColor grayColor];

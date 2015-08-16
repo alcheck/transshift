@@ -126,6 +126,10 @@
                 else
                 {
                     fs = [FSDirectory directory];
+                    
+                    // ****
+                    // CFTimeInterval tmStart = CACurrentMediaTime();
+                    // ****
 
                     for( NSDictionary *fileDesc in trData[@"info"][@"files"] )
                     {
@@ -142,6 +146,11 @@
                         
                         idx++;
                     }
+                    
+                    // ***
+                    // CFTimeInterval tmEnd = CACurrentMediaTime();
+                    // NSLog( @"Total run time: %g s", tmEnd - tmStart );
+                    // ***
                     
                     [fs sort];
                 }

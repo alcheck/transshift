@@ -35,6 +35,8 @@
 /// Flag indicates if this torrent if fully loaded and not needed be updated more
 @property(nonatomic, readonly) BOOL isFullyLoaded;
 
+@property(nonatomic) BOOL           selectOnly;
+
 - (void)stoppedToDownloadFilesWithIndexes:(NSArray *)indexes;
 - (void)resumedToDownloadFilesWithIndexes:(NSArray *)indexes;
 

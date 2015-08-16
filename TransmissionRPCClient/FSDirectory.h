@@ -27,7 +27,7 @@
 /// Bytes downloaded
 @property(nonatomic) long long                      bytesComplited;
 /// Bytes downloaded - string representation
-@property(nonatomic) NSString*                      bytesComplitedString;
+@property(nonatomic) NSString                       *bytesComplitedString;
 /// Total length of file/folder
 @property(nonatomic) long long                      length;
 /// Total length of file/folder - string representation
@@ -43,7 +43,7 @@
 /// File index in RPC results (valid only for files)
 @property(nonatomic) int                            rpcIndex;
 /// Holds subfolders/files - if this is a Folder
-@property(nonatomic) NSMutableArray*                items;
+@property(nonatomic) NSMutableArray                 *items;
 /// Holds level of this file/folder
 @property(nonatomic) int                            level;
 /// Get count of files in this folder
@@ -51,13 +51,20 @@
 /// Get count of subfolders in this folder
 @property(nonatomic,readonly) int                   subfoldersCount;
 /// Returns RPC file indexes
-@property(nonatomic,readonly) NSArray*              rpcFileIndexes;
+@property(nonatomic,readonly) NSArray               *rpcFileIndexes;
 /// Returns RPC wanted file indexes
-@property(nonatomic,readonly) NSArray*              rpcFileIndexesWanted;
+@property(nonatomic,readonly) NSArray               *rpcFileIndexesWanted;
 /// Returns RPC unwanted file indexes
-@property(nonatomic,readonly) NSArray*              rpcFileIndexesUnwanted;
+@property(nonatomic,readonly) NSArray               *rpcFileIndexesUnwanted;
+/// Holds parent reference
+@property(nonatomic,weak) FSItem                    *parent;
 
+@property(nonatomic) BOOL                           waitingForWantedUpdate;
+@property(nonatomic) BOOL                           waitingForPriorityUpdate;
+
+/// Create new item with name, it could be folder, or file
 + (FSItem *)itemWithName:(NSString*)name isFolder:(BOOL)isFolder;
+/// Add new item to folder item
 - (FSItem *)addItemWithName:(NSString*)name isFolder:(BOOL)isFolder;
 
 @end

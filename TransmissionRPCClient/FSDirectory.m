@@ -34,15 +34,11 @@
 
 + (FSItem *)itemWithName:(NSString *)name isFolder:(BOOL)isFolder
 {
-    FSItem *item = [[FSItem alloc] init];
-    
-    item.isFolder = isFolder;
-    item.name = name;
-    
+    FSItem *item = [[FSItem alloc] initWithName:name isFolder:isFolder];
     return item;
 }
 
-- (instancetype)init
+- (instancetype)initWithName:(NSString *)name isFolder:(BOOL)isFolder
 {
     self = [super init];
     
@@ -51,6 +47,11 @@
     
     _level = 0;
     _needToCalcStats = YES;
+    _name = name;
+    _isFolder = isFolder;
+    
+    if( isFolder )
+        _items = [NSMutableArray array];
     
     return self;
 }
@@ -287,32 +288,14 @@
 // return existing item
 - (FSItem *)addItemWithName:(NSString *)name isFolder:(BOOL)isFolder
 {
-    // lazy instanciating
-    if( !_items )
-        _items = [NSMutableArray array];
+    FSItem *item = [FSItem itemWithName:name isFolder:isFolder];
     
-    FSItem *resItem = nil;
-
-    // finding item
-    for( FSItem* item in _items )
-    {
-        if (item.isFolder == isFolder && [item.name isEqualToString:name])
-        {
-            resItem = item;
-            break;
-        }
-    }
+    item.level = _level + 1;
+    item.parent = self;
     
-    // item not found add it to the children
-    if( !resItem )
-    {
-        resItem = [FSItem itemWithName:name isFolder:isFolder];
-        resItem.level = _level + 1;
-        [_items addObject:resItem];
-        _needToCalcStats = YES;
-    }
+    [_items addObject:item];
     
-    return resItem;
+    return item;
 }
 
 - (NSString *)description
@@ -376,6 +359,8 @@
     NSInteger   _curSection;
     
     BOOL        _itemFound;
+    
+    NSMutableDictionary *_folderItems;
 }
 
 + (FSDirectory *)directory
@@ -390,6 +375,7 @@
     if( self )
     {
         _root = [FSItem itemWithName:@"" isFolder:YES];      // init root element (always folder)
+        _folderItems = [NSMutableDictionary dictionary];
     }
     
     return self;
@@ -416,28 +402,6 @@
     return [self addPathComonents:pathComponents andRpcIndex:rpcIndex];
 }
 
-- (FSItem *)addPathComonents:(NSArray *)pathComponents andRpcIndex:(int)rpcIndex
-{
-    // add all components to the tree (from root)
-    FSItem* levelItem = _root;
-    
-    NSUInteger c = pathComponents.count;
-    for( int level = 0; level < c; level++ )
-    {
-        NSString *itemName = pathComponents[level];
-        
-        // last item in array is file, the others - folders
-        BOOL isFolder = (level != (c -1));
-        
-        levelItem = [levelItem addItemWithName:itemName isFolder:isFolder];
-        
-        if( !isFolder )
-            levelItem.rpcIndex = rpcIndex;
-    }
-    
-    return levelItem;
-}
-
 // add file from JSON
 - (FSItem *)addItemWithJSONFileInfo:(NSDictionary *)fileInfo JSONFileStatInfo:(NSDictionary *)fileStatInfo rpcIndex:(int)rpcIndex
 {
@@ -459,6 +423,44 @@
     
     return curItem;
 }
+
+- (FSItem *)addPathComonents:(NSArray *)pathComponents andRpcIndex:(int)rpcIndex
+{
+    // add all components to the tree (from root)
+    FSItem* levelItem = _root;
+    
+    NSUInteger c = pathComponents.count;
+
+    NSMutableString *cPath = [NSMutableString string];
+    
+    for( int level = 0; level < c; level++ )
+    {
+        NSString *itemName = pathComponents[level];
+        
+        // last item in array is file, the others - folders
+        BOOL isFolder = ( level != (c - 1) );
+        
+        [cPath appendString:itemName];
+
+        if( isFolder && _folderItems[cPath] )
+        {
+            levelItem = _folderItems[cPath];
+            continue;
+        }
+        
+        levelItem = [levelItem addItemWithName:itemName isFolder:isFolder];
+        
+        // cache folder item
+        if( isFolder )
+            _folderItems[cPath] = levelItem;
+        
+        if( !isFolder )
+            levelItem.rpcIndex = rpcIndex;
+    }
+    
+    return levelItem;
+}
+
 
 - (FSItem*)itemAtIndex:(int)index
 {
