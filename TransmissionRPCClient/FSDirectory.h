@@ -61,6 +61,7 @@
 
 @property(nonatomic) BOOL                           waitingForWantedUpdate;
 @property(nonatomic) BOOL                           waitingForPriorityUpdate;
+@property(nonatomic) NSInteger                      rowIndex;
 
 /// Create new item with name, it could be folder, or file
 + (FSItem *)itemWithName:(NSString*)name isFolder:(BOOL)isFolder;
@@ -76,10 +77,10 @@
 + (FSDirectory *)directory;
 
 /// Get count of items in directory
-@property(nonatomic,readonly) int     count;    // count of elements
+@property(nonatomic,readonly) NSInteger     count;    // count of elements
 
 /// Get root FSItem
-@property(nonatomic,readonly) FSItem *rootItem;
+@property(nonatomic,readonly) FSItem        *rootItem;
 
 /// add new item to directory with file path
 - (FSItem *)addFilePath:(NSString*)path andRpcIndex:(int)rpcIndex;
@@ -95,13 +96,16 @@
 
 /// Get directory item at given row index
 /// skip collapsed folder items
-- (FSItem *)itemAtIndex:(int)index;
+- (FSItem *)itemAtIndex:(NSInteger)index;
 
 /// Get row index for searching item
-- (int)indexForItem:(FSItem *)item;
+- (NSInteger)indexForItem:(FSItem *)item;
 
 /// Set recalculation statistics flag
 - (void)setNeedToRecalcStats;
+
+/// Recalculate index table
+- (void)recalcRowIndexes;
 
 - (NSArray *)childIndexesForItem:(FSItem *)item startRow:(NSInteger)startRow section:(NSInteger)section;
 

@@ -361,6 +361,8 @@
     BOOL        _itemFound;
     
     NSMutableDictionary *_folderItems;
+    
+    NSMutableArray *_indexTable;
 }
 
 + (FSDirectory *)directory
@@ -375,7 +377,9 @@
     if( self )
     {
         _root = [FSItem itemWithName:@"" isFolder:YES];      // init root element (always folder)
+        _root.rowIndex = -1;
         _folderItems = [NSMutableDictionary dictionary];
+        _indexTable = [NSMutableArray array];
     }
     
     return self;
@@ -389,6 +393,26 @@
 - (FSItem *)nextItem
 {
     return nil;
+}
+
+- (void)recalcRowIndexes
+{
+    _curIndex = -1;
+    [_indexTable removeAllObjects];
+    [self recalcRowIndexesFromItem:_root];
+}
+
+- (void)recalcRowIndexesFromItem:(FSItem *)item
+{
+    for( FSItem *i in item.items )
+    {
+        _curIndex++;
+        _indexTable[_curIndex] = i;
+        i.rowIndex = _curIndex;
+
+        if( i.isFolder && !i.isCollapsed )
+            [self recalcRowIndexesFromItem:i];
+    }
 }
 
 // add file to tree
@@ -462,25 +486,30 @@
 }
 
 
-- (FSItem*)itemAtIndex:(int)index
+- (FSItem*)itemAtIndex:(NSInteger)index
 {
-    _curIndex = -1;
-    _findIndex = index;
-    _foundItemAtIndex = nil;
+    return _indexTable[index];
     
-    [self stepAndInrementFromItem:_root];
     
-    return _foundItemAtIndex;
+//    _curIndex = -1;
+//    _findIndex = index;
+//    _foundItemAtIndex = nil;
+//    
+//    [self stepAndInrementFromItem:_root];
+//    
+//    return _foundItemAtIndex;
 }
 
-- (int)count
+- (NSInteger)count
 {
-    _curIndex = 0;
-    _findIndex = -1;
-    _foundItemAtIndex = nil;
+    return _indexTable.count;
     
-    [self stepAndInrementFromItem:_root];
-    return _curIndex;
+//    _curIndex = 0;
+//    _findIndex = -1;
+//    _foundItemAtIndex = nil;
+//    
+//    [self stepAndInrementFromItem:_root];
+//    return _curIndex;
 }
 
 - (void)stepAndInrementFromItem:(FSItem*)item
@@ -499,18 +528,20 @@
     }
 }
 
-- (int)indexForItem:(FSItem *)item
+- (NSInteger)indexForItem:(FSItem *)item
 {
-    if( item == _root )
-        return FSITEM_INDEXNOTFOUND;
+    return item.rowIndex;
     
-    _curIndex = FSITEM_INDEXNOTFOUND;
-    _foundItemAtIndex = item;
-    _itemFound = NO;
-    
-    [self stepAndFindIndexFromItem:_root];
-    
-    return _itemFound ? _curIndex :FSITEM_INDEXNOTFOUND;
+//    if( item == _root )
+//        return FSITEM_INDEXNOTFOUND;
+//    
+//    _curIndex = FSITEM_INDEXNOTFOUND;
+//    _foundItemAtIndex = item;
+//    _itemFound = NO;
+//    
+//    [self stepAndFindIndexFromItem:_root];
+//    
+//    return _itemFound ? _curIndex :FSITEM_INDEXNOTFOUND;
 }
 
 - (void)stepAndFindIndexFromItem:(FSItem *)item

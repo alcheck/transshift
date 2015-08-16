@@ -53,7 +53,9 @@
     
     _btnCheckAll = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconCheckAll22x22"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDownloadAllItems)];
     
-    _btnCheckAll.enabled = _fsDir != nil;
+    _btnCheckAll.enabled = (_fsDir != nil);
+    if( _isFullyLoaded )
+        _btnCheckAll.enabled = NO;
     
     UIBarButtonItem *btnSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
@@ -132,7 +134,10 @@
     _fsDir = fsDir;
     _isFullyLoaded = fsDir.rootItem.downloadProgress >= 1.0f;
     
-    _btnCheckAll.enabled = YES;
+    [_fsDir recalcRowIndexes];
+    
+    _btnCheckAll.enabled = _selectOnly ? NO : !_isFullyLoaded;
+    
     [self.tableView reloadData];
 }
 
@@ -173,7 +178,7 @@
         {
             _needUpdateFolders = YES;
             
-            NSUInteger row = [_fsDir indexForItem:_curItem];
+            NSUInteger row = _curItem.rowIndex;
             
             if( row != FSITEM_INDEXNOTFOUND )
             {
@@ -221,7 +226,7 @@
 {
     if( _curItem.isFolder )
     {
-        NSUInteger row = [_fsDir indexForItem:_curItem];
+        NSUInteger row = _curItem.rowIndex;
         
         if( row != FSITEM_INDEXNOTFOUND )
         {
@@ -270,7 +275,7 @@
     
     BOOL wanted = !item.wanted;
     item.wanted = wanted;
-    NSUInteger idx = [_fsDir indexForItem:item];
+    NSUInteger idx = item.rowIndex;
     
     item.waitingForWantedUpdate = YES;
 
@@ -314,7 +319,8 @@
     {
         i.waitingForWantedUpdate = YES;
         
-        NSUInteger idx = [_fsDir indexForItem:i];
+        NSUInteger idx = i.rowIndex;
+        
         if( idx != FSITEM_INDEXNOTFOUND )
         {
             FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0]];
@@ -345,7 +351,7 @@
     
     item.waitingForWantedUpdate = YES;
     
-    NSIndexPath *idxPath = [NSIndexPath indexPathForRow: [_fsDir indexForItem:item] inSection:0];
+    NSIndexPath *idxPath = [NSIndexPath indexPathForRow: item.rowIndex inSection:0];
     FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:idxPath];
     if( cell )
     {
@@ -379,7 +385,7 @@
     {
         item = item.parent;
         
-        NSIndexPath *idxPath = [NSIndexPath indexPathForRow: [_fsDir indexForItem:item] inSection:0];
+        NSIndexPath *idxPath = [NSIndexPath indexPathForRow:item.rowIndex inSection:0];
         
         FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:idxPath];
         
@@ -421,7 +427,9 @@
     FSItem *item = sender.dataObject;
     
     item.collapsed = !item.collapsed;
-    int itemIndex = [_fsDir indexForItem:item];
+    [_fsDir recalcRowIndexes];
+    
+    NSInteger itemIndex = item.rowIndex;
     NSArray *indexPaths = [_fsDir childIndexesForItem:item startRow:itemIndex section:0];
     
     [self.tableView beginUpdates];
@@ -461,9 +469,9 @@
 {
     FileListFSCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_FILELISTFSCELL forIndexPath:indexPath];
     
-    FSItem *item = [_fsDir itemAtIndex:(int)indexPath.row];
+    FSItem *item = [_fsDir itemAtIndex:indexPath.row];
     
-    cell.nameLabel.text = item.name;//[NSString stringWithFormat:@"%@, row-%lu, %i", item.name, indexPath.row, [_fsDir indexForItem:item] ];
+    cell.nameLabel.text = item.name;
 
     if( item.isFolder )
         [self updateFolderCell:cell withFSItem:item updateWanted:YES];
