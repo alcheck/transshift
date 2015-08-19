@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CheckBox.h"
+#import "IconFS.h"
 
 #define CELL_ID_FILELISTFSCELL                      @"fileListFSCell"
 #define FILELISTFSCELL_LEFTLABEL_WIDTH              28
@@ -19,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *prioritySegment;
-@property (weak, nonatomic) IBOutlet UIImageView *iconImg;
+@property (weak, nonatomic) IBOutlet IconFS *icon;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameLabelTrailConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameLabelTrailToSegmentConstraint;
 

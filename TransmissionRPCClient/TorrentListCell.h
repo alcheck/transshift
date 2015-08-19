@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IconCloud.h"
 
 #define CELL_ID_TORRENTLIST @"torrentListCell"
 
@@ -19,9 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *progressPercents;
 @property (weak, nonatomic) IBOutlet UILabel *peersInfo;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
-@property (weak, nonatomic) IBOutlet UIImageView *statusIcon;
+@property (weak, nonatomic) IBOutlet IconCloud *statusIcon;
 @property (weak, nonatomic) IBOutlet UIButton *buttonStopResume;
-
 @property (nonatomic) int torrentId;
 @property (weak, nonatomic) IBOutlet UIImageView *iconRateLimit;
 @property (weak, nonatomic) IBOutlet UIImageView *iconRatioLimit;

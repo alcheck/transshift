@@ -141,7 +141,7 @@
                         item.length = fileLength;
                         item.lengthString = formatByteCount(fileLength);
                         item.wanted = YES;
-                        item.downloadProgress = 0.1;
+                        item.downloadProgress = 0.001;
                         item.downloadProgressString = @"";
                         
                         idx++;

@@ -173,6 +173,8 @@
     NSString *str = formatByteRate(c);
     _chache[CHACHE_KEY_TOTALUPSTR] = str;
     
+    _totalUploadRate = c;
+    
     return str;
 }
 
@@ -188,6 +190,8 @@
     
     NSString *str = formatByteRate(c);
     _chache[CHACHE_KEY_TOTALDOWNSTR] = str;
+    
+    _totalDownloadRate = c;
     
     return str;
 }

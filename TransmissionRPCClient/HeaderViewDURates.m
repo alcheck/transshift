@@ -10,9 +10,7 @@
 
 @interface HeaderViewDURates()
 
-@property (weak, nonatomic) IBOutlet UIImageView *iconDL;
 @property (weak, nonatomic) IBOutlet UILabel *labelDL;
-@property (weak, nonatomic) IBOutlet UIImageView *iconUL;
 @property (weak, nonatomic) IBOutlet UILabel *labelUL;
 @property (weak, nonatomic) IBOutlet UIImageView *iconTurtle;
 
@@ -33,16 +31,21 @@
     NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"HeaderViewDURates" owner:self options:nil];
     HeaderViewDURates *view = [views firstObject];
     
-    view.iconDL.image = [view.iconDL.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    view.iconUL.image = [view.iconUL.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    //view.iconTurtle.image = [view.iconTurtle.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //view.iconDL.image = [view.iconDL.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //view.iconUL.image = [view.iconUL.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
+    view.iconDL.iconType = IconHalfCloudTypeDownload;
+    view.iconUL.iconType = IconHalfCloudTypeUpload;
+    
+    view.iconTurtle.image = [view.iconTurtle.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    /// set limit icons
     view.iconUp = [[UIImage imageNamed:@"iconTurtleUpload20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     view.iconDown = [[UIImage imageNamed:@"iconTurtleDownload20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     view.iconUpDown = [[UIImage imageNamed:@"iconTurtleUpDown20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
-    view.iconDL.tintColor = view.labelDL.textColor;
-    view.iconUL.tintColor = view.labelUL.textColor;
+    //view.iconDL.tintColor = view.labelDL.textColor;
+    //view.iconUL.tintColor = view.labelUL.textColor;
     view.iconTurtle.tintColor = view.tintColor;
     
     view.iconTurtle.hidden = YES;
@@ -63,7 +66,6 @@
     _downLimitIsOn = downLimitIsOn;
    [self setLimitIcon];
 }
-
 
 - (void)setLimitIcon
 {

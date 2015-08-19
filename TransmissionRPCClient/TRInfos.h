@@ -37,6 +37,9 @@
 @property(nonatomic,readonly) int activeCount;
 @property(nonatomic,readonly) int errorCount;
 
+@property(nonatomic,readonly) long long totalUploadRate;
+@property(nonatomic,readonly) long long totalDownloadRate;
+
 @property(nonatomic,readonly) NSString* totalUploadRateString;
 @property(nonatomic,readonly) NSString* totalDownloadRateString;
 @property(nonatomic,readonly) NSString* totalDownloadSizeString;

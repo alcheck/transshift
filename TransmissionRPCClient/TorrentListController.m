@@ -197,11 +197,6 @@
         
     
     self.navigationItem.rightBarButtonItems =  ( _catitems && _catitems.count > 0 ) ?  @[ _stopAllButton, _startAllButton ] : nil;
-    //NSLog(@"Sections[RELOAD:%i, ADD:%i, REMOVE:%i, UPDATE:%i]",
-    //      idxSectionToReload.count, idxSectionToAdd.count, idxSectionToRemove.count, idxSectionToUpdate.count);
-
-    // table view batch update
-    //[self.tableView reloadData];
 }
 
 #pragma mark - UIActionSheet delegate methods (allow to delete torrent with swipe-to delete gesture)
@@ -376,7 +371,10 @@
                               info.uploadRatio];
         }
         
-        cell.statusIcon.image = [UIImage iconUpload];
+        //cell.statusIcon.image = [UIImage iconUpload];
+        cell.statusIcon.iconType = IconCloudTypeUpload;
+        info.uploadRate > 0 ? [cell.statusIcon playUploadAnimation] : [cell.statusIcon stopUploadAnimation];
+        
         btnImg = [UIImage iconPause];
         btnTintColor = [UIColor stopColor];
     }
@@ -386,8 +384,12 @@
                       info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
         cell.downloadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↓DL: %@", @""), info.downloadRateString];
         cell.uploadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↑UL: %@", @""), info.uploadRateString];
-        cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedSizeString, info.totalSizeString ];
-        cell.statusIcon.image = [UIImage iconDownload];
+        cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedEverString, info.totalSizeString ];
+        
+        //cell.statusIcon.image = [UIImage iconDownload];
+        cell.statusIcon.iconType = IconCloudTypeDownload;
+        info.downloadRate > 0 ? [cell.statusIcon playDownloadAnimation] : [cell.statusIcon stopDownloadAnimation];
+        
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
         btnImg = [UIImage iconPause];
         btnTintColor = [UIColor stopColor];
@@ -398,7 +400,10 @@
         progressBarColor = [UIColor stopColor];
         cell.downloadRate.text = NSLocalizedString(@"no activity", @"");
         cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, uploaded %@ (Ratio %0.2f)", @""), info.haveValidString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
-        cell.statusIcon.image = [UIImage iconStop];
+        
+        //cell.statusIcon.image = [UIImage iconStop];
+        cell.statusIcon.iconType = IconCloudTypeStop;
+        
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
         btnImg = [UIImage iconPlay];
         btnTintColor = [UIColor seedColor];
@@ -416,7 +421,10 @@
         //cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@", @""), info.haveValidString, totSize];
         cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@", @""), info.haveValidString, info.totalSizeString];
 
-        cell.statusIcon.image = [UIImage iconCheck];
+        //cell.statusIcon.image = [UIImage iconCheck];
+        cell.statusIcon.iconType = IconCloudTypeCheck;
+        [cell.statusIcon playCheckAnimation];
+        
         cell.buttonStopResume.hidden = YES;
     }
     
@@ -427,7 +435,9 @@
         detailInfo = [NSString stringWithFormat: NSLocalizedString(@"Error: %@", @""), info.errorString];
         progressBarColor = [UIColor errorColor];
         cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, uploaded %@ (Ratio %0.2f)", @""), info.downloadedSizeString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
-        cell.statusIcon.image = [UIImage iconError];
+        
+        //cell.statusIcon.image = [UIImage iconError];
+        cell.statusIcon.iconType = IconCloudTypeError;
     }
     
     cell.progressBar.tintColor = progressBarColor;

@@ -584,15 +584,8 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="J98-Qj-QR3">
-                                            <rect key="frame" x="8" y="22" width="40" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="FUe-uK-J95"/>
-                                                <constraint firstAttribute="width" constant="40" id="eXL-h2-SF7"/>
-                                            </constraints>
-                                        </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZd-t4-mcM">
-                                            <rect key="frame" x="8" y="70" width="36" height="36"/>
+                                            <rect key="frame" x="8" y="66" width="36" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="36" id="2hT-Rv-njF"/>
                                                 <constraint firstAttribute="height" constant="36" id="DVJ-H4-GwZ"/>
@@ -629,11 +622,17 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q5w-qe-bH6" customClass="IconCloud">
+                                            <rect key="frame" x="8" y="22" width="36" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="36" id="qoe-cJ-xVG"/>
+                                                <constraint firstAttribute="width" constant="36" id="yxu-p4-9Mw"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="i61-wq-qNA" firstAttribute="top" secondItem="b02-ZR-iDV" secondAttribute="bottom" constant="8" symbolic="YES" id="3vK-d7-ssu"/>
                                         <constraint firstItem="7ke-lo-pMi" firstAttribute="leading" secondItem="4FB-3N-A85" secondAttribute="trailing" constant="8" symbolic="YES" id="4RS-ou-ama"/>
-                                        <constraint firstItem="J98-Qj-QR3" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="6Ak-AX-dLN"/>
                                         <constraint firstItem="i61-wq-qNA" firstAttribute="centerY" secondItem="mJB-qz-MXe" secondAttribute="centerY" constant="0.5" id="6wE-Is-Yz9"/>
                                         <constraint firstItem="yat-p1-hDj" firstAttribute="baseline" secondItem="r0e-Lm-a6J" secondAttribute="baseline" id="9mJ-mV-clj"/>
                                         <constraint firstItem="7ke-lo-pMi" firstAttribute="trailing" secondItem="hpW-AA-kYy" secondAttribute="trailingMargin" id="D2U-RN-gOy"/>
@@ -641,17 +640,18 @@
                                         <constraint firstItem="VZd-t4-mcM" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="Hfw-0r-FGZ"/>
                                         <constraint firstItem="HAT-qH-kcb" firstAttribute="leading" secondItem="yat-p1-hDj" secondAttribute="leading" id="Htv-mX-msI"/>
                                         <constraint firstItem="fpS-ju-QSU" firstAttribute="top" secondItem="r0e-Lm-a6J" secondAttribute="bottom" constant="3" id="IbY-Q1-Phn"/>
+                                        <constraint firstItem="VZd-t4-mcM" firstAttribute="top" secondItem="q5w-qe-bH6" secondAttribute="bottom" constant="8" symbolic="YES" id="J4r-7d-joJ"/>
                                         <constraint firstItem="b02-ZR-iDV" firstAttribute="top" secondItem="hpW-AA-kYy" secondAttribute="topMargin" constant="4" id="Jnb-Tu-QIJ"/>
                                         <constraint firstItem="4FB-3N-A85" firstAttribute="leading" secondItem="e81-bO-YI6" secondAttribute="trailing" constant="8" symbolic="YES" id="KtK-X1-kI8"/>
                                         <constraint firstItem="e81-bO-YI6" firstAttribute="leading" secondItem="fpS-ju-QSU" secondAttribute="trailing" constant="8" symbolic="YES" id="M7b-OG-P3g"/>
-                                        <constraint firstItem="VZd-t4-mcM" firstAttribute="top" secondItem="J98-Qj-QR3" secondAttribute="bottom" constant="8" symbolic="YES" id="MJO-HU-fCN"/>
                                         <constraint firstItem="r0e-Lm-a6J" firstAttribute="leading" secondItem="yat-p1-hDj" secondAttribute="trailing" id="Rpr-gS-JUs"/>
                                         <constraint firstItem="HAT-qH-kcb" firstAttribute="top" secondItem="i61-wq-qNA" secondAttribute="bottom" constant="8" symbolic="YES" id="UQM-Z9-9Gw"/>
                                         <constraint firstItem="e81-bO-YI6" firstAttribute="bottom" secondItem="4FB-3N-A85" secondAttribute="bottom" constant="-1" id="Xuf-Qj-r6i"/>
                                         <constraint firstItem="yat-p1-hDj" firstAttribute="top" secondItem="HAT-qH-kcb" secondAttribute="bottom" constant="3" id="fwd-Vo-tMs"/>
                                         <constraint firstItem="mJB-qz-MXe" firstAttribute="trailing" secondItem="hpW-AA-kYy" secondAttribute="trailingMargin" id="iK3-cE-7sY"/>
                                         <constraint firstItem="4FB-3N-A85" firstAttribute="bottom" secondItem="7ke-lo-pMi" secondAttribute="bottom" id="l3b-yW-FLl"/>
-                                        <constraint firstItem="J98-Qj-QR3" firstAttribute="top" secondItem="hpW-AA-kYy" secondAttribute="topMargin" constant="14" id="p9q-os-0Lg"/>
+                                        <constraint firstItem="q5w-qe-bH6" firstAttribute="top" secondItem="hpW-AA-kYy" secondAttribute="topMargin" constant="14" id="p2Z-rV-Mwm"/>
+                                        <constraint firstItem="q5w-qe-bH6" firstAttribute="leading" secondItem="hpW-AA-kYy" secondAttribute="leadingMargin" id="pbO-6x-KyJ"/>
                                         <constraint firstItem="HAT-qH-kcb" firstAttribute="leading" secondItem="b02-ZR-iDV" secondAttribute="leading" id="tNf-je-8Uy"/>
                                         <constraint firstItem="fpS-ju-QSU" firstAttribute="leading" secondItem="yat-p1-hDj" secondAttribute="leading" id="tte-dV-70z"/>
                                         <constraint firstItem="fpS-ju-QSU" firstAttribute="bottom" secondItem="e81-bO-YI6" secondAttribute="bottom" id="uK5-5x-cuf"/>
@@ -672,7 +672,7 @@
                                     <outlet property="progressBar" destination="i61-wq-qNA" id="UDi-Hm-Hz9"/>
                                     <outlet property="progressPercents" destination="mJB-qz-MXe" id="t5C-wX-bhw"/>
                                     <outlet property="size" destination="fpS-ju-QSU" id="xKE-iW-afU"/>
-                                    <outlet property="statusIcon" destination="J98-Qj-QR3" id="Gcf-NE-ahx"/>
+                                    <outlet property="statusIcon" destination="q5w-qe-bH6" id="thQ-x8-aSX"/>
                                     <outlet property="uploadRate" destination="r0e-Lm-a6J" id="kbG-Yz-SKJ"/>
                                 </connections>
                             </tableViewCell>
@@ -701,6 +701,13 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vdp-jg-gZ1" id="H3T-YV-acq">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YgS-zM-6as" userLabel="iconFS" customClass="IconFS">
+                                            <rect key="frame" x="45" y="8" width="36" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="36" id="Bcq-7h-74v"/>
+                                                <constraint firstAttribute="height" constant="36" id="u2d-MZ-6Ri"/>
+                                            </constraints>
+                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbi-MP-j6F" userLabel="TouchableView">
                                             <rect key="frame" x="45" y="0.0" width="459" height="52"/>
                                         </view>
@@ -727,9 +734,6 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconFolderClosed" translatesAutoresizingMaskIntoConstraints="NO" id="ZKm-DS-on5">
-                                            <rect key="frame" x="45" y="8" width="36" height="36"/>
-                                        </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYm-4s-14n" customClass="CheckBox">
                                             <rect key="frame" x="8" y="12" width="29" height="29"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -740,23 +744,23 @@
                                         </view>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="YgS-zM-6as" firstAttribute="leading" secondItem="pYm-4s-14n" secondAttribute="trailing" constant="8" symbolic="YES" id="03C-dt-x66"/>
                                         <constraint firstItem="7Y3-f0-bDc" firstAttribute="width" secondItem="94Q-La-4Kc" secondAttribute="width" id="12E-AJ-Z63"/>
-                                        <constraint firstAttribute="centerY" secondItem="ZKm-DS-on5" secondAttribute="centerY" id="1pu-TJ-FF3"/>
-                                        <constraint firstItem="mbi-MP-j6F" firstAttribute="leading" secondItem="ZKm-DS-on5" secondAttribute="leading" id="28v-E5-FvE"/>
+                                        <constraint firstItem="94Q-La-4Kc" firstAttribute="leading" secondItem="YgS-zM-6as" secondAttribute="trailing" constant="8" id="5aY-Um-VG6"/>
                                         <constraint firstItem="7Y3-f0-bDc" firstAttribute="top" secondItem="H3T-YV-acq" secondAttribute="topMargin" constant="3" id="I2J-5g-JQo"/>
+                                        <constraint firstAttribute="centerY" secondItem="YgS-zM-6as" secondAttribute="centerY" id="MFS-pf-2IQ"/>
                                         <constraint firstAttribute="bottom" secondItem="mbi-MP-j6F" secondAttribute="bottom" id="NTc-dj-UTF"/>
                                         <constraint firstAttribute="centerY" secondItem="HOm-ho-BFw" secondAttribute="centerY" id="Nv3-KE-GeN"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="94Q-La-4Kc" secondAttribute="bottom" constant="1" id="SAD-bA-XAz"/>
                                         <constraint firstItem="HOm-ho-BFw" firstAttribute="trailing" secondItem="H3T-YV-acq" secondAttribute="trailingMargin" id="UOL-2J-Ixp"/>
-                                        <constraint firstItem="94Q-La-4Kc" firstAttribute="leading" secondItem="ZKm-DS-on5" secondAttribute="trailing" constant="8" symbolic="YES" id="WBA-Hc-pej"/>
                                         <constraint firstItem="pYm-4s-14n" firstAttribute="leading" secondItem="H3T-YV-acq" secondAttribute="leadingMargin" id="ZCJ-Qe-48k"/>
+                                        <constraint firstItem="mbi-MP-j6F" firstAttribute="leading" secondItem="YgS-zM-6as" secondAttribute="leading" id="cD1-EM-fkr"/>
                                         <constraint firstItem="mbi-MP-j6F" firstAttribute="top" secondItem="H3T-YV-acq" secondAttribute="top" id="gJa-5g-SXY"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="7Y3-f0-bDc" secondAttribute="trailing" priority="750" id="gUw-Vd-oR7"/>
-                                        <constraint firstItem="ZKm-DS-on5" firstAttribute="leading" secondItem="pYm-4s-14n" secondAttribute="trailing" constant="8" symbolic="YES" id="k0X-no-BxG"/>
                                         <constraint firstItem="mbi-MP-j6F" firstAttribute="trailing" secondItem="7Y3-f0-bDc" secondAttribute="trailing" id="plx-0B-exz"/>
                                         <constraint firstAttribute="centerY" secondItem="pYm-4s-14n" secondAttribute="centerY" id="rST-rJ-MiP"/>
                                         <constraint firstItem="HOm-ho-BFw" firstAttribute="leading" secondItem="7Y3-f0-bDc" secondAttribute="trailing" priority="751" constant="8" symbolic="YES" id="sTq-Ap-qPi"/>
-                                        <constraint firstItem="7Y3-f0-bDc" firstAttribute="leading" secondItem="ZKm-DS-on5" secondAttribute="trailing" constant="8" symbolic="YES" id="ywT-TR-EZq"/>
+                                        <constraint firstItem="7Y3-f0-bDc" firstAttribute="leading" secondItem="YgS-zM-6as" secondAttribute="trailing" constant="8" id="vdX-WA-wd5"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -764,7 +768,7 @@
                                     <outlet property="checkBoxLeadConstraint" destination="ZCJ-Qe-48k" id="SDo-Cs-SKc"/>
                                     <outlet property="checkBoxWidthConstraint" destination="mfX-ag-K9X" id="1Jb-TT-aRX"/>
                                     <outlet property="detailLabel" destination="94Q-La-4Kc" id="pcX-Gb-aOh"/>
-                                    <outlet property="iconImg" destination="ZKm-DS-on5" id="FIV-Ds-xGY"/>
+                                    <outlet property="icon" destination="YgS-zM-6as" id="dGE-sx-ecm"/>
                                     <outlet property="nameLabel" destination="7Y3-f0-bDc" id="tLs-oN-4fd"/>
                                     <outlet property="nameLabelTrailConstraint" destination="gUw-Vd-oR7" id="AYp-80-Fl3"/>
                                     <outlet property="nameLabelTrailToSegmentConstraint" destination="sTq-Ap-qPi" id="Xty-pI-Nkb"/>
@@ -3624,7 +3628,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="activeIcon" width="40" height="40"/>
         <image name="filesIcon" width="37" height="37"/>
         <image name="iconAnnounceTower36x36" width="36" height="36"/>
         <image name="iconBadge" width="37" height="37"/>
@@ -3633,7 +3636,6 @@
         <image name="iconClockPie" width="37" height="37"/>
         <image name="iconComputer" width="37" height="37"/>
         <image name="iconFile" width="36" height="36"/>
-        <image name="iconFolderClosed" width="36" height="36"/>
         <image name="iconFreeSpace36x36" width="36" height="36"/>
         <image name="iconGlobe36x36" width="36" height="36"/>
         <image name="iconKey" width="37" height="37"/>

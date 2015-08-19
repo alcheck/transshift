@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IconHalfCloud.h"
 
 @interface HeaderViewDURates : UIView
 
@@ -19,5 +20,8 @@
 
 @property(nonatomic) BOOL downLimitIsOn;
 @property(nonatomic) BOOL upLimitIsOn;
+
+@property (weak, nonatomic) IBOutlet IconHalfCloud *iconDL;
+@property (weak, nonatomic) IBOutlet IconHalfCloud *iconUL;
 
 @end

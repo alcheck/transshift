@@ -353,7 +353,7 @@
     _footerViewFreeSpace.label.text = string;
 }
 
-- (void)showHeaderDLRate:(NSString*)dlRate ULRate:(NSString*)ulRate
+- (void)showHeaderDLRate:(TRInfos *)torrents //(NSString*)dlRate ULRate:(NSString*)ulRate
 {
     if( !_headerViewDURates )
     {
@@ -365,8 +365,11 @@
     if( self.tableView.tableHeaderView != _headerViewDURates )
         self.tableView.tableHeaderView = _headerViewDURates;
     
-    _headerViewDURates.uploadString = ulRate;
-    _headerViewDURates.downloadString = dlRate;
+    _headerViewDURates.uploadString = torrents.totalUploadRateString;
+    _headerViewDURates.downloadString = torrents.totalDownloadRateString;
+
+    torrents.totalDownloadRate > 0 ? [_headerViewDURates.iconDL playDownloadAnimation] : [_headerViewDURates.iconDL stopDownloadAnimation];
+    torrents.totalUploadRate > 0 ? [_headerViewDURates.iconUL playUploadAnimation] : [_headerViewDURates.iconUL stopUploadAnimation];
 }
 
 - (void)fixFooterHeaderViews
@@ -409,11 +412,6 @@
 - (void)gotAllTorrents:(TRInfos *)torrents
 {
     [self requestToServerSucceeded];
-    
-    //NSLog( @"%s", __PRETTY_FUNCTION__ );
-    
-    //[_items updateInfos:torrents];
-    //[self.tableView reloadData];
     
     NSArray *arr;
     
@@ -461,7 +459,7 @@
     
     [self showFinishedTorrentsWithInfo:torrents];
 
-    [self showHeaderDLRate:torrents.totalDownloadRateString ULRate:torrents.totalUploadRateString];
+    [self showHeaderDLRate:torrents]; // torrents.totalDownloadRateString ULRate:torrents.totalUploadRateString];
     
 //    if( !self.splitViewController )
 //    {

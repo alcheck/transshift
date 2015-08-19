@@ -32,8 +32,10 @@
     FSItem  *_curItem;
     
     BOOL     _needUpdateFolders;
+    BOOL     _fileJustFinished;
     
     UIBarButtonItem *_btnCheckAll;
+    
 }
 
 - (void)viewDidLoad
@@ -41,9 +43,9 @@
     [super viewDidLoad];
     
     // preload images
-    _iconImgFile = [[UIImage imageNamed:ICON_FILE] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    _iconImgFolderOpened = [[UIImage imageNamed:ICON_FOLDER_OPENED] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    _iconImgFolderClosed = [[UIImage imageNamed:ICON_FOLDER_CLOSED] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //_iconImgFile = [[UIImage imageNamed:ICON_FILE] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //_iconImgFolderOpened = [[UIImage imageNamed:ICON_FOLDER_OPENED] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //_iconImgFolderClosed = [[UIImage imageNamed:ICON_FOLDER_CLOSED] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -186,6 +188,8 @@
                 FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
                 if( cell )
                 {
+                    _fileJustFinished = justDownloaded;
+                    
                     if( _curItem.waitingForWantedUpdate && _curItem.wanted == fileStat.wanted )
                     {
                         [self updateFileCell:cell withFSItem:_curItem updateWanted:NO];
@@ -197,17 +201,6 @@
                     
                     if( !cell.prioritySegment.enabled && cell.prioritySegment.selectedSegmentIndex == (fileStat.priority + 1) )
                         cell.prioritySegment.enabled = YES;
-                    
-                    if( justDownloaded )
-                    {
-                        [UIView animateWithDuration:0.8 animations:^{
-                            cell.iconImg.transform = CGAffineTransformMakeScale(1.2, 1.2);
-                        } completion:^(BOOL finished) {
-                            [UIView animateWithDuration:0.3 animations:^{
-                                cell.iconImg.transform = CGAffineTransformIdentity;
-                            }];
-                        }];
-                    }
                 }
             }
         }
@@ -444,7 +437,8 @@
     FileListFSCell *cell = (FileListFSCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:itemIndex inSection:0]];
     if( cell )
     {
-        cell.iconImg.image = item.isCollapsed ? _iconImgFolderClosed : _iconImgFolderOpened;
+        //cell.iconImg.image = item.isCollapsed ? _iconImgFolderClosed : _iconImgFolderOpened;
+        item.isCollapsed ? [cell.icon playFolderCloseAnimation] : [cell.icon playFolderOpenAnimation];
     }
 }
 
@@ -487,8 +481,16 @@
     [cell.checkBox removeTarget:self action:@selector(toggleFileDownloading:) forControlEvents:UIControlEventValueChanged];
     [cell.checkBox removeTarget:self action:@selector(toggleFolderDownloading:) forControlEvents:UIControlEventValueChanged];
     
-    //cell.nameLabel.text = item.name;
-    cell.iconImg.image =  _iconImgFile;
+    if( _fileJustFinished )
+    {
+        _fileJustFinished = NO;
+        [cell.icon playCheckFinishAnimation];
+    }
+    else
+    {
+        cell.icon.iconType = item.downloadProgress >= 1.0 ? IconFSTypeFileFinished : IconFSTypeFile;
+    }
+    cell.icon.downloadProgress = item.downloadProgress;
     
     // make indentation
     float leftIdent = ( (item.level - 1) * FILELISTFSCELL_LEFTLABEL_LEVEL_INDENTATION ) + 8;
@@ -505,7 +507,7 @@
     cell.checkBoxLeadConstraint.constant = leftIdent;
     cell.checkBoxWidthConstraint.constant = checkBoxWidth;
     
-    cell.iconImg.tintColor = cell.tintColor;            // default (blue) tintColor
+    cell.icon.tintColor = cell.tintColor;            // default (blue) tintColor
     cell.prioritySegment.hidden = YES;                  // by default folders don't have priority segment
     cell.nameLabel.textColor = [UIColor blackColor];    // by default file/folder names are black
     
@@ -548,7 +550,7 @@
                 
                 if( !item.wanted )
                 {
-                    cell.iconImg.tintColor = [UIColor grayColor];
+                    cell.icon.tintColor = [UIColor grayColor];
                     cell.nameLabel.textColor = [UIColor grayColor];
                     cell.checkBox.color = [UIColor grayColor];
                 }
@@ -577,7 +579,8 @@
     [cell.checkBox removeTarget:self action:@selector(toggleFolderDownloading:) forControlEvents:UIControlEventValueChanged];
 
     //cell.nameLabel.text = item.name;
-    cell.iconImg.image =  item.isCollapsed ? _iconImgFolderClosed : _iconImgFolderOpened;
+    //cell.iconImg.image =  item.isCollapsed ? _iconImgFolderClosed : _iconImgFolderOpened;
+    cell.icon.iconType = item.isCollapsed ? IconFSTypeFolderClosed : IconFSTypeFolderOpened;
     
     // make indentation
     float leftIdent = ( (item.level - 1) * FILELISTFSCELL_LEFTLABEL_LEVEL_INDENTATION ) + 8;
@@ -594,7 +597,7 @@
     cell.checkBoxLeadConstraint.constant = leftIdent;
     cell.checkBoxWidthConstraint.constant = checkBoxWidth;
     
-    cell.iconImg.tintColor = cell.tintColor;            // default (blue) tintColor
+    cell.icon.tintColor = cell.tintColor;            // default (blue) tintColor
     cell.prioritySegment.hidden = YES;                  // by default folders don't have priority segment
     cell.nameLabel.textColor = [UIColor blackColor];    // by default file/folder names are black
     
@@ -625,7 +628,7 @@
         
             cell.checkBox.color = isAllWanted ? cell.tintColor : [UIColor grayColor];
             cell.nameLabel.textColor = isAllWanted ? [UIColor blackColor] : [UIColor grayColor];
-            cell.iconImg.tintColor = isAllWanted ? cell.tintColor : [UIColor grayColor];
+            cell.icon.tintColor = isAllWanted ? cell.tintColor : [UIColor grayColor];
             
             // add recognizer for unwanted files
             cell.checkBox.dataObject = item;
