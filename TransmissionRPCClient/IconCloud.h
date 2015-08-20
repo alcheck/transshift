@@ -15,6 +15,8 @@ typedef NS_ENUM(int, IconCloudType)
     IconCloudTypeCheck,
     IconCloudTypeStop,
     IconCloudTypeError,
+    IconCloudTypeActive,
+    IconCloudTypeAll,
     IconCloudTypeNone
 };
 
@@ -25,6 +27,7 @@ typedef NS_ENUM(int, IconCloudType)
 @property(nonatomic,readonly) BOOL  isCheckAnimationInProgress;
 @property(nonatomic,readonly) BOOL  isUploadAnimationInProgress;
 @property(nonatomic,readonly) BOOL  isDownloadAnimationInProgress;
+@property(nonatomic,readonly) BOOL  isActivityAnimationInProgress;
 
 - (void)playCheckAnimation;
 - (void)stopCheckAnimation;
@@ -34,5 +37,8 @@ typedef NS_ENUM(int, IconCloudType)
 
 - (void)playDownloadAnimation;
 - (void)stopDownloadAnimation;
+
+- (void)playActivityAnimation;
+- (void)stopActivityAnimation;
 
 @end

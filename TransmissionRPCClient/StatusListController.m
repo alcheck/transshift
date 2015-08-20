@@ -453,6 +453,17 @@
         StatusCategory *c = [_items categoryAtIndex:i];
         StatusListCell *cell = (StatusListCell*)c.cell;
         cell.numberLabel.text = [NSString stringWithFormat:@"%i", c.count];
+        
+        IconCloudType iconType = c.iconType;
+        
+        if( iconType == IconCloudTypeActive )
+            c.count > 0 ? [cell.icon playActivityAnimation] : [cell.icon stopActivityAnimation];
+        else if( iconType == IconCloudTypeCheck )
+            c.count > 0 ? [cell.icon playCheckAnimation] : [cell.icon stopCheckAnimation];
+        else if( iconType == IconCloudTypeDownload )
+            torrents.totalDownloadRate > 0 ? [cell.icon playDownloadAnimation] : [cell.icon stopDownloadAnimation ];
+        else if( iconType == IconCloudTypeUpload )
+            torrents.totalUploadRate > 0 ? [cell.icon playUploadAnimation] : [cell.icon stopUploadAnimation];
     }
     
     _torrentController.items = _selectedCategory;
@@ -1189,8 +1200,9 @@
     // Configure the cell
     cell.numberLabel.text  = @" ";
     cell.statusLabel.text = c.title;
-    cell.iconImg.image = c.iconImage;
-    cell.iconImg.tintColor = c.iconColor ? c.iconColor : cell.tintColor;
+    
+    cell.icon.iconType = c.iconType;
+    cell.icon.tintColor = c.iconColor ? c.iconColor : cell.tintColor;
       
     // store cell reference for later cell
     // updating

@@ -11,13 +11,19 @@
 @implementation IconCloud
 
 {
+    /// bunch of layers
     CAShapeLayer *_layerCloud;
     CAShapeLayer *_layerArrowUp;
     CAShapeLayer *_layerArrowDown;
     CAShapeLayer *_layerCircleArrows;
     CAShapeLayer *_layerStopButton;
     CAShapeLayer *_layerCrossButton;
+    CAShapeLayer *_layerLittleArrowUp;
+    CAShapeLayer *_layerLittleArrowDown;
+    CAShapeLayer *_layerClouds;
+    CAShapeLayer *_layerArrows;
     
+    /// main layer frame
     CGRect      _frame;
 }
 
@@ -39,7 +45,7 @@
 - (void)setupValues
 {
     [self createLayers];
-    [self setLayersStrokeColor];
+    [self setLayersColors];
     self.iconType = IconCloudTypeNone;
 }
 
@@ -111,7 +117,7 @@
 
 - (BOOL)isUploadAnimationInProgress
 {
-    return [_layerArrowUp animationForKey:@"uploadAnimation"];
+    return [_layerArrowUp animationForKey:@"uploadAnimation"] != nil;
 }
 
 - (void)stopUploadAnimation
@@ -158,61 +164,181 @@
 
 - (BOOL)isDownloadAnimationInProgress
 {
-    return [_layerArrowDown animationForKey:@"downloadAnimation"];
+    return [_layerArrowDown animationForKey:@"downloadAnimation"] != nil;
+}
+
+- (void)playActivityAnimation
+{
+    if( self.isActivityAnimationInProgress )
+        return;
+    
+    CABasicAnimation *a0 = [CABasicAnimation animationWithKeyPath:@"position.y"];
+    a0.beginTime = 0;
+    a0.duration = 1.5;
+    a0.autoreverses = YES;
+    a0.repeatCount = HUGE_VALF;
+    a0.byValue = @(-3);
+    [_layerLittleArrowUp addAnimation:a0 forKey:@"activityAnimationUp"];
+    
+    CABasicAnimation *a1 = [CABasicAnimation animationWithKeyPath:@"position.y"];
+    a1.beginTime = 0;
+    a1.duration = 1.5;
+    a1.autoreverses = YES;
+    a1.repeatCount = HUGE_VALF;
+    a1.byValue = @(3);
+    [_layerLittleArrowDown addAnimation:a1 forKey:@"activityAnimationDown"];
+    
+    [self animateScale];
+}
+
+- (void)stopActivityAnimation
+{
+    [_layerLittleArrowDown removeAllAnimations];
+    [_layerLittleArrowUp removeAllAnimations];
+}
+
+- (BOOL)isActivityAnimationInProgress
+{
+    return [_layerLittleArrowUp animationForKey:@"activityAnimationUp"] != nil;
 }
 
 - (void)createLayers
 {
+    _frame = self.frame;
+    _frame.origin = CGPointZero;
+    
+    /////////////////////////////////////
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    /////////////////////////////////////
+    
+    
+    /// CREATE
     _layerCloud = [CAShapeLayer layer];
+    
     _layerArrowUp = [CAShapeLayer layer];
     _layerArrowDown = [CAShapeLayer layer];
+    
     _layerCircleArrows = [CAShapeLayer layer];
     _layerStopButton = [CAShapeLayer layer];
     _layerCrossButton = [CAShapeLayer layer];
     
-    _layerCrossButton.contentsScale = _layerCloud.contentsScale = _layerArrowUp.contentsScale = _layerArrowDown.contentsScale = _layerCircleArrows.contentsScale = _layerStopButton.contentsScale = [UIScreen mainScreen].scale;
+    _layerLittleArrowDown = [CAShapeLayer layer];
+    _layerLittleArrowUp = [CAShapeLayer layer];
     
-    _frame = self.frame;
-    _frame.origin = CGPointZero;
+    _layerClouds = [CAShapeLayer layer];
+    _layerArrows = [CAShapeLayer layer];
     
-    _layerCloud.frame = _frame;
+    /// SCALE
+    _layerCrossButton.contentsScale =
+    _layerCloud.contentsScale =
+    _layerArrowUp.contentsScale =
+    _layerArrowDown.contentsScale =
+    _layerCircleArrows.contentsScale =
+    _layerStopButton.contentsScale =
+    _layerLittleArrowDown.contentsScale =
+    _layerLittleArrowUp.contentsScale =
+    _layerClouds.contentsScale =
+    _layerArrows.contentsScale =
+    [UIScreen mainScreen].scale;
     
-    _layerCrossButton.fillColor = _layerCloud.fillColor = _layerArrowUp.fillColor = _layerArrowDown.fillColor = _layerCircleArrows.fillColor = _layerStopButton.fillColor = [UIColor clearColor].CGColor;
     
-     _layerCrossButton.lineWidth = _layerArrowUp.lineWidth = _layerArrowDown.lineWidth = _layerCircleArrows.lineWidth = _layerStopButton.lineWidth = 1.5;
+    /// LINE WIDTH
+    _layerCrossButton.lineWidth =
+    _layerArrowUp.lineWidth =
+    _layerArrowDown.lineWidth =
+    _layerCircleArrows.lineWidth =
+    _layerStopButton.lineWidth =
+    _layerLittleArrowUp.lineWidth =
+    _layerLittleArrowDown.lineWidth =
+    _layerArrows.lineWidth =
+    1.5;
     
-    _layerCloud.lineWidth = 2.0;
+    _layerCloud.lineWidth =
+    _layerClouds.lineWidth =
+    2.0;
     
-    _layerCrossButton.lineCap = _layerCloud.lineCap = _layerArrowDown.lineCap = _layerArrowUp.lineCap =  _layerStopButton.lineCap = kCALineCapRound;
+    /// LINE CAPS
+    _layerCrossButton.lineCap =
+    _layerCloud.lineCap =
+    _layerArrowDown.lineCap =
+    _layerArrowUp.lineCap =
+    _layerStopButton.lineCap =
+    _layerLittleArrowUp.lineCap =
+    _layerLittleArrowDown.lineCap =
+    _layerArrows.lineCap =
+    _layerClouds.lineCap =
+    kCALineCapRound;
     
-    _layerCloud.path = self.cloudPath;
-    
-    _layerCircleArrows.path = self.circleArrowsPath;
     _layerCircleArrows.lineCap = kCALineCapSquare;
-    
+
+    /// SET PATHS
+    _layerCloud.path = self.cloudPath;
+    _layerCircleArrows.path = self.circleArrowsPath;
     _layerArrowDown.path = self.arrowDownPath;
     _layerArrowUp.path = self.arrowUpPath;
     _layerStopButton.path = self.stopButtonPath;
     _layerCrossButton.path = self.crossButtonPath;
+    _layerLittleArrowDown.path = self.littleArrowDownPath;
+    _layerLittleArrowUp.path = self.littleArrowUpPath;
+    _layerArrows.path = self.arrowsPath;
+    _layerClouds.path = self.cloudsPath;
     
+    /// ADD TO VIEW
     [self.layer addSublayer:_layerCloud];
+    [self.layer addSublayer:_layerClouds];
+    [self.layer addSublayer:_layerArrows];
     
     [_layerCloud addSublayer:_layerCircleArrows];
     [_layerCloud addSublayer:_layerArrowDown];
     [_layerCloud addSublayer:_layerArrowUp];
     [_layerCloud addSublayer:_layerStopButton];
     [_layerCloud addSublayer:_layerCrossButton];
+    
+    [_layerCloud addSublayer:_layerLittleArrowDown];
+    [_layerCloud addSublayer:_layerLittleArrowUp];
+
+    //////////////////////
+    [CATransaction commit];
 }
 
 - (void)setTintColor:(UIColor *)tintColor
 {
     [super setTintColor:tintColor];
-    [self setLayersStrokeColor];
+    
+    [self setLayersColors];
 }
 
-- (void)setLayersStrokeColor
+- (void)setLayersColors
 {
-    _layerCloud.strokeColor = _layerArrowUp.strokeColor = _layerArrowDown.strokeColor = _layerCircleArrows.strokeColor = _layerStopButton.strokeColor = _layerCrossButton.strokeColor = self.tintColor.CGColor;
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    
+    _layerCloud.strokeColor =
+    _layerArrowUp.strokeColor =
+    _layerArrowDown.strokeColor =
+    _layerCircleArrows.strokeColor =
+    _layerStopButton.strokeColor =
+    _layerCrossButton.strokeColor =
+    _layerLittleArrowUp.strokeColor =
+    _layerLittleArrowDown.strokeColor =
+    _layerClouds.strokeColor =
+    _layerArrows.strokeColor =
+    self.tintColor.CGColor;
+    
+    _layerCrossButton.fillColor =
+    _layerCloud.fillColor =
+    _layerArrowUp.fillColor =
+    _layerArrowDown.fillColor =
+    _layerCircleArrows.fillColor =
+    _layerStopButton.fillColor =
+    _layerLittleArrowUp.fillColor =
+    _layerLittleArrowDown.fillColor =
+    _layerArrows.fillColor =
+    _layerClouds.fillColor =
+    nil;
+    
+    [CATransaction commit];
 }
 
 - (void)setIconType:(IconCloudType)iconType
@@ -225,15 +351,24 @@
     [_layerArrowUp removeAllAnimations];
     [_layerArrowDown removeAllAnimations];
     [_layerCircleArrows removeAllAnimations];
+    [_layerLittleArrowDown removeAllAnimations];
+    [_layerLittleArrowUp removeAllAnimations];
     
     [CATransaction begin];
-    [CATransaction setAnimationDuration:0.0];
+    [CATransaction setDisableActions:YES];
     
-    _layerCircleArrows.hidden = YES;
-    _layerArrowDown.hidden = YES;
-    _layerArrowUp.hidden = YES;
-    _layerStopButton.hidden = YES;
-    _layerCrossButton.hidden = YES;
+    _layerCloud.hidden = NO;
+    
+    _layerCircleArrows.hidden =
+    _layerArrowDown.hidden =
+    _layerArrowUp.hidden =
+    _layerStopButton.hidden =
+    _layerCrossButton.hidden =
+    _layerLittleArrowUp.hidden =
+    _layerLittleArrowDown.hidden =
+    _layerClouds.hidden =
+    _layerArrows.hidden =
+    YES;
     
     switch (iconType)
     {
@@ -256,6 +391,17 @@
         case IconCloudTypeError:
             _layerCrossButton.hidden = NO;
             break;
+        
+        case IconCloudTypeActive:
+            _layerLittleArrowDown.hidden = NO;
+            _layerLittleArrowUp.hidden = NO;
+            break;
+        
+        case IconCloudTypeAll:
+            _layerArrows.hidden = NO;
+            _layerClouds.hidden = NO;
+            _layerCloud.hidden = YES;
+            break;
             
         default:
             break;
@@ -264,11 +410,22 @@
     [CATransaction commit];
 }
 
+- (CGRect)frame2
+{
+    CGFloat w = _frame.size.width;
+    CGFloat h = _frame.size.height;
+    
+    CGRect _frame2 = CGRectMake(floor(w * 0.30488 + 0.5),floor(h * 0.50311 + 0.5), floor(w * 0.71341 + 0.5) - floor(w * 0.30488 + 0.5), floor(h * 0.86335 + 0.5) - floor(h * 0.50311 + 0.5));
+    
+    return _frame2;
+}
+
 - (CGPathRef)cloudPath
 {
     //static
     CGPathRef path = NULL;
     
+    _layerCloud.frame = _frame;
     if( path == NULL )
     {
         CGFloat w = _frame.size.width;
@@ -295,20 +452,11 @@
         [cloudPath addCurveToPoint: CGPointMake(0.80913 * w, 0.71086 * h) controlPoint1: CGPointMake(0.89772 * w, 0.69338 * h) controlPoint2: CGPointMake(0.85689 * w, 0.71086 * h)];
         [cloudPath addLineToPoint: CGPointMake(0.76976 * w, 0.71086 * h)];
         
+        
         path = cloudPath.CGPath;
     }
     
     return path;
-}
-
-- (CGRect)frame2
-{
-    CGFloat w = _frame.size.width;
-    CGFloat h = _frame.size.height;
-    
-    CGRect _frame2 = CGRectMake(floor(w * 0.30488 + 0.5),floor(h * 0.50311 + 0.5), floor(w * 0.71341 + 0.5) - floor(w * 0.30488 + 0.5), floor(h * 0.86335 + 0.5) - floor(h * 0.50311 + 0.5));
-    
-    return _frame2;
 }
 
 - (CGPathRef)circleArrowsPath
@@ -451,6 +599,99 @@
     }
     
     return path;
+}
+
+- (CGPathRef)littleArrowUpPath
+{
+    CGFloat w = _frame.size.width;
+    CGFloat h = _frame.size.height;
+    
+    UIBezierPath* arrUpPath = UIBezierPath.bezierPath;
+    [arrUpPath moveToPoint: CGPointMake( 0.45200 * w,  0.50074 * h)];
+    [arrUpPath addLineToPoint: CGPointMake( 0.45200 * w,  0.78513 * h)];
+    [arrUpPath moveToPoint: CGPointMake( 0.35745 * w,  0.59071 * h)];
+    [arrUpPath addLineToPoint: CGPointMake( 0.45200 * w,  0.49405 * h)];
+    [arrUpPath addLineToPoint: CGPointMake( 0.54655 * w,  0.59071 * h)];
+    
+    _layerLittleArrowUp.frame = _frame;
+    return arrUpPath.CGPath;
+}
+
+- (CGPathRef)littleArrowDownPath
+{
+    CGFloat w = _frame.size.width;
+    CGFloat h = _frame.size.height;
+    
+    UIBezierPath* arrDownPath = UIBezierPath.bezierPath;
+    [arrDownPath moveToPoint: CGPointMake( 0.61200 * w,  0.87026 * h)];
+    [arrDownPath addLineToPoint: CGPointMake( 0.61200 * w,  0.58587 * h)];
+    [arrDownPath moveToPoint: CGPointMake( 0.70655 * w,  0.78030 * h)];
+    [arrDownPath addLineToPoint: CGPointMake( 0.61200 * w,  0.87695 * h)];
+    [arrDownPath addLineToPoint: CGPointMake( 0.51745 * w,  0.78030 * h)];
+    
+    _layerLittleArrowDown.frame = _frame;
+    return arrDownPath.CGPath;
+}
+
+- (CGPathRef)cloudsPath
+{
+    CGFloat w = _frame.size.width;
+    CGFloat h = _frame.size.height;
+    
+    UIBezierPath* cloudsPath = UIBezierPath.bezierPath;
+    [cloudsPath moveToPoint: CGPointMake(0.44914 * w, 0.74233 * h)];
+    [cloudsPath addLineToPoint: CGPointMake(0.33726 * w, 0.74233 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.23247 * w, 0.69888 * h) controlPoint1: CGPointMake(0.29627 * w, 0.74233 * h) controlPoint2: CGPointMake(0.26144 * w, 0.72785 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.18901 * w, 0.59408 * h) controlPoint1: CGPointMake(0.20350 * w, 0.66990 * h) controlPoint2: CGPointMake(0.18901 * w, 0.63507 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.23247 * w, 0.48929 * h) controlPoint1: CGPointMake(0.18901 * w, 0.55309 * h) controlPoint2: CGPointMake(0.20350 * w, 0.51826 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.33726 * w, 0.44583 * h) controlPoint1: CGPointMake(0.26144 * w, 0.46032 * h) controlPoint2: CGPointMake(0.29627 * w, 0.44583 * h)];
+    [cloudsPath addLineToPoint: CGPointMake(0.33726 * w, 0.43566 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.39428 * w, 0.29851 * h) controlPoint1: CGPointMake(0.33757 * w, 0.38203 * h) controlPoint2: CGPointMake(0.35668 * w, 0.33642 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.53082 * w, 0.24149 * h) controlPoint1: CGPointMake(0.43219 * w, 0.26059 * h) controlPoint2: CGPointMake(0.47781 * w, 0.24149 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.64918 * w, 0.28032 * h) controlPoint1: CGPointMake(0.57551 * w, 0.24149 * h) controlPoint2: CGPointMake(0.61496 * w, 0.25443 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.71883 * w, 0.38234 * h) controlPoint1: CGPointMake(0.68339 * w, 0.30621 * h) controlPoint2: CGPointMake(0.70681 * w, 0.34042 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.78202 * w, 0.37155 * h) controlPoint1: CGPointMake(0.74041 * w, 0.37525 * h) controlPoint2: CGPointMake(0.76167 * w, 0.37155 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.91208 * w, 0.42580 * h) controlPoint1: CGPointMake(0.83256 * w, 0.37155 * h) controlPoint2: CGPointMake(0.87602 * w, 0.38974 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.96633 * w, 0.55679 * h) controlPoint1: CGPointMake(0.94814 * w, 0.46186 * h) controlPoint2: CGPointMake(0.96633 * w, 0.50562 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.91208 * w, 0.68778 * h) controlPoint1: CGPointMake(0.96633 * w, 0.60795 * h) controlPoint2: CGPointMake(0.94814 * w, 0.65172 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.78202 * w, 0.74202 * h) controlPoint1: CGPointMake(0.87602 * w, 0.72384 * h) controlPoint2: CGPointMake(0.83256 * w, 0.74202 * h)];
+    [cloudsPath addLineToPoint: CGPointMake(0.69078 * w, 0.74202 * h)];
+    [cloudsPath moveToPoint: CGPointMake(0.45932 * w, 0.22762 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.44082 * w, 0.21128 * h) controlPoint1: CGPointMake(0.45346 * w, 0.22176 * h) controlPoint2: CGPointMake(0.44760 * w, 0.21621 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.33665 * w, 0.17707 * h) controlPoint1: CGPointMake(0.41062 * w, 0.18847 * h) controlPoint2: CGPointMake(0.37579 * w, 0.17707 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.21644 * w, 0.22731 * h) controlPoint1: CGPointMake(0.28980 * w, 0.17707 * h) controlPoint2: CGPointMake(0.24973 * w, 0.19371 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.16620 * w, 0.34905 * h) controlPoint1: CGPointMake(0.18316 * w, 0.26090 * h) controlPoint2: CGPointMake(0.16620 * w, 0.30128 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.16929 * w, 0.35707 * h) controlPoint1: CGPointMake(0.16620 * w, 0.35306 * h) controlPoint2: CGPointMake(0.16744 * w, 0.35552 * h)];
+    [cloudsPath addLineToPoint: CGPointMake(0.16620 * w, 0.35707 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.07374 * w, 0.39528 * h) controlPoint1: CGPointMake(0.13014 * w, 0.35707 * h) controlPoint2: CGPointMake(0.09932 * w, 0.36970 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.03552 * w, 0.48775 * h) controlPoint1: CGPointMake(0.04816 * w, 0.42087 * h) controlPoint2: CGPointMake(0.03552 * w, 0.45169 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.07374 * w, 0.58021 * h) controlPoint1: CGPointMake(0.03552 * w, 0.52381 * h) controlPoint2: CGPointMake(0.04816 * w, 0.55463 * h)];
+    [cloudsPath addCurveToPoint: CGPointMake(0.16620 * w, 0.61843 * h) controlPoint1: CGPointMake(0.09932 * w, 0.60579 * h) controlPoint2: CGPointMake(0.12984 * w, 0.61843 * h)];
+    [cloudsPath addLineToPoint: CGPointMake(0.16929 * w, 0.61843 * h)];
+    
+    _layerClouds.frame = _frame;
+    return cloudsPath.CGPath;
+}
+
+- (CGPathRef)arrowsPath
+{
+    CGFloat w = _frame.size.width;
+    CGFloat h = _frame.size.height;
+
+    UIBezierPath* arrowsPath = UIBezierPath.bezierPath;
+    [arrowsPath moveToPoint: CGPointMake(0.62298 * w, 0.58977 * h)];
+    [arrowsPath addLineToPoint: CGPointMake(0.62298 * w, 0.77346 * h)];
+    [arrowsPath moveToPoint: CGPointMake(0.56103 * w, 0.64788 * h)];
+    [arrowsPath addLineToPoint: CGPointMake(0.62298 * w, 0.58545 * h)];
+    [arrowsPath addLineToPoint: CGPointMake(0.68493 * w, 0.64788 * h)];
+    [arrowsPath moveToPoint: CGPointMake(0.52065 * w, 0.86469 * h)];
+    [arrowsPath addLineToPoint: CGPointMake(0.52065 * w, 0.68100 * h)];
+    [arrowsPath moveToPoint: CGPointMake(0.58260 * w, 0.80658 * h)];
+    [arrowsPath addLineToPoint: CGPointMake(0.52065 * w, 0.86901 * h)];
+    [arrowsPath addLineToPoint: CGPointMake(0.45870 * w, 0.80658 * h)];
+    
+    _layerArrows.frame = _frame;
+    return arrowsPath.CGPath;
 }
 
 @end

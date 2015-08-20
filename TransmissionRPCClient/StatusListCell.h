@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IconCloud.h"
 
 #define CELL_ID_STATUSLIST      @"statusListCell"
 
@@ -14,6 +15,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *iconImg;
+@property (weak, nonatomic) IBOutlet IconCloud *icon;
 
 @end

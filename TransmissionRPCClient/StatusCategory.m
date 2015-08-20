@@ -65,12 +65,12 @@
     NSMutableArray *_items;
 }
 
-+ (instancetype)categoryWithTitle:(NSString *)title isAlwaysVisible:(BOOL)visible icon:(UIImage *)icon
++ (instancetype)categoryWithTitle:(NSString *)title isAlwaysVisible:(BOOL)visible iconType:(IconCloudType)iconType
 {
-    return [[StatusCategory alloc] initWithTitle:title isAlwaysVisible:visible icon:icon];
+    return [[StatusCategory alloc] initWithTitle:title isAlwaysVisible:visible iconType:iconType];
 }
 
-- (instancetype)initWithTitle:(NSString*)title isAlwaysVisible:(BOOL)alwaysVisible icon:(UIImage*)icon
+- (instancetype)initWithTitle:(NSString*)title isAlwaysVisible:(BOOL)alwaysVisible iconType:(IconCloudType)iconType
 {
     self = [super init];
     
@@ -79,7 +79,7 @@
         _title = title;
         _alwaysVisible = alwaysVisible;
         _items = [NSMutableArray array];
-        _iconImage = icon;
+        _iconType = iconType;
     }
     
     return self;

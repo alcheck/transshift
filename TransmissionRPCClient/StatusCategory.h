@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TRInfos.h"
+#import "IconCloud.h"
 
 /*!
      StatusCategoryItem holds an array of TRInfo objects and
@@ -59,7 +60,7 @@
 @interface StatusCategory : NSObject
 
 /// convinience init method
-+ (instancetype)categoryWithTitle:(NSString*)title isAlwaysVisible:(BOOL)visible icon:(UIImage*)icon;
++ (instancetype)categoryWithTitle:(NSString*)title isAlwaysVisible:(BOOL)visible iconType:(IconCloudType)iconType;
 
 /// add item to the items
 - (void)addItemWithTitle:(NSString*)title filter:(NSString*)filterString;
@@ -84,11 +85,11 @@
  */
 - (StatusCategoryItem*)categoryItemWithTitle:(NSString*)categoryTitle;
 
-@property(nonatomic) NSString  *title;          // title of category ("All", "Downloading", "Seeding", "Stopped" ...
-@property(nonatomic) NSString  *emptyTitle;     // title of category when there are no items in it
-@property(nonatomic) BOOL      alwaysVisible;   // visibility of this category (always visible or not)
-@property(nonatomic,readonly) int  count;           // count of items it category (including all subcategories)
-@property(nonatomic) UIImage   *iconImage;       // image of the category
+@property(nonatomic) NSString       *title;          // title of category ("All", "Downloading", "Seeding", "Stopped" ...
+@property(nonatomic) NSString       *emptyTitle;     // title of category when there are no items in it
+@property(nonatomic) BOOL           alwaysVisible;   // visibility of this category (always visible or not)
+@property(nonatomic,readonly) int   count;           // count of items it category (including all subcategories)
+@property(nonatomic) IconCloudType  iconType;       // image of the category
 
 @property(nonatomic,readonly) NSArray  *items;  // array of StatusCategoryItem
 

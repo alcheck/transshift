@@ -52,7 +52,7 @@ static NSString* TITLE_ERROR;
     StatusCategory *c;
     
     // Fill categories
-    c = [StatusCategory categoryWithTitle:TITLE_ALL isAlwaysVisible:YES icon:[UIImage iconAll]];
+    c = [StatusCategory categoryWithTitle:TITLE_ALL isAlwaysVisible:YES iconType:IconCloudTypeAll];
     [c addItemWithTitle:TITLE_DOWN  filter: TRINFOS_KEY_DOWNTORRENTS];
     [c addItemWithTitle:TITLE_SEED  filter: TRINFOS_KEY_SEEDTORRENTS];
     [c addItemWithTitle:TITLE_STOP  filter: TRINFOS_KEY_STOPTORRENTS];
@@ -61,35 +61,35 @@ static NSString* TITLE_ERROR;
     c.emptyTitle = NSLocalizedString(@"There are no torrents to show", @"Category ALL emtpy title");
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:TITLE_ACTIVE isAlwaysVisible:YES icon:[UIImage iconActive]];
+    c = [StatusCategory categoryWithTitle:TITLE_ACTIVE isAlwaysVisible:YES iconType:IconCloudTypeActive];
     [c addItemWithTitle:TITLE_ACTIVE filter:TRINFOS_KEY_ACTIVETORRENTS];
     c.emptyTitle = NSLocalizedString(@"There are no active torrents to show", @"Category empty title");
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:TITLE_DOWN isAlwaysVisible:NO icon:[UIImage iconDownload]];
+    c = [StatusCategory categoryWithTitle:TITLE_DOWN isAlwaysVisible:NO iconType:IconCloudTypeDownload];
     [c addItemWithTitle:TITLE_DOWN filter: TRINFOS_KEY_DOWNTORRENTS];
     c.emptyTitle = NSLocalizedString(@"There are no downloading torrents to show", @"Category empty title");
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:TITLE_SEED isAlwaysVisible:NO icon:[UIImage iconUpload]];
+    c = [StatusCategory categoryWithTitle:TITLE_SEED isAlwaysVisible:NO iconType:IconCloudTypeUpload];
     [c addItemWithTitle:TITLE_SEED filter: TRINFOS_KEY_SEEDTORRENTS];
     c.iconColor = [UIColor seedColor];
     c.emptyTitle = NSLocalizedString(@"There are no seeding torrents to show", @"Category empty title");
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:TITLE_STOP isAlwaysVisible:NO icon:[UIImage iconStop]];
+    c = [StatusCategory categoryWithTitle:TITLE_STOP isAlwaysVisible:NO iconType:IconCloudTypeStop];
     [c addItemWithTitle:TITLE_STOP filter: TRINFOS_KEY_STOPTORRENTS];
     c.iconColor = [UIColor stopColor];
     c.emptyTitle = NSLocalizedString(@"There are no stopped torrents to show", @"Category empty title");
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:TITLE_CHECK isAlwaysVisible:NO icon:[UIImage iconCheck]];
+    c = [StatusCategory categoryWithTitle:TITLE_CHECK isAlwaysVisible:NO iconType:IconCloudTypeCheck];
     [c addItemWithTitle:TITLE_CHECK filter: TRINFOS_KEY_CHECKTORRENTS];
     c.iconColor = [UIColor checkColor];
     c.emptyTitle = NSLocalizedString(@"There are no checking torrents to show", @"Category empty title");
     [_items addObject:c];
     
-    c = [StatusCategory categoryWithTitle:TITLE_ERROR isAlwaysVisible:NO icon:[UIImage iconError]];
+    c = [StatusCategory categoryWithTitle:TITLE_ERROR isAlwaysVisible:NO iconType:IconCloudTypeError];
     [c addItemWithTitle:TITLE_ERROR filter: TRINFOS_KEY_ERRORTORRENTS];
     c.iconColor = [UIColor errorColor];
     c.emptyTitle = NSLocalizedString(@"There are no error torrents to show", @"Category empty title");

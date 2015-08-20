@@ -19,6 +19,8 @@
 
 {
     NSMutableDictionary *_chache;
+    long long           _totalUploadRate;
+    long long           _totalDownloadRate;
 }
 
 + (TRInfos *)infosFromArrayOfJSON:(NSArray *)jsonArray
@@ -178,6 +180,11 @@
     return str;
 }
 
+- (long long)totalUploadRate
+{
+    return self.totalUploadRateString ? _totalUploadRate : 0;
+}
+
 #define CHACHE_KEY_TOTALDOWNSTR   @"totalDownRateStr"
 - (NSString *)totalDownloadRateString
 {
@@ -194,6 +201,11 @@
     _totalDownloadRate = c;
     
     return str;
+}
+
+- (long long)totalDownloadRate
+{
+    return self.totalDownloadRateString ? _totalDownloadRate : 0;
 }
 
 #define CHACHE_KEY_TOTALDOWNSIZESTR   @"totalDownSize"
