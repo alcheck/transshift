@@ -75,7 +75,15 @@
 
 - (void)stopCheckAnimation
 {
-    [_layerCircleArrows removeAllAnimations];
+    CAAnimation *anim = [_layerCircleArrows animationForKey:@"checkAnimation"];
+    if( anim )
+    {
+        CATransform3D mtx = [(CALayer*)(_layerCircleArrows.presentationLayer) transform];
+        _layerCircleArrows.transform = mtx;
+        [_layerCircleArrows removeAllAnimations];
+        
+        _layerCircleArrows.transform = CATransform3DIdentity;
+    }
 }
 
 - (BOOL)isCheckAnimationInProgress
@@ -122,7 +130,16 @@
 
 - (void)stopUploadAnimation
 {
+    CGPoint pOrigin = _layerArrowUp.position;
+    CALayer *pLayer = _layerArrowUp.presentationLayer;
+    
+    _layerArrowUp.position = pLayer.position;
+    _layerArrowUp.opacity = pLayer.opacity;
+    
     [_layerArrowUp removeAllAnimations];
+    
+    _layerArrowUp.position = pOrigin;
+    _layerArrowUp.opacity = 1.0;
 }
 
 - (void)playDownloadAnimation
@@ -159,7 +176,16 @@
 
 - (void)stopDownloadAnimation
 {
+    CGPoint pOrigin = _layerArrowDown.position;
+    CALayer *pLayer = _layerArrowDown.presentationLayer;
+    
+    _layerArrowDown.position = pLayer.position;
+    _layerArrowDown.opacity = pLayer.opacity;
+    
     [_layerArrowDown removeAllAnimations];
+    
+    _layerArrowDown.position = pOrigin;
+    _layerArrowDown.opacity = 1.0;
 }
 
 - (BOOL)isDownloadAnimationInProgress
@@ -193,8 +219,17 @@
 
 - (void)stopActivityAnimation
 {
+    CGPoint pOrigin = _layerLittleArrowDown.position;
+    CALayer *pLayer = _layerLittleArrowDown.presentationLayer;
+    _layerLittleArrowDown.position = pLayer.position;
     [_layerLittleArrowDown removeAllAnimations];
+    _layerLittleArrowDown.position = pOrigin;
+    
+    pOrigin = _layerLittleArrowUp.position;
+    pLayer = _layerLittleArrowUp.presentationLayer;
+    _layerLittleArrowUp.position = pLayer.position;
     [_layerLittleArrowUp removeAllAnimations];
+    _layerLittleArrowUp.position = pOrigin;
 }
 
 - (BOOL)isActivityAnimationInProgress
@@ -305,7 +340,6 @@
 - (void)setTintColor:(UIColor *)tintColor
 {
     [super setTintColor:tintColor];
-    
     [self setLayersColors];
 }
 
@@ -314,6 +348,7 @@
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     
+    /// STROKE
     _layerCloud.strokeColor =
     _layerArrowUp.strokeColor =
     _layerArrowDown.strokeColor =
@@ -326,6 +361,7 @@
     _layerArrows.strokeColor =
     self.tintColor.CGColor;
     
+    /// FILL
     _layerCrossButton.fillColor =
     _layerCloud.fillColor =
     _layerArrowUp.fillColor =
@@ -348,6 +384,7 @@
     
     _iconType = iconType;
     
+    /// REMOVE ALL ANIMATIONS
     [_layerArrowUp removeAllAnimations];
     [_layerArrowDown removeAllAnimations];
     [_layerCircleArrows removeAllAnimations];
@@ -357,6 +394,8 @@
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     
+    
+    /// HIDE LAYERS
     _layerCloud.hidden = NO;
     
     _layerCircleArrows.hidden =

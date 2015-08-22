@@ -69,6 +69,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     [self initIcons];
     [self loadConfig];
 }

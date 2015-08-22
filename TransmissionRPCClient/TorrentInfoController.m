@@ -237,6 +237,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     self.navigationController.toolbarHidden = YES;
 }
 
@@ -246,9 +247,10 @@
     [[UIApplication sharedApplication] openURL:_commentURL];
 }
 
+/// Handle file/trackers/peers rows touch
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if( !_delegate )
+    if( !_delegate || _torrentInfo == nil )
         return;
     
     // get the selected cell
@@ -278,6 +280,10 @@
 - (void)updateData:(TRInfo *)trInfo
 {
     [self.refreshControl endRefreshing];
+    
+    // FIX: no need to continue if there is no data model
+    if( trInfo == nil )
+        return;
 
     _torrentInfo = trInfo;
     

@@ -34,6 +34,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     _tableDays.dataSource = self;
     _tableDays.delegate = self;
     
@@ -69,6 +71,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     if( _dateBegin && _dateEnd )
     {
         _dateFrom.date = _dateBegin;

@@ -162,22 +162,36 @@
 
 - (BOOL)isDownloadAnimationInProgress
 {
-    return [_layerArrowDown animationForKey:@"downloadAnimation"];
+    return [_layerArrowDown animationForKey:@"downloadAnimation"] != nil;
 }
 
 - (BOOL)isUploadAnimationInProgress
 {
-    return [_layerArrowUp animationForKey:@"uploadAnimation"];
+    return [_layerArrowUp animationForKey:@"uploadAnimation"] != nil;
 }
 
 - (void)stopDownloadAnimation
 {
+    CGPoint pOrigin = _layerArrowDown.position;
+    CALayer *pLayer = _layerArrowDown.presentationLayer;
+    _layerArrowDown.position = pLayer.position;
+    _layerArrowDown.opacity = pLayer.opacity;
     [_layerArrowDown removeAllAnimations];
+    
+    _layerArrowDown.opacity = 1.0f;
+    _layerArrowDown.position = pOrigin;
 }
 
 - (void)stopUploadAnimation
 {
+    CGPoint pOrigin = _layerArrowUp.position;
+    CALayer *pLayer = _layerArrowUp.presentationLayer;
+    _layerArrowUp.position = pLayer.position;
+    _layerArrowUp.opacity = pLayer.opacity;
     [_layerArrowUp removeAllAnimations];
+    
+    _layerArrowUp.opacity = 1.0f;
+    _layerArrowUp.position = pOrigin;
 }
 
 - (CGPathRef)cloudPath

@@ -18,6 +18,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(updateData:) forControlEvents:UIControlEventValueChanged];
 }

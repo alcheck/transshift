@@ -289,6 +289,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    
     self.navigationController.toolbarHidden = YES;
 }
 
@@ -448,22 +450,45 @@
     }
     
     // update numbers
+    // animate icons
     for( int i = 0; i < _items.countOfVisible; i++ )
     {
         StatusCategory *c = [_items categoryAtIndex:i];
+        
         StatusListCell *cell = (StatusListCell*)c.cell;
         cell.numberLabel.text = [NSString stringWithFormat:@"%i", c.count];
         
         IconCloudType iconType = c.iconType;
         
+        /// if there are active torrents always animate icon
         if( iconType == IconCloudTypeActive )
             c.count > 0 ? [cell.icon playActivityAnimation] : [cell.icon stopActivityAnimation];
+        
+        /// if there are checking torrents always animate icon
         else if( iconType == IconCloudTypeCheck )
             c.count > 0 ? [cell.icon playCheckAnimation] : [cell.icon stopCheckAnimation];
+        
+        /// if there are some downloading torrents and rate more then 0 - animate icon
         else if( iconType == IconCloudTypeDownload )
             torrents.totalDownloadRate > 0 ? [cell.icon playDownloadAnimation] : [cell.icon stopDownloadAnimation ];
+        
+        /// if threre are some seeding torrents, animate icon only if some of these torents have upload rate > 0
         else if( iconType == IconCloudTypeUpload )
-            torrents.totalUploadRate > 0 ? [cell.icon playUploadAnimation] : [cell.icon stopUploadAnimation];
+        {
+            // FIX: Animate only if there are finished seeding torrents
+            BOOL bAnimate = NO;
+            for( TRInfo *i in torrents.seedingTorrents )
+            {
+                if( i.uploadRate > 0 )
+                {
+                    // no need to continue
+                    bAnimate = YES;
+                    break;
+                }
+            }
+            
+            bAnimate ? [cell.icon playUploadAnimation] : [cell.icon stopUploadAnimation];
+        }
     }
     
     _torrentController.items = _selectedCategory;

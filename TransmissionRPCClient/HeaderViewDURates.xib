@@ -22,23 +22,23 @@
                     <rect key="frame" x="40" y="0.0" width="240" height="44"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LYi-T3-AfO" userLabel="Icon Right" customClass="IconHalfCloud">
-                            <rect key="frame" x="126" y="24" width="20" height="20"/>
+                            <rect key="frame" x="128" y="26" width="18" height="18"/>
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="Ys0-og-fxD"/>
-                                <constraint firstAttribute="width" constant="20" id="rT9-Uf-58R"/>
+                                <constraint firstAttribute="height" constant="18" id="Ys0-og-fxD"/>
+                                <constraint firstAttribute="width" constant="18" id="rT9-Uf-58R"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dp1-vJ-K3T" userLabel="Icon Left" customClass="IconHalfCloud">
-                            <rect key="frame" x="0.0" y="24" width="20" height="20"/>
+                            <rect key="frame" x="0.0" y="26" width="18" height="18"/>
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="20" id="47p-hc-fxr"/>
-                                <constraint firstAttribute="height" constant="20" id="g1d-3P-CJ7"/>
+                                <constraint firstAttribute="width" constant="18" id="47p-hc-fxr"/>
+                                <constraint firstAttribute="height" constant="18" id="g1d-3P-CJ7"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999 bytes/s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckV-2h-uoL">
-                            <rect key="frame" x="32" y="26" width="89" height="17"/>
+                            <rect key="frame" x="30" y="27" width="89" height="17"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="89" id="aQV-V5-ygl"/>
                             </constraints>
@@ -47,7 +47,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999 bytes/s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOZ-nq-ZQc">
-                            <rect key="frame" x="158" y="27" width="89" height="17"/>
+                            <rect key="frame" x="158" y="28" width="89" height="17"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="89" id="Jya-bG-NCY"/>
                             </constraints>
