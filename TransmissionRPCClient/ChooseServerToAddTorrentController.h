@@ -24,6 +24,7 @@
 @property(nonatomic) BOOL                     startImmidiately;
 @property(nonatomic) FSDirectory              *files;
 @property(nonatomic) NSArray                  *announceList;
+@property(nonatomic) BOOL                     isMagnet;     // set Yes if title icon shoud be magnet
 
 - (void)setTorrentTitle:(NSString *)title andTorrentSize:(NSString *)size;
 

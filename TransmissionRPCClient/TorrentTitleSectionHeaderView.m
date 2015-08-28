@@ -13,7 +13,7 @@
 + (TorrentTitleSectionHeaderView *)titleSection
 {
     TorrentTitleSectionHeaderView *view = [[[NSBundle mainBundle] loadNibNamed:@"torrentTitleSectionHeader" owner:self options:nil] firstObject];
-    view.icon.image = [view.icon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    //view.icon.image = [view.icon.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     return view;
 }
 

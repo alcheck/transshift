@@ -192,7 +192,8 @@
             
             if( announceList && announceList.count > 0 )
                 chooseServerController.announceList = announceList;
-            
+
+            chooseServerController.isMagnet = (_magnetURLString != nil);
             if( !_magnetURLString )
                 [chooseServerController setTorrentTitle:trName andTorrentSize:trSize];
             else

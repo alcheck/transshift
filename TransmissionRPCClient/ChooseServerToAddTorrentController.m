@@ -93,6 +93,10 @@
     if ( !_torrentTitleSectionView )
     {
         _torrentTitleSectionView = [TorrentTitleSectionHeaderView titleSection];
+    
+        _torrentTitleSectionView.icon.image = _isMagnet ?
+        [[UIImage imageNamed:@"iconMagnetInOval36x36"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] :
+        [[UIImage imageNamed:@"iconTorrentInOval36x36"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     
     return _torrentTitleSectionView;
@@ -174,7 +178,6 @@
        
         cell.labelServerName.text = config.name;
         cell.labelServerUrl.text = config.urlString;
-        //cell.iconServer.image = [cell.iconServer.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         
         if( _selectedRow == indexPath.row )
             cell.accessoryType = UITableViewCellAccessoryCheckmark;

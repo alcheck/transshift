@@ -17,7 +17,6 @@
 		2C5810DC1B39A5E50069020D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810DB1B39A5E50069020D /* main.m */; };
 		2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810DE1B39A5E50069020D /* AppDelegate.m */; };
 		2C5810E11B39A5E50069020D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810E01B39A5E50069020D /* Images.xcassets */; };
-		2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810E21B39A5E50069020D /* LaunchScreen.xib */; };
 		2C5810F01B39A5E50069020D /* TransmissionRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */; };
 		2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810FA1B39A7B20069020D /* RPCServerConfig.m */; };
 		2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */; };
@@ -111,7 +110,6 @@
 		2C5810DD1B39A5E50069020D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C5810DE1B39A5E50069020D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2C5810E01B39A5E50069020D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		2C5810E31B39A5E50069020D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2C5810E91B39A5E50069020D /* TransmissionRPCClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransmissionRPCClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C5810EE1B39A5E50069020D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransmissionRPCClientTests.m; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 			isa = PBXGroup;
 			children = (
 				2CF9AF031B4D59B800D687C7 /* docIcons */,
-				2C5810E21B39A5E50069020D /* LaunchScreen.xib */,
 				2CFB9BA81B56FA1300D4A51C /* Localizable.strings */,
 				2C5810E01B39A5E50069020D /* Images.xcassets */,
 				2C5810DA1B39A5E50069020D /* Info.plist */,
@@ -304,8 +301,8 @@
 		2C5810FC1B39BBB50069020D /* UI Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2CF971AC1B790B02008EE25D /* GeoIP Controller */,
 				2CFB92CF1B56D25400C83354 /* controllers.storyboard */,
+				2CF971AC1B790B02008EE25D /* GeoIP Controller */,
 				2CF7300A1B657D2D007D5354 /* Schedule DayTime Controller */,
 				2CF72FFC1B65114A007D5354 /* Tracker list Controller */,
 				2CF690981B4BE0B400B2F830 /* Title Views */,
@@ -705,7 +702,6 @@
 			files = (
 				2CF6909F1B4BE49600B2F830 /* HeaderViewDURates.xib in Resources */,
 				2CFB9BA61B56FA1300D4A51C /* Localizable.strings in Resources */,
-				2C5810E41B39A5E50069020D /* LaunchScreen.xib in Resources */,
 				2CFB92CD1B56D25400C83354 /* controllers.storyboard in Resources */,
 				2C5810E11B39A5E50069020D /* Images.xcassets in Resources */,
 				2CF964F11B4D5DB9006D8C7E /* docIcon_320x320.png in Resources */,
@@ -826,14 +822,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2C5810E21B39A5E50069020D /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2C5810E31B39A5E50069020D /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 		2C9DDA091B77CA78008F16BF /* torrentTitleSectionHeader.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

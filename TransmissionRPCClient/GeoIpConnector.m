@@ -30,6 +30,25 @@
     return self;
 }
 
+- (BOOL)isGrayIP:(NSString *)ip
+{
+    NSArray *components = [ip componentsSeparatedByString:@"."];
+    if( components.count == 4 )
+    {
+        int firstNum = [components[0] intValue];
+        int secondNum = [components[1] intValue];
+        
+        if( firstNum == 127 ||
+            firstNum == 10 ||
+           (firstNum == 192 && secondNum == 168) ||
+           (firstNum == 169 && secondNum == 264) ||
+           (firstNum == 172 && (secondNum >=16 && secondNum <= 32) ) )
+            return YES;
+    }
+    
+    return NO;
+}
+
 - (void)googleReverseGeoCodingForLatitude:(double)lat Longtitude:(double)lng responseHandler:(void (^) (NSString *error, NSDictionary *dict))handler
 {
     NSString *urStr = [NSString stringWithFormat:@"%@?latlng=%f,%f&key=%@", GOOGLE_HOST, lat, lng, GOOGLE_KEY];
@@ -79,6 +98,13 @@
     if( cache[ip] )
     {
         handler( nil, cache[ip] );
+        return;
+    }
+    
+    if( [self isGrayIP:ip] )
+    {
+        NSString *errDesc = NSLocalizedString(@"This ip belongs to some private net and location can not be detected", nil);
+        handler( errDesc, nil );
         return;
     }
     
