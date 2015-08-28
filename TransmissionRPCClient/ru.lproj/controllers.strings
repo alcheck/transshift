@@ -90,10 +90,10 @@
 "FDU-hn-Dfw.segmentTitles[2]" = "Выс.";
 
 /* Class = "UITextField"; placeholder = "8090"; ObjectID = "FPd-0s-og7"; */
-"FPd-0s-og7.placeholder" = "8090";
+"FPd-0s-og7.placeholder" = "9091";
 
 /* Class = "UITextField"; text = "8090"; ObjectID = "FPd-0s-og7"; */
-"FPd-0s-og7.text" = "8090";
+"FPd-0s-og7.text" = "9091";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "Fql-nw-zPa"; */
 "Fql-nw-zPa.text" = "-";

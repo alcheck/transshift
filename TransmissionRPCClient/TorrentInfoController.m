@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *creatorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *uploadingTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *downloadingTimeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *hashLabel;
+@property (weak, nonatomic) IBOutlet UITextView *hashTextView;
 @property (weak, nonatomic) IBOutlet UIStepper *stepperQueuePosition;
 @property (weak, nonatomic) IBOutlet UILabel *queuePositionLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentBandwidthPriority;
@@ -177,6 +177,7 @@
     if( _delegate && [_delegate respondsToSelector:@selector(updateTorrentInfoWithId:)])
         [_delegate updateTorrentInfoWithId:_torrentId];
 }
+
 - (void)stopTorrent
 {
     if( _delegate && [_delegate respondsToSelector:@selector(stopTorrentWithId:)])
@@ -330,7 +331,7 @@
     self.creatorLabel.text = trInfo.creator;
     self.downloadingTimeLabel.text = trInfo.downloadingTimeString;
     self.uploadingTimeLabel.text = trInfo.seedingTimeString;
-    self.hashLabel.text = trInfo.hashString;
+    self.hashTextView.text = trInfo.hashString;
     
     NSError *error;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
