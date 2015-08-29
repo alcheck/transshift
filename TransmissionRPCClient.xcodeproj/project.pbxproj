@@ -46,6 +46,9 @@
 		2CF72FFF1B651180007D5354 /* TrackerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF72FFE1B651180007D5354 /* TrackerListController.m */; };
 		2CF730021B6514E5007D5354 /* TrackerInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF730011B6514E5007D5354 /* TrackerInfoCell.m */; };
 		2CF730091B657D25007D5354 /* ScheduleAltLimitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */; };
+		2CF7ADAE1B91B68100030220 /* ServerListFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF7ADAD1B91B68100030220 /* ServerListFooterView.xib */; };
+		2CF7ADB11B91BE7A00030220 /* AppLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7ADB01B91BE7A00030220 /* AppLogoView.m */; };
+		2CF7ADB41B91C8A000030220 /* ServerListFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7ADB31B91C8A000030220 /* ServerListFooterView.m */; };
 		2CF7D5141B42E78C006D01FD /* PeerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7D5131B42E78C006D01FD /* PeerListController.m */; };
 		2CF7F3211B6EBF2B007EEBF6 /* PeerStatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7F3201B6EBF2B007EEBF6 /* PeerStatCell.m */; };
 		2CF861441B77BD0D00E47F53 /* TorrentTitleSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF861431B77BD0D00E47F53 /* TorrentTitleSectionHeaderView.m */; };
@@ -164,6 +167,11 @@
 		2CF730071B657D25007D5354 /* ScheduleAltLimitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleAltLimitsController.h; sourceTree = "<group>"; };
 		2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleAltLimitsController.m; sourceTree = "<group>"; };
 		2CF743D81B7E05BC009D975D /* CheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckBox.h; sourceTree = "<group>"; };
+		2CF7ADAD1B91B68100030220 /* ServerListFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerListFooterView.xib; sourceTree = "<group>"; };
+		2CF7ADAF1B91BE7A00030220 /* AppLogoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppLogoView.h; sourceTree = "<group>"; };
+		2CF7ADB01B91BE7A00030220 /* AppLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLogoView.m; sourceTree = "<group>"; };
+		2CF7ADB21B91C8A000030220 /* ServerListFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListFooterView.h; sourceTree = "<group>"; };
+		2CF7ADB31B91C8A000030220 /* ServerListFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListFooterView.m; sourceTree = "<group>"; };
 		2CF7D5121B42E78C006D01FD /* PeerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerListController.h; sourceTree = "<group>"; };
 		2CF7D5131B42E78C006D01FD /* PeerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerListController.m; sourceTree = "<group>"; };
 		2CF7F31F1B6EBF2B007EEBF6 /* PeerStatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerStatCell.h; sourceTree = "<group>"; };
@@ -355,6 +363,7 @@
 		2C6D18B71B3B4706002666C6 /* Server list controller */ = {
 			isa = PBXGroup;
 			children = (
+				2CF7ADAC1B91B64D00030220 /* Footer logo view */,
 				2C6D18BB1B3B477E002666C6 /* ServerListItemCell.h */,
 				2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */,
 				2C6D18B41B3B446E002666C6 /* ServerListController.h */,
@@ -457,6 +466,18 @@
 				2CCA31591B7E11F200DCBA0D /* CheckBox.m */,
 			);
 			name = "CheckBox Control";
+			sourceTree = "<group>";
+		};
+		2CF7ADAC1B91B64D00030220 /* Footer logo view */ = {
+			isa = PBXGroup;
+			children = (
+				2CF7ADAD1B91B68100030220 /* ServerListFooterView.xib */,
+				2CF7ADAF1B91BE7A00030220 /* AppLogoView.h */,
+				2CF7ADB01B91BE7A00030220 /* AppLogoView.m */,
+				2CF7ADB21B91C8A000030220 /* ServerListFooterView.h */,
+				2CF7ADB31B91C8A000030220 /* ServerListFooterView.m */,
+			);
+			name = "Footer logo view";
 			sourceTree = "<group>";
 		};
 		2CF7D5111B42E768006D01FD /* Peers Controller */ = {
@@ -714,6 +735,7 @@
 				2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */,
 				2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */,
 				2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */,
+				2CF7ADAE1B91B68100030220 /* ServerListFooterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,6 +782,7 @@
 				2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */,
 				2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */,
 				2CF690A21B4BE74A00B2F830 /* HeaderViewDURates.m in Sources */,
+				2CF7ADB41B91C8A000030220 /* ServerListFooterView.m in Sources */,
 				2C039F3B1B52D33C00233534 /* StatusCategory.m in Sources */,
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
 				2CF8EF781B61736100EB8D5D /* TrackerListCell.m in Sources */,
@@ -770,6 +793,7 @@
 				2C6668341B5BB1D3004B6FA4 /* Bencoding.m in Sources */,
 				2CF8F3241B876A4A00982AA2 /* IconCloud.m in Sources */,
 				2CF730091B657D25007D5354 /* ScheduleAltLimitsController.m in Sources */,
+				2CF7ADB11B91BE7A00030220 /* AppLogoView.m in Sources */,
 				2C0E34A81B4006EB004303AB /* TRInfos.m in Sources */,
 				2CF8EF7B1B6179AE00EB8D5D /* TrackerStat.m in Sources */,
 				2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */,

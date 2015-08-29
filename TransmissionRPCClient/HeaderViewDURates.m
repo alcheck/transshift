@@ -31,9 +31,6 @@
     NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"HeaderViewDURates" owner:self options:nil];
     HeaderViewDURates *view = [views firstObject];
     
-    //view.iconDL.image = [view.iconDL.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    //view.iconUL.image = [view.iconUL.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    
     view.iconDL.iconType = IconHalfCloudTypeDownload;
     view.iconUL.iconType = IconHalfCloudTypeUpload;
     
@@ -44,8 +41,6 @@
     view.iconDown = [[UIImage imageNamed:@"iconTurtleDownload20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     view.iconUpDown = [[UIImage imageNamed:@"iconTurtleUpDown20x20"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
-    //view.iconDL.tintColor = view.labelDL.textColor;
-    //view.iconUL.tintColor = view.labelUL.textColor;
     view.iconTurtle.tintColor = view.tintColor;
     
     view.iconTurtle.hidden = YES;

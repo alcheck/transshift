@@ -96,6 +96,9 @@
     
     if( footerInfoMessage )
     {
+        NSRange newLineRange = [footerInfoMessage rangeOfString:@"\n"];
+        _footerLabel.numberOfLines = newLineRange.length == 0 ? 1 : 0;
+
         _footerLabel.text = footerInfoMessage;
         [_footerLabel sizeToFit];
         CGRect r = self.tableView.bounds;
@@ -122,6 +125,8 @@
     
     if( headerInfoMessage )
     {
+        NSRange newLineRange = [headerInfoMessage rangeOfString:@"\n"];
+        _headerLabel.numberOfLines = newLineRange.length == 0 ? 1 : 0;
         _headerLabel.text = headerInfoMessage;
         [_headerLabel sizeToFit];
         

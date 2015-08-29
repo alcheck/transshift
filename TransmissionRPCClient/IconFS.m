@@ -136,6 +136,7 @@
     _layerCheck.hidden = YES;
     _layerFolderOut.hidden = YES;
     _layerFolderCheck.hidden = YES;
+    
     _layerIn.strokeEnd = 1.0;
     
     _layerIn.transform = _layerOut.transform = _layerOval.transform = _layerCheck.transform = _layerFolderCheck.transform = _layerFolderOut.transform = CATransform3DIdentity;
@@ -145,7 +146,9 @@
         case IconFSTypeFile:
             _layerIn.hidden = NO;
             _layerOut.hidden = NO;
+            
             _layerCheck.strokeEnd = 0;
+            _layerCheck.strokeStart = 0;
             break;
             
         case IconFSTypeFileFinished:
@@ -153,6 +156,7 @@
             _layerOut.hidden = NO;
             _layerOval.hidden = NO;
             _layerCheck.hidden = NO;
+            
             _layerCheck.strokeEnd = 1.0;
             break;
             
@@ -164,6 +168,7 @@
        case IconFSTypeFolderOpened:
             _layerFolderOut.hidden = NO;
             _layerFolderCheck.hidden = NO;
+            
             _layerFolderCheck.transform = CATransform3DMakeRotation(90 * M_PI/180.0, 0, 0, 1);
             break;
             
