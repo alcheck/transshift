@@ -352,7 +352,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minimumValue="3" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="dnP-eN-o3r">
+                                                <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minimumValue="3" maximumValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="dnP-eN-o3r">
                                                     <rect key="frame" x="498" y="7" width="94" height="29"/>
                                                     <connections>
                                                         <action selector="requestTimeoutValueChagned:" destination="dhR-eQ-deP" eventType="valueChanged" id="XZA-jp-NNP"/>

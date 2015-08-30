@@ -9,7 +9,7 @@
 #import "ServerListFooterView.h"
 
 static NSString *const kViewName = @"ServerListFooterView";
-static NSString *const kAppURL = @"http://www.google.com";
+static NSString *const kAppURL = @"http://transshift.16mb.com";
 
 @implementation ServerListFooterView
 

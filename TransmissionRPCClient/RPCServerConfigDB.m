@@ -69,7 +69,7 @@
     _configData = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     if (!_configData)
     {
-        NSLog( @"RPCServerConfigDB: Can't load db at path: %@", filePath );
+        //NSLog( @"RPCServerConfigDB: Can't load db at path: %@", filePath );
         _configData = [NSMutableArray array];
     }
 }
@@ -79,7 +79,7 @@
     NSString *filePath = self.dbFileName;
     if( ![NSKeyedArchiver archiveRootObject:_configData toFile:filePath] )
     {
-        NSLog( @"RPCServerConfigDB: Can't save db at path: %@", filePath );
+        //NSLog( @"RPCServerConfigDB: Can't save db at path: %@", filePath );
     }
 }
 
