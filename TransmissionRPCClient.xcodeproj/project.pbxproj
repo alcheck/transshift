@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2C039F3B1B52D33C00233534 /* StatusCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C039F3A1B52D33C00233534 /* StatusCategory.m */; };
 		2C039F3E1B52D3DD00233534 /* StatusCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C039F3D1B52D3DD00233534 /* StatusCategories.m */; };
+		2C0688731B948C32008B69EE /* MagnetURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0688721B948C32008B69EE /* MagnetURL.m */; };
+		2C0688761B948D59008B69EE /* TorrentFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0688751B948D59008B69EE /* TorrentFile.m */; };
 		2C0A2AA31B469D5D0042CAA6 /* FileListFSCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A2AA21B469D5D0042CAA6 /* FileListFSCell.m */; };
 		2C0A2AA61B469EC00042CAA6 /* NSObject+DataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A2AA51B469EC00042CAA6 /* NSObject+DataObject.m */; };
 		2C0E34A51B400134004303AB /* TRInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E34A41B400134004303AB /* TRInfo.m */; };
@@ -95,6 +97,10 @@
 		2C039F3A1B52D33C00233534 /* StatusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCategory.m; sourceTree = "<group>"; };
 		2C039F3C1B52D3DD00233534 /* StatusCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCategories.h; sourceTree = "<group>"; };
 		2C039F3D1B52D3DD00233534 /* StatusCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCategories.m; sourceTree = "<group>"; };
+		2C0688711B948C32008B69EE /* MagnetURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagnetURL.h; sourceTree = "<group>"; };
+		2C0688721B948C32008B69EE /* MagnetURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagnetURL.m; sourceTree = "<group>"; };
+		2C0688741B948D59008B69EE /* TorrentFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentFile.h; sourceTree = "<group>"; };
+		2C0688751B948D59008B69EE /* TorrentFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentFile.m; sourceTree = "<group>"; };
 		2C0A2AA11B469D5D0042CAA6 /* FileListFSCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListFSCell.h; sourceTree = "<group>"; };
 		2C0A2AA21B469D5D0042CAA6 /* FileListFSCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileListFSCell.m; sourceTree = "<group>"; };
 		2C0A2AA41B469E910042CAA6 /* NSObject+DataObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+DataObject.h"; sourceTree = "<group>"; };
@@ -553,6 +559,10 @@
 				2CF8EF7A1B6179AE00EB8D5D /* TrackerStat.m */,
 				2CF971A91B790379008EE25D /* GeoIpConnector.h */,
 				2CF971AA1B790379008EE25D /* GeoIpConnector.m */,
+				2C0688711B948C32008B69EE /* MagnetURL.h */,
+				2C0688721B948C32008B69EE /* MagnetURL.m */,
+				2C0688741B948D59008B69EE /* TorrentFile.h */,
+				2C0688751B948D59008B69EE /* TorrentFile.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -813,7 +823,9 @@
 				2CE400B81B49927C00BA32C2 /* ChooseServerCell.m in Sources */,
 				2CE400BE1B4992A300BA32C2 /* StartImmidiatelyCell.m in Sources */,
 				2CF72FFF1B651180007D5354 /* TrackerListController.m in Sources */,
+				2C0688761B948D59008B69EE /* TorrentFile.m in Sources */,
 				2CE6B4641B495EC700157841 /* GlobalConsts.m in Sources */,
+				2C0688731B948C32008B69EE /* MagnetURL.m in Sources */,
 				2CFBE1CC1B458F6100B15DEE /* FSDirectory.m in Sources */,
 				2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */,
 				2CFBA7991B5017DA00202281 /* RateLimitTable.m in Sources */,

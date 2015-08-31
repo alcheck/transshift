@@ -9,18 +9,18 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TorrentTitleSectionHeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTorrentInOval36x36" translatesAutoresizingMaskIntoConstraints="NO" id="Vka-KW-dfe">
-                    <rect key="frame" x="8" y="17" width="36" height="36"/>
+                    <rect key="frame" x="8" y="27" width="36" height="36"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="0Cg-tU-ui9"/>
                         <constraint firstAttribute="width" constant="36" id="7qs-jh-fhN"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="528" translatesAutoresizingMaskIntoConstraints="NO" id="Ixe-LF-PzB">
-                    <rect key="frame" x="52" y="0.0" width="528" height="70"/>
+                    <rect key="frame" x="52" y="0.0" width="528" height="90"/>
                     <attributedString key="attributedText">
                         <fragment content="Label">
                             <attributes>
@@ -48,7 +48,7 @@
                 <outlet property="icon" destination="Vka-KW-dfe" id="CPv-uI-bAA"/>
                 <outlet property="labelTitle" destination="Ixe-LF-PzB" id="qW0-Sd-Pdl"/>
             </connections>
-            <point key="canvasLocation" x="541" y="160.5"/>
+            <point key="canvasLocation" x="541" y="170"/>
         </view>
     </objects>
     <resources>

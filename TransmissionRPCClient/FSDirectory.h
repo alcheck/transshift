@@ -10,7 +10,7 @@
 
 #define FSITEM_INDEXNOTFOUND    -1
 
-@class TRFileInfo;
+//@class TRFileInfo;
 
 @interface FSItem: NSObject
 

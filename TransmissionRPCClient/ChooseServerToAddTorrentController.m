@@ -68,13 +68,28 @@
     
     NSString *sizeRightStr = NSLocalizedString(@"Torrent size: ", @"");
     
+    NSString *helpStr = @"";
+    
+    if( _isMagnet )
+    {
+        helpStr = NSLocalizedString(@"MagnetHelpString", nil);
+    }
+    
     NSMutableAttributedString *s = [[NSMutableAttributedString alloc] initWithString:
-                             [NSString stringWithFormat:@"%@\n%@%@", titleStr, sizeRightStr, sizeStr]
+                             [NSString stringWithFormat:@"%@\n%@%@%@", titleStr, sizeRightStr, sizeStr, helpStr]
                               attributes:@{ NSParagraphStyleAttributeName : alignStyle }];
     
     NSRange titleRange = NSMakeRange(0, titleStr.length );
     NSRange sizeRightRange = NSMakeRange( titleStr.length + 1, sizeRightStr.length );
     NSRange sizeRange = NSMakeRange( titleStr.length + sizeRightStr.length + 1, sizeStr.length );
+    
+    if( _isMagnet )
+    {
+        NSRange helpRange = NSMakeRange( sizeRange.location + sizeRange.length, helpStr.length );
+        
+        [s addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:helpRange];
+        [s addAttribute:NSForegroundColorAttributeName value:[UIColor darkGrayColor] range:helpRange];
+    }
     
     [s addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:14.0] range:titleRange ];
     [s addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13.0] range:sizeRightRange ];

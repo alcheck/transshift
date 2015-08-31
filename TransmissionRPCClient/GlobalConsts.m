@@ -7,6 +7,7 @@
 //
 
 #import "GlobalConsts.h"
+//#include <sys/utsname.h>
 
 @implementation UIColor (transmissionColors)
 
@@ -205,4 +206,21 @@ NSString* formatHoursMinutes(NSTimeInterval seconds)
 }
 
 
+BOOL isIPhone6Plus()
+{
+    //struct utsname systemInfo;
+    //uname(&systemInfo);
+    
+    //if( strcmp(systemInfo.machine, "iPhone7,1") == 0 )
+    //NSLog(@"%s", systemInfo.machine );
+    
+    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&
+       [[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] )
+    {
+        CGFloat ratio = [UIScreen mainScreen].nativeBounds.size.height / [UIScreen mainScreen].nativeScale;
+        return ratio >= 736.0f;;
+    }
+    
+    return NO;
+}
 

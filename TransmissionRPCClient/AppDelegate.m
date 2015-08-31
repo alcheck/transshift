@@ -16,7 +16,9 @@
 #import "InfoMessage.h"
 #import "FSDirectory.h"
 #import "Bencoding.h"
-#import "TRFileInfo.h"
+//#import "TRFileInfo.h"
+#import "MagnetURL.h"
+#import "TorrentFile.h"
 
 @interface AppDelegate() <RPCConnectorDelegate>
 
@@ -28,11 +30,15 @@
 
 {
     ServerListController *_serverList;
-    NSData *_torrentFileDataToAdd;
+    
+    //NSData *_torrentFileDataToAdd;
+    //NSString *_magnetURLString;
+    
+    TorrentFile          *_torrentFile;
+    MagnetURL            *_magnetURL;
+    
     UINavigationController *_chooseNav;
     RPCServerConfig *_selectedConfig;
-    
-    NSString *_magnetURLString;
     
     NSArray *_unwantedFilesIdx;
     
@@ -57,7 +63,8 @@
     UIViewController *rootController = leftNav;
     
     // create split view controller on iPad
-    if( [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
+    // TODO: also need to create SplitView on iPhone 6 Plus
+    if( [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad || isIPhone6Plus() )
     {
         TorrentListController *trc = instantiateController( CONTROLLER_ID_TORRENTLIST );
         trc.infoMessage = NSLocalizedString(@"There is no selected server. Select server from list of servers.", @"");
@@ -91,113 +98,42 @@
     if( url )
     {
         // FIX: when user wants to load file serveral times in a row
+        // or when user taps on torrent file in safari serveral times in a row
         if( _chooseNav )
-        {
             [_chooseNav dismissViewControllerAnimated:NO completion:nil];
-        }
         
-         //NSLog(@"URL Scheme: %@, desc:%@", url.scheme, url );
-        _torrentFileDataToAdd = nil;
-        _magnetURLString = nil;
+        _torrentFile = nil;
+        _magnetURL = nil;
         
-        NSString *trName = nil;
-        NSString *trSize = nil;
-        FSDirectory *fs = nil;
-        NSMutableArray *announceList = nil;
-        
-        if( ![url.scheme isEqualToString:@"magnet"] )
+        if( [MagnetURL isMagnetURL:url] )
         {
-            _torrentFileDataToAdd = [NSData dataWithContentsOfURL:url];
-            
-            NSDictionary *trData = decodeObjectFromBencodedData( _torrentFileDataToAdd );
-            
-            if (trData)
-            {
-                // get name
-                trName = trData[@"info"][@"name"];
-                
-                long long c = 0;
-                int idx = 0;
-                
-                if( trData[@"info"][@"length"] )
-                {
-                    c = [trData[@"info"][@"length"] longLongValue];
-                }
-                else
-                {
-                    fs = [FSDirectory directory];
-                    
-                    // ****
-                    // CFTimeInterval tmStart = CACurrentMediaTime();
-                    // ****
-
-                    for( NSDictionary *fileDesc in trData[@"info"][@"files"] )
-                    {
-                        long long fileLength = [fileDesc[@"length"] longLongValue];
-                        c += fileLength;
-                        
-                        FSItem *item = [fs addPathComonents:fileDesc[@"path"] andRpcIndex:idx];
-                        
-                        item.length = fileLength;
-                        item.lengthString = formatByteCount(fileLength);
-                        item.wanted = YES;
-                        item.downloadProgress = 0.001;
-                        item.downloadProgressString = @"";
-                        
-                        idx++;
-                    }
-                    
-                    // ***
-                    // CFTimeInterval tmEnd = CACurrentMediaTime();
-                    // NSLog( @"Total run time: %g s", tmEnd - tmStart );
-                    // ***
-                    
-                    [fs sort];
-                }
-                trSize = formatByteCount(c);
-                
-                // get the announce list
-                if( trData[@"announce-list"] )
-                {
-                    announceList = [NSMutableArray array];
-                    for( NSArray *arr in trData[@"announce-list"] )
-                    {
-                        NSURL *url = [NSURL URLWithString:arr[0]];
-                        if (url)
-                            [announceList addObject:url.host];
-                    }
-                }
-                // some fix: if threre is only one tracker
-                else if( trData[@"announce"] )
-                {
-                    announceList = [NSMutableArray array];
-                    NSURL *url = [NSURL URLWithString:trData[@"announce"]];
-                    [announceList addObject:url.host];
-                }
-            }
+            _magnetURL = [MagnetURL magnetWithURL:url];
         }
         else
         {
-            _magnetURLString = url.description;
+            _torrentFile = [TorrentFile torrentFileWithURL:url];
         }
         
-        if( [RPCServerConfigDB sharedDB].db.count > 0 &&
-           ( _torrentFileDataToAdd || _magnetURLString )  )
+        if( [RPCServerConfigDB sharedDB].db.count > 0 && ( _torrentFile || _magnetURL ) )
         {
             // presenting view controller to choose from several remote servers
             ChooseServerToAddTorrentController *chooseServerController = instantiateController( CONTROLLER_ID_CHOOSESERVER );
             
-            if( fs )
-                chooseServerController.files = fs;
-            
-            if( announceList && announceList.count > 0 )
-                chooseServerController.announceList = announceList;
 
-            chooseServerController.isMagnet = (_magnetURLString != nil);
-            if( !_magnetURLString )
-                [chooseServerController setTorrentTitle:trName andTorrentSize:trSize];
+            chooseServerController.isMagnet = ( _magnetURL != nil );
+            
+            if( _magnetURL )
+            {
+                [chooseServerController setTorrentTitle:_magnetURL.name andTorrentSize:_magnetURL.torrentSizeString];
+                chooseServerController.announceList = _magnetURL.trackerList;
+            }
             else
-                [chooseServerController setTorrentTitle:_magnetURLString andTorrentSize:@"?"];
+            {
+                [chooseServerController setTorrentTitle:_torrentFile.name andTorrentSize:_torrentFile.torrentSizeString];
+                
+                chooseServerController.files = _torrentFile.fileList;
+                chooseServerController.announceList = _torrentFile.trackerList;
+            }
             
             UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"")
                                                                            style:UIBarButtonItemStylePlain
@@ -242,16 +178,23 @@
 {
     RPCConnector *connector = [[RPCConnector alloc] initWithConfig:config andDelegate:self];
     
-    if( _torrentFileDataToAdd )
+    if( _torrentFile )
     {
         if( _unwantedFilesIdx )
-            [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow indexesUnwanted:_unwantedFilesIdx];
+            [connector addTorrentWithData:_torrentFile.torrentData
+                                 priority:priority
+                         startImmidiately:startNow
+                          indexesUnwanted:_unwantedFilesIdx];
         else
-            [connector addTorrentWithData:_torrentFileDataToAdd priority:priority startImmidiately:startNow];
+            [connector addTorrentWithData:_torrentFile.torrentData
+                                 priority:priority
+                         startImmidiately:startNow];
     }
-    else if( _magnetURLString )
+    else if( _magnetURL )
     {
-        [connector addTorrentWithMagnet:_magnetURLString priority:priority startImmidiately:startNow];
+        [connector addTorrentWithMagnet:_magnetURL.urlString
+                               priority:priority
+                       startImmidiately:startNow];
     }
 }
 
@@ -262,25 +205,6 @@
          fromView:self.window.rootViewController.view];
 }
 
-// error handler
-- (void)connector:(RPCConnector *)cn complitedRequestName:(NSString *)requestName withError:(NSString *)errorMessage
-{
-    if( !_isBackgroundFetching )
-    {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Can't add torrent", @"Alert view title")
-                                                        message:[NSString stringWithFormat:@"%@", errorMessage]
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK", @"")
-                                              otherButtonTitles:nil, nil];
-        [alert show];
-    }
-    else
-    {
-        //NSLog(@"BackgroundFetch: connector request error, %@", errorMessage);
-        _bgComplitionHandler(UIBackgroundFetchResultFailed);
-    }
-}
 
 - (void)addTorrentToSelectedServer
 {
@@ -313,6 +237,27 @@
     // Save settings changes
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
+}
+
+
+// error handler
+- (void)connector:(RPCConnector *)cn complitedRequestName:(NSString *)requestName withError:(NSString *)errorMessage
+{
+    if( !_isBackgroundFetching )
+    {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Can't add torrent", @"Alert view title")
+                                                        message:[NSString stringWithFormat:@"%@", errorMessage]
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", @"")
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else
+    {
+        //NSLog(@"BackgroundFetch: connector request error, %@", errorMessage);
+        _bgComplitionHandler( UIBackgroundFetchResultFailed );
+    }
 }
 
 - (void)gotAllTorrents:(TRInfos *)trInfos

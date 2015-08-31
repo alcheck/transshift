@@ -26,6 +26,10 @@
 #define USERDEFAULTS_BGFETCH_KEY_RPCCONFG           @"bgCurrentRPCConfig"
 #define USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS     @"bgDownloadingTorrentIds"
 
+/// returns YES if this is iPhone 6 PLUS on iOS8
+BOOL isIPhone6Plus();
+
+
 /*!
     Retruns the new instance of UIViewController
     from global storyboard
