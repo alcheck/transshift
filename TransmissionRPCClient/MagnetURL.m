@@ -11,7 +11,15 @@
 
 #define TRSIZE_NOT_DEFINED -1
 
-static NSString * const kMagnetUrlSchemeName = @"magnet";
+static NSString * const kMagnetUrlSchemeName                            = @"magnet";
+static NSString * const kMagnetParamsSeparator                          = @"&";
+static NSString * const kMagnetContentSeparator                         = @"?";
+static NSString * const kMagnetParamPrefixTorrentSize                   = @"xl=";
+static NSString * const kMagnetParamPrefixTorrentSizeString             = @"dl=";
+static NSString * const kMagnetParamPrefixTorrentName                   = @"dn=";
+static NSString * const kMagnetParamPrefixTorrentTracker                = @"tr=";
+static NSString * const kMagnetParamPrefixTorrentHashUrn                = @"xt=";
+static NSString * const kMagnetParamPrefixTorrentHashParamSeparator     = @":";
 
 @implementation MagnetURL
 
@@ -80,13 +88,13 @@ static NSString * const kMagnetUrlSchemeName = @"magnet";
 {
     _size = TRSIZE_NOT_DEFINED;
     
-    NSArray *comps = [_str componentsSeparatedByString:@"?"];
+    NSArray *comps = [_str componentsSeparatedByString:kMagnetContentSeparator];
     
     if( comps.count > 0 )
     {
         NSString * s = [comps lastObject];
         
-        comps = [s componentsSeparatedByString:@"&"];
+        comps = [s componentsSeparatedByString:kMagnetParamsSeparator];
 
         _trackers = nil;
         
@@ -104,25 +112,25 @@ static NSString * const kMagnetUrlSchemeName = @"magnet";
 
 - (void)parseString:(NSString *)s
 {
-    if( [s hasPrefix:@"xl="] )
+    if( [s hasPrefix:kMagnetParamPrefixTorrentSize] )
     {
         _size = [self getLongFromComponent:s];
     }
-    else if( [s hasPrefix:@"dl="] )
+    else if( [s hasPrefix:kMagnetParamPrefixTorrentSizeString] )
     {
         _size = [[self getStringFromComponent:s] longLongValue];
     }
-    else if( [s hasPrefix:@"xt="] )
+    else if( [s hasPrefix:kMagnetParamPrefixTorrentHashUrn] )
     {
         NSString *stmp = [self getStringFromComponent:s];
-        NSArray *ctmp = [stmp componentsSeparatedByString:@":"];
+        NSArray *ctmp = [stmp componentsSeparatedByString:kMagnetParamPrefixTorrentHashParamSeparator];
         _hash = [ctmp lastObject];
     }
-    else if( [s hasPrefix:@"dn="] )
+    else if( [s hasPrefix:kMagnetParamPrefixTorrentName] )
     {
         _name = [self getUrlEncodedStringFromComponent:s];
     }
-    else if( [s hasPrefix:@"tr="] )
+    else if( [s hasPrefix:kMagnetParamPrefixTorrentTracker] )
     {
         if( _trackers == nil )
             _trackers = [NSMutableArray array];

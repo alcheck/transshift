@@ -37,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *textSeedRatioLimit;
 @property (weak, nonatomic) IBOutlet UISwitch *switchSeedIdleLimit;
 @property (weak, nonatomic) IBOutlet UITextField *textSeedIdleLimit;
+@property (weak, nonatomic) IBOutlet UILabel *sizeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *upDownSpeedLabel;
 
 @property(nonatomic) BOOL enableControls;
 
@@ -320,8 +322,16 @@
     self.progressLabel.text =  trInfo.isChecking ? trInfo.recheckProgressString : trInfo.percentsDoneString;
     
     self.haveLabel.text = trInfo.haveValidString;
+    
+    self.sizeLabel.text = [NSString stringWithFormat: NSLocalizedString(@"TorrentInfoSizeFormat", nil),
+                           trInfo.totalSizeString, trInfo.piecesCount, trInfo.pieceSizeString];
+    
     self.downloadedLabel.text = trInfo.downloadedEverString;
     self.uploadedLabel.text = trInfo.uploadedEverString;
+    
+    self.upDownSpeedLabel.text = [NSString stringWithFormat:NSLocalizedString(@"TorrentUpDownSpeedFormat", nil),
+                                  trInfo.uploadRateString, trInfo.downloadRateString ];
+    
     self.ratioLabel.text = [NSString stringWithFormat:@"%02.2f",trInfo.uploadRatio];
     
     self.dateAddedLabel.text = trInfo.dateAddedString;

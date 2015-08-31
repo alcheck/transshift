@@ -554,3 +554,8 @@
 /* Class = "UILabel"; text = "City:"; ObjectID = "His-zb-PHp"; */
 "His-zb-PHp.text" = "Город:";
 
+/* Class = "UILabel"; text = "Size"; ObjectID = "Hvt-oO-1cj"; */
+"Hvt-oO-1cj.text" = "Размер";
+
+/* Class = "UILabel"; text = "Up/Down speed"; ObjectID = "5s1-8Z-F5c"; */
+"5s1-8Z-F5c.text" = "Скорость Отд./Загруз.";
