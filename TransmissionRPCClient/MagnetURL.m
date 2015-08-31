@@ -35,6 +35,11 @@ static NSString * const kMagnetUrlSchemeName = @"magnet";
     return [url.scheme isEqualToString:kMagnetUrlSchemeName];
 }
 
+- (NSString *)urlString
+{
+    return _str;
+}
+
 - (long long)getLongFromComponent:(NSString *)component
 {
     NSArray *comps = [component componentsSeparatedByString:@"="];
