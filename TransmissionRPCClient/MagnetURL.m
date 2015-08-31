@@ -79,40 +79,57 @@ static NSString * const kMagnetUrlSchemeName = @"magnet";
 - (void)parseMagnetString
 {
     _size = TRSIZE_NOT_DEFINED;
-    NSArray *comps = [_str componentsSeparatedByString:@"&"];
+    
+    NSArray *comps = [_str componentsSeparatedByString:@"?"];
     
     if( comps.count > 0 )
     {
+        NSString * s = [comps lastObject];
+        
+        comps = [s componentsSeparatedByString:@"&"];
+
         _trackers = nil;
         
-        for( NSString *s in comps )
+        if( comps.count > 0 )
         {
-            if( [s hasPrefix:@"xl="] )
-            {
-                _size = [self getLongFromComponent:s];
-            }
-            else if( [s hasPrefix:@"dl="] )
-            {
-                _size = [[self getStringFromComponent:s] longLongValue];
-            }
-            else if( [s hasPrefix:@"xt="] )
-            {
-                _hash = [self getStringFromComponent:s];
-            }
-            else if( [s hasPrefix:@"dn="] )
-            {
-                _name = [self getUrlEncodedStringFromComponent:s];
-            }
-            else if( [s hasPrefix:@"tr="] )
-            {
-                if( _trackers == nil )
-                    _trackers = [NSMutableArray array];
-                
-                [_trackers addObject:[self getStringFromComponent:s] ];
-            }
+            for( NSString *s in comps )
+                [self parseString:s];
+        }
+        else
+        {
+            [self parseString:s];
         }
     }
-}
+ }
+
+- (void)parseString:(NSString *)s
+{
+    if( [s hasPrefix:@"xl="] )
+    {
+        _size = [self getLongFromComponent:s];
+    }
+    else if( [s hasPrefix:@"dl="] )
+    {
+        _size = [[self getStringFromComponent:s] longLongValue];
+    }
+    else if( [s hasPrefix:@"xt="] )
+    {
+        NSString *stmp = [self getStringFromComponent:s];
+        NSArray *ctmp = [stmp componentsSeparatedByString:@":"];
+        _hash = [ctmp lastObject];
+    }
+    else if( [s hasPrefix:@"dn="] )
+    {
+        _name = [self getUrlEncodedStringFromComponent:s];
+    }
+    else if( [s hasPrefix:@"tr="] )
+    {
+        if( _trackers == nil )
+            _trackers = [NSMutableArray array];
+        
+        [_trackers addObject:[self getStringFromComponent:s] ];
+    }
+ }
 
 - (NSString *)name
 {
