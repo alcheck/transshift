@@ -140,6 +140,28 @@
      }];
 }
 
+- (void)getMagnetURLforTorrentWithId:(int)torrentId
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTGET,
+                                  TR_METHOD_ARGS : @{ TR_ARG_FIELDS : @[ TR_ARG_FIELDS_MAGNETLINK ],  TR_ARG_IDS : @[@(torrentId)] }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTGET andHandler:^(NSDictionary *json)
+     {
+         // save torrents and call delegate
+         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
+         
+         NSString *magnetUrlString = [torrentsJsonDesc firstObject][TR_ARG_FIELDS_MAGNETLINK];
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotMagnetURL:forTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotMagnetURL:magnetUrlString forTorrentWithId:torrentId];
+             });
+     }];
+}
+
+
 - (void)getAllPeersForTorrentWithId:(int)torrentId
 {
     NSDictionary *requestVals = @{

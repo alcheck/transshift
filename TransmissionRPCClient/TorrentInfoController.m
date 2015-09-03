@@ -7,6 +7,14 @@
 //
 
 #import "TorrentInfoController.h"
+#import "MagnetURLViewController.h"
+#import "GlobalConsts.h"
+
+#define CELL_ID_SHOWPEERS           @"showPeersId"
+#define CELL_ID_SHOWFILES           @"showFilesId"
+#define CELL_ID_SHOWTRACKERS        @"showTrackersId"
+#define CELL_ID_SHOWMAGNETURL       @"showMagnetUrlId"
+
 
 @interface TorrentInfoController () <UIActionSheetDelegate>
 
@@ -65,6 +73,8 @@
     BOOL _bWaitingStatusChange;
     int  _oldStatus;
     
+    UIPopoverController *_popOver;
+    MagnetURLViewController *_magnetUrlController;
 }
 
 - (void)viewDidLoad
@@ -250,6 +260,8 @@
     [[UIApplication sharedApplication] openURL:_commentURL];
 }
 
+
+
 /// Handle file/trackers/peers rows touch
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -275,6 +287,37 @@
         if( [_delegate respondsToSelector:@selector((showTrackersForTorrentWithId:))] )
             [_delegate showTrackersForTorrentWithId:_torrentId];
     }
+    else if( [cell.reuseIdentifier isEqualToString:CELL_ID_SHOWMAGNETURL] )
+    {
+        // show controller with magnet url
+        if( _delegate && [_delegate respondsToSelector:@selector(getMagnetURLforTorrentWithId:)] )
+        {
+            _magnetUrlController = instantiateController( CONTROLLER_ID_MAGNETURL );
+            
+            if( self.splitViewController )
+            {
+                if( _popOver )
+                    [_popOver dismissPopoverAnimated:NO];
+                
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_magnetUrlController];
+                _popOver = [[UIPopoverController alloc] initWithContentViewController:nav];
+                CGRect r = cell.bounds;
+                r.origin.y += r.size.height / 2;
+                [_popOver presentPopoverFromRect:r inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            }
+            else
+            {
+                [self.navigationController pushViewController:_magnetUrlController animated:YES];
+            }
+            
+            [_delegate getMagnetURLforTorrentWithId:_torrentId];
+        }
+    }
+}
+
+- (void)setMagnetURL:(NSString *)magnetURL
+{
+    _magnetUrlController.urlString = magnetURL;
 }
 
 #pragma mark - Updating data methods

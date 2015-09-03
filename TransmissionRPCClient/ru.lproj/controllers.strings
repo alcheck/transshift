@@ -99,10 +99,10 @@
 "Fql-nw-zPa.text" = "-";
 
 /* Class = "UITableViewSection"; footerTitle = "Нажмите для просмотра списка файлов или пиров"; ObjectID = "GU2-sf-eoY"; */
-"GU2-sf-eoY.footerTitle" = "Нажмите для просмотра";
+"GU2-sf-eoY.footerTitle" = "Выберите для просмотра деталей";
 
 /* Class = "UITableViewSection"; headerTitle = "Файлы/Пиры/Трекеры"; ObjectID = "GU2-sf-eoY"; */
-"GU2-sf-eoY.headerTitle" = "Файлы/Пиры/Трекеры";
+"GU2-sf-eoY.headerTitle" = "Файлы /Пиры / Трекеры";
 
 /* Class = "UILabel"; text = "Адрес"; ObjectID = "GvZ-l6-cHd"; */
 "GvZ-l6-cHd.text" = "Адрес";
@@ -312,7 +312,7 @@
 "bH3-2W-RoQ.text" = "Остановить раздачу если рейтинг выше";
 
 /* Class = "UITableViewSection"; headerTitle = "Activity"; ObjectID = "bbe-iG-gF8"; */
-"bbe-iG-gF8.headerTitle" = "Активность";
+"bbe-iG-gF8.headerTitle" = "Общие";
 
 /* Class = "UILabel"; text = "Статус"; ObjectID = "c2b-hl-pB6"; */
 "c2b-hl-pB6.text" = "Статус";
@@ -558,4 +558,13 @@
 "Hvt-oO-1cj.text" = "Размер";
 
 /* Class = "UILabel"; text = "Up/Down speed"; ObjectID = "5s1-8Z-F5c"; */
-"5s1-8Z-F5c.text" = "Скорость Отд./Загруз.";
+"5s1-8Z-F5c.text" = "Скорость";
+
+/* Class = "UILabel"; text = "Show magnet-URL"; ObjectID = "yUn-xG-N3j"; */
+"yUn-xG-N3j.text" = "Просмотр magnet-ссылки";
+
+/* Class = "UIViewController"; title = "Torrent magnet-url"; ObjectID = "uz5-Pc-Adh"; */
+"uz5-Pc-Adh.title" = "Magnet-ссылка";
+
+/* Class = "UILabel"; text = "Tip: magnet-urls can hold your passkey. Don't pass your passkey to other users."; ObjectID = "jss-JJ-Wja"; */
+"jss-JJ-Wja.text" = "Magnet-ссылки могут содержать ваш passkey. Не передавайте ваш passkey другим пользователям.";

@@ -43,6 +43,7 @@
 @optional - (void)gotToggledAltLimitMode:(BOOL)altLimitEnabled;
 @optional - (void)gotFilesStoppedToDownload:(NSArray *)filesIndexes forTorrentWithId:(int)torrentId;
 @optional - (void)gotFilesResumedToDownload:(NSArray *)filesIndexes forTorrentWithId:(int)torrentId;
+@optional - (void)gotMagnetURL:(NSString *)urlString forTorrentWithId:(int)torrentId;
 
 @end
 
@@ -91,6 +92,8 @@
 
 - (void)limitUploadRateWithSpeed:(int)rateKbs;
 - (void)limitDownloadRateWithSpeed:(int)rateKbs;
+
+- (void)getMagnetURLforTorrentWithId:(int)torrentId;
 
 @end
 

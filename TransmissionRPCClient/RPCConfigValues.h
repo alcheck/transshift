@@ -122,6 +122,7 @@
 #define TR_ARG_FIELDS_UPLOADLIMIT                   @"uploadLimit"
 #define TR_ARG_FIELDS_DOWNLOADLIMITED               @"downloadLimited"
 #define TR_ARG_FIELDS_DOWNLOADLIMIT                 @"downloadLimit"
+#define TR_ARG_FIELDS_MAGNETLINK                    @"magnetLink"
 
 // FileInfo values
 #define TR_ARG_FIELDS_FILES                         @"files"

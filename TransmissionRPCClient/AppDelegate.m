@@ -154,7 +154,8 @@
             
             [self.window.rootViewController presentViewController:_chooseNav animated:YES completion:nil];
         }
-        else    // show message
+        // none of preconfigured servers avalable, show messae
+        else
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
                                                             message:NSLocalizedString(@"There is no servers avalable", @"AlerView message OpenURL")

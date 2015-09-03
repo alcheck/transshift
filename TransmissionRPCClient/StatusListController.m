@@ -399,13 +399,16 @@
 // occured upon rpc request
 - (void)requestToServerSucceeded
 {
-    CommonTableController *topVC = (CommonTableController*)_torrentController.navigationController.topViewController;
+    UIViewController *topVC = _torrentController.navigationController.topViewController;
+    
+    if( [topVC isKindOfClass:[CommonTableController class]] )
+    {
+        CommonTableController *ctc = (CommonTableController*)topVC;
+        [ctc.refreshControl endRefreshing];
+        ctc.errorMessage = nil;
+    }
 
     [self.refreshControl endRefreshing];
-    [topVC.refreshControl endRefreshing];
-   
-    // hide any error messages
-    topVC.errorMessage = nil;
 }
 
 // got all torrents, refresh statues
@@ -840,6 +843,17 @@
 }
 
 #pragma mark - TorrentInfoController delegate methods
+
+- (void)getMagnetURLforTorrentWithId:(int)torrentId
+{
+    [_connector getMagnetURLforTorrentWithId:torrentId];
+}
+
+- (void)gotMagnetURL:(NSString *)urlString forTorrentWithId:(int)torrentId
+{
+    if( _torrentInfoController )
+    _torrentInfoController.magnetURL = urlString;
+}
 
 - (void)stopTorrentWithId:(int)torrentId
 {

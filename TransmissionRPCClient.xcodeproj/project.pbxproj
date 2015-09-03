@@ -26,6 +26,8 @@
 		2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B21B3B37CC002666C6 /* RPCServerConfigDB.m */; };
 		2C6D18B61B3B446E002666C6 /* ServerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18B51B3B446E002666C6 /* ServerListController.m */; };
 		2C6D18BD1B3B477E002666C6 /* ServerListItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */; };
+		2C701C751B98D2E1004C366C /* MagnetURLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C701C741B98D2E1004C366C /* MagnetURLViewController.m */; };
+		2C701C761B98DAD4004C366C /* ServerListFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C701C781B98DAD4004C366C /* ServerListFooterView.xib */; };
 		2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */; };
 		2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */; };
 		2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */; };
@@ -48,7 +50,6 @@
 		2CF72FFF1B651180007D5354 /* TrackerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF72FFE1B651180007D5354 /* TrackerListController.m */; };
 		2CF730021B6514E5007D5354 /* TrackerInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF730011B6514E5007D5354 /* TrackerInfoCell.m */; };
 		2CF730091B657D25007D5354 /* ScheduleAltLimitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */; };
-		2CF7ADAE1B91B68100030220 /* ServerListFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CF7ADAD1B91B68100030220 /* ServerListFooterView.xib */; };
 		2CF7ADB11B91BE7A00030220 /* AppLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7ADB01B91BE7A00030220 /* AppLogoView.m */; };
 		2CF7ADB41B91C8A000030220 /* ServerListFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7ADB31B91C8A000030220 /* ServerListFooterView.m */; };
 		2CF7D5141B42E78C006D01FD /* PeerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF7D5131B42E78C006D01FD /* PeerListController.m */; };
@@ -134,6 +135,10 @@
 		2C6D18B51B3B446E002666C6 /* ServerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListController.m; sourceTree = "<group>"; };
 		2C6D18BB1B3B477E002666C6 /* ServerListItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListItemCell.h; sourceTree = "<group>"; };
 		2C6D18BC1B3B477E002666C6 /* ServerListItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerListItemCell.m; sourceTree = "<group>"; };
+		2C701C731B98D2E1004C366C /* MagnetURLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagnetURLViewController.h; sourceTree = "<group>"; };
+		2C701C741B98D2E1004C366C /* MagnetURLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagnetURLViewController.m; sourceTree = "<group>"; };
+		2C701C771B98DAD4004C366C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ServerListFooterView.xib; sourceTree = "<group>"; };
+		2C701C7A1B98DAD6004C366C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ServerListFooterView.strings; sourceTree = "<group>"; };
 		2C80AEA91B4EBA6B00377E11 /* InfoMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoMessage.h; sourceTree = "<group>"; };
 		2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMessage.m; sourceTree = "<group>"; };
 		2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoMessage.xib; sourceTree = "<group>"; };
@@ -173,7 +178,6 @@
 		2CF730071B657D25007D5354 /* ScheduleAltLimitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleAltLimitsController.h; sourceTree = "<group>"; };
 		2CF730081B657D25007D5354 /* ScheduleAltLimitsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleAltLimitsController.m; sourceTree = "<group>"; };
 		2CF743D81B7E05BC009D975D /* CheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckBox.h; sourceTree = "<group>"; };
-		2CF7ADAD1B91B68100030220 /* ServerListFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerListFooterView.xib; sourceTree = "<group>"; };
 		2CF7ADAF1B91BE7A00030220 /* AppLogoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppLogoView.h; sourceTree = "<group>"; };
 		2CF7ADB01B91BE7A00030220 /* AppLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppLogoView.m; sourceTree = "<group>"; };
 		2CF7ADB21B91C8A000030220 /* ServerListFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerListFooterView.h; sourceTree = "<group>"; };
@@ -378,6 +382,15 @@
 			name = "Server list controller";
 			sourceTree = "<group>";
 		};
+		2C701C721B98D2BB004C366C /* Magnet URL Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2C701C731B98D2E1004C366C /* MagnetURLViewController.h */,
+				2C701C741B98D2E1004C366C /* MagnetURLViewController.m */,
+			);
+			name = "Magnet URL Controller";
+			sourceTree = "<group>";
+		};
 		2C80AEA71B4EBA4F00377E11 /* UI addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,7 +490,7 @@
 		2CF7ADAC1B91B64D00030220 /* Footer logo view */ = {
 			isa = PBXGroup;
 			children = (
-				2CF7ADAD1B91B68100030220 /* ServerListFooterView.xib */,
+				2C701C781B98DAD4004C366C /* ServerListFooterView.xib */,
 				2CF7ADAF1B91BE7A00030220 /* AppLogoView.h */,
 				2CF7ADB01B91BE7A00030220 /* AppLogoView.m */,
 				2CF7ADB21B91C8A000030220 /* ServerListFooterView.h */,
@@ -625,6 +638,7 @@
 		2CFA61BA1B413C74002D89B7 /* Torrent Info Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2C701C721B98D2BB004C366C /* Magnet URL Controller */,
 				2CFA61B71B413C66002D89B7 /* TorrentInfoController.h */,
 				2CF911971B41CD66003D0753 /* TorrentInfoController.m */,
 			);
@@ -745,7 +759,7 @@
 				2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */,
 				2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */,
 				2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */,
-				2CF7ADAE1B91B68100030220 /* ServerListFooterView.xib in Resources */,
+				2C701C761B98DAD4004C366C /* ServerListFooterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,6 +847,7 @@
 				2CF730021B6514E5007D5354 /* TrackerInfoCell.m in Sources */,
 				2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */,
 				2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */,
+				2C701C751B98D2E1004C366C /* MagnetURLViewController.m in Sources */,
 				2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */,
 				2C0E34A51B400134004303AB /* TRInfo.m in Sources */,
 				2CF2CB9F1B75FE9800C42477 /* FlagDescriptionView.m in Sources */,
@@ -858,6 +873,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2C701C781B98DAD4004C366C /* ServerListFooterView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C701C771B98DAD4004C366C /* Base */,
+				2C701C7A1B98DAD6004C366C /* ru */,
+			);
+			name = ServerListFooterView.xib;
+			sourceTree = "<group>";
+		};
 		2C9DDA091B77CA78008F16BF /* torrentTitleSectionHeader.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -11,9 +11,6 @@
 #import "CommonTableController.h"
 
 #define CONTROLLER_ID_TORRENTINFO   @"torrentInfoController"
-#define CELL_ID_SHOWPEERS           @"showPeersId"
-#define CELL_ID_SHOWFILES           @"showFilesId"
-#define CELL_ID_SHOWTRACKERS        @"showTrackersId"
 
 @protocol TorrentInfoControllerDelegate <NSObject>
 
@@ -29,12 +26,15 @@
 @optional - (void)showTrackersForTorrentWithId:(int)torrentId;
 @optional - (void)applyTorrentSettings:(TRInfo*)info forTorrentWithId:(int)torrentId;
 
+@optional - (void)getMagnetURLforTorrentWithId:(int)torrentId;
+
 @end
 
 @interface TorrentInfoController : CommonTableController
 
 // holds torrent id
-@property(nonatomic) int torrentId;
+@property(nonatomic) int        torrentId;
+@property(nonatomic) NSString   *magnetURL;
 
 // delegate
 @property(weak) id<TorrentInfoControllerDelegate> delegate;
@@ -42,5 +42,6 @@
 // update data with given TRInfo
 // this method should be used outside (by delegate) on update cycle
 - (void)updateData:(TRInfo*)trInfo;
+
 
 @end
