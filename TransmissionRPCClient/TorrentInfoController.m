@@ -303,6 +303,7 @@
                 _popOver = [[UIPopoverController alloc] initWithContentViewController:nav];
                 CGRect r = cell.bounds;
                 r.origin.y += r.size.height / 2;
+                r.size.height = r.size.height / 2;
                 [_popOver presentPopoverFromRect:r inView:cell permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
             }
             else

@@ -568,3 +568,6 @@
 
 /* Class = "UILabel"; text = "Tip: magnet-urls can hold your passkey. Don't pass your passkey to other users."; ObjectID = "jss-JJ-Wja"; */
 "jss-JJ-Wja.text" = "Magnet-ссылки могут содержать ваш passkey. Не передавайте ваш passkey другим пользователям.";
+
+/* Class = "UILabel"; text = "Show passkey"; ObjectID = "GVp-9u-Q4b"; */
+"GVp-9u-Q4b.text" = "Показывать passkey";
