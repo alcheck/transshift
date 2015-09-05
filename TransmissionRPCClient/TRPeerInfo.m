@@ -69,7 +69,7 @@
     if( dict[TR_ARG_FIELDS_PEER_RATETOCLIENT] )
     {
         _rateToClient = [dict[TR_ARG_FIELDS_PEER_RATETOCLIENT] longLongValue];
-        _rateToClientString = formatByteCount(_rateToClient);
+        _rateToClientString = formatByteRate(_rateToClient);
     }
     
     if( dict[TR_ARG_FIELDS_PEER_RATETOPEER ])

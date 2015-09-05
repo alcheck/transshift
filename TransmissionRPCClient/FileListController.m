@@ -41,13 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // preload images
-    //_iconImgFile = [[UIImage imageNamed:ICON_FILE] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    //_iconImgFolderOpened = [[UIImage imageNamed:ICON_FOLDER_OPENED] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    //_iconImgFolderClosed = [[UIImage imageNamed:ICON_FOLDER_CLOSED] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    
-    
+     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl = refreshControl;
     
@@ -397,7 +391,6 @@
         [self updateParentFolderForItem:item];
     }
 }
-
 
 - (void)prioritySegmentToggled:(UISegmentedControl*)sender
 {

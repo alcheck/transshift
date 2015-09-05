@@ -812,11 +812,6 @@
     // end of refreshing (if it is)
     [self.refreshControl endRefreshing];
     
-    CommonTableController *topVC = (CommonTableController*)_torrentController.navigationController.topViewController;
-    
-    //[_torrentController.refreshControl endRefreshing];
-    [topVC.refreshControl endRefreshing];
-    
     // for some errors we show popup message
     if( [requestName isEqualToString:TR_METHODNAME_TORRENTADD] ||
         [requestName isEqualToString:TR_METHODNAME_TORRENTADDURL] )
@@ -836,9 +831,18 @@
          [NSString stringWithFormat: NSLocalizedString(@"Can not get free space, %@", @""), errorMessage] ];
         return;
     }
-    
+
+    /// show error in top view controller (if it is)
+    UIViewController *vc = _torrentController.navigationController.topViewController;
+    if( [vc isKindOfClass:[CommonTableController class]] )
+    {
+        CommonTableController *topVC = (CommonTableController*)vc;
+        [topVC.refreshControl endRefreshing];
+        
+        topVC.errorMessage = errorMessage;
+    }
+
     _torrentController.items = nil;
-    topVC.errorMessage = errorMessage;
     self.errorMessage = errorMessage;
 }
 
@@ -1040,6 +1044,7 @@
     _peerListController.delegate = self;
     _peerListController.torrentId = torrentId;
     _peerListController.title =  NSLocalizedString(@"Peers", @"_peerListController title");
+    _peerListController.infoMessage = NSLocalizedString(@"Getting peers ...", nil);
     
     UINavigationController *nav = _torrentController.navigationController;
     [nav pushViewController:_peerListController animated:YES];
@@ -1051,8 +1056,7 @@
 {
     if( _peerListController )
     {
-        _peerListController.peers = peerInfos;
-        _peerListController.peerStat = stat;
+        [_peerListController updateWithPeers:peerInfos andPeerStat:stat];
     }
 }
 

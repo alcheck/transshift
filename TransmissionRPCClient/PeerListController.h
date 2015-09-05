@@ -22,8 +22,8 @@
 
 @property(weak) id<PeerListControllerDelegate> delegate;
 
-@property(nonatomic) NSArray*       peers;
-@property(nonatomic) TRPeerStat*    peerStat;
+- (void)updateWithPeers:(NSArray *)peers andPeerStat:(TRPeerStat *)peerStat;
+
 @property(nonatomic) int            torrentId;
 
 @end

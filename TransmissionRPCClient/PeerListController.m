@@ -24,9 +24,13 @@
 @implementation PeerListController
 
 {
+    NSArray *_peers;
     NSArray *_sectionTitles;
     
+    TRPeerStat *_peerStat;
     UIPopoverController *_popOver;
+    
+    BOOL _dataWasSet;
 }
 
 - (void)viewDidLoad
@@ -55,9 +59,11 @@
         [_delegate peerListNeedUpdatePeersForTorrentId:_torrentId];
 }
 
-- (void)setPeers:(NSArray *)peers
+- (void)updateWithPeers:(NSArray *)peers andPeerStat:(TRPeerStat *)peerStat
 {
-    //_peers = peers;
+    // set flag that tell there is data
+    _dataWasSet = YES;
+    
     [self.refreshControl endRefreshing];
     
     // this is the first data - add section
@@ -128,7 +134,9 @@
         }
     }
     
+    // store data before update animation
     _peers = peers;
+    _peerStat = peerStat;
     
     if( needToUpdate )
     {
@@ -145,18 +153,27 @@
         
         [self.tableView endUpdates];
     }
+    else if( _peers.count == 0 )
+    {
+        [self.tableView reloadData];
+    }
     
+    // now we update peer stats
     PeerStatCell *cell = (PeerStatCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     if( cell )
-        [self updatePeerStatCell:cell witInfo:_peerStat];
+        [self updatePeerStatCell:cell witInfo:peerStat];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-     // Return the number of sections.
-    self.infoMessage =  _peers.count > 0 ? nil : NSLocalizedString(@"There are no peers avalable.", @"");
+    if( !_dataWasSet )
+        return 0;
+    //NSLog( @"%s, %s", __PRETTY_FUNCTION__,  _dataWasSet ? "Data is Set" : "Data is no set" );
+    
+    // Return the number of sections.
+    self.infoMessage =  _peers.count > 0 ? nil :  NSLocalizedString(@"There are no peers avalable.", @"" );
     
     return _peers.count > 0 ? _sectionTitles.count : 0;
 }
@@ -224,7 +241,7 @@
     {
         
         PeerListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_PEERLISTCELL forIndexPath:indexPath];
-        TRPeerInfo *info = self.peers[indexPath.row - 1];
+        TRPeerInfo *info = _peers[indexPath.row - 1];
         [self updatePeerListCell:cell withInfo:info];
         
         return cell;
