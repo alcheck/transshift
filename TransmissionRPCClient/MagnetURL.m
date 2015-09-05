@@ -20,6 +20,7 @@ static NSString * const kMagnetParamPrefixTorrentName                   = @"dn="
 static NSString * const kMagnetParamPrefixTorrentTracker                = @"tr=";
 static NSString * const kMagnetParamPrefixTorrentHashUrn                = @"xt=";
 static NSString * const kMagnetParamPrefixTorrentHashParamSeparator     = @":";
+static NSString * const kMagnetComponentSeparator                       = @"=";
 
 @implementation MagnetURL
 
@@ -61,10 +62,11 @@ static NSString * const kMagnetParamPrefixTorrentHashParamSeparator     = @":";
 
 - (NSString *)getStringFromComponent:(NSString *)component
 {
-    NSArray *comps = [component componentsSeparatedByString:@"="];
+    NSArray *comps = [component componentsSeparatedByString:kMagnetComponentSeparator];
+    
     if( comps.count == 2 )
     {
-        return comps[1];
+        return [comps[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     }
     
     return nil;

@@ -17,6 +17,7 @@
 {
     __weak IBOutlet UISwitch *_switchTogglePasskeyView;
     UIBarButtonItem *_btnCopyToBuffer;
+    __weak IBOutlet UILabel *_labelShowPassKey;
 }
 
 - (void)viewDidLoad
@@ -98,14 +99,18 @@
     if( sender.on )
     {
         self.textMagnetLink.text = _urlString;
+        _labelShowPassKey.enabled = YES;
     }
     else
     {
         NSString * s = self.removedPassKey;
         if( s )
             self.textMagnetLink.text = s;
+        
         else
             sender.enabled = NO;
+        
+        _labelShowPassKey.enabled = NO;
     }
 }
 

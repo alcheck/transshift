@@ -2111,7 +2111,7 @@
                                     <constraint firstAttribute="height" constant="40" id="dnO-XJ-5wW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BtE-M0-8ES">
@@ -2123,7 +2123,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show passkey" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVp-9u-Q4b">
                                 <rect key="frame" x="425" y="520" width="94" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -2144,8 +2144,9 @@
                             <constraint firstItem="BtE-M0-8ES" firstAttribute="trailing" secondItem="Ipu-nm-pwX" secondAttribute="trailing" id="w1H-vE-r2o"/>
                         </constraints>
                     </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="400" height="300"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="350" height="300"/>
                     <connections>
+                        <outlet property="_labelShowPassKey" destination="GVp-9u-Q4b" id="3XR-Sp-uAW"/>
                         <outlet property="_switchTogglePasskeyView" destination="BtE-M0-8ES" id="i5c-ej-9fE"/>
                         <outlet property="textMagnetLink" destination="Ipu-nm-pwX" id="sEb-Zz-yQ2"/>
                     </connections>
