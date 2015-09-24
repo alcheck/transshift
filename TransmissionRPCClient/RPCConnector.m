@@ -120,7 +120,8 @@
                                                   TR_ARG_FIELDS_UPLOADLIMIT,
                                                   TR_ARG_FIELDS_UPLOADLIMITED,
                                                   TR_ARG_FIELDS_DOWNLOADLIMIT,
-                                                  TR_ARG_FIELDS_DOWNLOADLIMITED
+                                                  TR_ARG_FIELDS_DOWNLOADLIMITED,
+                                                  TR_ARG_FIELDS_DOWNLOADDIR
                                                   ],
                                           TR_ARG_IDS : @[@(torrentId)]
                                           }
@@ -460,6 +461,25 @@
      }];
 
 }
+
+
+- (void)renameTorrent:(int)torrentId withName:(NSString *)name andPath:(NSString *)path
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTSETNAME,
+                                  TR_METHOD_ARGS : @{ TR_ARG_IDS : @[@(torrentId)], TR_ARG_FIELDS_NAME : name, TR_ARG_FIELDS_PATH: path }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTSETNAME andHandler:^(NSDictionary *json)
+     {
+         if( _delegate && [_delegate respondsToSelector:@selector(gotTorrentRenamed:withName:andPath:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotTorrentRenamed:torrentId withName:name andPath:path];
+             });
+     }];
+}
+
+
 
 - (void)addTorrentWithData:(NSData *)data
                   priority:(int)priority

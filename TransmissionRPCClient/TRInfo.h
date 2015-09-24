@@ -53,6 +53,7 @@
 @property(nonatomic,readonly) NSString*     pieceSizeString;
 
 @property(nonatomic,readonly) NSString*     comment;
+@property(nonatomic,readonly) NSString*     downloadDir;
 
 @property(nonatomic,readonly) NSString*     errorString;
 @property(nonatomic,readonly) int           errorNumber;

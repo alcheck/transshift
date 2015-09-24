@@ -161,6 +161,9 @@
         if(dict[TR_ARG_FIELDS_COMMENT])
             _comment = dict[TR_ARG_FIELDS_COMMENT];
         
+        if( dict[TR_ARG_FIELDS_DOWNLOADDIR] )
+            _downloadDir = dict[TR_ARG_FIELDS_DOWNLOADDIR];
+        
         if(dict[TR_ARG_FIELDS_HASHSTRING])
             _hashString = dict[TR_ARG_FIELDS_HASHSTRING];
         

@@ -9,6 +9,7 @@
 #import "TorrentInfoController.h"
 #import "MagnetURLViewController.h"
 #import "GlobalConsts.h"
+#import "InfoMenuLabel.h"
 
 #define CELL_ID_SHOWPEERS           @"showPeersId"
 #define CELL_ID_SHOWFILES           @"showFilesId"
@@ -16,9 +17,9 @@
 #define CELL_ID_SHOWMAGNETURL       @"showMagnetUrlId"
 
 
-@interface TorrentInfoController () <UIActionSheetDelegate>
+@interface TorrentInfoController () <UIActionSheetDelegate, InfoMenuLabelDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *torrentNameLabel;
+@property (weak, nonatomic) IBOutlet InfoMenuLabel *torrentNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *haveLabel;
@@ -75,6 +76,8 @@
     
     UIPopoverController *_popOver;
     MagnetURLViewController *_magnetUrlController;
+    
+    UITapGestureRecognizer *_torrentNameLabelGesture;
 }
 
 - (void)viewDidLoad
@@ -321,6 +324,29 @@
     _magnetUrlController.urlString = magnetURL;
 }
 
+- (void)showMenuForTorrentName
+{
+    [self.torrentNameLabel becomeFirstResponder];
+    UIMenuController *menu = [UIMenuController sharedMenuController];
+    
+    UIMenuItem *itemRenameTorrent = [[UIMenuItem alloc] initWithTitle: NSLocalizedString( @"Rename torrent", nil) action:@selector(customMenuAction:)];
+    
+    menu.menuItems = @[itemRenameTorrent];
+    
+    [menu setTargetRect:self.torrentNameLabel.frame inView:self.torrentNameLabel.superview];
+    [menu setMenuVisible:YES animated:YES];
+}
+
+- (void)InfoMenuLabelSetNewName:(NSString *)newName
+{
+    // renaming torrent
+    if( _delegate && [_delegate respondsToSelector:@selector(renameTorrentWithId:withNewName:andPath:)] )
+    {
+        NSString *path = [NSString stringWithFormat:@"%@/%@", _torrentInfo.downloadDir, _torrentInfo.name];
+       [_delegate renameTorrentWithId:_torrentId withNewName:newName andPath:path];
+    }
+}
+
 #pragma mark - Updating data methods
 
 // update information
@@ -346,6 +372,16 @@
     self.title =  NSLocalizedString(@"Torrent details", @"TorrentInfoController title");
     
     self.torrentNameLabel.text = trInfo.name;
+    
+    if( !_torrentNameLabelGesture )
+    {
+        self.torrentNameLabel.userInteractionEnabled = YES;
+        self.torrentNameLabel.textColor = self.view.tintColor;
+        self.torrentNameLabel.delegate = self;
+        _torrentNameLabelGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showMenuForTorrentName)];
+        [self.torrentNameLabel addGestureRecognizer:_torrentNameLabelGesture];
+    }
+    
     
     if( !_bWaitingStatusChange )
     {

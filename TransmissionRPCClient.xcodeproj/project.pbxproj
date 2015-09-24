@@ -31,6 +31,7 @@
 		2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */; };
 		2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */; };
 		2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */; };
+		2C9A83F31BB42A4D002D7B00 /* InfoMenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A83F21BB42A4D002D7B00 /* InfoMenuLabel.m */; };
 		2C9DDA071B77CA78008F16BF /* torrentTitleSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9DDA091B77CA78008F16BF /* torrentTitleSectionHeader.xib */; };
 		2CAD1E461B4AC131005BBDBE /* SpeedLimitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */; };
 		2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651CE1B3DCCBE005C823C /* TorrentListController.m */; };
@@ -143,6 +144,8 @@
 		2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMessage.m; sourceTree = "<group>"; };
 		2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoMessage.xib; sourceTree = "<group>"; };
 		2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = InfoMessageIcons.xcassets; sourceTree = "<group>"; };
+		2C9A83F11BB42A4D002D7B00 /* InfoMenuLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoMenuLabel.h; sourceTree = "<group>"; };
+		2C9A83F21BB42A4D002D7B00 /* InfoMenuLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMenuLabel.m; sourceTree = "<group>"; };
 		2CA864FA1B78F5DF002D396C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/torrentTitleSectionHeader.xib; sourceTree = "<group>"; };
 		2CAD1E441B4AC131005BBDBE /* SpeedLimitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimitController.h; sourceTree = "<group>"; };
 		2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimitController.m; sourceTree = "<group>"; };
@@ -641,6 +644,8 @@
 				2C701C721B98D2BB004C366C /* Magnet URL Controller */,
 				2CFA61B71B413C66002D89B7 /* TorrentInfoController.h */,
 				2CF911971B41CD66003D0753 /* TorrentInfoController.m */,
+				2C9A83F11BB42A4D002D7B00 /* InfoMenuLabel.h */,
+				2C9A83F21BB42A4D002D7B00 /* InfoMenuLabel.m */,
 			);
 			name = "Torrent Info Controller";
 			sourceTree = "<group>";
@@ -704,7 +709,7 @@
 				TargetAttributes = {
 					2C5810D51B39A5E50069020D = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 72C28QMYS6;
+						DevelopmentTeam = FGPFWZ8YAM;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -810,6 +815,7 @@
 				2C039F3B1B52D33C00233534 /* StatusCategory.m in Sources */,
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
 				2CF8EF781B61736100EB8D5D /* TrackerListCell.m in Sources */,
+				2C9A83F31BB42A4D002D7B00 /* InfoMenuLabel.m in Sources */,
 				2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */,
 				2CF971AF1B790B23008EE25D /* IPGeoInfoController.m in Sources */,
 				2CF7F3211B6EBF2B007EEBF6 /* PeerStatCell.m in Sources */,
@@ -937,7 +943,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -981,7 +988,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1007,8 +1015,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1023,8 +1031,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

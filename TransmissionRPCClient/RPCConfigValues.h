@@ -24,6 +24,7 @@
 #define TR_METHODNAME_TORRENTADDURL                 @"torrent-add-url"
 #define TR_METHODNAME_TORRENTGET                    @"torrent-get"
 #define TR_METHODNAME_TORRENTSET                    @"torrent-set"
+#define TR_METHODNAME_TORRENTSETNAME                @"torrent-rename-path"
 #define TR_METHODNAME_SESSIONGET                    @"session-get"
 #define TR_METHODNAME_SESSIONSET                    @"session-set"
 #define TR_METHODNAME_FREESPACE                     @"free-space"
@@ -123,6 +124,8 @@
 #define TR_ARG_FIELDS_DOWNLOADLIMITED               @"downloadLimited"
 #define TR_ARG_FIELDS_DOWNLOADLIMIT                 @"downloadLimit"
 #define TR_ARG_FIELDS_MAGNETLINK                    @"magnetLink"
+#define TR_ARG_FIELDS_DOWNLOADDIR                   @"downloadDir"
+#define TR_ARG_FIELDS_PATH                          @"path"
 
 // FileInfo values
 #define TR_ARG_FIELDS_FILES                         @"files"

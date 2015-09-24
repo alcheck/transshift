@@ -111,7 +111,7 @@
     
         _torrentTitleSectionView.icon.image = _isMagnet ?
         [[UIImage imageNamed:@"iconMagnetInOval36x36"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] :
-        [[UIImage imageNamed:@"iconTorrentInOval36x36"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [[UIImage imageNamed:@"iconDownFileInOval36x36"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
     
     return _torrentTitleSectionView;

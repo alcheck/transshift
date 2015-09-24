@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>TransShift</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -24,14 +26,14 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>ASC.TransmissionRPCClient.torrent</string>
+				<string>com.alcheck.TransmissionRPCClient.torrent</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>ASC.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>com.alcheck.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -47,8 +49,10 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string>docIcon_64x64</string>
 			<key>CFBundleURLName</key>
-			<string>asc.transmissionrpcclient.magnet</string>
+			<string>com.alcheck.transmissionrpcclient.magnet</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>magnet</string>
@@ -56,7 +60,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>398</string>
+	<string>401</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -91,7 +95,7 @@
 			<key>UTTypeDescription</key>
 			<string>Transmission torrent file</string>
 			<key>UTTypeIdentifier</key>
-			<string>ASC.TransmissionRPCClient.torrent</string>
+			<string>com.alcheck.TransmissionRPCClient.torrent</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>docIcon_320x320</string>
 			<key>UTTypeSize64IconFile</key>

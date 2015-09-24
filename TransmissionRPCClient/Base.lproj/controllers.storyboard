@@ -802,20 +802,20 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTH-tm-9gG">
-                                            <rect key="frame" x="61" y="8" width="497" height="20"/>
+                                            <rect key="frame" x="52" y="8" width="506" height="20"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTrans45x45" translatesAutoresizingMaskIntoConstraints="NO" id="zRV-ua-qie">
-                                            <rect key="frame" x="8" y="7" width="45" height="45"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTorrentInOval36x36" translatesAutoresizingMaskIntoConstraints="NO" id="zRV-ua-qie">
+                                            <rect key="frame" x="8" y="12" width="36" height="36"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="45" id="GY4-dp-mR9"/>
-                                                <constraint firstAttribute="height" constant="45" id="M9h-2x-V8d"/>
+                                                <constraint firstAttribute="width" constant="36" id="GY4-dp-mR9"/>
+                                                <constraint firstAttribute="height" constant="36" id="M9h-2x-V8d"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1D-fS-JwU">
-                                            <rect key="frame" x="61" y="29" width="497" height="17"/>
+                                            <rect key="frame" x="52" y="29" width="506" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -2170,7 +2170,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Giga" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bws-TG-qbq">
-                                            <rect key="frame" x="61" y="14" width="498" height="24"/>
+                                            <rect key="frame" x="52" y="14" width="507" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="250" constant="25" id="vi6-4p-9QB"/>
                                             </constraints>
@@ -2179,7 +2179,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="http://192.168.0.1:8090/transmission/rpc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAv-EQ-tHa">
-                                            <rect key="frame" x="61" y="40" width="498" height="18"/>
+                                            <rect key="frame" x="52" y="40" width="507" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" priority="250" constant="21" id="13q-1R-rRv"/>
                                             </constraints>
@@ -2187,11 +2187,11 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTrans45x45" translatesAutoresizingMaskIntoConstraints="NO" id="zpY-Q6-0Kp">
-                                            <rect key="frame" x="8" y="13" width="45" height="45"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTorrentInOval36x36" translatesAutoresizingMaskIntoConstraints="NO" id="zpY-Q6-0Kp">
+                                            <rect key="frame" x="8" y="17" width="36" height="36"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="45" id="46L-RD-yqD"/>
-                                                <constraint firstAttribute="height" constant="45" id="Yx2-TA-Rmt"/>
+                                                <constraint firstAttribute="width" constant="36" id="46L-RD-yqD"/>
+                                                <constraint firstAttribute="height" constant="36" id="Yx2-TA-Rmt"/>
                                             </constraints>
                                         </imageView>
                                     </subviews>
@@ -2239,19 +2239,26 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5MG-gz-Meb" id="5XM-T8-14W">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="Fql-nw-zPa">
-                                                    <rect key="frame" x="8" y="8" width="584" height="49"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="Fql-nw-zPa" customClass="InfoMenuLabel">
+                                                    <rect key="frame" x="52" y="8" width="540" height="49"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTitleBadge36x36" translatesAutoresizingMaskIntoConstraints="NO" id="8lF-FI-Dxh">
+                                                    <rect key="frame" x="8" y="15" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="oDP-UJ-60r"/>
+                                                        <constraint firstAttribute="height" constant="36" id="wXx-W0-HVM"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Fql-nw-zPa" firstAttribute="trailing" secondItem="5XM-T8-14W" secondAttribute="trailingMargin" id="Kv4-Xb-XVQ"/>
+                                                <constraint firstAttribute="centerY" secondItem="8lF-FI-Dxh" secondAttribute="centerY" id="1HA-aO-lab"/>
                                                 <constraint firstItem="Fql-nw-zPa" firstAttribute="trailing" secondItem="5XM-T8-14W" secondAttribute="trailingMargin" id="PJc-gE-JDu"/>
                                                 <constraint firstItem="Fql-nw-zPa" firstAttribute="top" secondItem="5XM-T8-14W" secondAttribute="topMargin" id="UhG-bs-0vm"/>
-                                                <constraint firstItem="Fql-nw-zPa" firstAttribute="leading" secondItem="5XM-T8-14W" secondAttribute="leadingMargin" id="ba4-Sm-Ry4"/>
-                                                <constraint firstItem="Fql-nw-zPa" firstAttribute="leading" secondItem="5XM-T8-14W" secondAttribute="leadingMargin" id="qs2-mE-fGh"/>
+                                                <constraint firstItem="8lF-FI-Dxh" firstAttribute="leading" secondItem="5XM-T8-14W" secondAttribute="leadingMargin" id="Ye2-g8-wJv"/>
+                                                <constraint firstItem="Fql-nw-zPa" firstAttribute="leading" secondItem="8lF-FI-Dxh" secondAttribute="trailing" constant="8" symbolic="YES" id="eTP-rY-Xhm"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Fql-nw-zPa" secondAttribute="bottom" id="tU0-ZH-3oD"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -3835,10 +3842,11 @@
         <image name="iconRunningMan36x36" width="36" height="36"/>
         <image name="iconScale36x36" width="36" height="36"/>
         <image name="iconSpeedGuage36x36" width="36" height="36"/>
+        <image name="iconTitleBadge36x36" width="36" height="36"/>
+        <image name="iconTorrentInOval36x36" width="36" height="36"/>
         <image name="iconTotalDownloaded" width="37" height="37"/>
         <image name="iconTotalSize" width="37" height="37"/>
         <image name="iconTotalUploaded" width="37" height="37"/>
-        <image name="iconTrans45x45" width="45" height="45"/>
         <image name="iconTurtleUpDown36x36" width="36" height="36"/>
     </resources>
 </document>

@@ -27,6 +27,7 @@
 @optional - (void)applyTorrentSettings:(TRInfo*)info forTorrentWithId:(int)torrentId;
 
 @optional - (void)getMagnetURLforTorrentWithId:(int)torrentId;
+@optional - (void)renameTorrentWithId:(int)torrentId withNewName:(NSString *)newName andPath:(NSString *)path;
 
 @end
 
@@ -42,6 +43,5 @@
 // update data with given TRInfo
 // this method should be used outside (by delegate) on update cycle
 - (void)updateData:(TRInfo*)trInfo;
-
 
 @end

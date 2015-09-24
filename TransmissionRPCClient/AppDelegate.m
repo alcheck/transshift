@@ -157,8 +157,8 @@
         // none of preconfigured servers avalable, show messae
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:NSLocalizedString(@"There is no servers avalable", @"AlerView message OpenURL")
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"There are no servers avalable", nil)
+                                                            message:NSLocalizedString(@"Add server to the list and try again", nil)
                                                            delegate:nil
                                                   cancelButtonTitle:NSLocalizedString(@"OK", @"")
                                                   otherButtonTitles:nil, nil];

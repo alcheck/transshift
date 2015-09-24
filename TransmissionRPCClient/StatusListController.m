@@ -719,9 +719,10 @@
 - (void)showSessionConfiguration
 {
     _sessionConfigController = instantiateController(CONTROLLER_ID_SESSIONCONFIG);
-    _sessionConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-                                                                                                               target:self
-                                                                                                               action:@selector(saveSessionParametes)];
+    _sessionConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Apply", nil)
+                                                                                                  style:UIBarButtonItemStyleBordered
+                                                                                                 target:self
+                                                                                                 action:@selector(saveSessionParametes)];
     [self.navigationController pushViewController:_sessionConfigController animated:YES];
     
     [_connector getSessionInfo];
@@ -822,13 +823,19 @@
     else if ( [requestName isEqualToString:TR_METHODNAME_TESTPORT] )
     {
         [self showErrorPopup:
-         [NSString stringWithFormat: NSLocalizedString(@"Can not test port, %@", @""), errorMessage] ];
+         [NSString stringWithFormat: NSLocalizedString(@"Can not test port, %@", nil), errorMessage] ];
         return;
     }
     else if( [requestName isEqualToString:TR_METHODNAME_FREESPACE] )
     {
         [self showErrorPopup:
-         [NSString stringWithFormat: NSLocalizedString(@"Can not get free space, %@", @""), errorMessage] ];
+         [NSString stringWithFormat: NSLocalizedString(@"Can not get free space, %@", nil), errorMessage] ];
+        return;
+    }
+    else if( [requestName isEqualToString:TR_METHODNAME_TORRENTSETNAME] )
+    {
+        [self showErrorPopup:
+         [NSString stringWithFormat: NSLocalizedString(@"Can not rename torrent, %@", nil), errorMessage] ];
         return;
     }
 
@@ -847,6 +854,18 @@
 }
 
 #pragma mark - TorrentInfoController delegate methods
+
+- (void)renameTorrentWithId:(int)torrentId withNewName:(NSString *)newName andPath:(NSString *)path
+{
+    [_connector renameTorrent:torrentId withName:newName andPath:path];
+}
+
+- (void)gotTorrentRenamed:(int)torrentId withName:(NSString *)name andPath:(NSString *)path
+{
+    [self showInfoPopup: NSLocalizedString(@"Torrent has been renamed", nil)];
+
+    [_connector getDetailedInfoForTorrentWithId:torrentId];
+}
 
 - (void)getMagnetURLforTorrentWithId:(int)torrentId
 {

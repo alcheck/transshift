@@ -266,7 +266,7 @@
     NSUInteger itemsCount = [RPCServerConfigDB sharedDB].db.count;
 
     self.navigationItem.leftBarButtonItem.enabled = itemsCount > 0;
-    self.infoMessage = itemsCount > 0 ? nil :  NSLocalizedString(@"There are no servers available.\nAdd server to the list.", @"Background info");
+    self.infoMessage = itemsCount > 0 ? nil :  NSLocalizedString(@"There are no servers available add server to the list", nil);
     
     // show version if there is some server items
     //self.footerInfoMessage = itemsCount > 0 ?  [_version : nil;
