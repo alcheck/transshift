@@ -143,13 +143,13 @@
     self.labelRowsCount.text = [NSString stringWithFormat: NSLocalizedString(@"Rows: %i", nil), _rows];
     self.labelColumnsCount.text = [NSString stringWithFormat: NSLocalizedString(@"Columns: %i", nil), _columns];
     
-    CGRect b = self.scrollView.bounds;
-    CGFloat pw = (b.size.width - 45)/ _columns;
+    CGSize  bs = self.scrollView.frame.size;
+    CGFloat pw = self.splitViewController ?  (bs.width - 45) / _columns : bs.width/_columns;
     CGFloat ph = pw * 1.4;
     
-    self.scrollView.contentSize = CGSizeMake( pw * _columns, ph * _rows );
+    self.scrollView.contentSize =  CGSizeMake( pw * _columns, ph * _rows );
     
-    _legendView = [[LegendView alloc] initWithFrame:CGRectMake(0, 0, pw * _columns, ph * _rows)];
+    _legendView = [[LegendView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.contentSize.width, self.scrollView.contentSize.height) ];
     _legendView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     _legendView.rows = _rows;
     _legendView.cols = _columns;
