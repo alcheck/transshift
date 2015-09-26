@@ -465,6 +465,7 @@
         BOOL isFolder = ( level != (c - 1) );
         
         [cPath appendString:itemName];
+        [cPath appendString:@"/"];
 
         if( isFolder && _folderItems[cPath] )
         {
@@ -476,9 +477,13 @@
         
         // cache folder item
         if( isFolder )
+        {
             _folderItems[cPath] = levelItem;
-        
-        if( !isFolder )
+            levelItem.fullName = [cPath substringToIndex:(cPath.length - 1)];
+            
+            //NSLog(@"%@", levelItem.fullName);
+        }
+        else
             levelItem.rpcIndex = rpcIndex;
     }
     

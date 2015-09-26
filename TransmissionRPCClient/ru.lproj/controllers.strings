@@ -571,3 +571,9 @@
 
 /* Class = "UILabel"; text = "Show passkey"; ObjectID = "GVp-9u-Q4b"; */
 "GVp-9u-Q4b.text" = "Показывать passkey";
+
+/* Class = "UILabel"; text = "Piece is unavailable"; ObjectID = "RPM-Sc-gPC"; */
+"RPM-Sc-gPC.text" = "Часть недоступна";
+
+/* Class = "UILabel"; text = "Piece is available"; ObjectID = "l7J-PE-GLO"; */
+"l7J-PE-GLO.text" = "Часть доступна";

@@ -14,6 +14,7 @@
 #import "TrackerListController.h"
 #import "SessionConfigController.h"
 #import "SpeedLimitController.h"
+#import "PiecesLegendViewController.h"
 #import "RPCConnector.h"
 #import "FooterViewFreeSpace.h"
 #import "HeaderViewDURates.h"
@@ -75,6 +76,7 @@
     PeerListController      *_peerListController;         // holds controller for showing peers
     FileListController      *_fileListController;         // holds controller for showing files
     TrackerListController   *_trackerListController;      // holds controller for showing trackers
+    PiecesLegendViewController *_piecesController;        // holds pieces legend controller
     
     SessionConfigController *_sessionConfigController;    // holds session config controller
     SpeedLimitController    *_speedLimitController;       // holds speed limit controller
@@ -312,20 +314,27 @@
     UIViewController *top = nav.topViewController;
     
     if( top == _torrentInfoController )
+    {
         [_connector getDetailedInfoForTorrentWithId:_torrentInfoController.torrentId];
-    
+    }
     else if( top == _peerListController)
+    {
         [_connector getAllPeersForTorrentWithId:_peerListController.torrentId];
-    
+    }
     else if( top == _fileListController )
     {
         if( !_fileListController.isFullyLoaded )
             [_connector getAllFileStatsForTorrentWithId:_fileListController.torrentId];
         //[_connector getAllFilesForTorrentWithId:_fileListController.torrentId];
     }
-    
     else if( top == _trackerListController )
+    {
         [_connector getAllTrackersForTorrentWithId:_trackerListController.torrentId];
+    }
+    else if( top == _piecesController )
+    {
+        [_connector getPiecesBitMapForTorrent:_piecesController.torrentId];
+    }
 }
 
 - (void)gotFreeSpaceString:(NSString *)freeSpace
@@ -855,6 +864,31 @@
 
 #pragma mark - TorrentInfoController delegate methods
 
+- (void)showPiecesLegendForTorrentWithId:(int)torrentId piecesCount:(NSInteger)piecesCount pieceSize:(long long)pieceSize
+{
+    //if( !_piecesController )
+    {
+        _piecesController = instantiateController( CONTROLLER_ID_PIECESLEGEND );
+        _piecesController.pieceSize = pieceSize;
+        _piecesController.piecesCount = piecesCount;
+        _piecesController.torrentId = torrentId;
+        _piecesController.title = NSLocalizedString( @"Torrent pieces bitmap", nil );
+        
+        UINavigationController *nav = _torrentController.navigationController;
+        [nav pushViewController:_piecesController animated:YES];
+        
+        [_connector getPiecesBitMapForTorrent:torrentId];
+    }
+}
+
+- (void)gotPiecesBitmap:(NSData *)piecesBitmap forTorrentWithId:(int)torrentId
+{
+    if( _piecesController )
+    {
+        _piecesController.piecesBitmap = piecesBitmap;
+    }
+}
+
 - (void)renameTorrentWithId:(int)torrentId withNewName:(NSString *)newName andPath:(NSString *)path
 {
     [_connector renameTorrent:torrentId withName:newName andPath:path];
@@ -864,7 +898,16 @@
 {
     [self showInfoPopup: NSLocalizedString(@"Torrent has been renamed", nil)];
 
-    [_connector getDetailedInfoForTorrentWithId:torrentId];
+    UINavigationController *nav = _torrentController.navigationController;
+    
+    if( nav.topViewController == _torrentInfoController )
+    {
+        [_connector getDetailedInfoForTorrentWithId:torrentId];
+    }
+    else if( nav.topViewController == _fileListController )
+    {
+        [_connector getAllFilesForTorrentWithId:torrentId];
+    }
 }
 
 - (void)getMagnetURLforTorrentWithId:(int)torrentId
@@ -1055,7 +1098,7 @@
     [nav pushViewController:_torrentInfoController animated:YES];
 }
 
-#pragma mark - TorrentInfoControllerDelegate
+#pragma mark - PeerListControllerDelegate
 
 - (void)showPeersForTorrentWithId:(int)torrentId
 {
@@ -1083,6 +1126,8 @@
 {
     [_connector getAllPeersForTorrentWithId:torrentId];
 }
+
+#pragma mark - FileListControllerDelegate methods
 
 - (void)showFilesForTorrentWithId:(int)torrentId
 {
@@ -1115,6 +1160,11 @@
     {
         _fileListController.fileStats =fileStats;
     }
+}
+
+- (void)fileListControllerRenameTorrent:(int)torrentId oldItemName:(NSString *)oldItemName newItemName:(NSString *)newItemName
+{
+    [_connector renameTorrent:torrentId withName:newItemName andPath:oldItemName];
 }
 
 - (void)fileListControllerNeedUpdateFilesForTorrentWithId:(int)torrentId
@@ -1152,6 +1202,8 @@
 {
     [_connector setPriority:priority forFilesWithIndexes:indexes forTorrentWithId:torrentId];
 }
+
+#pragma mark - TrackerListControllerDelegate methods
 
 - (void)showTrackersForTorrentWithId:(int)torrentId
 {

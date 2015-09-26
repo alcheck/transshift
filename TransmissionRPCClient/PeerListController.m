@@ -170,9 +170,8 @@
 {
     if( !_dataWasSet )
         return 0;
-    //NSLog( @"%s, %s", __PRETTY_FUNCTION__,  _dataWasSet ? "Data is Set" : "Data is no set" );
     
-    // Return the number of sections.
+     // Return the number of sections.
     self.infoMessage =  _peers.count > 0 ? nil :  NSLocalizedString(@"There are no peers avalable.", @"" );
     
     return _peers.count > 0 ? _sectionTitles.count : 0;

@@ -45,6 +45,7 @@
 @optional - (void)gotFilesResumedToDownload:(NSArray *)filesIndexes forTorrentWithId:(int)torrentId;
 @optional - (void)gotMagnetURL:(NSString *)urlString forTorrentWithId:(int)torrentId;
 @optional - (void)gotTorrentRenamed:(int)torrentId withName:(NSString *)name andPath:(NSString *)path;
+@optional - (void)gotPiecesBitmap:(NSData *)piecesBitmap forTorrentWithId:(int)torrentId;
 
 @end
 
@@ -96,6 +97,7 @@
 
 - (void)getMagnetURLforTorrentWithId:(int)torrentId;
 - (void)renameTorrent:(int)torrentId withName:(NSString *)name andPath:(NSString *)path;
+- (void)getPiecesBitMapForTorrent:(int)torrentId;
 
 @end
 

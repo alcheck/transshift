@@ -126,6 +126,7 @@
 #define TR_ARG_FIELDS_MAGNETLINK                    @"magnetLink"
 #define TR_ARG_FIELDS_DOWNLOADDIR                   @"downloadDir"
 #define TR_ARG_FIELDS_PATH                          @"path"
+#define TR_ARG_FIELDS_PIECES                        @"pieces"
 
 // FileInfo values
 #define TR_ARG_FIELDS_FILES                         @"files"

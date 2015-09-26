@@ -64,6 +64,7 @@
 		2CF8F3271B876A6700982AA2 /* IconHalfCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8F3261B876A6700982AA2 /* IconHalfCloud.m */; };
 		2CF911961B41B605003D0753 /* ChooseServerToAddTorrentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */; };
 		2CF911981B41CD66003D0753 /* TorrentInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911971B41CD66003D0753 /* TorrentInfoController.m */; };
+		2CF915411BB463FD00E84A7C /* PiecesLegendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF915401BB463FD00E84A7C /* PiecesLegendViewController.m */; };
 		2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF91D101B3C8B3B0093637A /* StatusListController.m */; };
 		2CF964EE1B4D5DB9006D8C7E /* docIcon_22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EA1B4D5DB9006D8C7E /* docIcon_22x29.png */; };
 		2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */; };
@@ -82,6 +83,7 @@
 		2CFBA7991B5017DA00202281 /* RateLimitTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBA7981B5017DA00202281 /* RateLimitTable.m */; };
 		2CFBE1CC1B458F6100B15DEE /* FSDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBE1CB1B458F6100B15DEE /* FSDirectory.m */; };
 		2CFC267E1B44580E0070CC1C /* StatusListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC267D1B44580E0070CC1C /* StatusListCell.m */; };
+		2CFC54D21BB71E9D000F5E38 /* FileListTouchAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC54D11BB71E9D000F5E38 /* FileListTouchAreaView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +207,8 @@
 		2CF911941B41B605003D0753 /* ChooseServerToAddTorrentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseServerToAddTorrentController.h; sourceTree = "<group>"; };
 		2CF911951B41B605003D0753 /* ChooseServerToAddTorrentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseServerToAddTorrentController.m; sourceTree = "<group>"; };
 		2CF911971B41CD66003D0753 /* TorrentInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentInfoController.m; sourceTree = "<group>"; };
+		2CF9153F1BB463FD00E84A7C /* PiecesLegendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PiecesLegendViewController.h; sourceTree = "<group>"; };
+		2CF915401BB463FD00E84A7C /* PiecesLegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PiecesLegendViewController.m; sourceTree = "<group>"; };
 		2CF91D0F1B3C8B3B0093637A /* StatusListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListController.h; sourceTree = "<group>"; };
 		2CF91D101B3C8B3B0093637A /* StatusListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListController.m; sourceTree = "<group>"; };
 		2CF964EA1B4D5DB9006D8C7E /* docIcon_22x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_22x29.png; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 		2CFBE1CB1B458F6100B15DEE /* FSDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDirectory.m; sourceTree = "<group>"; };
 		2CFC267C1B44580E0070CC1C /* StatusListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListCell.h; sourceTree = "<group>"; };
 		2CFC267D1B44580E0070CC1C /* StatusListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListCell.m; sourceTree = "<group>"; };
+		2CFC54D01BB71E9D000F5E38 /* FileListTouchAreaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListTouchAreaView.h; sourceTree = "<group>"; };
+		2CFC54D11BB71E9D000F5E38 /* FileListTouchAreaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileListTouchAreaView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				2CFB92CF1B56D25400C83354 /* controllers.storyboard */,
+				2CF9153E1BB463D500E84A7C /* Pieces Legend Controller */,
 				2CF971AC1B790B02008EE25D /* GeoIP Controller */,
 				2CF7300A1B657D2D007D5354 /* Schedule DayTime Controller */,
 				2CF72FFC1B65114A007D5354 /* Tracker list Controller */,
@@ -545,6 +552,15 @@
 			name = "Choose server Controller";
 			sourceTree = "<group>";
 		};
+		2CF9153E1BB463D500E84A7C /* Pieces Legend Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CF9153F1BB463FD00E84A7C /* PiecesLegendViewController.h */,
+				2CF915401BB463FD00E84A7C /* PiecesLegendViewController.m */,
+			);
+			name = "Pieces Legend Controller";
+			sourceTree = "<group>";
+		};
 		2CF91D0D1B3C62BF0093637A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,6 +650,8 @@
 				2CF9C4CE1B84EE3B00DA4487 /* IconFS.m */,
 				2C0A2AA11B469D5D0042CAA6 /* FileListFSCell.h */,
 				2C0A2AA21B469D5D0042CAA6 /* FileListFSCell.m */,
+				2CFC54D01BB71E9D000F5E38 /* FileListTouchAreaView.h */,
+				2CFC54D11BB71E9D000F5E38 /* FileListTouchAreaView.m */,
 			);
 			name = "File List Controller";
 			sourceTree = "<group>";
@@ -816,6 +834,7 @@
 				2C4673151B3D91BA00CBD6B1 /* RPCConnector.m in Sources */,
 				2CF8EF781B61736100EB8D5D /* TrackerListCell.m in Sources */,
 				2C9A83F31BB42A4D002D7B00 /* InfoMenuLabel.m in Sources */,
+				2CFC54D21BB71E9D000F5E38 /* FileListTouchAreaView.m in Sources */,
 				2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */,
 				2CF971AF1B790B23008EE25D /* IPGeoInfoController.m in Sources */,
 				2CF7F3211B6EBF2B007EEBF6 /* PeerStatCell.m in Sources */,
@@ -852,6 +871,7 @@
 				2CFC267E1B44580E0070CC1C /* StatusListCell.m in Sources */,
 				2CF730021B6514E5007D5354 /* TrackerInfoCell.m in Sources */,
 				2C6D18B31B3B37CC002666C6 /* RPCServerConfigDB.m in Sources */,
+				2CF915411BB463FD00E84A7C /* PiecesLegendViewController.m in Sources */,
 				2CFA9DC11B42CE0D005629C2 /* TRPeerInfo.m in Sources */,
 				2C701C751B98D2E1004C366C /* MagnetURLViewController.m in Sources */,
 				2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */,
@@ -1015,8 +1035,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1031,8 +1051,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

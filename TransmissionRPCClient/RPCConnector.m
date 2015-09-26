@@ -289,6 +289,32 @@
      }];
 }
 
+- (void)getPiecesBitMapForTorrent:(int)torrentId
+{
+    NSDictionary *requestVals = @{
+                                  TR_METHOD : TR_METHODNAME_TORRENTGET,
+                                  TR_METHOD_ARGS : @{
+                                          TR_ARG_FIELDS : @[ TR_ARG_FIELDS_PIECES ],
+                                          TR_ARG_IDS : @[@(torrentId)]
+                                          }
+                                  };
+    
+    [self makeRequest:requestVals withName:TR_METHODNAME_TORRENTGET andHandler:^(NSDictionary *json)
+     {
+         // save torrents and call delegate
+         NSArray *torrentsJsonDesc = json[TR_RETURNED_ARGS][TR_RETURNED_ARG_TORRENTS];
+         
+         NSString* base64data = [torrentsJsonDesc firstObject][TR_ARG_FIELDS_PIECES];
+ 
+         NSData *data = [[NSData alloc] initWithBase64EncodedString:base64data options:NSDataBase64DecodingIgnoreUnknownCharacters];
+         
+         if( _delegate && [_delegate respondsToSelector:@selector(gotPiecesBitmap:forTorrentWithId:)])
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [_delegate gotPiecesBitmap:data forTorrentWithId:torrentId];
+             });
+     }];
+}
+
 
 - (void)removeTracker:(int)trackerId forTorrent:(int)torrentId
 {

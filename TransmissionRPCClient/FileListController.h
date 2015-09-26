@@ -19,6 +19,7 @@
 @optional - (void)fileListControllerStopDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 @optional - (void)fileListControllerResumeDownloadingFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
 @optional - (void)fileListControllerSetPriority:(int)priority forFilesWithIndexes:(NSArray*)indexes forTorrentWithId:(int)torrentId;
+@optional - (void)fileListControllerRenameTorrent:(int)torrentId oldItemName:(NSString *)oldItemName newItemName:(NSString *)newItemName;
 
 @end
 

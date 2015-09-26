@@ -7,9 +7,10 @@
 //
 
 #import "FileListController.h"
-//#import "FileListCell.h"
+
 #import "FSDirectory.h"
 #import "FileListFSCell.h"
+#import "FileListTouchAreaView.h"
 #import "TRFileInfo.h"
 #import "NSObject+DataObject.h"
 
@@ -17,7 +18,7 @@
 #define ICON_FOLDER_OPENED    @"iconFolderOpened"
 #define ICON_FOLDER_CLOSED    @"iconFolderClosed"
 
-@interface FileListController ()
+@interface FileListController () <FileListTouchAreaDelegate>
 @end
 
 @implementation FileListController
@@ -27,15 +28,13 @@
     UIImage *_iconImgFolderOpened;
     UIImage *_iconImgFolderClosed;
     
-    //FSDirectory *_fsDir;
     BOOL     _isSelectOnly;
     FSItem  *_curItem;
     
     BOOL     _needUpdateFolders;
     BOOL     _fileJustFinished;
     
-    UIBarButtonItem *_btnCheckAll;
-    
+    UIBarButtonItem *_btnCheckAll;    
 }
 
 - (void)viewDidLoad
@@ -437,6 +436,43 @@
     }
 }
 
+#pragma mark - Rename item
+- (void)showRenameMenu:(UILongPressGestureRecognizer *)sender
+{
+    if( sender.state != UIGestureRecognizerStateRecognized )
+        return;
+    
+    FileListTouchAreaView *touchView = sender.dataObject;
+    [touchView becomeFirstResponder];
+    
+    UIMenuItem *renameItem = [[UIMenuItem alloc] initWithTitle: touchView.isFile ?
+                              NSLocalizedString( @"AlertRenameFileTitle" , nil) : NSLocalizedString( @"AlertRenameFolderTitle" , nil)
+                                                        action:@selector(renameAction:)];
+    
+    UIMenuController *menu = [UIMenuController sharedMenuController];
+    menu.menuItems = @[ renameItem ];
+    
+    // make some fix to the frame where menu will appear
+    CGRect frame = touchView.frame;
+    frame.origin.y += frame.size.height / 3;
+    frame.origin.x += 50;
+    frame.size.width /= 2;
+    
+    [menu setTargetRect:frame inView:touchView.superview];
+    [menu setMenuVisible:YES animated:YES];
+    
+    //NSLog(@"FullPath: [%@]", touchView.itemPath);
+}
+
+#pragma mark - FileListTouchAreaDelegate methods
+- (void)renameFileOrFolder:(BOOL)isFile fromOldName:(NSString *)oldName toNewName:(NSString *)newName
+{
+    if( _delegate && [_delegate respondsToSelector:@selector(fileListControllerRenameTorrent:oldItemName:newItemName:)] )
+    {
+        [_delegate fileListControllerRenameTorrent:_torrentId oldItemName:oldName newItemName:newName];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -446,7 +482,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return NSLocalizedString( @"Files & Folders", @"");
+    return NSLocalizedString( @"Files & Folders", nil );
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return NSLocalizedString( @"Long tap to rename file or folder", nil);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -508,7 +549,22 @@
     
     cell.nameLabelTrailConstraint.priority = 751;
     cell.nameLabelTrailToSegmentConstraint.priority = 750;
-    cell.touchView.userInteractionEnabled = NO;
+    
+    cell.touchView.userInteractionEnabled = YES;
+
+    if( !cell.longTapRecognizer )
+    {
+        cell.longTapRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showRenameMenu:)];
+        [cell.touchView addGestureRecognizer:cell.longTapRecognizer];
+    }
+    
+    cell.touchView.delegate = self;
+    cell.touchView.isFile = YES;
+    cell.touchView.itemName = item.name;
+    cell.touchView.itemPath = item.fullName;
+    cell.longTapRecognizer.dataObject = cell.touchView;
+    
+    
     cell.prioritySegment.dataObject = item;
     cell.checkBox.dataObject = item;
     
@@ -565,6 +621,12 @@
     {
         cell.checkBox.hidden = YES;
     }
+    
+    if( cell.tapRecognizer )
+    {
+        [cell.touchView removeGestureRecognizer:cell.tapRecognizer];
+        cell.tapRecognizer = nil;
+    }
 }
 
 - (void)updateFolderCell:(FileListFSCell *)cell withFSItem:(FSItem *)item   updateWanted:(BOOL)updateWanted
@@ -599,7 +661,19 @@
     cell.nameLabelTrailConstraint.priority = 751;
     cell.nameLabelTrailToSegmentConstraint.priority = 750;
     
-    cell.touchView.userInteractionEnabled = NO;
+    cell.touchView.userInteractionEnabled = YES;
+    
+    if( !cell.longTapRecognizer )
+    {
+        cell.longTapRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showRenameMenu:)];
+        [cell.touchView addGestureRecognizer:cell.longTapRecognizer];
+    }
+    
+    cell.touchView.delegate = self;
+    cell.touchView.isFile = NO;
+    cell.touchView.itemName = item.name;
+    cell.touchView.itemPath = item.fullName;
+    cell.longTapRecognizer.dataObject = cell.touchView;
     
     if (_selectOnly)
     {
@@ -636,11 +710,15 @@
         
     // Add tap handeler for folder - open/close
     [cell.touchView layoutIfNeeded];
-    UITapGestureRecognizer *tapFolderRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
-    tapFolderRec.dataObject = item;
+    
+    // add tap recognizer
+    if( cell.tapRecognizer )
+        [cell.touchView removeGestureRecognizer:cell.tapRecognizer];
+    
+    cell.tapRecognizer  = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(folderTapped:)];
+    cell.tapRecognizer.dataObject = item;
         
-    cell.touchView.userInteractionEnabled = YES;
-    [cell.touchView addGestureRecognizer:tapFolderRec];
+    [cell.touchView addGestureRecognizer:cell.tapRecognizer];
 }
 
 @end

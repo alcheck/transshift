@@ -28,6 +28,7 @@
 
 @optional - (void)getMagnetURLforTorrentWithId:(int)torrentId;
 @optional - (void)renameTorrentWithId:(int)torrentId withNewName:(NSString *)newName andPath:(NSString *)path;
+@optional - (void)showPiecesLegendForTorrentWithId:(int)torrentId piecesCount:(NSInteger)piecesCount pieceSize:(long long)pieceSize;
 
 @end
 

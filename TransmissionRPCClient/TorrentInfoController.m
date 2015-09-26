@@ -78,6 +78,8 @@
     MagnetURLViewController *_magnetUrlController;
     
     UITapGestureRecognizer *_torrentNameLabelGesture;
+    UITapGestureRecognizer *_torrentPiecesLabelGesture;
+    UITapGestureRecognizer *_torrentCommentLabelGesture;
 }
 
 - (void)viewDidLoad
@@ -342,10 +344,19 @@
     // renaming torrent
     if( _delegate && [_delegate respondsToSelector:@selector(renameTorrentWithId:withNewName:andPath:)] )
     {
-        NSString *path = [NSString stringWithFormat:@"%@/%@", _torrentInfo.downloadDir, _torrentInfo.name];
-       [_delegate renameTorrentWithId:_torrentId withNewName:newName andPath:path];
+        // NSString *path = [NSString stringWithFormat:@"%@/%@", _torrentInfo.downloadDir, _torrentInfo.name];
+       [_delegate renameTorrentWithId:_torrentId withNewName:newName andPath:_torrentInfo.name];
     }
 }
+
+- (void)showPiecesLegend
+{
+    if( _delegate && [_delegate respondsToSelector:@selector(showPiecesLegendForTorrentWithId:piecesCount:pieceSize:)])
+    {
+        [_delegate showPiecesLegendForTorrentWithId:_torrentId piecesCount:_torrentInfo.piecesCount pieceSize:_torrentInfo.pieceSize];
+    }
+}
+
 
 #pragma mark - Updating data methods
 
@@ -369,7 +380,7 @@
     stopResumeButton.enabled = !trInfo.isChecking;
     self.toolbarItems = @[stopResumeButton, _spacerButton, _refreshButton, _spacerButton, _deleteButton];
     
-    self.title =  NSLocalizedString(@"Torrent details", @"TorrentInfoController title");
+    self.title =  NSLocalizedString(@"Torrent details", nil);
     
     self.torrentNameLabel.text = trInfo.name;
     
@@ -396,7 +407,7 @@
     else
     {
         stopResumeButton.enabled = NO;
-        self.stateLabel.text = NSLocalizedString( @"Updating ...", @"" );
+        self.stateLabel.text = NSLocalizedString( @"Updating ...", nil );
     }
     
     self.progressLabel.text =  trInfo.isChecking ? trInfo.recheckProgressString : trInfo.percentsDoneString;
@@ -405,6 +416,15 @@
     
     self.sizeLabel.text = [NSString stringWithFormat: NSLocalizedString(@"TorrentInfoSizeFormat", nil),
                            trInfo.totalSizeString, trInfo.piecesCount, trInfo.pieceSizeString];
+    
+    if( !_torrentPiecesLabelGesture )
+    {
+        self.sizeLabel.userInteractionEnabled = YES;
+        self.sizeLabel.textColor = self.view.tintColor;
+        _torrentPiecesLabelGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showPiecesLegend)];
+        [self.sizeLabel addGestureRecognizer:_torrentPiecesLabelGesture];
+    }
+    
     
     self.downloadedLabel.text = trInfo.downloadedEverString;
     self.uploadedLabel.text = trInfo.uploadedEverString;
@@ -431,26 +451,23 @@
     self.commentLabel.text = trInfo.comment;
 
     // detecting urls in comment line
-    if( match.resultType == NSTextCheckingTypeLink )
+    if( match.resultType == NSTextCheckingTypeLink && !_torrentCommentLabelGesture )
     {
         _commentURL = match.URL;
         self.commentLabel.textColor = self.view.tintColor;
         self.commentLabel.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentLinkTapped)];
-        [self.commentLabel addGestureRecognizer:tapRecognizer];
-    }
-    else
-    {
-        self.commentLabel.userInteractionEnabled = NO;
-        self.commentLabel.text = trInfo.comment;
+        _torrentCommentLabelGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentLinkTapped)];
+        [self.commentLabel addGestureRecognizer:_torrentCommentLabelGesture];
     }
     
+    // if this torrent has some error, show this error in header
     if( trInfo.errorString && trInfo.errorString.length > 0 )
     {
         NSString *errMessage = [NSString stringWithFormat:@"[%i] %@", trInfo.errorNumber, trInfo.errorString];
         self.errorMessage = errMessage;
     }
     
+    // init some ui only once
     if( _bFirstTime )
     {
         self.enableControls = YES;
