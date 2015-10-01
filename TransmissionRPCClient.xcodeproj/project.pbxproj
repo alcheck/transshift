@@ -66,6 +66,7 @@
 		2CF911981B41CD66003D0753 /* TorrentInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF911971B41CD66003D0753 /* TorrentInfoController.m */; };
 		2CF915411BB463FD00E84A7C /* PiecesLegendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF915401BB463FD00E84A7C /* PiecesLegendViewController.m */; };
 		2CF91D111B3C8B3B0093637A /* StatusListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF91D101B3C8B3B0093637A /* StatusListController.m */; };
+		2CF953951BBDA4F00009C785 /* TorrentListProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF953941BBDA4F00009C785 /* TorrentListProgressView.m */; };
 		2CF964EE1B4D5DB9006D8C7E /* docIcon_22x29.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EA1B4D5DB9006D8C7E /* docIcon_22x29.png */; };
 		2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */; };
 		2CF964F01B4D5DB9006D8C7E /* docIcon_64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF964EC1B4D5DB9006D8C7E /* docIcon_64x64.png */; };
@@ -211,6 +212,8 @@
 		2CF915401BB463FD00E84A7C /* PiecesLegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PiecesLegendViewController.m; sourceTree = "<group>"; };
 		2CF91D0F1B3C8B3B0093637A /* StatusListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusListController.h; sourceTree = "<group>"; };
 		2CF91D101B3C8B3B0093637A /* StatusListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListController.m; sourceTree = "<group>"; };
+		2CF953931BBDA4F00009C785 /* TorrentListProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListProgressView.h; sourceTree = "<group>"; };
+		2CF953941BBDA4F00009C785 /* TorrentListProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorrentListProgressView.m; sourceTree = "<group>"; };
 		2CF964EA1B4D5DB9006D8C7E /* docIcon_22x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_22x29.png; sourceTree = "<group>"; };
 		2CF964EB1B4D5DB9006D8C7E /* docIcon_44x58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_44x58.png; sourceTree = "<group>"; };
 		2CF964EC1B4D5DB9006D8C7E /* docIcon_64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docIcon_64x64.png; sourceTree = "<group>"; };
@@ -439,6 +442,8 @@
 				2CB651CE1B3DCCBE005C823C /* TorrentListController.m */,
 				2CB651D01B3DCDD4005C823C /* TorrentListCell.h */,
 				2CB651D11B3DCDD4005C823C /* TorrentListCell.m */,
+				2CF953931BBDA4F00009C785 /* TorrentListProgressView.h */,
+				2CF953941BBDA4F00009C785 /* TorrentListProgressView.m */,
 			);
 			name = "Torrent list controller";
 			sourceTree = "<group>";
@@ -836,6 +841,7 @@
 				2C9A83F31BB42A4D002D7B00 /* InfoMenuLabel.m in Sources */,
 				2CFC54D21BB71E9D000F5E38 /* FileListTouchAreaView.m in Sources */,
 				2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */,
+				2CF953951BBDA4F00009C785 /* TorrentListProgressView.m in Sources */,
 				2CF971AF1B790B23008EE25D /* IPGeoInfoController.m in Sources */,
 				2CF7F3211B6EBF2B007EEBF6 /* PeerStatCell.m in Sources */,
 				2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */,

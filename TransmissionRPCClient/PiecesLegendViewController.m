@@ -109,8 +109,8 @@
 @implementation PiecesLegendViewController
 
 {
-    NSInteger _rows;
-    NSInteger _columns;
+    CGFloat _rows;
+    CGFloat _columns;
     
     LegendView *_legendView;
 }
@@ -137,11 +137,11 @@
     self.labelPiecesCount.text = [NSString stringWithFormat: NSLocalizedString(@"Pieces count: %i", nil), _piecesCount];
     self.labelPieceSize.text = [NSString stringWithFormat: NSLocalizedString(@"Piece size: %@", nil), formatByteCount(_pieceSize)];
  
-    _columns = 50;
-    _rows = _piecesCount / _columns + 1;
+    _columns = 50.0;
+    _rows = ceil( _piecesCount / _columns ) ;
     
-    self.labelRowsCount.text = [NSString stringWithFormat: NSLocalizedString(@"Rows: %i", nil), _rows];
-    self.labelColumnsCount.text = [NSString stringWithFormat: NSLocalizedString(@"Columns: %i", nil), _columns];
+    self.labelRowsCount.text = [NSString stringWithFormat: NSLocalizedString(@"Rows: %i", nil), (NSInteger)_rows];
+    self.labelColumnsCount.text = [NSString stringWithFormat: NSLocalizedString(@"Columns: %i", nil), (NSInteger)_columns];
     
     CGSize  bs = self.scrollView.frame.size;
     CGFloat pw = self.splitViewController ?  (bs.width - 45) / _columns : bs.width/_columns;
@@ -151,8 +151,8 @@
     
     _legendView = [[LegendView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.contentSize.width, self.scrollView.contentSize.height) ];
     _legendView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    _legendView.rows = _rows;
-    _legendView.cols = _columns;
+    _legendView.rows = (NSInteger)_rows;
+    _legendView.cols = (NSInteger)_columns;
     _legendView.count = _piecesCount;
     _legendView.pw = pw;
     _legendView.ph = ph;

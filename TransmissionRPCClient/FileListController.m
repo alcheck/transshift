@@ -28,7 +28,7 @@
     UIImage *_iconImgFolderOpened;
     UIImage *_iconImgFolderClosed;
     
-    BOOL     _isSelectOnly;
+    //BOOL     _isSelectOnly;
     FSItem  *_curItem;
     
     BOOL     _needUpdateFolders;
@@ -487,7 +487,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-    return NSLocalizedString( @"Long tap to rename file or folder", nil);
+    return  _selectOnly ? nil : NSLocalizedString( @"Long tap to rename file or folder", nil);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -582,7 +582,7 @@
         
     if( item.downloadProgress < 1.0f )
     {
-            if( !_isSelectOnly )
+            if( !_selectOnly )
             {
                 // configure priority segment control
                 [cell.prioritySegment addTarget:self action:@selector(prioritySegmentToggled:) forControlEvents:UIControlEventValueChanged];
@@ -675,7 +675,7 @@
     cell.touchView.itemPath = item.fullName;
     cell.longTapRecognizer.dataObject = cell.touchView;
     
-    if (_selectOnly)
+    if ( _selectOnly )
     {
           cell.detailLabel.text = [NSString stringWithFormat:NSLocalizedString(  @"%i files, %@", @"" ), item.filesCount, item.lengthString];
     }

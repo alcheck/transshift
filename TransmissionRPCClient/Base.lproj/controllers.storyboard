@@ -548,7 +548,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="i61-wq-qNA">
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="i61-wq-qNA" customClass="TorrentListProgressView">
                                             <rect key="frame" x="58" y="40" width="441" height="3"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="250" constant="4" id="QvL-Z9-9Ny"/>
@@ -1627,12 +1627,17 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="VBF-OF-q4U">
+                                                    <rect key="frame" x="51" y="12" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pEI-cG-i4k" firstAttribute="leading" secondItem="hzH-73-gue" secondAttribute="trailing" constant="8" symbolic="YES" id="7jv-im-Hws"/>
                                                 <constraint firstItem="VsL-r5-dCY" firstAttribute="trailing" secondItem="eP6-dn-drc" secondAttribute="trailingMargin" id="A8g-1Z-Ltc"/>
                                                 <constraint firstAttribute="centerY" secondItem="pEI-cG-i4k" secondAttribute="centerY" id="Akl-wE-pBx"/>
                                                 <constraint firstAttribute="centerY" secondItem="hzH-73-gue" secondAttribute="centerY" id="MNB-hc-0Lj"/>
+                                                <constraint firstItem="VBF-OF-q4U" firstAttribute="leading" secondItem="pEI-cG-i4k" secondAttribute="trailing" constant="8" id="R7S-jB-kvn"/>
+                                                <constraint firstItem="pEI-cG-i4k" firstAttribute="centerY" secondItem="VBF-OF-q4U" secondAttribute="centerY" constant="-0.5" id="RUU-DH-ON2"/>
                                                 <constraint firstAttribute="centerY" secondItem="VsL-r5-dCY" secondAttribute="centerY" id="kBi-j2-3XX"/>
                                                 <constraint firstItem="hzH-73-gue" firstAttribute="leading" secondItem="eP6-dn-drc" secondAttribute="leadingMargin" id="wpS-zi-3s4"/>
                                             </constraints>
@@ -1647,6 +1652,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="indicatorPortCheck" destination="VBF-OF-q4U" id="iqn-3t-zCZ"/>
                         <outlet property="labelPort" destination="pEI-cG-i4k" id="2lS-SB-LB8"/>
                         <outlet property="segmentEncryption" destination="yEn-nb-ZFk" id="wT4-qv-bwQ"/>
                         <outlet property="segmentShowScheduler" destination="Lmh-H4-Cm3" id="0jd-eP-3CF"/>

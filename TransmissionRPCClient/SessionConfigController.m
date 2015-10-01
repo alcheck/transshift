@@ -45,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *switchPortForwardingEnabled;
 @property (weak, nonatomic) IBOutlet UITextField *textPortNumber;
 @property (weak, nonatomic) IBOutlet UILabel *labelPort;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicatorPortCheck;
 
 @property(nonatomic) BOOL enableControls;
 @property (weak, nonatomic) IBOutlet UITextField *textDownloadDir;
@@ -264,11 +265,13 @@
         _switchUTPEnabled.on = _sessionInfo.UTPEnabled;
         
         _switchRandomPortEnabled.on = _sessionInfo.portRandomAtStartEnabled;
-        _textPortNumber.enabled = _sessionInfo.portRandomAtStartEnabled;
+        _textPortNumber.enabled = !_sessionInfo.portRandomAtStartEnabled;
         _textPortNumber.text = [NSString stringWithFormat:@"%i", _sessionInfo.port];
         _switchPortForwardingEnabled.on = _sessionInfo.portForfardingEnabled;
         
         _labelPort.text = NSLocalizedString(@"testing ...", @"");
+        _indicatorPortCheck.hidden = NO;
+        [_indicatorPortCheck startAnimating];
         
         _textDownloadDir.enabled = YES;
         _textDownloadDir.text = _sessionInfo.downloadDir;
@@ -286,6 +289,7 @@
 
 - (void)setPortIsOpen:(BOOL)portIsOpen
 {
+    [_indicatorPortCheck stopAnimating];
     _labelPort.textColor = portIsOpen ? [UIColor greenColor] : [UIColor redColor];
     _labelPort.text = portIsOpen ? NSLocalizedString(@"OPEN", @"Portinfo") : NSLocalizedString(@"CLOSED", @"Portinfo");
 }
@@ -341,7 +345,7 @@
 
 - (IBAction)toggleRandomPort:(UISwitch*)sender
 {
-    _textPortNumber.enabled = sender.on;
+    _textPortNumber.enabled = !sender.on;
 }
 
 - (IBAction)btnShowScheduler:(UISegmentedControl *)sender

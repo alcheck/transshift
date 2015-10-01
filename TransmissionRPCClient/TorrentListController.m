@@ -347,6 +347,8 @@
     UIColor *progressBarColor = cell.tintColor;
     NSString *detailInfo = @"";
     
+    cell.progressBar.downloadedProgress = nil;
+    
     UIImage *btnImg;
     UIColor *btnTintColor;
     
@@ -369,9 +371,10 @@
                               info.totalSizeString,
                               info.uploadedEverString,
                               info.uploadRatio];
+            
+            cell.progressBar.downloadedProgress = @((CGFloat)info.haveValid / (CGFloat)info.totalSize);
         }
         
-        //cell.statusIcon.image = [UIImage iconUpload];
         cell.statusIcon.iconType = IconCloudTypeUpload;
         info.uploadRate > 0 ? [cell.statusIcon playUploadAnimation] : [cell.statusIcon stopUploadAnimation];
         
@@ -384,9 +387,13 @@
                       info.peersSendingToUs, info.peersConnected, info.etaTimeString ];
         cell.downloadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↓DL: %@", @""), info.downloadRateString];
         cell.uploadRate.text = [NSString stringWithFormat:NSLocalizedString(@"↑UL: %@", @""), info.uploadRateString];
-        cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedEverString, info.totalSizeString ];
+        //cell.size.text = [NSString stringWithFormat:  NSLocalizedString(@"%@ of %@", @""), info.downloadedEverString, info.totalSizeString ];
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString( @"%@ of %@, uploaded %@ (Ratio %0.2f)", @"" ),
+                          info.downloadedEverString,
+                          info.totalSizeString,
+                          info.uploadedEverString,
+                          info.uploadRatio];
         
-        //cell.statusIcon.image = [UIImage iconDownload];
         cell.statusIcon.iconType = IconCloudTypeDownload;
         info.downloadRate > 0 ? [cell.statusIcon playDownloadAnimation] : [cell.statusIcon stopDownloadAnimation];
         
@@ -399,11 +406,26 @@
         detailInfo =  NSLocalizedString(@"Paused", @"TorrentListController torrent info");
         progressBarColor = [UIColor stopColor];
         cell.downloadRate.text = NSLocalizedString(@"no activity", @"");
-        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, uploaded %@ (Ratio %0.2f)", @""), info.haveValidString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
+        //cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@ of %@, uploaded %@ (Ratio %0.2f)", @""), info.haveValidString, info.totalSizeString, info.uploadedEverString, info.uploadRatio];
         
-        //cell.statusIcon.image = [UIImage iconStop];
+        cell.size.text = [NSString stringWithFormat: NSLocalizedString(@"%@, uploaded %@ (Ratio %0.2f)", @""),
+                          info.downloadedSizeString,
+                          info.uploadedEverString,
+                          info.uploadRatio];
+        
+        if( ![info.haveValidString isEqual:info.downloadedSizeString] )
+        {
+            cell.size.text = [NSString stringWithFormat: NSLocalizedString( @"%@ of %@, uploaded %@ (Ratio %0.2f)", @"" ),
+                              info.haveValidString,
+                              info.totalSizeString,
+                              info.uploadedEverString,
+                              info.uploadRatio];
+            
+            cell.progressBar.downloadedProgress = @((CGFloat)info.haveValid / (CGFloat)info.totalSize);            
+        }
+        
+        
         cell.statusIcon.iconType = IconCloudTypeStop;
-        
         cell.buttonStopResume.imageView.image = [UIImage iconPlay];
         btnImg = [UIImage iconPlay];
         btnTintColor = [UIColor seedColor];
