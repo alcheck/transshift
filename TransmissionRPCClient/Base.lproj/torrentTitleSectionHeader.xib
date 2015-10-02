@@ -9,18 +9,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TorrentTitleSectionHeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTorrentInOval36x36" translatesAutoresizingMaskIntoConstraints="NO" id="Vka-KW-dfe">
-                    <rect key="frame" x="8" y="27" width="36" height="36"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="36" id="0Cg-tU-ui9"/>
-                        <constraint firstAttribute="width" constant="36" id="7qs-jh-fhN"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="528" translatesAutoresizingMaskIntoConstraints="NO" id="Ixe-LF-PzB">
-                    <rect key="frame" x="52" y="0.0" width="528" height="90"/>
+                    <rect key="frame" x="52" y="0.0" width="528" height="50"/>
                     <attributedString key="attributedText">
                         <fragment content="Label">
                             <attributes>
@@ -33,6 +26,13 @@
                     <nil key="highlightedColor"/>
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTorrentInOval36x36" translatesAutoresizingMaskIntoConstraints="NO" id="Vka-KW-dfe">
+                    <rect key="frame" x="8" y="7" width="36" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="0Cg-tU-ui9"/>
+                        <constraint firstAttribute="width" constant="36" id="7qs-jh-fhN"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Ixe-LF-PzB" secondAttribute="trailing" constant="20" symbolic="YES" id="74F-0W-cez"/>

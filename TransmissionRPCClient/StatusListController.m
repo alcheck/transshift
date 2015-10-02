@@ -1034,7 +1034,7 @@
 
 - (void)gotTorrentDetailedInfo:(TRInfo *)torrentInfo
 {
-    if( _torrentInfoController )
+    if( _torrentInfoController && _torrentInfoController.torrentId == torrentInfo.trId )
     {
         [_torrentInfoController updateData:torrentInfo];
     }

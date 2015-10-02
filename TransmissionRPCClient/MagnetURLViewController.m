@@ -15,6 +15,7 @@
 @implementation MagnetURLViewController
 
 {
+    __weak IBOutlet UIActivityIndicatorView *_indicatorLoading;
     __weak IBOutlet UISwitch *_switchTogglePasskeyView;
     UIBarButtonItem *_btnCopyToBuffer;
     __weak IBOutlet UILabel *_labelShowPassKey;
@@ -34,6 +35,9 @@
     _btnCopyToBuffer.enabled = ( _urlString != nil );
     _switchTogglePasskeyView.enabled = ( _urlString != nil );
     self.toolbarItems = @[spacer, _btnCopyToBuffer, spacer];
+    
+    if( _urlString != nil )
+        [_indicatorLoading stopAnimating];
 }
 
 /// remove passkey from url
@@ -86,6 +90,8 @@
     self.textMagnetLink.text = urlString;
     _btnCopyToBuffer.enabled = YES;
     _switchTogglePasskeyView.enabled = YES;
+    
+    [_indicatorLoading stopAnimating];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

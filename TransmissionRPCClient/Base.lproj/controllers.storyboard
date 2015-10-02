@@ -1986,19 +1986,19 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pieces Count:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MyE-t7-2Lq">
                                 <rect key="frame" x="66" y="8" width="91" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Columns:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="otH-7Y-l3J">
                                 <rect key="frame" x="115" y="33" width="62" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rows:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2Q-aY-SXh">
                                 <rect key="frame" x="66" y="33" width="41" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xy7-wm-dsM">
@@ -2014,7 +2014,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Piece is available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7J-PE-GLO">
                                 <rect key="frame" x="88" y="58" width="111" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDA-X3-19W">
@@ -2040,13 +2040,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Piece Size:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ICC-Z5-tgi">
                                 <rect key="frame" x="165" y="8" width="72" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Piece is unavailable" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPM-Sc-gPC">
                                 <rect key="frame" x="88" y="83" width="127" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -2223,7 +2223,7 @@
                                     <constraint firstAttribute="width" constant="36" id="IZv-q0-M4S"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="magnet-url" translatesAutoresizingMaskIntoConstraints="NO" id="Ipu-nm-pwX">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ipu-nm-pwX">
                                 <rect key="frame" x="60" y="28" width="516" height="477"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2250,12 +2250,16 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Alr-XR-4WF">
+                                <rect key="frame" x="290" y="257" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GVp-9u-Q4b" firstAttribute="centerY" secondItem="BtE-M0-8ES" secondAttribute="centerY" id="2Qd-Jr-z86"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jss-JJ-Wja" secondAttribute="trailing" id="2az-PO-kKe"/>
                             <constraint firstItem="BtE-M0-8ES" firstAttribute="top" secondItem="Ipu-nm-pwX" secondAttribute="bottom" constant="8" symbolic="YES" id="45v-rB-hNx"/>
+                            <constraint firstItem="Alr-XR-4WF" firstAttribute="centerY" secondItem="Ipu-nm-pwX" secondAttribute="centerY" id="84c-6g-rqT"/>
                             <constraint firstItem="jss-JJ-Wja" firstAttribute="leading" secondItem="EA1-7h-gF2" secondAttribute="leadingMargin" id="8t1-1S-m4r"/>
                             <constraint firstItem="jEe-ER-jw9" firstAttribute="leading" secondItem="EA1-7h-gF2" secondAttribute="leadingMargin" id="8uy-Lo-ya9"/>
                             <constraint firstItem="Ipu-nm-pwX" firstAttribute="leading" secondItem="jEe-ER-jw9" secondAttribute="trailing" constant="8" id="KhC-8k-1qr"/>
@@ -2264,12 +2268,14 @@
                             <constraint firstItem="jss-JJ-Wja" firstAttribute="top" secondItem="BtE-M0-8ES" secondAttribute="bottom" constant="8" symbolic="YES" id="jAh-0C-jxb"/>
                             <constraint firstItem="jEe-ER-jw9" firstAttribute="top" secondItem="Ipu-nm-pwX" secondAttribute="top" constant="12" id="mLF-4B-wpm"/>
                             <constraint firstItem="BtE-M0-8ES" firstAttribute="leading" secondItem="GVp-9u-Q4b" secondAttribute="trailing" constant="8" id="mmQ-1G-DFe"/>
+                            <constraint firstAttribute="centerX" secondItem="Alr-XR-4WF" secondAttribute="centerX" id="mzg-a5-GIo"/>
                             <constraint firstItem="4Nt-Q2-EDo" firstAttribute="top" secondItem="jss-JJ-Wja" secondAttribute="bottom" constant="8" id="oq4-yQ-FbM"/>
                             <constraint firstItem="BtE-M0-8ES" firstAttribute="trailing" secondItem="Ipu-nm-pwX" secondAttribute="trailing" id="w1H-vE-r2o"/>
                         </constraints>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="350" height="300"/>
                     <connections>
+                        <outlet property="_indicatorLoading" destination="Alr-XR-4WF" id="qft-Jh-VVk"/>
                         <outlet property="_labelShowPassKey" destination="GVp-9u-Q4b" id="3XR-Sp-uAW"/>
                         <outlet property="_switchTogglePasskeyView" destination="BtE-M0-8ES" id="i5c-ej-9fE"/>
                         <outlet property="textMagnetLink" destination="Ipu-nm-pwX" id="sEb-Zz-yQ2"/>
@@ -2363,12 +2369,15 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5MG-gz-Meb" id="5XM-T8-14W">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="Fql-nw-zPa" customClass="InfoMenuLabel">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="Fql-nw-zPa" customClass="InfoMenuLabel">
                                                     <rect key="frame" x="52" y="8" width="540" height="49"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Tax-ZZ-t6a">
+                                                    <rect key="frame" x="312" y="23" width="20" height="20"/>
+                                                </activityIndicatorView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconTitleBadge36x36" translatesAutoresizingMaskIntoConstraints="NO" id="8lF-FI-Dxh">
                                                     <rect key="frame" x="8" y="15" width="36" height="36"/>
                                                     <constraints>
@@ -2383,7 +2392,9 @@
                                                 <constraint firstItem="Fql-nw-zPa" firstAttribute="top" secondItem="5XM-T8-14W" secondAttribute="topMargin" id="UhG-bs-0vm"/>
                                                 <constraint firstItem="8lF-FI-Dxh" firstAttribute="leading" secondItem="5XM-T8-14W" secondAttribute="leadingMargin" id="Ye2-g8-wJv"/>
                                                 <constraint firstItem="Fql-nw-zPa" firstAttribute="leading" secondItem="8lF-FI-Dxh" secondAttribute="trailing" constant="8" symbolic="YES" id="eTP-rY-Xhm"/>
+                                                <constraint firstItem="Tax-ZZ-t6a" firstAttribute="centerY" secondItem="Fql-nw-zPa" secondAttribute="centerY" constant="0.5" id="gJb-nV-Nqu"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Fql-nw-zPa" secondAttribute="bottom" id="tU0-ZH-3oD"/>
+                                                <constraint firstItem="Tax-ZZ-t6a" firstAttribute="centerX" secondItem="Fql-nw-zPa" secondAttribute="centerX" id="x5U-Oz-z0W"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -3414,6 +3425,7 @@
                         <outlet property="downloadingTimeLabel" destination="yhP-4M-OvS" id="xEh-Q7-s9d"/>
                         <outlet property="hashTextView" destination="NLx-V9-xrV" id="BZW-s5-MxZ"/>
                         <outlet property="haveLabel" destination="4ak-eh-UpQ" id="SCc-8M-MK0"/>
+                        <outlet property="indicatorLoading" destination="Tax-ZZ-t6a" id="osU-J3-fch"/>
                         <outlet property="progressLabel" destination="8JU-52-6C1" id="dJY-Ug-H9B"/>
                         <outlet property="queuePositionLabel" destination="sba-ol-8ba" id="uEh-4L-f4d"/>
                         <outlet property="ratioLabel" destination="diM-bd-pyU" id="WWZ-jf-5JO"/>

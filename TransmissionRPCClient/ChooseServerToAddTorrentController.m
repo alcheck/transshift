@@ -35,7 +35,8 @@
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Add torrent", @"Choose server controller title");
     
-    _sectionTitles = @[  NSLocalizedString(@"Choose server to add torrent", @"Section title"),
+    _sectionTitles = @[  @"",
+                         NSLocalizedString(@"Choose server to add torrent", @"Section title"),
                          NSLocalizedString(@"Additional parameters", @"Section title"),
                          NSLocalizedString(@"Tracker list", @"")];
     _selectedRow = 0;
@@ -147,24 +148,34 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    // just a header (has no rows) - Torrent or Magnet title
     if( section == 0 )
+        return 0;
+    
+    // server list
+    if( section == 1 )
         return [RPCServerConfigDB sharedDB].db.count;
 
-    if( section == 1 )
+    // section with add torrent parameters
+    if( section == 2 )
         return _files ? 3 : 2;
     
+    // the last section has tracker list
     return _announceList.count;
 }
 
+// row selection handler
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if( indexPath.section == 0 )
+    // check remote server
+    if( indexPath.section == 1 )
     {
         _selectedRow = (int)indexPath.row;
         _rpcConfig = [RPCServerConfigDB sharedDB].db[indexPath.row];
         [self.tableView reloadData];
     }
-    else if( indexPath.section == 1 && indexPath.row == 2 )
+    // select files
+    else if( indexPath.section == 2 && indexPath.row == 2 )
     {
         _fileList = instantiateController(CONTROLLER_ID_FILELIST);
         _fileList.fsDir = _files;
@@ -176,17 +187,22 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if( indexPath.section == 0 )
+    if( indexPath.section == 1 )
         return 70;
-    else
+    else if( indexPath.section == 2 || indexPath.section == 3 )
         return 44;
+    else
+        return 0;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // choose server to add torrent
     if( indexPath.section == 0 )
+        return nil;
+    
+    // choose server to add torrent
+    if( indexPath.section == 1 )
     {
         ChooseServerCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_CHOOSESERVER forIndexPath:indexPath];
         RPCServerConfig *config = [RPCServerConfigDB sharedDB].db[indexPath.row];
@@ -203,7 +219,7 @@
     }
     
     // additional paramters
-    if( indexPath.section == 1)
+    if( indexPath.section == 2)
     {
         if( indexPath.row == 0)
         {
@@ -226,8 +242,8 @@
         }
     }
     
-    
-    if( indexPath.section == 2 )
+    // tracker list
+    if( indexPath.section == 3 )
     {
         TrackerListCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID_TRACKERLIST forIndexPath:indexPath];
         cell.trackeHostLabel.text = _announceList[indexPath.row];

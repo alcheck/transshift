@@ -19,6 +19,7 @@
 
 @interface TorrentInfoController () <UIActionSheetDelegate, InfoMenuLabelDelegate>
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicatorLoading;
 @property (weak, nonatomic) IBOutlet InfoMenuLabel *torrentNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
@@ -266,7 +267,6 @@
 }
 
 
-
 /// Handle file/trackers/peers rows touch
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -369,6 +369,8 @@
     if( trInfo == nil )
         return;
 
+    [_indicatorLoading stopAnimating];
+    
     _torrentInfo = trInfo;
     
     _playButton.enabled = YES;

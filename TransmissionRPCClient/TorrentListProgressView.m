@@ -10,36 +10,38 @@
 
 @implementation TorrentListProgressView
 
-- (void)setDownloadedProgress:(NSNumber *)downloadedProgress
 {
-    //if( downloadedProgress != _downloadedProgress )
-    //    [self setNeedsDisplay];
-    
-    _downloadedProgress = downloadedProgress;
-    [self setNeedsDisplay];
+    UIView *_overlayView;
 }
 
-
-- (void)drawRect:(CGRect)rect
+- (void)awakeFromNib
 {
-    [super drawRect:rect];
+    [super awakeFromNib];
     
-    if( _downloadedProgress )
+    _overlayView = [[UIView alloc] initWithFrame:CGRectZero];
+    _overlayView.hidden = YES;
+    _overlayView.opaque = NO;
+    _overlayView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha: 0.3];
+    
+    [self addSubview:_overlayView];
+}
+
+- (void)setDownloadedProgress:(NSNumber *)downloadedProgress
+{
+    if( downloadedProgress == _downloadedProgress )
+        return;
+    
+    _downloadedProgress = downloadedProgress;
+    
+    CGFloat f = _downloadedProgress.floatValue;
+    _overlayView.hidden = ( f <= 0 || f >= 1.0 );
+    
+    if( !_overlayView.hidden )
     {
-//        CGFloat f = _downloadedProgress.floatValue;
-//        
-//        CGRect r = self.bounds;
-//        
-//        //r.origin.x = ceil( f * r.size.width - 2 );
-//        //r.size.width = 4;
-//        
-//        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:r cornerRadius:1];
-//        
-//        [[UIColor lightGrayColor] setFill];
-//        [path fill];
-//        
-//        [[UIColor darkGrayColor] setStroke];
-//        [path stroke];
+        CGRect r = self.bounds;
+        
+        r.size.width = floor( f * r.size.width - 2 );
+        _overlayView.frame = r;
     }
 }
 
