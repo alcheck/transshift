@@ -20,15 +20,15 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v 1.0.1(389)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lds-Pn-ysW">
-                    <rect key="frame" x="195" y="3" width="55" height="12"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <rect key="frame" x="185" y="3" width="65" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Gq-mr-N4P">
-                    <rect key="frame" x="71" y="97" width="179" height="29"/>
+                    <rect key="frame" x="97" y="97" width="126" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="You can support the project">
+                    <state key="normal" title="Support the project">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>

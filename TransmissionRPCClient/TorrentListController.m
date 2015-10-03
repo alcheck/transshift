@@ -342,11 +342,13 @@
     cell.buttonStopResume.hidden = NO;
     cell.buttonStopResume.enabled = YES;
     cell.buttonStopResume.dataObject = info;
+    
     [cell.buttonStopResume addTarget:self action:@selector(playPauseButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     UIColor *progressBarColor = cell.tintColor;
     NSString *detailInfo = @"";
     
+    // reset unfinished progress
     cell.progressBar.downloadedProgress = nil;
     
     UIImage *btnImg;
@@ -421,7 +423,9 @@
                               info.uploadedEverString,
                               info.uploadRatio];
             
-            cell.progressBar.downloadedProgress = @((CGFloat)info.haveValid / (CGFloat)info.totalSize);            
+            // FIX : if this torrent is not fully downloaded there is no part of unfinished progress
+            if( info.percentsDone < 1.0 )
+                cell.progressBar.downloadedProgress = @((CGFloat)info.haveValid / (CGFloat)info.totalSize);
         }
         
         

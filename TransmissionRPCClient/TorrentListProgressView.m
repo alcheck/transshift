@@ -8,17 +8,37 @@
 
 #import "TorrentListProgressView.h"
 
+@interface OverlayView : UIView
+@end
+
+@implementation OverlayView
+
+-(void)drawRect:(CGRect)rect
+{
+    CGRect r = self.bounds;
+    r.origin.x = r.size.width - 1;
+    r.size.width = 1;
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:r];
+    
+    [UIColor.blackColor setFill];
+    [path fill];
+}
+
+@end
+
+
 @implementation TorrentListProgressView
 
 {
-    UIView *_overlayView;
+    OverlayView *_overlayView;
 }
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     
-    _overlayView = [[UIView alloc] initWithFrame:CGRectZero];
+    _overlayView = [[OverlayView alloc] initWithFrame:CGRectZero];
     _overlayView.hidden = YES;
     _overlayView.opaque = NO;
     _overlayView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha: 0.3];
