@@ -32,7 +32,7 @@ Though android community has a lot of implementations clients, the iOS-one is la
 - full configration of transmission-bt server
 - configure upload/download limits
 - set traffic limit scheduler
-- show online server HDD size
+- show available server storage size
 - maintain list of remote servers
 - the app is localized in English and Russian
 - many more ...
