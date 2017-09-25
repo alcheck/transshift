@@ -8,6 +8,8 @@
 
 #import "TorrentInfoController.h"
 #import "MagnetURLViewController.h"
+#import "WaitViewController.h"
+#import "IpAnonimizer.h"
 #import "GlobalConsts.h"
 #import "InfoMenuLabel.h"
 
@@ -81,6 +83,9 @@
     UITapGestureRecognizer *_torrentNameLabelGesture;
     UITapGestureRecognizer *_torrentPiecesLabelGesture;
     UITapGestureRecognizer *_torrentCommentLabelGesture;
+    
+    /// holds UIActionSheet for open link actions
+    UIActionSheet *_openLinkActions;
 }
 
 - (void)viewDidLoad
@@ -100,7 +105,7 @@
     _playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(startTorrent)];
     _spacerButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     _checkButton = [[UIBarButtonItem alloc] initWithTitle:@"Verify" style:UIBarButtonItemStylePlain target:self action:@selector(verifyTorrent)];
-    _applyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Apply", @"") style:UIBarButtonItemStyleBordered target:self action:@selector(applyIndividualTorrentSettings)];
+    _applyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Apply", @"") style:UIBarButtonItemStylePlain target:self action:@selector(applyIndividualTorrentSettings)];
     
     _applyButton.enabled = NO;
     
@@ -263,9 +268,28 @@
 // open browser
 - (void)commentLinkTapped
 {
-    [[UIApplication sharedApplication] openURL:_commentURL];
+    // show action list to allow user
+    // open link in browser,
+    // copy this link to buffer
+    // or open this link via anonimizer service
+    
+    _openLinkActions = [[UIActionSheet alloc] initWithTitle: _commentURL.absoluteString // NSLocalizedString(@"Open link menu", nil)
+                                                   delegate:self
+                                          cancelButtonTitle:self.splitViewController ?  nil : NSLocalizedString(@"Cancel", nil)
+                                     destructiveButtonTitle:nil
+                                          otherButtonTitles:NSLocalizedString(@"Open in Safari", nil),
+                                                            NSLocalizedString(@"Open via Anonimizer", nil),
+                                                            NSLocalizedString(@"Copy", nil),
+                                                            nil];
+    
+    CGRect r = _commentLabel.bounds;
+    r.origin.x += r.size.width / 2.0f - 20.0f;
+    r.origin.y += r.size.height / 2.0f;
+    r.size.width = 40.0f;
+    r.size.height /= 2.0f;
+    
+    [_openLinkActions showFromRect:r inView:_commentLabel animated:YES];
 }
-
 
 /// Handle file/trackers/peers rows touch
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -445,6 +469,7 @@
     self.uploadingTimeLabel.text = trInfo.seedingTimeString;
     self.hashTextView.text = trInfo.hashString;
     
+    // handle torrent info where info is link to torrent
     NSError *error;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&error];
     
@@ -507,6 +532,60 @@
     if( !_delegate || ![_delegate respondsToSelector:@selector(deleteTorrentWithId:deleteWithData:)])
         return;
     
+    // handle all actions for OpenLink actions
+    if( actionSheet == _openLinkActions )
+    {
+        // the first button - open in safari
+        if( actionSheet.firstOtherButtonIndex == buttonIndex )
+        {
+            [[UIApplication sharedApplication] openURL:_commentURL];
+        }
+        // open in anonimizer
+        else if( (actionSheet.firstOtherButtonIndex + 1) == buttonIndex )
+        {
+            WaitViewController *vc = instantiateController( CONTROLLER_ID_WAIT );
+            vc.statusText = NSLocalizedString( @"Getting url", nil );
+            vc.modalPresentationStyle = UIModalPresentationFormSheet;
+            vc.activityTimeout  = IpAnonimizer.requestTimeout;
+            
+            // FIX: present view controller after some time
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self presentViewController:vc animated:YES completion:nil];
+                
+                // make request and dismiss view controller after time
+                [IpAnonimizer requestAnonimUrlForUrl:_commentURL usingComplitionHandler:^(NSError *err, NSURL *url) {
+                    // if there is some error - show this error and dismiss
+                    // view controller after several seconds
+                    if( err )
+                    {
+                        vc.statusText = err.localizedDescription;
+                        [vc stopActivity];
+                        
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [vc dismissViewControllerAnimated:YES completion:nil];
+                        });
+                    }
+                    else
+                    {
+                        // open this link if safari and dismiss viewcontroller
+                        [vc dismissViewControllerAnimated:NO completion:nil];
+                        
+                        [[UIApplication sharedApplication] openURL:url];
+                    }
+                }];
+            });
+        }
+        // copy link to buffer
+        else
+        {
+            [[UIPasteboard generalPasteboard] setURL:_commentURL];
+        }
+        
+        return;
+    }
+    
+    // handle all actions for Deleteing torrent
     if( actionSheet.destructiveButtonIndex == buttonIndex )
     {
         // delete;

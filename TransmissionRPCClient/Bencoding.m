@@ -17,7 +17,7 @@
 static char *p, *p0;
 static NSUInteger dataLength;
 
-id decodeNextObject();  // forward declaration
+id decodeNextObject(void);  // forward declaration
 
 static const uint8_t utf8d[] = {
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, // 00..1f

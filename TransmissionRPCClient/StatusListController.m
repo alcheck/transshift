@@ -729,7 +729,7 @@
 {
     _sessionConfigController = instantiateController(CONTROLLER_ID_SESSIONCONFIG);
     _sessionConfigController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Apply", nil)
-                                                                                                  style:UIBarButtonItemStyleBordered
+                                                                                                  style:UIBarButtonItemStylePlain
                                                                                                  target:self
                                                                                                  action:@selector(saveSessionParametes)];
     [self.navigationController pushViewController:_sessionConfigController animated:YES];

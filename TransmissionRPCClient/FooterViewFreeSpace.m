@@ -41,6 +41,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     _originalHeight = self.bounds.size.height;
 }
 

@@ -29,7 +29,7 @@
     //self.textMagnetLink.layer.borderColor = [UIColor darkGrayColor].CGColor;
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     _btnCopyToBuffer = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString( @"Copy to buffer", nil )
-                                                                        style:UIBarButtonItemStyleBordered
+                                                                        style:UIBarButtonItemStylePlain
                                                                        target:self
                                                                        action:@selector(copyToBuffer:)];
     _btnCopyToBuffer.enabled = ( _urlString != nil );

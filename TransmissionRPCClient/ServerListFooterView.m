@@ -35,6 +35,7 @@ static NSString *const kAppURL = @"http://transshift.16mb.com";
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     _originalHeight = self.bounds.size.height;
 }
 

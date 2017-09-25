@@ -34,9 +34,9 @@
     
     _catitems = [NSMutableArray array];
     
-    _stopAllButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconStopAll22x22"] style:UIBarButtonItemStyleBordered target:self action:@selector(stopAllTorrentsButtonPressed)];
+    _stopAllButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconStopAll22x22"] style:UIBarButtonItemStylePlain target:self action:@selector(stopAllTorrentsButtonPressed)];
     
-    _startAllButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconStartAll22x22"] style:UIBarButtonItemStyleBordered target:self action:@selector(startAllTorrentsButtonPressed)];
+    _startAllButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconStartAll22x22"] style:UIBarButtonItemStylePlain target:self action:@selector(startAllTorrentsButtonPressed)];
     
     self.navigationItem.rightBarButtonItems = nil;
 }
@@ -424,7 +424,7 @@
                               info.uploadRatio];
             
             // FIX : if this torrent is not fully downloaded there is no part of unfinished progress
-            if( info.percentsDone < 1.0 )
+            if( info.percentsDone >= 1.0 )
                 cell.progressBar.downloadedProgress = @((CGFloat)info.haveValid / (CGFloat)info.totalSize);
         }
         

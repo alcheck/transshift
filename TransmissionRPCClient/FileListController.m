@@ -46,7 +46,7 @@
     
     [self.refreshControl addTarget:self action:@selector(askDelegateForDataUpdate) forControlEvents:UIControlEventValueChanged];
     
-    _btnCheckAll = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconCheckAll22x22"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDownloadAllItems)];
+    _btnCheckAll = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"iconCheckAll22x22"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleDownloadAllItems)];
     
     _btnCheckAll.enabled = (_fsDir != nil);
     if( _isFullyLoaded )

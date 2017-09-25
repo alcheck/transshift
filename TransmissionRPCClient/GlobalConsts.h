@@ -27,7 +27,7 @@
 #define USERDEFAULTS_BGFETCH_KEY_DOWNTORRENTIDS     @"bgDownloadingTorrentIds"
 
 /// returns YES if this is iPhone 6 PLUS on iOS8
-BOOL isIPhone6Plus();
+BOOL isIPhone6Plus(void);
 
 
 /*!

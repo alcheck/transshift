@@ -197,7 +197,7 @@ NSString* formatDateFrom1970Short(NSTimeInterval seconds)
 
 NSString* formatHoursMinutes(NSTimeInterval seconds)
 {
-    NSCalendarUnit calendarUnits = (NSCalendarUnit)(NSHourCalendarUnit|NSMinuteCalendarUnit);
+    NSCalendarUnit calendarUnits = (NSCalendarUnit)(NSCalendarUnitHour|NSCalendarUnitMinute);
     NSDate *dtNow = [NSDate date];
     NSDate *dtFrom = [dtNow dateByAddingTimeInterval:-seconds];
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:calendarUnits fromDate:dtFrom toDate:dtNow options:(NSCalendarOptions)0];

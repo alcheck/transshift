@@ -19,7 +19,6 @@
 		2C5810DC1B39A5E50069020D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810DB1B39A5E50069020D /* main.m */; };
 		2C5810DF1B39A5E50069020D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810DE1B39A5E50069020D /* AppDelegate.m */; };
 		2C5810E11B39A5E50069020D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C5810E01B39A5E50069020D /* Images.xcassets */; };
-		2C5810F01B39A5E50069020D /* TransmissionRPCClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */; };
 		2C5810FB1B39A7B20069020D /* RPCServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5810FA1B39A7B20069020D /* RPCServerConfig.m */; };
 		2C58110E1B39C3FC0069020D /* RPCServerConfigController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C58110D1B39C3FC0069020D /* RPCServerConfigController.m */; };
 		2C6668341B5BB1D3004B6FA4 /* Bencoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6668331B5BB1D3004B6FA4 /* Bencoding.m */; };
@@ -33,6 +32,8 @@
 		2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */; };
 		2C9A83F31BB42A4D002D7B00 /* InfoMenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A83F21BB42A4D002D7B00 /* InfoMenuLabel.m */; };
 		2C9DDA071B77CA78008F16BF /* torrentTitleSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9DDA091B77CA78008F16BF /* torrentTitleSectionHeader.xib */; };
+		2CABA2E21CC8E9A2004612FE /* WaitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CABA2E11CC8E9A2004612FE /* WaitViewController.m */; };
+		2CABA2E51CC8F05F004612FE /* IpAnonimizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CABA2E41CC8F05F004612FE /* IpAnonimizer.m */; };
 		2CAD1E461B4AC131005BBDBE /* SpeedLimitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */; };
 		2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651CE1B3DCCBE005C823C /* TorrentListController.m */; };
 		2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB651D11B3DCDD4005C823C /* TorrentListCell.m */; };
@@ -87,16 +88,6 @@
 		2CFC54D21BB71E9D000F5E38 /* FileListTouchAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC54D11BB71E9D000F5E38 /* FileListTouchAreaView.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		2C5810EA1B39A5E50069020D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2C5810CE1B39A5E50069020D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2C5810D51B39A5E50069020D;
-			remoteInfo = TransmissionRPCClient;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		2C039F391B52D33C00233534 /* StatusCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusCategory.h; sourceTree = "<group>"; };
 		2C039F3A1B52D33C00233534 /* StatusCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusCategory.m; sourceTree = "<group>"; };
@@ -124,9 +115,6 @@
 		2C5810DD1B39A5E50069020D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C5810DE1B39A5E50069020D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2C5810E01B39A5E50069020D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		2C5810E91B39A5E50069020D /* TransmissionRPCClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransmissionRPCClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C5810EE1B39A5E50069020D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransmissionRPCClientTests.m; sourceTree = "<group>"; };
 		2C5810F91B39A7B20069020D /* RPCServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfig.h; sourceTree = "<group>"; };
 		2C5810FA1B39A7B20069020D /* RPCServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCServerConfig.m; sourceTree = "<group>"; };
 		2C58110C1B39C3FC0069020D /* RPCServerConfigController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCServerConfigController.h; sourceTree = "<group>"; };
@@ -150,6 +138,10 @@
 		2C9A83F11BB42A4D002D7B00 /* InfoMenuLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoMenuLabel.h; sourceTree = "<group>"; };
 		2C9A83F21BB42A4D002D7B00 /* InfoMenuLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMenuLabel.m; sourceTree = "<group>"; };
 		2CA864FA1B78F5DF002D396C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/torrentTitleSectionHeader.xib; sourceTree = "<group>"; };
+		2CABA2E01CC8E9A2004612FE /* WaitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitViewController.h; sourceTree = "<group>"; };
+		2CABA2E11CC8E9A2004612FE /* WaitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitViewController.m; sourceTree = "<group>"; };
+		2CABA2E31CC8F05F004612FE /* IpAnonimizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpAnonimizer.h; sourceTree = "<group>"; };
+		2CABA2E41CC8F05F004612FE /* IpAnonimizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IpAnonimizer.m; sourceTree = "<group>"; };
 		2CAD1E441B4AC131005BBDBE /* SpeedLimitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedLimitController.h; sourceTree = "<group>"; };
 		2CAD1E451B4AC131005BBDBE /* SpeedLimitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedLimitController.m; sourceTree = "<group>"; };
 		2CB651CD1B3DCCBE005C823C /* TorrentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorrentListController.h; sourceTree = "<group>"; };
@@ -257,13 +249,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2C5810E61B39A5E50069020D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -271,7 +256,6 @@
 			isa = PBXGroup;
 			children = (
 				2C5810D81B39A5E50069020D /* TransmissionRPCClient */,
-				2C5810EC1B39A5E50069020D /* TransmissionRPCClientTests */,
 				2C5810D71B39A5E50069020D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -280,7 +264,6 @@
 			isa = PBXGroup;
 			children = (
 				2C5810D61B39A5E50069020D /* TransmissionRPCClient.app */,
-				2C5810E91B39A5E50069020D /* TransmissionRPCClientTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -307,23 +290,6 @@
 				2C5810E01B39A5E50069020D /* Images.xcassets */,
 				2C5810DA1B39A5E50069020D /* Info.plist */,
 				2C5810DB1B39A5E50069020D /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		2C5810EC1B39A5E50069020D /* TransmissionRPCClientTests */ = {
-			isa = PBXGroup;
-			children = (
-				2C5810EF1B39A5E50069020D /* TransmissionRPCClientTests.m */,
-				2C5810ED1B39A5E50069020D /* Supporting Files */,
-			);
-			path = TransmissionRPCClientTests;
-			sourceTree = "<group>";
-		};
-		2C5810ED1B39A5E50069020D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				2C5810EE1B39A5E50069020D /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -596,6 +562,8 @@
 				2CF8EF7A1B6179AE00EB8D5D /* TrackerStat.m */,
 				2CF971A91B790379008EE25D /* GeoIpConnector.h */,
 				2CF971AA1B790379008EE25D /* GeoIpConnector.m */,
+				2CABA2E31CC8F05F004612FE /* IpAnonimizer.h */,
+				2CABA2E41CC8F05F004612FE /* IpAnonimizer.m */,
 				2C0688711B948C32008B69EE /* MagnetURL.h */,
 				2C0688721B948C32008B69EE /* MagnetURL.m */,
 				2C0688741B948D59008B69EE /* TorrentFile.h */,
@@ -669,6 +637,8 @@
 				2CF911971B41CD66003D0753 /* TorrentInfoController.m */,
 				2C9A83F11BB42A4D002D7B00 /* InfoMenuLabel.h */,
 				2C9A83F21BB42A4D002D7B00 /* InfoMenuLabel.m */,
+				2CABA2E01CC8E9A2004612FE /* WaitViewController.h */,
+				2CABA2E11CC8E9A2004612FE /* WaitViewController.m */,
 			);
 			name = "Torrent Info Controller";
 			sourceTree = "<group>";
@@ -703,36 +673,19 @@
 			productReference = 2C5810D61B39A5E50069020D /* TransmissionRPCClient.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2C5810E81B39A5E50069020D /* TransmissionRPCClientTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2C5810F61B39A5E50069020D /* Build configuration list for PBXNativeTarget "TransmissionRPCClientTests" */;
-			buildPhases = (
-				2C5810E51B39A5E50069020D /* Sources */,
-				2C5810E61B39A5E50069020D /* Frameworks */,
-				2C5810E71B39A5E50069020D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2C5810EB1B39A5E50069020D /* PBXTargetDependency */,
-			);
-			name = TransmissionRPCClientTests;
-			productName = TransmissionRPCClientTests;
-			productReference = 2C5810E91B39A5E50069020D /* TransmissionRPCClientTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		2C5810CE1B39A5E50069020D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Alexey Chechetkin";
 				TargetAttributes = {
 					2C5810D51B39A5E50069020D = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = FGPFWZ8YAM;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -741,10 +694,6 @@
 								enabled = 0;
 							};
 						};
-					};
-					2C5810E81B39A5E50069020D = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = 2C5810D51B39A5E50069020D;
 					};
 				};
 			};
@@ -763,7 +712,6 @@
 			projectRoot = "";
 			targets = (
 				2C5810D51B39A5E50069020D /* TransmissionRPCClient */,
-				2C5810E81B39A5E50069020D /* TransmissionRPCClientTests */,
 			);
 		};
 /* End PBXProject section */
@@ -788,13 +736,6 @@
 				2CF964EF1B4D5DB9006D8C7E /* docIcon_44x58.png in Resources */,
 				2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */,
 				2C701C761B98DAD4004C366C /* ServerListFooterView.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2C5810E71B39A5E50069020D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,6 +806,7 @@
 				2CB651CF1B3DCCBE005C823C /* TorrentListController.m in Sources */,
 				2CFA5E101B43237400262C36 /* TRFileInfo.m in Sources */,
 				2CF7D5141B42E78C006D01FD /* PeerListController.m in Sources */,
+				2CABA2E21CC8E9A2004612FE /* WaitViewController.m in Sources */,
 				2CE400B81B49927C00BA32C2 /* ChooseServerCell.m in Sources */,
 				2CE400BE1B4992A300BA32C2 /* StartImmidiatelyCell.m in Sources */,
 				2CF72FFF1B651180007D5354 /* TrackerListController.m in Sources */,
@@ -882,27 +824,12 @@
 				2C701C751B98D2E1004C366C /* MagnetURLViewController.m in Sources */,
 				2CB651D21B3DCDD4005C823C /* TorrentListCell.m in Sources */,
 				2C0E34A51B400134004303AB /* TRInfo.m in Sources */,
+				2CABA2E51CC8F05F004612FE /* IpAnonimizer.m in Sources */,
 				2CF2CB9F1B75FE9800C42477 /* FlagDescriptionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2C5810E51B39A5E50069020D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2C5810F01B39A5E50069020D /* TransmissionRPCClientTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2C5810EB1B39A5E50069020D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2C5810D51B39A5E50069020D /* TransmissionRPCClient */;
-			targetProxy = 2C5810EA1B39A5E50069020D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2C701C781B98DAD4004C366C /* ServerListFooterView.xib */ = {
@@ -956,17 +883,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
@@ -974,6 +910,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -989,7 +926,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1001,17 +938,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexey Chechetkin (FGPFWZ8YAM)";
@@ -1028,7 +974,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1043,11 +989,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = FGPFWZ8YAM;
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alcheck.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1059,46 +1008,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = FGPFWZ8YAM;
 				INFOPLIST_FILE = TransmissionRPCClient/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alcheck.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		2C5810F71B39A5E50069020D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TransmissionRPCClientTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TransmissionRPCClient.app/TransmissionRPCClient";
-			};
-			name = Debug;
-		};
-		2C5810F81B39A5E50069020D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TransmissionRPCClientTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TransmissionRPCClient.app/TransmissionRPCClient";
 			};
 			name = Release;
 		};
@@ -1119,15 +1037,6 @@
 			buildConfigurations = (
 				2C5810F41B39A5E50069020D /* Debug */,
 				2C5810F51B39A5E50069020D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2C5810F61B39A5E50069020D /* Build configuration list for PBXNativeTarget "TransmissionRPCClientTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2C5810F71B39A5E50069020D /* Debug */,
-				2C5810F81B39A5E50069020D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
