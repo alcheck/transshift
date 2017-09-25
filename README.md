@@ -18,6 +18,7 @@ Though android community has a lot of implementations clients, the iOS-one is la
 - allow you to rename any file in a downloading torrent
 - set download/upload priorities (ratio limit, upload limit etc.)
 - works great on iPad and iPhone in any orientations
+- track background status of downloading torrents, so it will notify you when your downloads are finished
 - show full peer list with statuses 
 - allow peer IP tracking (geolocation of a peer)
 - allow anonymous browsing of downloaded torrents (very important in countries where some tracker-sites are blocked)
@@ -35,4 +36,12 @@ Though android community has a lot of implementations clients, the iOS-one is la
 - maintain list of remote servers
 - the app is localized in English and Russian
 - many more ...
+
+And here some of the screenshots:
+
+![Screen](https://ibb.co/moT2Jk)
+![Screen](https://ibb.co/ffdPW5)
+![Screen](https://ibb.co/hPzWB5)
+![Screen](https://ibb.co/dYHwdk)
+![Screen](https://ibb.co/cXP9yk)
 
