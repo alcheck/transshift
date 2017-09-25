@@ -12,10 +12,10 @@ Though android community has a lot of client implementations, sadly the iOS-one 
 - implement almost 100% of RPC functionality and even more. 
 - universal app
 - minified size, doesn't use any third party libraries, very fast on any device
-- read original torrent files and shows the full content of .torrent file
-- view a file tree of downloaded torrent
-- allow separate downloading of files
-- allow you to rename any file in a downloading torrent
+- read original torrent files and shows the full content tree of .torrent file
+- view a folder tree of downloaded .torrent file so you can start download only those files you needed
+- allow separate downloading of files/folders with diffrent priorites on each of the files
+- allow you to rename any file/folder
 - set download/upload priorities (ratio limit, upload limit etc.)
 - works great on iPad and iPhone in any orientations
 - track background status of downloading torrents, so it will notify you when your downloads are finished
@@ -27,15 +27,15 @@ Though android community has a lot of client implementations, sadly the iOS-one 
 - full integration with Safari
 - allow downloading via .torrent files and magnet URIs
 - allow manual addition of torrent via URI or magnet URI
-- allow to view/copy magnet URIs of downloaded torrents, those who was downloaded via .torrent file
+- allow to view/copy magnet URIs of downloaded torrents even those who was downloaded via .torrent file
 - show full progress of downloaded torrents
 - full configration of transmission-bt server
-- configure upload/download limits
+- configure global priorities and speed limits
 - set traffic limit scheduler
 - show available server storage size
-- maintain list of remote servers
-- the app is localized in English and Russian
-- many more ...
+- maintain a list of remote servers
+- the app is localized in English and Russian, additional langs also can be added
+- and many more ...
 
 And here some of the screenshots:
 ![Screen](https://preview.ibb.co/ebN7jQ/2017_09_25_11_58_49.png)
