@@ -38,10 +38,8 @@ Though android community has a lot of implementations clients, the iOS-one is la
 - many more ...
 
 And here some of the screenshots:
-
-![Screen](https://ibb.co/moT2Jk)
-![Screen](https://ibb.co/ffdPW5)
-![Screen](https://ibb.co/hPzWB5)
-![Screen](https://ibb.co/dYHwdk)
-![Screen](https://ibb.co/cXP9yk)
-
+![Screen](https://preview.ibb.co/ebN7jQ/2017_09_25_11_58_49.png)
+![Screen](https://preview.ibb.co/gCEyr5/2017_09_25_11_59_16.png)
+![Screen](https://preview.ibb.co/i2ZL4Q/2017_09_25_12_00_10.png)
+![Screen](https://preview.ibb.co/fy9WB5/2017_09_25_12_00_41.png)
+![Screen](https://preview.ibb.co/ksD2Jk/2017_09_25_12_01_22.png)
