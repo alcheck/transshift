@@ -52,7 +52,6 @@ static NSString *CODER_SHOW_FREESPACE = @"showFreeSpace";
     if( ![_rpcPath hasPrefix:@"/"] )
         _rpcPath = [NSString stringWithFormat:@"/%@", _rpcPath];
     return [NSString stringWithFormat:@"%@://%@:%i%@", _useSSL ? @"https" : @"http", _host, _port, _rpcPath];
-    //return [NSString stringWithFormat:@"%@://%@:%i", _useSSL ? @"https" : @"http", _host, _port];
 }
 
 #pragma mark - NSCoding protocol imp
