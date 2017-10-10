@@ -36,7 +36,7 @@
 @end
 
 
-@interface RPCConnector : NSObject
+@interface RPCConnector<NSURLSessionDataDelegate, NSURLSessionTaskDelegate> : NSObject
 
 @property(nonatomic) NSString *lastErrorMessage;
 
