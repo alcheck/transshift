@@ -10,7 +10,6 @@
 #define HTTP_RESPONSE_OK                    200
 #define HTTP_RESPONSE_UNAUTHORIZED          401
 #define HTTP_REQUEST_METHOD                 @"POST"
-#define HTTP_AUTH_HEADER                    @"Authorization"
 
 @implementation RPCConnector
 
@@ -18,8 +17,8 @@
     RPCServerConfig *_config;                       // holds config
     __weak id<RPCConnectorDelegate> _delegate;      // hodls delegate
     NSURLSession    *_session;                      // holds session
-    NSString        *_authString;                   // holds auth info or nil
     NSURL           *_url;
+    NSString        *_sessionid;                    // Holds transmission sessionid
     
     NSURLSessionDataTask *_task;                    // holds current data task
 }
@@ -475,8 +474,9 @@
     req.HTTPMethod = HTTP_REQUEST_METHOD;
     
     // add authorization header
-    if( _authString )
-        [req addValue:_authString forHTTPHeaderField: HTTP_AUTH_HEADER];
+    if ( _sessionid ) {
+       [req setValue:_sessionid forHTTPHeaderField:@"X-Transmission-Session-Id"];
+   }
     
     // JSON request
     //req.HTTPBody = [httpBody dataUsingEncoding:NSUTF8StringEncoding];
@@ -507,6 +507,12 @@
                 
                 if ( httpResponse.statusCode != HTTP_RESPONSE_OK )
                 {
+                    if ( httpResponse.statusCode == 409 ) {
+                        _sessionid = httpResponse.allHeaderFields[@"X-Transmission-Session-Id"];
+                    
+                        [self makeRequest:requestDict withName:requestName andHandler:dataHandler];
+                        return;
+                    }
                     _lastErrorMessage = [NSHTTPURLResponse localizedStringForStatusCode:httpResponse.statusCode];
                     if( statusCode == HTTP_RESPONSE_UNAUTHORIZED )
                         _lastErrorMessage = @"You are unauthorized to access server";
@@ -585,23 +591,26 @@
         NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         sessionConfig.timeoutIntervalForRequest = config.requestTimeout;
         
-        _session = [NSURLSession sessionWithConfiguration:sessionConfig];
+        _session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
         _url = [NSURL URLWithString:config.urlString];
-        
-        // add auth header if there is username
-        _authString = nil;
-        if( config.userName )
-        {
-            if( !config.userPassword )
-                config.userPassword = @"";
-            
-            NSString *authStringToEncode64 = [NSString stringWithFormat:@"%@:%@", config.userName, config.userPassword];
-            NSData *data = [authStringToEncode64 dataUsingEncoding:NSUTF8StringEncoding];
-            _authString = [NSString stringWithFormat:@"Basic %@", [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]];
-        }
     }
     
     return  self;
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
+{
+        if (challenge.previousFailureCount == 0)
+        {
+            NSURLCredential *credential = [NSURLCredential  credentialWithUser:_config.userName password:_config.userPassword persistence:NSURLCredentialPersistenceForSession];
+            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+        }
+        else
+        {
+            NSLog(@"%s; challenge.error = %@", __FUNCTION__, challenge.error);
+            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+        }
+    }
 }
 
 @end
