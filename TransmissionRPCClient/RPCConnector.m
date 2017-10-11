@@ -517,6 +517,7 @@
                     if( statusCode == HTTP_RESPONSE_UNAUTHORIZED )
                         _lastErrorMessage = @"You are unauthorized to access server";
                     
+                    
                     [self sendErrorMessage:[NSString stringWithFormat:@"%li %@", (long)statusCode, _lastErrorMessage]
                           toDelegateWithRequestMethodName:requestName];
                 }
@@ -608,7 +609,8 @@
         else
         {
             NSLog(@"%s; challenge.error = %@", __FUNCTION__, challenge.error);
-            completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+            // Use default handling so a 401 error message is displayed instead of 'cancelled'
+            completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
         }
     }
 }
