@@ -30,6 +30,7 @@
 		2C80AEAD1B4EBA6B00377E11 /* InfoMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */; };
 		2C80AEAE1B4EBA6B00377E11 /* InfoMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */; };
 		2C80AEAF1B4EBA6B00377E11 /* InfoMessageIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */; };
+		2C8627571F93974B001E314F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2C8627561F939747001E314F /* README.md */; };
 		2C9A83F31BB42A4D002D7B00 /* InfoMenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9A83F21BB42A4D002D7B00 /* InfoMenuLabel.m */; };
 		2C9DDA071B77CA78008F16BF /* torrentTitleSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9DDA091B77CA78008F16BF /* torrentTitleSectionHeader.xib */; };
 		2CABA2E21CC8E9A2004612FE /* WaitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CABA2E11CC8E9A2004612FE /* WaitViewController.m */; };
@@ -135,6 +136,7 @@
 		2C80AEAA1B4EBA6B00377E11 /* InfoMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMessage.m; sourceTree = "<group>"; };
 		2C80AEAB1B4EBA6B00377E11 /* InfoMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoMessage.xib; sourceTree = "<group>"; };
 		2C80AEAC1B4EBA6B00377E11 /* InfoMessageIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = InfoMessageIcons.xcassets; sourceTree = "<group>"; };
+		2C8627561F939747001E314F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2C9A83F11BB42A4D002D7B00 /* InfoMenuLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoMenuLabel.h; sourceTree = "<group>"; };
 		2C9A83F21BB42A4D002D7B00 /* InfoMenuLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMenuLabel.m; sourceTree = "<group>"; };
 		2CA864FA1B78F5DF002D396C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/torrentTitleSectionHeader.xib; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			children = (
 				2C5810D81B39A5E50069020D /* TransmissionRPCClient */,
 				2C5810D71B39A5E50069020D /* Products */,
+				2C8627561F939747001E314F /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -727,6 +730,7 @@
 				2C5810E11B39A5E50069020D /* Images.xcassets in Resources */,
 				2CF964F11B4D5DB9006D8C7E /* docIcon_320x320.png in Resources */,
 				2CF6909C1B4BE0D400B2F830 /* FooterViewFreeSpace.xib in Resources */,
+				2C8627571F93974B001E314F /* README.md in Resources */,
 				2CF964EE1B4D5DB9006D8C7E /* docIcon_22x29.png in Resources */,
 				2C9DDA071B77CA78008F16BF /* torrentTitleSectionHeader.xib in Resources */,
 				2CF861481B77C0C300E47F53 /* icons.xcassets in Resources */,
