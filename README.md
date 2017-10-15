@@ -6,7 +6,7 @@ Rich RPC client for transmission-bt servers.
 As you know, these days almost every modern WiFi home router has a build-in torrent server and it is a transmission-bt. Transmission-bt is great, it's open-sourced and it has a huge fan community.
 Though android community has a lot of client implementations, sadly the iOS-one is lack of that and I think this is a big misfortune. AppStore had some clients with a very poor functionality but even those clients were removed (after I tried to submit this app and had a not very pleasant argue with appstore team about this app). My intention was to create a decent client that I would use every day by myself. Finally after all of the discussions appstore team rejected the app. So I share it for all, download and compile, use and enjoy!
 
-**TransShift can:**
+**TransShift can/is:**
 
 - support iOS 7.0 and above
 - implement almost 100% of RPC functionality and even more. 
