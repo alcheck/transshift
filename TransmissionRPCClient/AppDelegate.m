@@ -80,8 +80,8 @@
     }
     
     self.window.rootViewController = rootController;
-    // set background fetch interval
     
+    // set background fetch interval    
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     // show main window
