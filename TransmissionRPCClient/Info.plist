@@ -72,6 +72,12 @@
 	<array>
 		<string>fetch</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
+	<key>UILaunchStoryboardName~ipad</key>
+	<string>Launch Screen~iPad</string>
+	<key>UILaunchStoryboardName~iphone</key>
+	<string>Launch Screen~iPhone</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
