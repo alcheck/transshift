@@ -212,10 +212,10 @@ NSString* formatHoursMinutes(NSTimeInterval seconds)
 }
 
 
-BOOL isIPhone6Plus()
+BOOL isIPhonePlus()
 {
     if( [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone &&
-       [[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] )
+        [[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] )
     {
         CGFloat ratio = [UIScreen mainScreen].nativeBounds.size.height / [UIScreen mainScreen].nativeScale;
         return ratio >= 736.0f;
