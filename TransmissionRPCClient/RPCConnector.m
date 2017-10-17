@@ -857,23 +857,26 @@
         NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
         sessionConfig.timeoutIntervalForRequest = config.requestTimeout;
         
-        _session = [NSURLSession sessionWithConfiguration:sessionConfig];
+        _session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
         _url = [NSURL URLWithString:config.urlString];
-        
-        // add auth header if there is username
-        _authString = nil;
-        if( config.userName )
-        {
-            if( !config.userPassword )
-                config.userPassword = @"";
-            
-            NSString *authStringToEncode64 = [NSString stringWithFormat:@"%@:%@", config.userName, config.userPassword];
-            NSData *data = [authStringToEncode64 dataUsingEncoding:NSUTF8StringEncoding];
-            _authString = [NSString stringWithFormat:@"Basic %@", [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]];
-        }
     }
     
     return  self;
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
+    {
+        if (challenge.previousFailureCount == 0)
+        {
+            NSURLCredential *credential = [NSURLCredential  credentialWithUser:_config.userName password:_config.userPassword persistence:NSURLCredentialPersistenceForSession];
+            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+        }
+        else
+        {
+            NSLog(@"%s; challenge.error = %@", __FUNCTION__, challenge.error);
+            completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+        }
+    }
 }
 
 @end
