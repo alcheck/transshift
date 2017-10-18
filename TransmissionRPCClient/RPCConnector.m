@@ -869,7 +869,7 @@
             
             NSString *authStringToEncode64 = [NSString stringWithFormat:@"%@:%@", config.userName, config.userPassword];
             NSData *data = [authStringToEncode64 dataUsingEncoding:NSUTF8StringEncoding];
-            _authString = [NSString stringWithFormat:@"Basic %@", [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength]];
+            _authString = [NSString stringWithFormat:@"Basic %@", [data base64EncodedStringWithOptions:0]];
         }
     }
     
