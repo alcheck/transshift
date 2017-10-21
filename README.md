@@ -37,13 +37,15 @@ Though android community has a lot of client implementations, sadly the iOS-one 
 - the app is localized in English and Russian, additional langs also can be added
 - and many more ...
 
-iPhone screenshots:
-![](http://preview.ibb.co/k8YEqm/2017_10_21_16_20_46.png =50x)
-![](http://preview.ibb.co/kkd3i6/2017_10_21_16_21_15.png =50x)
-![](http://preview.ibb.co/hSHJGR/2017_10_21_16_21_48.png =50x)
-![](http://preview.ibb.co/nqPLVm/2017_10_21_16_24_17.png =50x)
+### iPhone screenshots:
 
-And here some of the iPad screenshots:
+<img src="http://preview.ibb.co/k8YEqm/2017_10_21_16_20_46.png" width="50" align="left">
+<img src="http://preview.ibb.co/kkd3i6/2017_10_21_16_21_15.png" width="50" align="left">
+<img src="http://preview.ibb.co/hSHJGR/2017_10_21_16_21_48.png" width="50" align="left">
+<img src="http://preview.ibb.co/nqPLVm/2017_10_21_16_24_17.png" width="50" align="left">
+
+### And here some of the iPad screenshots:
+
 ![Screen](https://preview.ibb.co/ebN7jQ/2017_09_25_11_58_49.png)
 ![Screen](https://preview.ibb.co/gCEyr5/2017_09_25_11_59_16.png)
 ![Screen](https://preview.ibb.co/i2ZL4Q/2017_09_25_12_00_10.png)
