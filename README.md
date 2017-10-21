@@ -39,10 +39,12 @@ Though android community has a lot of client implementations, sadly the iOS-one 
 
 ### iPhone screenshots:
 
-<img src="http://preview.ibb.co/k8YEqm/2017_10_21_16_20_46.png" width="50" align="left">
-<img src="http://preview.ibb.co/kkd3i6/2017_10_21_16_21_15.png" width="50" align="left">
-<img src="http://preview.ibb.co/hSHJGR/2017_10_21_16_21_48.png" width="50" align="left">
-<img src="http://preview.ibb.co/nqPLVm/2017_10_21_16_24_17.png" width="50" align="left">
+<img src="http://preview.ibb.co/k8YEqm/2017_10_21_16_20_46.png" width="100" align="left">
+<img src="http://preview.ibb.co/kkd3i6/2017_10_21_16_21_15.png" width="100" align="left">
+<img src="http://preview.ibb.co/hSHJGR/2017_10_21_16_21_48.png" width="100" align="left">
+<img src="http://preview.ibb.co/nqPLVm/2017_10_21_16_24_17.png" width="100" align="left">
+
+<br/>
 
 ### And here some of the iPad screenshots:
 
