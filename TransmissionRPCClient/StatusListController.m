@@ -1085,6 +1085,7 @@
     _torrentInfoController = instantiateController( CONTROLLER_ID_TORRENTINFO );
     _torrentInfoController.torrentId = torrentId;
     _torrentInfoController.delegate = self;
+    _torrentInfoController.title = NSLocalizedString(@"Torrent details", nil);
     
     // we should make a request to RPCConnector
     // (upon complite, info controller will be updated)

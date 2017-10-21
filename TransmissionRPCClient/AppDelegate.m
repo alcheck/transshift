@@ -59,6 +59,7 @@
     _serverList = instantiateController( CONTROLLER_ID_SERVERLIST );
        
     UINavigationController *leftNav = [[UINavigationController alloc] initWithRootViewController:_serverList];
+    preferBigTitleForNavController(leftNav);
     
     UIViewController *rootController = leftNav;
     
@@ -72,6 +73,7 @@
         trc.popoverButtonTitle = NSLocalizedString(@"Servers", @"ServerListController title");//SERVERLIST_CONTROLLER_TITLE;
         
         UINavigationController *rightNav = [[UINavigationController alloc] initWithRootViewController:trc];
+        preferBigTitleForNavController(rightNav);
         
         UISplitViewController *splitView = [[UISplitViewController alloc] init];
         splitView.viewControllers = @[ leftNav, rightNav ];

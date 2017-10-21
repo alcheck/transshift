@@ -4,16 +4,16 @@
 
 #import "RPCServerConfig.h"
 
-static NSString *CODER_NAME = @"name";
-static NSString *CODER_RPC_PATH = @"path";
-static NSString *CODER_USER_NAME = @"username";
-static NSString *CODER_USER_PASSWORD = @"pass";
-static NSString *CODER_PORT = @"port";
-static NSString *CODER_HOST = @"host";
-static NSString *CODER_USE_SSL = @"ssl";
-static NSString *CODER_REFRESH_TIMEOUT = @"time";
-static NSString *CODER_REQUEST_TIMEOUT = @"reqtimeout";
-static NSString *CODER_SHOW_FREESPACE = @"showFreeSpace";
+static NSString * const CODER_NAME = @"name";
+static NSString * const CODER_RPC_PATH = @"path";
+static NSString * const CODER_USER_NAME = @"username";
+static NSString * const CODER_USER_PASSWORD = @"pass";
+static NSString * const CODER_PORT = @"port";
+static NSString * const CODER_HOST = @"host";
+static NSString * const CODER_USE_SSL = @"ssl";
+static NSString * const CODER_REFRESH_TIMEOUT = @"time";
+static NSString * const CODER_REQUEST_TIMEOUT = @"reqtimeout";
+static NSString * const CODER_SHOW_FREESPACE = @"showFreeSpace";
 
 @implementation RPCServerConfig
 
@@ -51,6 +51,7 @@ static NSString *CODER_SHOW_FREESPACE = @"showFreeSpace";
 {
     if( ![_rpcPath hasPrefix:@"/"] )
         _rpcPath = [NSString stringWithFormat:@"/%@", _rpcPath];
+    
     return [NSString stringWithFormat:@"%@://%@:%i%@", _useSSL ? @"https" : @"http", _host, _port, _rpcPath];
 }
 

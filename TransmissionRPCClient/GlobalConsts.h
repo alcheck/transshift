@@ -29,6 +29,12 @@
 /// returns YES if this is iPhone PLUS model on iOS8
 BOOL isIPhonePlus(void);
 
+/*!
+     Set the large title for NavigationBar on iOS11.0+
+     @param navVC - UINavigationController to set the title
+*/
+void preferBigTitleForNavController( UINavigationController *navVC );
+
 
 /*!
     Retruns the new instance of UIViewController

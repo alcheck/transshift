@@ -224,3 +224,17 @@ BOOL isIPhonePlus()
     return NO;
 }
 
+// UINavigationController bit titles prefer
+void preferBigTitleForNavController( UINavigationController *navVC )
+{
+    if ( @available(iOS 11.0, *) )
+    {
+        navVC.navigationBar.prefersLargeTitles = YES;
+        navVC.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+    }
+}
+
+
+
+
+
