@@ -87,8 +87,8 @@
 		2CFBE1CC1B458F6100B15DEE /* FSDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFBE1CB1B458F6100B15DEE /* FSDirectory.m */; };
 		2CFC267E1B44580E0070CC1C /* StatusListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC267D1B44580E0070CC1C /* StatusListCell.m */; };
 		2CFC54D21BB71E9D000F5E38 /* FileListTouchAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC54D11BB71E9D000F5E38 /* FileListTouchAreaView.m */; };
-		610989F51F950F72007375E2 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 610989F41F950F72007375E2 /* Launch Screen.storyboard */; };
-		612989161F95170100432CA8 /* Launch Screen~iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 612989151F95170100432CA8 /* Launch Screen~iPad.storyboard */; };
+		610989F51F950F72007375E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 610989F41F950F72007375E2 /* LaunchScreen.storyboard */; };
+		612989161F95170100432CA8 /* LaunchScreen~ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 612989151F95170100432CA8 /* LaunchScreen~ipad.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -243,8 +243,8 @@
 		2CFC267D1B44580E0070CC1C /* StatusListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusListCell.m; sourceTree = "<group>"; };
 		2CFC54D01BB71E9D000F5E38 /* FileListTouchAreaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListTouchAreaView.h; sourceTree = "<group>"; };
 		2CFC54D11BB71E9D000F5E38 /* FileListTouchAreaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileListTouchAreaView.m; sourceTree = "<group>"; };
-		610989F41F950F72007375E2 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		612989151F95170100432CA8 /* Launch Screen~iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen~iPad.storyboard"; sourceTree = "<group>"; };
+		610989F41F950F72007375E2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		612989151F95170100432CA8 /* LaunchScreen~ipad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "LaunchScreen~ipad.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,8 +297,8 @@
 				2C5810E01B39A5E50069020D /* Images.xcassets */,
 				2C5810DA1B39A5E50069020D /* Info.plist */,
 				2C5810DB1B39A5E50069020D /* main.m */,
-				610989F41F950F72007375E2 /* Launch Screen.storyboard */,
-				612989151F95170100432CA8 /* Launch Screen~iPad.storyboard */,
+				610989F41F950F72007375E2 /* LaunchScreen.storyboard */,
+				612989151F95170100432CA8 /* LaunchScreen~ipad.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -732,8 +732,8 @@
 			files = (
 				2CF6909F1B4BE49600B2F830 /* HeaderViewDURates.xib in Resources */,
 				2CFB9BA61B56FA1300D4A51C /* Localizable.strings in Resources */,
-				610989F51F950F72007375E2 /* Launch Screen.storyboard in Resources */,
-				612989161F95170100432CA8 /* Launch Screen~iPad.storyboard in Resources */,
+				610989F51F950F72007375E2 /* LaunchScreen.storyboard in Resources */,
+				612989161F95170100432CA8 /* LaunchScreen~ipad.storyboard in Resources */,
 				2CFB92CD1B56D25400C83354 /* controllers.storyboard in Resources */,
 				2C5810E11B39A5E50069020D /* Images.xcassets in Resources */,
 				2CF964F11B4D5DB9006D8C7E /* docIcon_320x320.png in Resources */,
