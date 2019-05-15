@@ -130,7 +130,7 @@
     // getting detail controller - TorrentListController
     // on iPad it is already created on start
     // on iPhone it should be created from storyboard
-    if( self.splitViewController )
+    if( self.splitViewController && self.splitViewController.viewControllers.count > 1)
     {
         // left (detail) controller should be NavigationContoller with our TorrentListController
         UINavigationController *rightNav = self.splitViewController.viewControllers[1];
