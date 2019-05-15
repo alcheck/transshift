@@ -636,7 +636,7 @@
     _speedLimitController.title =  NSLocalizedString(@"Download speed limits", @"_speedLimitController title");
     _speedLimitController.isDownload = YES;
     
-    if( self.splitViewController )
+    if( self.splitViewController && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad )
     {
         if( _speedPopOver && _speedPopOver.isPopoverVisible )
             [_speedPopOver dismissPopoverAnimated:YES];
@@ -662,7 +662,7 @@
     _speedLimitController.title =  NSLocalizedString(@"Upload speed limits", @"_speedLimitController title");
     _speedLimitController.isDownload = NO;
     
-    if( self.splitViewController )
+    if( self.splitViewController && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         if( _speedPopOver && _speedPopOver.isPopoverVisible )
             [_speedPopOver dismissPopoverAnimated:YES];
