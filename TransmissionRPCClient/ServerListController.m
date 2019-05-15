@@ -73,7 +73,7 @@
     _statusListController = nil;
 
     // fixing left button title for popOver navigation bar
-    if( self.splitViewController )
+    if( self.splitViewController && self.splitViewController.viewControllers.count > 1)
     {
         UINavigationController *nav = self.splitViewController.viewControllers[1];
         TorrentListController *tlc = nav.viewControllers[0];
