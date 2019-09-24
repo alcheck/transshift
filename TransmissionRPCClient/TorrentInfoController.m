@@ -323,7 +323,7 @@
         {
             _magnetUrlController = instantiateController( CONTROLLER_ID_MAGNETURL );
             
-            if( self.splitViewController )
+            if( self.splitViewController && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
             {
                 if( _popOver )
                     [_popOver dismissPopoverAnimated:NO];

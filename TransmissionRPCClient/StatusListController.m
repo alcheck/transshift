@@ -1281,7 +1281,7 @@
     _torrentController.popoverButtonTitle = self.title;
     
     // on iPhone we should show _torrentController instead of ours
-    if( !self.splitViewController )
+    if( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone )
         [self.navigationController pushViewController:_torrentController animated:YES];
     else
         // on iPad show torrent list
